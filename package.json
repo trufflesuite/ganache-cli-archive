@@ -1,6 +1,9 @@
 {
   "name": "EtherSim",
   "version": "0.1.0",
+  "bin": {
+    "ethersim": "./bin/ethersim"
+  },
   "main": "./lib/main.js",
   "directories": {
     "lib": "./lib"
