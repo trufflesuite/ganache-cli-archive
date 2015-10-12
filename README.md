@@ -28,7 +28,7 @@ Usage - as a Lib
 var ethersim = require('ethersim');
 var web3 = require('web3');
 
-web3.setProvider(ethersim.web3Provider);
+web3.setProvider(ethersim.web3Provider());
 ```
 
 Caveats
