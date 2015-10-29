@@ -1,6 +1,6 @@
 {
   "name": "ethersim",
-  "version": "0.1.4-beta3",
+  "version": "0.1.4-beta4",
   "bin": {
     "ethersim": "./bin/ethersim"
   },
