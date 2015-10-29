@@ -9,6 +9,7 @@
     "lib": "./lib"
   },
   "dependencies": {
+    "bignumber.js": "debris/bignumber.js#master",
     "body-parser": "^1.13.2",
     "express": "^4.12.3",
     "request": "^2.60.0",
