@@ -18,7 +18,7 @@
     "ethereumjs-util": "1.3.7",
     "merkle-patricia-tree": "1.1.2",
     "shelljs": "^0.5.0",
-    "json-rpc2": "https://github.com/iurimatias/node-jsonrpc2.git",
+    "json-rpc2-ethersim": "^1.0.1",
     "web3": "^0.8.1"
   },
   "devDependencies": {
