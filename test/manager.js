@@ -21,12 +21,12 @@ describe('fastrpc.manager', function() {
     describe("eth_blockNumber", function() {
       it("should return correct block number", function() {
         var number = web3.eth.blockNumber;
-        assert.deepEqual(number, 1);
+        assert.deepEqual(number, 2);
 
         manager.mine();
 
         var number = web3.eth.blockNumber;
-        assert.deepEqual(number, 2);
+        assert.deepEqual(number, 3);
       });
     });
 
@@ -66,7 +66,7 @@ describe('fastrpc.manager', function() {
       it("should return balance", function() {
         var balance = web3.eth.getBalance(web3.eth.accounts[0]);
 
-        assert.deepEqual(balance.toNumber(), '0xfff00000000000000001');
+        assert.deepEqual(balance.toString(), '2.1267647932558653671313007785132687361e+37');
       });
     });
 
@@ -80,7 +80,7 @@ describe('fastrpc.manager', function() {
 
     describe("eth_getCode", function() {
       var transactionResult;
-      var code = '60606040525b60646000600050819055505b60c280601e6000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900480632a1afcd914604b57806360fe47b114606a5780636d4ce63c14607b576049565b005b6054600450609a565b6040518082815260200191505060405180910390f35b607960048035906020015060a3565b005b608460045060b1565b6040518082815260200191505060405180910390f35b60006000505481565b806000600050819055505b50565b6000600060005054905060bf565b9056';
+      var code = '0x60606040525b60646000600050819055505b60c280601e6000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900480632a1afcd914604b57806360fe47b114606a5780636d4ce63c14607b576049565b005b6054600450609a565b6040518082815260200191505060405180910390f35b607960048035906020015060a3565b005b608460045060b1565b6040518082815260200191505060405180910390f35b60006000505481565b806000600050819055505b50565b6000600060005054905060bf565b9056';
 
       beforeEach(function(done) {
         block = manager.blockchain.blocks[0];
@@ -97,7 +97,7 @@ describe('fastrpc.manager', function() {
         contractAddress = transactionResult.address;
         var result = web3.eth.getCode(transactionResult.address);
 
-        assert.deepEqual(result, "0x" + code);
+        assert.deepEqual(result, code);
       });
     });
 
@@ -309,7 +309,7 @@ describe('fastrpc.manager', function() {
 
           result = web3.eth.call({
             data: '0x6d4ce63c',
-            to: '0x' + transactionResult.address
+            to: transactionResult.address
           }, function(error, results) {
             transactionResult = results;
             done();
@@ -318,7 +318,8 @@ describe('fastrpc.manager', function() {
       });
 
       it("should return value", function() {
-        assert.deepEqual(eval('0x' + transactionResult), 100);
+        console.log(transactionResult);
+        assert.deepEqual(eval(transactionResult), 100);
       });
 
     });

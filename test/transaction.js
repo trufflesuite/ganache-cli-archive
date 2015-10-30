@@ -30,7 +30,7 @@ describe('fastrpc.transaction', function() {
 
       it("create a contract", function() {
         assert.deepEqual(transactionResult.status, 'contract');
-        assert.deepEqual(transactionResult.address, '692a70d2e424a56d2c6c27aa97d1a86395877b3a');
+        assert.deepEqual(transactionResult.address, '0x692a70d2e424a56d2c6c27aa97d1a86395877b3a');
       });
 
     });
@@ -39,8 +39,8 @@ describe('fastrpc.transaction', function() {
 
       beforeEach(function(done) {
         var transaction = new Transaction({
-          data: '6d4ce63c',
-          to: '692a70d2e424a56d2c6c27aa97d1a86395877b3a'
+          data: '0x6d4ce63c',
+          to: '0x692a70d2e424a56d2c6c27aa97d1a86395877b3a'
         });
 
         transaction.run(block, function(result) {
@@ -51,8 +51,8 @@ describe('fastrpc.transaction', function() {
       });
 
       it("return the correct value", function() {
-        assert.deepEqual(transactionResult.status, 'transaction');
-        assert.deepEqual(eval('0x' + transactionResult.result), 100);
+        assert.deepEqual(transactionResult.status, 'result');
+        assert.deepEqual(eval(transactionResult.result), 100);
       });
 
     });
@@ -83,8 +83,8 @@ describe('fastrpc.transaction', function() {
 
       it("set the correct value", function() {
         assert.deepEqual(transactionResult.status, 'transaction');
-        assert.deepEqual(transactionResult2.status, 'transaction');
-        assert.deepEqual(eval('0x' + transactionResult2.result), 150);
+        assert.deepEqual(transactionResult2.status, 'result');
+        assert.deepEqual(eval(transactionResult2.result), 150);
       });
 
     });
