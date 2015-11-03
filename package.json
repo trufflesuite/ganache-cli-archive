@@ -11,16 +11,18 @@
   "dependencies": {
     "bignumber.js": "debris/bignumber.js#master",
     "body-parser": "^1.13.2",
-    "express": "^4.12.3",
     "request": "^2.60.0",
-    "ethereumjs-vm": "0.1.6",
+    "ethereumjs-vm": "^1.0.0",
     "ethereumjs-tx": "0.6.9",
+    "ethereumjs-block": "1.0.2",
     "ethereumjs-account": "0.0.6",
     "ethereumjs-util": "2.0.3",
     "merkle-patricia-tree": "1.1.2",
     "shelljs": "^0.5.0",
-    "json-rpc2-ethersim": "^1.0.1",
-    "web3": "^0.8.1"
+    "jayson": "^1.2.1",
+    "web3": "^0.8.1",
+    "async": "^1.5.0",
+    "yargs": "^3.29.0"
   },
   "devDependencies": {
     "mocha": "^2.2.5"
