@@ -1,38 +1,58 @@
-Disclaimer: EtherSim is beta and is currently under development.
+# SYNOPSIS
 
-What is EtherSim
-======
+Limited RPC client intended for quick testing and development. Uses ethereumjs to simulate a full client and make development of Ethereum applications much faster.
 
-[![Join the chat at https://gitter.im/iurimatias/embark-framework](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/iurimatias/embark-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-EtherSim is a Limited Ethereum RPC simulator for testing and development purposes. EtherSim is used by the [Embark Framework](https://github.com/iurimatias/embark-framework)
-
-Installation
-======
+# INSTALL
 
 ```Bash
-$ npm install -g ethersim
+npm install ethereumjs-testrpc
 ```
 
-Usage - as a RPC Server
-======
+# USAGE
 
 ```Bash
-$ ethersim
+$ testrpc
 ```
 
-Usage - as a Lib
-======
+# IMPLEMENTED METHODS
 
-```Javascript
-var ethersim = require('ethersim');
-var web3 = require('web3');
+The RPC methods currently implemented are:
 
-web3.setProvider(ethersim.web3Provider());
-```
 
-Caveats
-======
+* `eth_accounts`
+* `eth_blockNumber`
+* `eth_call`
+* `eth_coinbase`
+* `eth_compileSolidity`
+* `eth_gasPrice`
+* `eth_getBalance`
+* `eth_getBlockByNumber`
+* `eth_getBlockByHash`
+* `eth_getCode` (only supports block number “latest”)
+* `eth_getCompilers`
+* `eth_getFilterChanges`
+* `eth_getStorageAt`
+* `eth_getTransactionByHash`
+* `eth_getTransactionCount`
+* `eth_getTransactionReceipt`
+* `eth_hashrate`
+* `eth_mining`
+* `eth_newBlockFilter`
+* `eth_sendTransaction`
+* ~~`eth_sendRawTransaction`~~ (coming soon!)
+* `eth_uninstallFilter`
+* `web3_clientVersion`
 
-Currently EtherSim does not support Events. If used as a lib, all calls must be done asynchronously
+There’s also special non-standard methods that aren’t included within the original RPC specification:
 
+* `evm_snapshot` : Snapshot the state of the blockchain at its current place. Takes no parameters. Returns the integer id of the snapshot created.
+* `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes one parameter. Reverts to the snapshot id passed, or the latest snapshot.
+
+These methods are really powerful within automated testing frameworks. Example uses for these methods are:
+
+* `evm_snapshot` : Run at the beginning of each test or test suite, snapshotting the state of the evm.
+* `evm_revert` : Run at the end of each test or test suite, reverting back to a known clean state.
+
+# LICENSE
+[MPL-2.0](https://tldrlegal.com/license/mozilla-public-license-2.0-(mpl-2))
