@@ -6,7 +6,7 @@ Limited RPC client intended for quick testing and development. Uses ethereumjs t
 # INSTALL
 
 ```Bash
-npm install ethereumjs-testrpc
+npm install -g ethereumjs-testrpc
 ```
 
 # USAGE
