@@ -1,13 +1,16 @@
 var Server = require('./lib/server.js');
-var argv = require('yargs').argv;
 
 var TestRPC = {
-  startServer: function() {
-    Server.startServer(argv.p || argv.port);
+  startServer: function(port, logger) {
+    Server.startServer(port, logger);
   },
 
-  provider: function() {
-    return Server.provider();
+  server: function(logger) {
+    return Server.server(logger);
+  },
+
+  provider: function(logger) {
+    return Server.provider(logger);
   }
 }
 
