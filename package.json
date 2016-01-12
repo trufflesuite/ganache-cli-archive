@@ -4,9 +4,12 @@
   "bin": {
     "testrpc": "./bin/testrpc"
   },
-  "main": "./lib/main.js",
+  "main": "./index.js",
   "directories": {
     "lib": "./lib"
+  },
+  "scripts": {
+    "test": "mocha ./test/**/*.js"
   },
   "dependencies": {
     "bignumber.js": "^2.1.4",

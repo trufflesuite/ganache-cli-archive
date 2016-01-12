@@ -1,5 +1,4 @@
-var Server = require('./server.js');
-var Manager = require('./manager.js');
+var Server = require('./lib/server.js');
 var argv = require('yargs').argv;
 
 var TestRPC = {
@@ -7,7 +6,9 @@ var TestRPC = {
     Server.startServer(argv.p || argv.port);
   },
 
-  Manager: Manager
+  provider: function() {
+    return Server.provider();
+  }
 }
 
 module.exports = TestRPC;
