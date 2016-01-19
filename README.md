@@ -54,5 +54,13 @@ These methods are really powerful within automated testing frameworks. Example u
 * `evm_snapshot` : Run at the beginning of each test or test suite, snapshotting the state of the evm.
 * `evm_revert` : Run at the end of each test or test suite, reverting back to a known clean state.
 
+# TESTING
+
+Run tests via:
+
+```
+$ npm test
+```
+
 # LICENSE
 [MPL-2.0](https://tldrlegal.com/license/mozilla-public-license-2.0-(mpl-2))

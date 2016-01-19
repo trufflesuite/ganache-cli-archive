@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+var argv = require('yargs').argv;
+var TestRPC = require('..');
+
+TestRPC.startServer(argv.p || argv.port);

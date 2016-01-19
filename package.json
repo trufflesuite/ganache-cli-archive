@@ -1,15 +1,18 @@
 {
-  "name": "ethersim",
-  "version": "0.1.6",
+  "name": "ethereumjs-testrpc",
+  "version": "0.1.0",
   "bin": {
-    "ethersim": "./bin/ethersim"
+    "testrpc": "./bin/testrpc"
   },
-  "main": "./lib/main.js",
+  "main": "./index.js",
   "directories": {
     "lib": "./lib"
   },
+  "scripts": {
+    "test": "mocha ./test/**/*.js"
+  },
   "dependencies": {
-    "bignumber.js": "debris/bignumber.js#master",
+    "bignumber.js": "^2.1.4",
     "body-parser": "^1.13.2",
     "request": "^2.60.0",
     "http-proxy": "^1.12.0",
