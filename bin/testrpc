@@ -2,4 +2,7 @@
 var argv = require('yargs').argv;
 var TestRPC = require('..');
 
-TestRPC.startServer(argv.p || argv.port);
+TestRPC.startServer(console, {
+  port: argv.p || argv.port,
+  debug: argv.d || argv.debug
+});

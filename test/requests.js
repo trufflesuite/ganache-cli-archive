@@ -1,4 +1,4 @@
-var web3 = require('web3');
+var Web3 = require('web3');
 var assert = require('assert');
 var TestRPC = require("../index.js");
 
@@ -27,41 +27,11 @@ var contract = {
   }
 };
 
-var poll = function(fn, done, interval, max) {
-  var count = 0;
-  max = max || 20;
-  interval = interval || 100; // ms
-  var finished = false;
 
-  function doneFn(err, result) {
-    finished = true;
-    done(err, result);
-  }
-
-  function pollFn() {
-    count += 1;
-
-    if (count > max) {
-      finished = true;
-      return done(new Error("Didn't get expected response after " + (count - 1) + " attempts."));
-    }
-
-    fn(doneFn);
-
-    if (finished == false) {
-      setTimeout(pollFn, interval);
-    }
-  }
-
-  pollFn();
-};
-
-
-describe("JSON RPC:", function() {
+var tests = function(web3) {
   var accounts;
 
   before(function(done) {
-    web3.setProvider(TestRPC.provider());
     web3.eth.getAccounts(function(err, accs) {
       if (err) return done(err);
 
@@ -220,19 +190,15 @@ describe("JSON RPC:", function() {
     });
 
     it("should verify the transaction immediately (eth_getTransactionReceipt)", function(done) {
-      poll(function(callback) {
-        web3.eth.getTransactionReceipt(initialTransaction, function(err, receipt) {
-          if (err) return done(err);
+      web3.eth.getTransactionReceipt(initialTransaction, function(err, receipt) {
+        if (err) return done(err);
 
-          if (receipt == null) return;
+        contractAddress = receipt.contractAddress;
 
-          contractAddress = receipt.contractAddress;
-
-          assert.notEqual(receipt, null, "Transaction receipt shouldn't be null");
-          assert.notEqual(contractAddress, null, "Transaction did not create a contract");
-          callback();
-        });
-      }, done);
+        assert.notEqual(receipt, null, "Transaction receipt shouldn't be null");
+        assert.notEqual(contractAddress, null, "Transaction did not create a contract");
+        done();
+      });
     });
 
     it("should verify there's code at the address (eth_getCode)", function(done) {
@@ -252,6 +218,7 @@ describe("JSON RPC:", function() {
     it("should be able to read data via a call (eth_call)", function(done) {
       var call_data = contract.call_data;
       call_data.to = contractAddress;
+      call_data.from = accounts[0];
 
       web3.eth.call(call_data, function(err, result) {
         if (err) return done(err);
@@ -299,5 +266,30 @@ describe("JSON RPC:", function() {
   describe("eth_getTransactionCount", function() {
     it("should return number of transactions sent from an address"); //, function() {
   });
+};
 
+var logger = {
+  log: function(message) {
+    //console.log(message);
+  }
+};
+
+describe("Provider:", function() {
+  var web3 = new Web3();
+  web3.setProvider(TestRPC.provider(logger));
+  tests(web3);
+});
+
+describe("Server:", function(done) {
+  var web3 = new Web3();
+  var port = 12345;
+
+  before("Initialize TestRPC server", function(done) {
+    var server = TestRPC.startServer(logger, {port: port}, function() {
+      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+      done();
+    });
+  });
+
+  tests(web3);
 });
