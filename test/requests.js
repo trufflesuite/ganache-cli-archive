@@ -267,26 +267,31 @@ var tests = function(web3) {
     var tx = new Transaction({
       data: contract.binary,
     })
-    console.log('accounts:', accounts)
     var privateKey = new Buffer('e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109', 'hex')
     var senderAddress = '0x'+utils.privateToAddress(privateKey).toString('hex')
-
     tx.sign(privateKey)
     var rawTx = '0x'+tx.serialize().toString('hex')
-    console.log('rawTx sent:', rawTx)
 
     // These are expected to be run in order.
     var initialTransaction;
     var contractAddress;
 
+    it("should first populate senders address", function(done) {
+      // populate senders balance
+      web3.eth.sendTransaction({
+        from: accounts[0],
+        to: senderAddress,
+        value: '0x3141592',
+      }, function(err, result) {
+        if (err) return done(err);
+        done();
+      });
+    });
+
     it("should add a contract to the network (eth_sendRawTransaction)", function(done) {
       web3.eth.sendRawTransaction(rawTx, function(err, result) {
         if (err) return done(err);
-
-        console.log('rawTx result:', result)
         initialTransaction = result;
-        console.log(result)
-        // assert.deepEqual(initialTransaction.length, 66);
         done();
       });
     });
