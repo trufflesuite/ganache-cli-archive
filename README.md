@@ -40,7 +40,7 @@ The RPC methods currently implemented are:
 * `eth_mining`
 * `eth_newBlockFilter`
 * `eth_sendTransaction`
-* ~~`eth_sendRawTransaction`~~ (coming soon!)
+* `eth_sendRawTransaction`
 * `eth_uninstallFilter`
 * `web3_clientVersion`
 
