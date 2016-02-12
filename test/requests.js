@@ -1,4 +1,6 @@
 var Web3 = require('web3');
+var Transaction = require('ethereumjs-tx');
+var utils = require('ethereumjs-util');
 var assert = require('assert');
 var TestRPC = require("../index.js");
 
@@ -11,7 +13,7 @@ var TestRPC = require("../index.js");
 var contract = {
   solidity: "contract Example { uint public value; function Example() {value = 5;} function setValue(uint val) {value = val;} }",
   abi: [{ "constant": true, "inputs": [], "name": "value", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "val", "type": "uint256" }], "name": "setValue", "outputs": [], "type": "function" }, { "inputs": [], "type": "constructor" }],
-  binary: "6060604052600560005560408060156000396000f3606060405260e060020a60003504633fa4f245811460245780635524107714602c575b005b603660005481565b6004356000556022565b6060908152602090f3",
+  binary: "0x6060604052600560005560408060156000396000f3606060405260e060020a60003504633fa4f245811460245780635524107714602c575b005b603660005481565b6004356000556022565b6060908152602090f3",
   position_of_value: "0x0000000000000000000000000000000000000000000000000000000000000000",
   expected_default_value: 5,
   call_data: {
@@ -110,6 +112,15 @@ var tests = function(web3) {
         if (err) return done(err);
 
         assert.deepEqual("0x" + result.toString(16), "0xffffffffffffff00000000000000001");
+        done();
+      });
+    });
+
+    it("should return 0 for non-existent account", function(done) {
+      web3.eth.getBalance("0x1234567890123456789012345678901234567890", function(err, result) {
+        if (err) return done(err);
+
+        assert.equal("0x" + result.toString(16), "0x0");
         done();
       });
     });
@@ -257,6 +268,69 @@ var tests = function(web3) {
         done();
       });
     });
+
+  });
+
+  describe("contract scenario (raw tx)", function() {
+
+    var tx = new Transaction({
+      data: contract.binary,
+    })
+    var privateKey = new Buffer('e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109', 'hex')
+    var senderAddress = '0x'+utils.privateToAddress(privateKey).toString('hex')
+    tx.sign(privateKey)
+    var rawTx = '0x'+tx.serialize().toString('hex')
+
+    // These are expected to be run in order.
+    var initialTransaction;
+    var contractAddress;
+
+    it("should first populate senders address", function(done) {
+      // populate senders balance
+      web3.eth.sendTransaction({
+        from: accounts[0],
+        to: senderAddress,
+        value: '0x3141592',
+      }, function(err, result) {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it("should add a contract to the network (eth_sendRawTransaction)", function(done) {
+      web3.eth.sendRawTransaction(rawTx, function(err, result) {
+        if (err) return done(err);
+        initialTransaction = result;
+        done();
+      });
+    });
+
+    it("should verify the transaction immediately (eth_getTransactionReceipt)", function(done) {
+      web3.eth.getTransactionReceipt(initialTransaction, function(err, receipt) {
+        if (err) return done(err);
+
+        contractAddress = receipt.contractAddress;
+
+        assert.notEqual(receipt, null, "Transaction receipt shouldn't be null");
+        assert.notEqual(contractAddress, null, "Transaction did not create a contract");
+        done();
+      });
+    });
+
+    it("should verify there's code at the address (eth_getCode)", function(done) {
+      web3.eth.getCode(contractAddress, function(err, result) {
+        if (err) return done(err);
+        assert.notEqual(result, null);
+        assert.notEqual(result, "0x");
+
+        // NOTE: We can't test the code returned is correct because the results
+        // of getCode() are *supposed* to be different than the code that was
+        // added to the chain.
+
+        done();
+      });
+    });
+
   });
 
   describe("eth_getTransactionByHash", function() {
@@ -264,7 +338,16 @@ var tests = function(web3) {
   });
 
   describe("eth_getTransactionCount", function() {
-    it("should return number of transactions sent from an address"); //, function() {
+    //it("should return number of transactions sent from an address"); //, function() {
+
+    it("should return 0 for non-existent account", function(done) {
+      web3.eth.getTransactionCount("0x1234567890123456789012345678901234567890", function(err, result) {
+        if (err) return done(err);
+
+        assert.equal(result, "0x0");
+        done();
+      });
+    });
   });
 };
 
