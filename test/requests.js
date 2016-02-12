@@ -238,6 +238,21 @@ var tests = function(web3) {
       });
     });
 
+    it("should be able to estimate the gas a transaction will take via a call (eth_estimateGas)", function(done){
+      var tx_data = contract.transaction_data;
+      tx_data.to = contractAddress;
+      tx_data.from = accounts[0];
+
+      var call_data = contract.call_data;
+      call_data.to = contractAddress;
+
+      web3.eth.estimateGas(tx_data, function(err, result) {
+        if (err) return done(err);
+          assert.equal(result, 26585);
+          done();
+      });
+    });
+
     it("should be able to send a state changing transaction (eth_sendTransaction)", function(done) {
       var tx_data = contract.transaction_data;
       tx_data.to = contractAddress;
