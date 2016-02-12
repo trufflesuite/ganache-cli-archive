@@ -115,6 +115,15 @@ var tests = function(web3) {
         done();
       });
     });
+
+    it("should return 0 for non-existent account", function(done) {
+      web3.eth.getBalance("0x1234567890123456789012345678901234567890", function(err, result) {
+        if (err) return done(err);
+
+        assert.equal("0x" + result.toString(16), "0x0");
+        done();
+      });
+    });
   });
 
   describe("eth_getBlockByNumber", function() {
@@ -259,7 +268,7 @@ var tests = function(web3) {
         done();
       });
     });
-    
+
   });
 
   describe("contract scenario (raw tx)", function() {
@@ -329,7 +338,16 @@ var tests = function(web3) {
   });
 
   describe("eth_getTransactionCount", function() {
-    it("should return number of transactions sent from an address"); //, function() {
+    //it("should return number of transactions sent from an address"); //, function() {
+
+    it("should return 0 for non-existent account", function(done) {
+      web3.eth.getTransactionCount("0x1234567890123456789012345678901234567890", function(err, result) {
+        if (err) return done(err);
+
+        assert.equal(result, "0x0");
+        done();
+      });
+    });
   });
 };
 
