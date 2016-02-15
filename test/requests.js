@@ -261,10 +261,29 @@ var tests = function(web3) {
       var call_data = contract.call_data;
       call_data.to = contractAddress;
 
-      web3.eth.estimateGas(tx_data, function(err, result) {
+      var starting_block_number = null;
+
+      // TODO: Removing this callback hell would be nice.
+      web3.eth.getBlockNumber(function(err, result) {
         if (err) return done(err);
+
+        starting_block_number = result;
+
+        console.log("asdfads");
+
+        web3.eth.estimateGas(tx_data, function(err, result) {
+          if (err) return done(err);
+          console.log(result.toString(10));
+
           assert.equal(result, 26585);
-          done();
+
+          web3.eth.getBlockNumber(function(err, result) {
+            if (err) return done(err);
+
+            assert.equal(result, starting_block_number, "eth_estimateGas increased block count when it shouldn't have");
+            done();
+          });
+        });
       });
     });
 
