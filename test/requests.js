@@ -231,10 +231,25 @@ var tests = function(web3) {
       call_data.to = contractAddress;
       call_data.from = accounts[0];
 
-      web3.eth.call(call_data, function(err, result) {
+      var starting_block_number = null;
+
+      // TODO: Removing this callback hell would be nice.
+      web3.eth.getBlockNumber(function(err, result) {
         if (err) return done(err);
-        assert.equal(web3.toDecimal(result), 5);
-        done();
+
+        starting_block_number = result;
+
+        web3.eth.call(call_data, function(err, result) {
+          if (err) return done(err);
+          assert.equal(web3.toDecimal(result), 5);
+
+          web3.eth.getBlockNumber(function(err, result) {
+            if (err) return done(err);
+
+            assert.equal(result, starting_block_number, "eth_call increased block count when it shouldn't have");
+            done();
+          });
+        });
       });
     });
 
