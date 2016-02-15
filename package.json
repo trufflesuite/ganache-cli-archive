@@ -12,6 +12,7 @@
     "test": "mocha ./test/**/*.js"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "bignumber.js": "^2.1.4",
     "ethereumjs-account": "^1.0.4",
     "ethereumjs-block": "^1.0.2",
