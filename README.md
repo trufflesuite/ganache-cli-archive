@@ -2,6 +2,8 @@
 
 Limited RPC client intended for quick testing and development. Uses ethereumjs to simulate a full client and make development of Ethereum applications much faster.
 
+ **YES**, `ethereumjs-testrpc` supports events! :tada:
+
 
 # INSTALL
 
@@ -33,6 +35,8 @@ The RPC methods currently implemented are:
 * `eth_getCode` (only supports block number “latest”)
 * `eth_getCompilers`
 * `eth_getFilterChanges`
+* `eth_getFilterLogs`
+* `eth_getLogs`
 * `eth_getStorageAt`
 * `eth_getTransactionByHash`
 * `eth_getTransactionCount`
@@ -40,6 +44,7 @@ The RPC methods currently implemented are:
 * `eth_hashrate`
 * `eth_mining`
 * `eth_newBlockFilter`
+* `eth_newFilter` (includes log/event filters)
 * `eth_sendTransaction`
 * `eth_sendRawTransaction`
 * `eth_uninstallFilter`
