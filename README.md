@@ -17,6 +17,10 @@ npm install -g ethereumjs-testrpc
 $ testrpc
 ```
 
+##### Command Line Arguments
+
+* `--port` or `-p`: Port number to listen on.
+
 # IMPLEMENTED METHODS
 
 The RPC methods currently implemented are:
