@@ -269,12 +269,8 @@ var tests = function(web3) {
 
         starting_block_number = result;
 
-        console.log("asdfads");
-
         web3.eth.estimateGas(tx_data, function(err, result) {
           if (err) return done(err);
-          console.log(result.toString(10));
-
           assert.equal(result, 26585);
 
           web3.eth.getBlockNumber(function(err, result) {
