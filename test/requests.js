@@ -139,7 +139,7 @@ var tests = function(web3) {
           sha3Uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
           logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
           transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-          stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
           receiptRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
           miner: '0x0000000000000000000000000000000000000000',
           difficulty: { s: 1, e: 0, c: [ 0 ] },
@@ -253,13 +253,57 @@ var tests = function(web3) {
       });
     });
 
+    it("should be able to read data via a call (eth_call)", function(done) {
+      var call_data = contract.call_data;
+      call_data.to = contractAddress;
+      call_data.from = accounts[0];
+
+      var starting_block_number = null;
+
+      // TODO: Removing this callback hell would be nice.
+      web3.eth.getBlockNumber(function(err, result) {
+        if (err) return done(err);
+
+        starting_block_number = result;
+
+        web3.eth.call(call_data, function(err, result) {
+          if (err) return done(err);
+          assert.equal(web3.toDecimal(result), 5);
+
+          web3.eth.getBlockNumber(function(err, result) {
+            if (err) return done(err);
+
+            assert.equal(result, starting_block_number, "eth_call increased block count when it shouldn't have");
+            done();
+          });
+        });
+      });
+    });
+
+    it("should be able to make a call from an address not in the accounts list (eth_call)", function(done) {
+      var from = "0x1234567890123456789012345678901234567890";
+
+      // Assert precondition: Ensure from address isn't in the accounts list.
+      accounts.forEach(function(account) {
+        assert.notEqual(from, account, "Test preconditions not met: from address must not be within the accounts list, please rerun");
+      });
+
+      var call_data = contract.call_data;
+      call_data.to = contractAddress;
+      call_data.from = from;
+
+      web3.eth.call(call_data, function(err, result) {
+        if (err) return done(err);
+        assert.equal(web3.toDecimal(result), 5);
+
+        done();
+      });
+    });
+
     it("should be able to estimate the gas a transaction will take via a call (eth_estimateGas)", function(done){
       var tx_data = contract.transaction_data;
       tx_data.to = contractAddress;
       tx_data.from = accounts[0];
-
-      var call_data = contract.call_data;
-      call_data.to = contractAddress;
 
       var starting_block_number = null;
 
@@ -289,15 +333,17 @@ var tests = function(web3) {
       tx_data.from = accounts[0];
 
       var call_data = contract.call_data;
+      call_data.from = accounts[0];
       call_data.to = contractAddress;
 
       web3.eth.sendTransaction(tx_data, function(err, result) {
         if (err) return done(err);
-
         // Now double check the data was set properly.
-        // NOTE: Becuase ethereumjs-testrpc processes transactions immediately,
+        // NOTE: Because ethereumjs-testrpc processes transactions immediately,
         // we can do this. Calling the call immediately after the transaction would
         // fail on a different Ethereum client.
+
+        //console.log(call_data);
         web3.eth.call(call_data, function(err, result) {
           if (err) return done(err);
 
