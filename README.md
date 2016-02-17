@@ -31,6 +31,7 @@ The RPC methods currently implemented are:
 * `eth_call`
 * `eth_coinbase`
 * `eth_compileSolidity`
+* `eth_estimateGas`
 * `eth_gasPrice`
 * `eth_getBalance`
 * `eth_getBlockByNumber`
