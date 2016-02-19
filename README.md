@@ -13,13 +13,32 @@ npm install -g ethereumjs-testrpc
 
 # USAGE
 
+##### Command Line
+
 ```Bash
-$ testrpc
+$ testrpc <options>
 ```
 
-##### Command Line Arguments
+Options:
 
 * `--port` or `-p`: Port number to listen on.
+
+##### Library
+
+As a Web3 provider:
+
+```
+var TestRPC = require("ethereumjs-testrpc");
+web3.setProvider(TestRPC.provider());
+```
+
+As a general http server:
+
+```
+var TestRPC = require("ethereumjs-testrpc");
+var server = TestRPC.server();
+server.listen(port, function() {...});
+```
 
 # IMPLEMENTED METHODS
 
