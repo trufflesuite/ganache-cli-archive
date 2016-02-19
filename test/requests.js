@@ -457,12 +457,18 @@ describe("Provider:", function() {
 describe("Server:", function(done) {
   var web3 = new Web3();
   var port = 12345;
+  var server;
 
   before("Initialize TestRPC server", function(done) {
-    var server = TestRPC.startServer(logger, {port: port}, function() {
+    server = TestRPC.server(logger);
+    server.listen(port, function() {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
       done();
     });
+  });
+
+  after("Shutdown server", function(done) {
+    server.close(done);
   });
 
   tests(web3);
