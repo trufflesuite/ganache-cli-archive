@@ -17,7 +17,7 @@
     "ethereumjs-account": "^1.0.4",
     "ethereumjs-block": "^1.0.2",
     "ethereumjs-tx": "^0.7.3",
-    "ethereumjs-util": "^2.0.4",
+    "ethereumjs-util": "^3.0.0",
     "ethereumjs-vm": "^1.0.4",
     "merkle-patricia-tree": "1.1.2",
     "shelljs": "^0.6.0",
