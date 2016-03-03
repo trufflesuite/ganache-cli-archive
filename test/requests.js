@@ -182,18 +182,19 @@ var tests = function(web3) {
   });
 
     describe("eth_sign", function() {
-	it("should produce a signature whose signer ecrecover can recover", function() {
+	it("should produce a signature whose signer can be recovered", function(done) {
 	    var msg = web3.sha3("asparagus");
-	    web3.eth.sign(web3.eth.accounts[0], msg, function(err, sgn) {
+	    sgn = web3.eth.sign(accounts[0], msg, function(err, sgn) {
 		if (err) return done(err);
+
 	        sgn = utils.stripHexPrefix(sgn);
 		var r = new Buffer(sgn.slice(0, 64), 'hex');
 		var s = new Buffer(sgn.slice(64, 128), 'hex');
 		var v = new Buffer(sgn.slice(128, 130), 'hex');
 		var pub = utils.ecrecover(new Buffer(msg, 'hex'), v, r, s);
 		var addr = utils.fromSigned(utils.pubToAddress(pub))
-		addr = utils.addHexPrefix(addr);
-		assert.deepEqual(addr, web3.eth.accounts[0]);
+		addr = utils.addHexPrefix(addr.toString('hex'));
+		assert.deepEqual(addr, accounts[0]);
 		done();
 	    });
 	});
