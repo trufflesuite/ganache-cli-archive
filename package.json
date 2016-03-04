@@ -14,15 +14,15 @@
   "dependencies": {
     "async": "^1.5.0",
     "bignumber.js": "^2.1.4",
-    "ethereumjs-account": "^1.0.4",
-    "ethereumjs-block": "^1.0.2",
-    "ethereumjs-tx": "^0.7.3",
-    "ethereumjs-util": "^2.0.4",
-    "ethereumjs-vm": "^1.0.4",
-    "merkle-patricia-tree": "1.1.2",
+    "ethereumjs-account": "^2.0.2",
+    "ethereumjs-block": "^1.2.2",
+    "ethereumjs-tx": "^1.1.0",
+    "ethereumjs-util": "^4.0.1",
+    "ethereumjs-vm": "^1.2.1",
+    "merkle-patricia-tree": "2.1.2",
     "shelljs": "^0.6.0",
     "web3": "^0.15.1",
-    "web3-provider-engine": "^5.1.1",
+    "web3-provider-engine": "^6.0.1",
     "yargs": "^3.29.0"
   },
   "devDependencies": {

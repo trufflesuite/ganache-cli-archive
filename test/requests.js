@@ -18,6 +18,7 @@ var contract = {
   expected_default_value: 5,
   call_data: {
     gas: '0x2fefd8',
+    gasPrice: '0x01', // This is important, as passing it has exposed errors in the past.
     to: null, // set by test
     data: '0x3fa4f245'
   },
@@ -253,33 +254,6 @@ var tests = function(web3) {
       });
     });
 
-    it("should be able to read data via a call (eth_call)", function(done) {
-      var call_data = contract.call_data;
-      call_data.to = contractAddress;
-      call_data.from = accounts[0];
-
-      var starting_block_number = null;
-
-      // TODO: Removing this callback hell would be nice.
-      web3.eth.getBlockNumber(function(err, result) {
-        if (err) return done(err);
-
-        starting_block_number = result;
-
-        web3.eth.call(call_data, function(err, result) {
-          if (err) return done(err);
-          assert.equal(web3.toDecimal(result), 5);
-
-          web3.eth.getBlockNumber(function(err, result) {
-            if (err) return done(err);
-
-            assert.equal(result, starting_block_number, "eth_call increased block count when it shouldn't have");
-            done();
-          });
-        });
-      });
-    });
-
     it("should be able to make a call from an address not in the accounts list (eth_call)", function(done) {
       var from = "0x1234567890123456789012345678901234567890";
 
@@ -324,6 +298,20 @@ var tests = function(web3) {
             done();
           });
         });
+      });
+    });
+
+    it("should be able to estimate from an account not within the accounts list (eth_estimateGas)", function(done){
+      var tx_data = contract.transaction_data;
+      tx_data.to = contractAddress;
+      tx_data.from = "0x1234567890123456789012345678901234567890";;
+
+      var starting_block_number = null;
+
+      web3.eth.estimateGas(tx_data, function(err, result) {
+        if (err) return done(err);
+        assert.equal(result, 26585);
+        done();
       });
     });
 
