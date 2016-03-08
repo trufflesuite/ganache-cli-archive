@@ -11,6 +11,8 @@ Limited RPC client intended for quick testing and development. Uses ethereumjs t
 npm install -g ethereumjs-testrpc
 ```
 
+**Using Windows?** See our [Windows install instructions](https://github.com/ethereumjs/testrpc/wiki/Installing-on-Windows).
+
 # USAGE
 
 ##### Command Line
