@@ -182,6 +182,26 @@ var tests = function(web3) {
     });
   });
 
+    describe("eth_sign", function() {
+	it("should produce a signature whose signer can be recovered", function(done) {
+	    var msg = web3.sha3("asparagus");
+	    sgn = web3.eth.sign(accounts[0], msg, function(err, sgn) {
+		if (err) return done(err);
+
+	        sgn = utils.stripHexPrefix(sgn);
+		var r = new Buffer(sgn.slice(0, 64), 'hex');
+		var s = new Buffer(sgn.slice(64, 128), 'hex');
+		var v = new Buffer(sgn.slice(128, 130), 'hex');
+		var pub = utils.ecrecover(new Buffer(msg, 'hex'), v, r, s);
+		var addr = utils.fromSigned(utils.pubToAddress(pub))
+		addr = utils.addHexPrefix(addr.toString('hex'));
+		assert.deepEqual(addr, accounts[0]);
+		done();
+	    });
+	});
+    });
+    
+
   describe("contract scenario", function() {
 
     // These are expected to be run in order.

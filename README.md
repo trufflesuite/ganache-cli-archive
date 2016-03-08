@@ -72,6 +72,7 @@ The RPC methods currently implemented are:
 * `eth_newFilter` (includes log/event filters)
 * `eth_sendTransaction`
 * `eth_sendRawTransaction`
+* `eth_sign`
 * `eth_uninstallFilter`
 * `web3_clientVersion`
 
