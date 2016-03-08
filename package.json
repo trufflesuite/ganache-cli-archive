@@ -9,6 +9,7 @@
     "lib": "./lib"
   },
   "scripts": {
+    "start": "node ./bin/testrpc",
     "test": "mocha ./test/**/*.js"
   },
   "dependencies": {
