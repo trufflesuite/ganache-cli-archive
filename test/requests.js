@@ -341,6 +341,24 @@ var tests = function(web3) {
       });
     });
 
+    it("should only be able to send an unsigned state changing transaction from an address within the accounts list (eth_sendTransaction)", function(done) {
+      var badAddress = "0x1234567890123456789012345678901234567890";
+
+      var tx_data = {};
+      tx_data.to = "0x1111111111000000000011111111110000000000";
+      tx_data.from = badAddress;
+      tx_data.value = "0x1";
+
+      web3.eth.sendTransaction(tx_data, function(err, result) {
+        if (err) {
+          assert.equal(err.message.indexOf("Error: could not unlock signer account"), 0);
+          done();
+        } else {
+          assert.fail("Should have received an error")
+        }
+      });
+    });
+
     it("should get the data from storage (eth_getStorageAt)", function(done) {
       web3.eth.getStorageAt(contractAddress, contract.position_of_value, function(err, result) {
         assert.equal(web3.toDecimal(result), 25);
