@@ -182,25 +182,26 @@ var tests = function(web3) {
     });
   });
 
-    describe("eth_sign", function() {
-	it("should produce a signature whose signer can be recovered", function(done) {
-	    var msg = web3.sha3("asparagus");
-	    sgn = web3.eth.sign(accounts[0], msg, function(err, sgn) {
-		if (err) return done(err);
+  describe("eth_sign", function() {
+  	it("should produce a signature whose signer can be recovered", function(done) {
+  	  var msg = web3.sha3("asparagus");
+  	  sgn = web3.eth.sign(accounts[0], msg, function(err, sgn) {
 
-	        sgn = utils.stripHexPrefix(sgn);
-		var r = new Buffer(sgn.slice(0, 64), 'hex');
-		var s = new Buffer(sgn.slice(64, 128), 'hex');
-		var v = new Buffer(sgn.slice(128, 130), 'hex');
-		var pub = utils.ecrecover(new Buffer(msg, 'hex'), v, r, s);
-		var addr = utils.fromSigned(utils.pubToAddress(pub))
-		addr = utils.addHexPrefix(addr.toString('hex'));
-		assert.deepEqual(addr, accounts[0]);
-		done();
-	    });
-	});
-    });
-    
+      if (err) return done(err);
+
+  	  sgn = utils.stripHexPrefix(sgn);
+  		var r = new Buffer(sgn.slice(0, 64), 'hex');
+  		var s = new Buffer(sgn.slice(64, 128), 'hex');
+  		var v = new Buffer(sgn.slice(128, 130), 'hex');
+  		var pub = utils.ecrecover(new Buffer(msg, 'hex'), v, r, s);
+  		var addr = utils.setLength(utils.fromSigned(utils.pubToAddress(pub)), 20);
+  		addr = utils.addHexPrefix(addr.toString('hex'));
+  		assert.deepEqual(addr, accounts[0]);
+  		done();
+  	    });
+  	});
+  });
+
 
   describe("contract scenario", function() {
 
@@ -294,7 +295,20 @@ var tests = function(web3) {
       });
     });
 
-    it("should be able to estimate the gas a transaction will take via a call (eth_estimateGas)", function(done){
+    it("should be able to make a call when no address is listed (eth_call)", function(done) {
+      var call_data = contract.call_data;
+      call_data.to = contractAddress;
+      delete call_data.from;
+
+      web3.eth.call(call_data, function(err, result) {
+        if (err) return done(err);
+        assert.equal(web3.toDecimal(result), 5);
+
+        done();
+      });
+    });
+
+    it("should be able to estimate gas of a transaction (eth_estimateGas)", function(done){
       var tx_data = contract.transaction_data;
       tx_data.to = contractAddress;
       tx_data.from = accounts[0];
@@ -321,10 +335,24 @@ var tests = function(web3) {
       });
     });
 
-    it("should be able to estimate from an account not within the accounts list (eth_estimateGas)", function(done){
+    it("should be able to estimate gas from an account not within the accounts list (eth_estimateGas)", function(done){
       var tx_data = contract.transaction_data;
       tx_data.to = contractAddress;
       tx_data.from = "0x1234567890123456789012345678901234567890";;
+
+      var starting_block_number = null;
+
+      web3.eth.estimateGas(tx_data, function(err, result) {
+        if (err) return done(err);
+        assert.equal(result, 26585);
+        done();
+      });
+    });
+
+    it("should be able to estimate gas when no account is listed (eth_estimateGas)", function(done){
+      var tx_data = contract.transaction_data;
+      tx_data.to = contractAddress;
+      delete tx_data.from;
 
       var starting_block_number = null;
 
