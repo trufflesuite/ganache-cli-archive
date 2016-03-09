@@ -2,7 +2,26 @@
 var argv = require('yargs').argv;
 var TestRPC = require('..');
 
+function parseAccounts(accounts) {
+  function splitAccount(account) {
+    account = account.split(',')
+    return { secretKey: new Buffer(account[0], 'hex'), balance: account[1] }
+  }
+
+  if (typeof accounts === 'string')
+    return [ splitAccount(accounts) ];
+  else if (!Array.isArray(accounts))
+    return;
+
+  var ret = []
+  for (var i = 0; i < accounts.length; i++) {
+    ret.push(splitAccount(accounts[i]));
+  }
+  return ret;
+}
+
 TestRPC.startServer(console, {
   port: argv.p || argv.port,
-  debug: argv.d || argv.debug
+  debug: argv.d || argv.debug,
+  accounts: parseAccounts(argv.account)
 });
