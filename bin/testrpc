@@ -4,5 +4,6 @@ var TestRPC = require('..');
 
 TestRPC.startServer(console, {
   port: argv.p || argv.port,
-  debug: argv.d || argv.debug
+  debug: argv.d || argv.debug,
+  gasPrice: argv.g || argv.gasPrice
 });

@@ -107,6 +107,42 @@ var tests = function(web3) {
     });
   });
 
+  describe("custom eth_gasPrice", function() {
+    it("should return gas price of 0xf", function(done) {
+      var server = TestRPC.server(logger, {gasPrice: 15});
+      var port = 12346;
+      server.listen(port, function() {
+        var oldprovider = web3.currentProvider;
+        web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+        web3.eth.getGasPrice(function(err, result) {
+          if (err) return done(err);
+          assert.deepEqual(result.toNumber(), 15);
+          server.close();
+          web3.setProvider(oldprovider);
+          done();
+        });
+      });
+    });
+  });
+
+  describe("custom eth_gasPrice in hex", function() {
+    it("should return gas price of 0xf", function(done) {
+      var server = TestRPC.server(logger, {gasPrice: 0xf});
+      var port = 12346;
+      server.listen(port, function() {
+        var oldprovider = web3.currentProvider;
+        web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+        web3.eth.getGasPrice(function(err, result) {
+          if (err) return done(err);
+          assert.deepEqual(result.toNumber(), 15);
+          server.close();
+          web3.setProvider(oldprovider);
+          done();
+        });
+      });
+    });
+  });
+
   describe("eth_getBalance", function() {
     it("should return initial balance", function(done) {
       web3.eth.getBalance(accounts[0], function(err, result) {
