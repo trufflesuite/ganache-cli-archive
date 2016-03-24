@@ -23,5 +23,7 @@ function parseAccounts(accounts) {
 TestRPC.startServer(console, {
   port: argv.p || argv.port,
   debug: argv.d || argv.debug,
+  seed: argv.s || argv.seed,
+  total_accounts: argv.a || argv.accounts,
   accounts: parseAccounts(argv.account)
 });
