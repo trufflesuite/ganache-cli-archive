@@ -20,6 +20,10 @@ function parseAccounts(accounts) {
   return ret;
 }
 
+if (argv.d || argv.deterministic) {
+  argv.s = "TestRPC is awesome!";
+}
+
 TestRPC.startServer(console, {
   port: argv.p || argv.port,
   debug: argv.d || argv.debug,
