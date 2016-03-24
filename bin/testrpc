@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var argv = require('yargs').argv;
 var TestRPC = require('..');
+var pkg = require("../package.json");
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -24,10 +25,48 @@ if (argv.d || argv.deterministic) {
   argv.s = "TestRPC is awesome!";
 }
 
-TestRPC.startServer(console, {
-  port: argv.p || argv.port,
+var options = {
+  port: argv.p || argv.port || 8545,
   debug: argv.d || argv.debug,
   seed: argv.s || argv.seed,
   total_accounts: argv.a || argv.accounts,
   accounts: parseAccounts(argv.account)
+}
+
+var server = TestRPC.server(console, options);
+
+console.log("EthereumJS TestRPC v" + pkg.version);
+
+server.listen(options.port, function(err, blockchain) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log("");
+  console.log("Available Accounts");
+  console.log("==================");
+
+  var accounts = blockchain.accounts;
+  var addresses = Object.keys(accounts);
+
+  addresses.forEach(function(address) {
+    console.log(address);
+  });
+
+  console.log("");
+  console.log("Private Keys");
+  console.log("==================");
+
+  addresses.forEach(function(address) {
+    console.log(accounts[address].secretKey.toString("hex"));
+  });
+
+  console.log("");
+  console.log("HD Wallet");
+  console.log("==================");
+  console.log("Mnemonic:      " + blockchain.mnemonic);
+  console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
+
+  console.log("");
+  console.log("Listening on localhost:" + options.port);
 });

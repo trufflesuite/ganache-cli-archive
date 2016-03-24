@@ -15,11 +15,13 @@
   "dependencies": {
     "async": "^1.5.0",
     "bignumber.js": "^2.1.4",
+    "bip39": "^2.2.0",
     "ethereumjs-account": "^2.0.2",
     "ethereumjs-block": "^1.2.2",
     "ethereumjs-tx": "^1.1.0",
     "ethereumjs-util": "^4.0.1",
     "ethereumjs-vm": "^1.2.1",
+    "ethereumjs-wallet": "^0.5.0",
     "merkle-patricia-tree": "2.1.2",
     "seedrandom": "^2.4.2",
     "shelljs": "^0.6.0",
