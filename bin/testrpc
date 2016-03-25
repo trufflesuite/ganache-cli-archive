@@ -50,16 +50,16 @@ server.listen(options.port, function(err, blockchain) {
   var accounts = blockchain.accounts;
   var addresses = Object.keys(accounts);
 
-  addresses.forEach(function(address) {
-    console.log(address);
+  addresses.forEach(function(address, index) {
+    console.log("(" + index + ") " + address);
   });
 
   console.log("");
   console.log("Private Keys");
   console.log("==================");
 
-  addresses.forEach(function(address) {
-    console.log(accounts[address].secretKey.toString("hex"));
+  addresses.forEach(function(address, index) {
+    console.log("(" + index + ") " + accounts[address].secretKey.toString("hex"));
   });
 
   console.log("");
