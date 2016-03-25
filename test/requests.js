@@ -399,7 +399,7 @@ var tests = function(web3) {
 
       web3.eth.sendTransaction(tx_data, function(err, result) {
         if (err) {
-          assert.equal(err.message.indexOf("Error: could not unlock signer account"), 0);
+          assert.notEqual(err.message.indexOf("could not unlock signer account"), -1);
           done();
         } else {
           assert.fail("Should have received an error")
