@@ -74,6 +74,7 @@ The RPC methods currently implemented are:
 * `eth_sendRawTransaction`
 * `eth_sign`
 * `eth_uninstallFilter`
+* `net_listening`
 * `web3_clientVersion`
 
 There’s also special non-standard methods that aren’t included within the original RPC specification:
