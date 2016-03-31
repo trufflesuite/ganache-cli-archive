@@ -8,8 +8,8 @@ function parseAccounts(accounts) {
   function splitAccount(account) {
     account = account.split(',')
     return {
-      secretKey: util.toBuffer(util.addHexPrefix(account[0])),
-      balance: util.toBuffer(util.addHexPrefix(account[1]))
+      secretKey: account[0],
+      balance: account[1]
     };
   }
 
