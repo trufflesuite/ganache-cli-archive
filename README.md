@@ -36,7 +36,9 @@ You can also specify `--account=...` (no 's') any number of times passing arbitr
 $ testrpc --account="<privatekey>,balance" [--account="<privatekey>,balance"]
 ```
 
-When using `--account`, an HD wallet will not be created for you. Note that private keys are 64 characters long.
+Note that private keys are 64 characters long, and must be input as a 0x-prefixed hex string. Balance can either be input as an integer or 0x-prefixed hex value specifying the amount of wei in that account.
+
+An HD wallet will not be created for you when using `--account`.
 
 ##### Library
 
