@@ -23,7 +23,20 @@ $ testrpc <options>
 
 Options:
 
-* `--port` or `-p`: Port number to listen on.
+* `-a` or `--accounts`: Specify the number of accounts to generate at startup.
+* `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
+* `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
+* `-p` or `--port`: Port number to listen on.
+* `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
+* `--debug`: Output VM opcodes for debugging
+
+You can also specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
+
+```
+$ testrpc --account="<privatekey>,balance" [--account="<privatekey>,balance"]
+```
+
+When using `--account`, an HD wallet will not be created for you. Note that private keys are 64 characters long.
 
 ##### Library
 

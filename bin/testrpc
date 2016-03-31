@@ -2,11 +2,15 @@
 var argv = require('yargs').argv;
 var TestRPC = require('..');
 var pkg = require("../package.json");
+var util = require("ethereumjs-util");
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
     account = account.split(',')
-    return { secretKey: new Buffer(account[0], 'hex'), balance: account[1] }
+    return {
+      secretKey: util.toBuffer(util.addHexPrefix(account[0])),
+      balance: util.toBuffer(util.addHexPrefix(account[1]))
+    };
   }
 
   if (typeof accounts === 'string')
@@ -62,11 +66,13 @@ server.listen(options.port, function(err, blockchain) {
     console.log("(" + index + ") " + accounts[address].secretKey.toString("hex"));
   });
 
-  console.log("");
-  console.log("HD Wallet");
-  console.log("==================");
-  console.log("Mnemonic:      " + blockchain.mnemonic);
-  console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
+  if (options.accounts == null) {
+    console.log("");
+    console.log("HD Wallet");
+    console.log("==================");
+    console.log("Mnemonic:      " + blockchain.mnemonic);
+    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
+  }
 
   console.log("");
   console.log("Listening on localhost:" + options.port);
