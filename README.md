@@ -1,9 +1,6 @@
 # SYNOPSIS
 
-Limited RPC client intended for quick testing and development. Uses ethereumjs to simulate a full client and make development of Ethereum applications much faster.
-
- **YES**, `ethereumjs-testrpc` supports events! :tada:
-
+Ethereum RPC client intended for testing and development. Uses ethereumjs to simulate a full client and make development of Ethereum applications faster. Includes all popular RPC functions and features (like events), and is able to run deterministically to aid in development.
 
 # INSTALL
 
