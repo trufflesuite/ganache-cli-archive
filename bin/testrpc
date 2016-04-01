@@ -35,10 +35,11 @@ var options = {
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
   total_accounts: argv.a || argv.accounts,
-  accounts: parseAccounts(argv.account)
+  accounts: parseAccounts(argv.account),
+  logger: console
 }
 
-var server = TestRPC.server(console, options);
+var server = TestRPC.server(options);
 
 console.log("EthereumJS TestRPC v" + pkg.version);
 

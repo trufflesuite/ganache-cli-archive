@@ -15,7 +15,9 @@ describe("TestRPC", function(done) {
   var accounts;
 
   before("Initialize TestRPC server", function(done) {
-    server = TestRPC.server(logger);
+    server = TestRPC.server({
+      logger: logger
+    });
     server.listen(port, function() {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
       done();

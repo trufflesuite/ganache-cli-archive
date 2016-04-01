@@ -54,8 +54,18 @@ As a general http server:
 ```
 var TestRPC = require("ethereumjs-testrpc");
 var server = TestRPC.server();
-server.listen(port, function() {...});
+server.listen(port, function(err, blockchain) {...});
 ```
+
+Both `.provider()` and `.server()` take a single object which allows you to specify behavior of the TestRPC. This parameter is optional. Available options are:
+
+* `"accounts"`: `Array` - Two-dimensional array containing private keys and balances of initial accounts.
+* `"debug"`: `boolean` - Output VM opcodes for debugging
+* `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
+* `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
+* `"port"`: Port number to listen on when running as a server.
+* `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
+* `"total_accounts"`: `number` - Number of accounts to generate at startup.
 
 # IMPLEMENTED METHODS
 
