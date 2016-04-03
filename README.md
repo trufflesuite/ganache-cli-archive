@@ -104,7 +104,7 @@ There’s also special non-standard methods that aren’t included within the or
 * `evm_snapshot` : Snapshot the state of the blockchain at its current place. Takes no parameters. Returns the integer id of the snapshot created.
 * `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes one parameter. Reverts to the snapshot id passed, or the latest snapshot.
 * `evm_setTimestamp` : Sets timestamp of current block. Takes one parameter (unix timestamp). This is useful, if your tests have time-constraints for challenge periods etc..
-* `evm_setBlockNumber` : Sets block-number of current block. Takes one parameter (block number). This is useful, if your tests have block-number-constraints for challenge periods etc..
+* `evm_mineBlocks` : Mines a number of blocks. Takes one parameter (block count). This is useful, if your tests have block-number-constraints for challenge periods etc..
 
 These methods are really powerful within automated testing frameworks. Example uses for these methods are:
 

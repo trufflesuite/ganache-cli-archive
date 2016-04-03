@@ -495,20 +495,20 @@ var tests = function(web3) {
     });
   });
 
-  describe("evm_setBlockNumber", function() {
+  describe("evm_mineBlocks", function() {
     it("should set current block number to specified value", function(done) {
-      web3.eth.getBlockNumber(function(err, result) {
+      web3.eth.getBlockNumber(function(err, currentBlockNumber) {
         if (err) return done(err);
 
-        assert.deepEqual(result, 4);
+        assert.deepEqual(currentBlockNumber, 4);
 
-        var newBlockNumber = 100;
+        var blocksToMine = 100;
 
         web3.currentProvider.sendAsync({
           jsonrpc: "2.0",
-          method: "evm_setBlockNumber",
+          method: "evm_mineBlocks",
           id: 0,
-          params: [newBlockNumber]
+          params: [blocksToMine]
         }, function(err, result) {
           if (err) return done(err);
 
@@ -517,7 +517,7 @@ var tests = function(web3) {
           web3.eth.getBlockNumber(function(err, result) {
             if (err) return done(err);
 
-            assert.deepEqual(result, newBlockNumber);
+            assert.deepEqual(result, blocksToMine + currentBlockNumber);
 
             done();
           });
