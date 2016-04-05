@@ -72,7 +72,7 @@ server.listen(options.port, function(err, blockchain) {
     console.log("HD Wallet");
     console.log("==================");
     console.log("Mnemonic:      " + blockchain.mnemonic);
-    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
+    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "/{account_index}")
   }
 
   console.log("");
