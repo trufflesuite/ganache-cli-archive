@@ -37,6 +37,28 @@ Note that private keys are 64 characters long, and must be input as a 0x-prefixe
 
 An HD wallet will not be created for you when using `--account`.
 
+##### Docker
+
+The Simplest way to get stared with the Docker image:
+
+```Bash
+docker run -d -p 8545:8545 ethereumjs/testrpc:latest
+```
+
+To pass options to testrpc through Docker simply add the arguments to
+the run command:
+
+```Bash
+docker run -d -p 8545:8545 ethereumjs/testrpc:latest -a 10 --debug
+```
+
+To build the Docker container from source:
+
+```Bash
+git clone https://github.com/ethereumjs/testrpc.git && cd testrpc
+docker build -t etherumjs/testrpc .
+```
+
 ##### Library
 
 As a Web3 provider:
