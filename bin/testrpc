@@ -35,6 +35,7 @@ var options = {
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
   total_accounts: argv.a || argv.accounts,
+  blocktime: argv.b || argv.blocktime,
   accounts: parseAccounts(argv.account),
   logger: console
 }
