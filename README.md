@@ -117,5 +117,66 @@ Run tests via:
 $ npm test
 ```
 
+# DOCKER
+
+##### Build your image
+
+Step in this directory and run
+
+    docker build -t <my-image-name> .
+
+For example, `<my-image-name>` can be `ethereumjs/testrpc`.
+
+You can `push` the image you created to your docker hub for further use.
+
+##### Run the container as a daemon
+
+    docker run -d --name <my-container-name> -p 8545:8545 <my-image-name>
+
+Example
+
+    docker run -d --name testrpc -p 8545:8545 ethereumjs/test-rpc
+
+* `<my-container-name>`
+
+Pick a good container name. This is useful when you want to delete the container.
+You can, however, ignore the instruction `--name <my-container-name>`. Docker will
+assign you a random name for your container.
+
+* `<my-image-name>`
+
+Use the same name of the image you built above.
+
+###### Testing my container
+
+* Find out in which IP docker or docker-machine (if you are running the later) is listening.
+* Issue the following command
+
+```
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts"}' http://172.17.0.1:8545
+```
+
+Substitute `172.17.0.1` with the IP you found out in the above step.
+
+You should have gotten a json like this
+
+```json
+{"jsonrpc":"2.0","result":["0x683a9c137d3e98727dfe76bd364947ad0f69a73d","0xf8e5e9e26afef171caab470bd51ca638e7cb314d","0xbc828df00167db641493953ab66501764bf02695","0x3333d6436091a94db05e8624b5ab278e62c357d6","0x8af55e26f20911f39ffccf426829ff03c9ed0f7c","0x3186dcad34e0f1e594d39a70fbd819578c00105a","0x417e80e021898c6cef52f02539b21ea584de34b6","0xe789d7dc3819952ee5414137c428b76ad49ab307","0xa087eb71c480f6f63e94c12562fe9eefc8a0c564","0x483ec44c20a991ab0700b16c4121c2ef55458640"]}
+```
+
+##### Removing the container
+
+Using `<my-container-name>`
+
+```
+docker rm -f <my-container-name>
+```
+
+For example
+
+```
+docker rm -f testrpc
+```
+
 # LICENSE
 [MPL-2.0](https://tldrlegal.com/license/mozilla-public-license-2.0-(mpl-2))
