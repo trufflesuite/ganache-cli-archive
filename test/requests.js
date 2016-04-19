@@ -15,11 +15,8 @@ process.removeAllListeners("uncaughtException");
 
 
 // Note: Certain properties of the following contract data are hardcoded to
-// maintain repeatable tests. Most notably the compiled binary, ABI, and
-// storage position of the "value" variable. As well, the tests below expect
-// certain functions to be available in the contract. If you recompile the
-// solidity code, included here for the reader, make sure to update the
-// resulting contract data with the correct values.
+// maintain repeatable tests. If you significantly change the solidity code,
+// make sure to update the resulting contract data with the correct values.
 var contract = {
   solidity: source,
   abi: result.contracts.Example.interface,
@@ -382,19 +379,26 @@ var tests = function(web3) {
       call_data.from = accounts[0];
       call_data.to = contractAddress;
 
-      web3.eth.sendTransaction(tx_data, function(err, result) {
+      web3.eth.sendTransaction(tx_data, function(err, tx) {
         if (err) return done(err);
         // Now double check the data was set properly.
         // NOTE: Because ethereumjs-testrpc processes transactions immediately,
         // we can do this. Calling the call immediately after the transaction would
         // fail on a different Ethereum client.
 
-        //console.log(call_data);
-        web3.eth.call(call_data, function(err, result) {
+        web3.eth.getTransactionReceipt(tx, function(err, receipt) {
           if (err) return done(err);
 
-          assert.equal(web3.toDecimal(result), 25);
-          done();
+          assert.equal(receipt.logs.length, 1, "Receipt had wrong amount of logs");
+          assert.equal(receipt.logs[0].blockHash, receipt.blockHash, "Logs blockhash doesn't match block blockhash");
+
+          //console.log(call_data);
+          web3.eth.call(call_data, function(err, result) {
+            if (err) return done(err);
+
+            assert.equal(web3.toDecimal(result), 25);
+            done();
+          });
         });
       });
     });
