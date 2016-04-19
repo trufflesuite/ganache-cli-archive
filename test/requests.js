@@ -3,6 +3,16 @@ var Transaction = require('ethereumjs-tx');
 var utils = require('ethereumjs-util');
 var assert = require('assert');
 var TestRPC = require("../index.js");
+var solc = require("solc");
+var fs = require("fs");
+
+var source = fs.readFileSync("./test/Example.sol", {encoding: "utf8"});
+var result = solc.compile(source, 1);
+
+// Thanks solc. At least this works!
+// This removes solc's overzealous uncaughtException event handler.
+process.removeAllListeners("uncaughtException");
+
 
 // Note: Certain properties of the following contract data are hardcoded to
 // maintain repeatable tests. Most notably the compiled binary, ABI, and
@@ -11,9 +21,9 @@ var TestRPC = require("../index.js");
 // solidity code, included here for the reader, make sure to update the
 // resulting contract data with the correct values.
 var contract = {
-  solidity: "contract Example { uint public value; function Example() {value = 5;} function setValue(uint val) {value = val;} }",
-  abi: [{ "constant": true, "inputs": [], "name": "value", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "val", "type": "uint256" }], "name": "setValue", "outputs": [], "type": "function" }, { "inputs": [], "type": "constructor" }],
-  binary: "0x6060604052600560005560408060156000396000f3606060405260e060020a60003504633fa4f245811460245780635524107714602c575b005b603660005481565b6004356000556022565b6060908152602090f3",
+  solidity: source,
+  abi: result.contracts.Example.interface,
+  binary: "0x" + result.contracts.Example.bytecode,
   position_of_value: "0x0000000000000000000000000000000000000000000000000000000000000000",
   expected_default_value: 5,
   call_data: {
@@ -323,7 +333,7 @@ var tests = function(web3) {
 
         web3.eth.estimateGas(tx_data, function(err, result) {
           if (err) return done(err);
-          assert.equal(result, 26585);
+          assert.equal(result, 27626);
 
           web3.eth.getBlockNumber(function(err, result) {
             if (err) return done(err);
@@ -344,7 +354,7 @@ var tests = function(web3) {
 
       web3.eth.estimateGas(tx_data, function(err, result) {
         if (err) return done(err);
-        assert.equal(result, 26585);
+        assert.equal(result, 27626);
         done();
       });
     });
@@ -358,7 +368,7 @@ var tests = function(web3) {
 
       web3.eth.estimateGas(tx_data, function(err, result) {
         if (err) return done(err);
-        assert.equal(result, 26585);
+        assert.equal(result, 27626);
         done();
       });
     });

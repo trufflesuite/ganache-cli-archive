@@ -30,7 +30,8 @@
     "yargs": "^3.29.0"
   },
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "solc": "^0.3.0-1"
   },
   "repository": {
     "type": "git",
