@@ -508,6 +508,17 @@ var tests = function(web3) {
       });
     });
   });
+
+  describe("net_version", function(done) {
+    it("should return a version very close to the current time", function(done) {
+      web3.version.getNetwork(function(err, result) {
+        if (err) return done(err);
+
+        assert.equal(result.length, (new Date().getTime() + "").length, "net_version result doesn't appear to be similar in length the current time as an integer")
+        done();
+      });
+    });
+  });
 };
 
 var logger = {
