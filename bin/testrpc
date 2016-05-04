@@ -35,6 +35,7 @@ var options = {
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
   total_accounts: argv.a || argv.accounts,
+  blocktime: argv.b || argv.blocktime,
   accounts: parseAccounts(argv.account),
   logger: console
 }
@@ -72,7 +73,7 @@ server.listen(options.port, function(err, blockchain) {
     console.log("HD Wallet");
     console.log("==================");
     console.log("Mnemonic:      " + blockchain.mnemonic);
-    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
+    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "/{account_index}")
   }
 
   console.log("");
