@@ -26,7 +26,7 @@
     "seedrandom": "^2.4.2",
     "shelljs": "^0.6.0",
     "web3": "^0.15.1",
-    "web3-provider-engine": "^7.3.0",
+    "web3-provider-engine": "^7.7.3",
     "yargs": "^3.29.0"
   },
   "devDependencies": {
