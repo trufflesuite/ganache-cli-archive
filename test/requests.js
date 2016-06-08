@@ -519,6 +519,76 @@ var tests = function(web3) {
       });
     });
   });
+
+  describe("evm_mineBlocks", function() {
+    it("should set current block number to specified value", function(done) {
+      web3.eth.getBlockNumber(function(err, currentBlockNumber) {
+        if (err) return done(err);
+
+        assert.deepEqual(currentBlockNumber, 4);
+
+        var blocksToMine = 100;
+
+        web3.currentProvider.sendAsync({
+          jsonrpc: "2.0",
+          method: "evm_mineBlocks",
+          id: 0,
+          params: [blocksToMine]
+        }, function(err, result) {
+          if (err) return done(err);
+
+          assert.deepEqual(result.result, true);
+
+          web3.eth.getBlockNumber(function(err, result) {
+            if (err) return done(err);
+
+            assert.deepEqual(result, blocksToMine + currentBlockNumber);
+
+            done();
+          });
+
+        });
+
+      });
+
+      // Note: We'll assert the block number changes on transactions.
+    });
+  });
+
+  describe("evm_setTimestamp", function() {
+    it("should set current block timestamp to specified value", function(done) {
+      web3.eth.getBlock("latest", function(err, block) {
+        if (err) return done(err);
+
+        var currentTimestamp = block.timestamp;
+
+        var newTimestamp = currentTimestamp + 2000;
+
+        web3.currentProvider.sendAsync({
+          jsonrpc: "2.0",
+          method: "evm_setTimestamp",
+          id: 0,
+          params: [newTimestamp]
+        }, function(err, result) {
+          if (err) return done(err);
+
+          assert.deepEqual(result.result, true);
+
+          web3.eth.getBlock("latest", function(err, block) {
+            if (err) return done(err);
+
+            assert.deepEqual(block.timestamp, newTimestamp);
+
+            done();
+          });
+
+        });
+
+      });
+
+      // Note: We'll assert the block number changes on transactions.
+    });
+  });
 };
 
 var logger = {
