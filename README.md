@@ -47,14 +47,14 @@ An HD wallet will not be created for you when using `--account`.
 
 As a Web3 provider:
 
-```
+```javascript
 var TestRPC = require("ethereumjs-testrpc");
 web3.setProvider(TestRPC.provider());
 ```
 
 As a general http server:
 
-```
+```javascript
 var TestRPC = require("ethereumjs-testrpc");
 var server = TestRPC.server();
 server.listen(port, function(err, blockchain) {...});
