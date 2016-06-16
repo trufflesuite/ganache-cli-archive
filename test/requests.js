@@ -519,6 +519,50 @@ var tests = function(web3) {
       });
     });
   });
+
+  describe("evm_setTimestamp", function() {
+    it("should set current block timestamp to specified value", function(done) {
+      web3.eth.getBlock("latest", function(err, block) {
+        if (err) return done(err);
+
+        var currentTimestamp = block.timestamp;
+
+        var newTimestamp = currentTimestamp + 2000;
+
+        web3.currentProvider.sendAsync({
+          jsonrpc: "2.0",
+          method: "evm_setTimestamp",
+          id: 0,
+          params: [newTimestamp]
+        }, function(err, result) {
+          if (err) return done(err);
+
+          assert.deepEqual(result.result, true);
+
+          //make dummy transaction
+          web3.eth.sendTransaction({
+            from: accounts[0],
+            to: accounts[0],
+            value: 1
+          }, function(err, result){
+            if(err) return done(err)
+
+            web3.eth.getBlock("latest", function(err, block) {
+              if (err) return done(err);
+
+              assert.deepEqual(block.timestamp, newTimestamp);
+
+              done();
+            });
+
+          })
+
+        });
+
+      });
+    });
+  });
+
 };
 
 var logger = {
