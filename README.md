@@ -62,7 +62,7 @@ server.listen(port, function(err, blockchain) {...});
 
 Both `.provider()` and `.server()` take a single object which allows you to specify behavior of the TestRPC. This parameter is optional. Available options are:
 
-* `"accounts"`: `Array` - Two-dimensional array containing private keys and balances of initial accounts.
+* `"accounts"`: `Object` - only required attribute is `balance`. Can also supply `secretKey`.
 * `"debug"`: `boolean` - Output VM opcodes for debugging
 * `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
 * `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
