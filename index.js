@@ -1,30 +1,17 @@
 var Server = require('./lib/server.js');
 
-function massageParams(logger, options) {
-  if (logger == null) {
-    logger = console;
-  }
-
-  if (options == null) {
-    options = {};
-  }
-
-  return [logger, options];
-};
-
 var TestRPC = {
-  startServer: function(logger, options, callback) {
-    var params = massageParams(logger, options);
+  startServer: function(options, callback) {
     params.push(callback);
-    Server.startServer.apply(Server, params);
+    Server.startServer.call(Server, options);
   },
 
-  server: function(logger, options) {
-    return Server.server.apply(Server, massageParams(logger, options));
+  server: function(options) {
+    return Server.server.call(Server, options);
   },
 
-  provider: function(logger, options) {
-    return Server.provider.apply(Server, massageParams(logger, options));
+  provider: function(options) {
+    return Server.provider.call(Server, options);
   }
 }
 

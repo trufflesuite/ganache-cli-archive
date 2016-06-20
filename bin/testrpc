@@ -36,6 +36,7 @@ var options = {
   mnemonic: argv.m || argv.mnemonic,
   total_accounts: argv.a || argv.accounts,
   blocktime: argv.b || argv.blocktime,
+  gasPrice: argv.g || argv.gasPrice,
   accounts: parseAccounts(argv.account),
   logger: console
 }
