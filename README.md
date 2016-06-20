@@ -32,6 +32,7 @@ Options:
 * `-p` or `--port`: Port number to listen on.
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 1)
+* `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
 * `--debug`: Output VM opcodes for debugging
 
 You can also specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
