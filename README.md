@@ -70,6 +70,10 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
 
+##### Provider
+
+* `"provider.manager.increaseTime(seconds)"`: Increase the chain time by a certain amount of seconds. Also mines a block.
+
 # IMPLEMENTED METHODS
 
 The RPC methods currently implemented are:

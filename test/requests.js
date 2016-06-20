@@ -556,3 +556,32 @@ describe("Server:", function(done) {
 
   tests(web3);
 });
+
+describe('increaseTime:', function(){
+  var provider = TestRPC.provider()
+  var web3 = new Web3
+  var secondsToJump = 5 * 60 * 60
+
+  web3.setProvider(provider)
+
+  var timestampBeforeJump
+
+  it('should get current time', function(done) {
+    web3.eth.getBlock('latest', function(err, block){
+      if(err) return done(err)
+      timestampBeforeJump = block.timestamp
+      done()
+    })
+  })
+
+  it('should jump 5 hours', function(done) {
+    provider.manager.increaseTime(secondsToJump)
+    web3.eth.getBlock('latest', function(err, block){
+      if(err) return done(err)
+      var secondsJumped = block.timestamp - timestampBeforeJump
+      assert.ok(secondsJumped >= secondsToJump && secondsJumped < (secondsToJump + 5))
+      done()
+    })
+  })
+
+})
