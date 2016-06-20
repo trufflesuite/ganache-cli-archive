@@ -37,6 +37,7 @@ var options = {
   total_accounts: argv.a || argv.accounts,
   blocktime: argv.b || argv.blocktime,
   gasPrice: argv.g || argv.gasPrice,
+  gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
   logger: console
 }
@@ -82,6 +83,13 @@ server.listen(options.port, function(err, blockchain) {
     console.log("Gas Price");
     console.log("======================");
     console.log(options.gasPrice);
+  }
+
+  if (options.gasLimit) {
+    console.log("");
+    console.log("Gas Limit");
+    console.log("======================");
+    console.log(options.gasLimit);
   }
 
   console.log("");
