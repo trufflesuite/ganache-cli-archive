@@ -77,6 +77,13 @@ server.listen(options.port, function(err, blockchain) {
     console.log("Base HD Path:  " + blockchain.wallet_hdpath + "/{account_index}")
   }
 
+  if (options.gasPrice) {
+    console.log("");
+    console.log("Gas Price");
+    console.log("======================");
+    console.log(options.gasPrice);
+  }
+
   console.log("");
   console.log("Listening on localhost:" + options.port);
 });

@@ -31,6 +31,7 @@ Options:
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
 * `-p` or `--port`: Port number to listen on.
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
+* `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 1)
 * `--debug`: Output VM opcodes for debugging
 
 You can also specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
