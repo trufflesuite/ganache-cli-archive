@@ -152,6 +152,7 @@ The RPC methods currently implemented are:
 * `bzz_retrieve`
 * `bzz_put`
 * `bzz_get`
+* `bzz_modify`
 
 There’s also special non-standard methods that aren’t included within the original RPC specification:
 
