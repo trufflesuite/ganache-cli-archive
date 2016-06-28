@@ -119,7 +119,7 @@ var tests = function(web3) {
       web3.eth.getBalance(accounts[0], function(err, result) {
         if (err) return done(err);
 
-        assert.deepEqual("0x" + result.toString(16), "0xffffffffffffff00000000000000001");
+        assert.deepEqual("0x00000000000000" + result.toString(16), "0x0000000000000056bc75e2d63100000");
         done();
       });
     });
