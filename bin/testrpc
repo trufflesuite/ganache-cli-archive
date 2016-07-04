@@ -39,6 +39,7 @@ var options = {
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
+  fallback: argv.f || argv.fallback || false,
   logger: console
 }
 
@@ -90,6 +91,13 @@ server.listen(options.port, function(err, blockchain) {
     console.log("Gas Limit");
     console.log("======================");
     console.log(options.gasLimit);
+  }
+
+  if (options.fallback) {
+    console.log("");
+    console.log("Fallback Contracts");
+    console.log("======================");
+    console.log("Using " + options.fallback + " as contract fallback location.");
   }
 
   console.log("");
