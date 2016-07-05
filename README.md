@@ -1,10 +1,10 @@
 # Welcome to `testrpc`
 
-`testrpc` is a Node.js based Ethereum client for testing and development. It uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze. 
+`testrpc` is a Node.js based Ethereum client for testing and development. It uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
 
 # INSTALL
 
-`testrpc` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js installed, and your environment is capable of installing and compiling `npm` modules. 
+`testrpc` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js installed, and your environment is capable of installing and compiling `npm` modules.
 
 ```Bash
 npm install -g ethereumjs-testrpc
@@ -65,7 +65,7 @@ server.listen(port, function(err, blockchain) {...});
 
 Both `.provider()` and `.server()` take a single object which allows you to specify behavior of the TestRPC. This parameter is optional. Available options are:
 
-* `"accounts"`: `Array` - Two-dimensional array containing private keys and balances of initial accounts.
+* `"accounts"`: `Array` of `Object`'s. Each object should have a balance key with a hexadecimal value. The key `secretKey` can also be specified, which represents the account's private key. If no `secretKey`, the address is auto-generated with the given balance. If specified, the key is used to determine the account's address.
 * `"debug"`: `boolean` - Output VM opcodes for debugging
 * `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
 * `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
