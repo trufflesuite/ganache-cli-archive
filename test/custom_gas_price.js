@@ -3,10 +3,14 @@ var utils = require('ethereumjs-util');
 var assert = require('assert');
 var TestRPC = require("../index.js");
 
-describe("custom eth_gasPrice", function() {
-  it("should return gas price of 0xf", function(done) {
+var logger = {
+  log: function() {}
+};
+
+describe("Custom Gas Price", function() {
+  it("should return gas price of 0xf when specified as a decimal", function(done) {
     var web3 = new Web3();
-    var server = TestRPC.server({gasPrice: 15});
+    var server = TestRPC.server({gasPrice: 15, logger: logger});
     var port = 12345;
     server.listen(port, function() {
       var oldprovider = web3.currentProvider;
@@ -20,12 +24,10 @@ describe("custom eth_gasPrice", function() {
       });
     });
   });
-});
 
-describe("custom eth_gasPrice in hex", function() {
-  it("should return gas price of 0xf", function(done) {
+  it("should return gas price of 0xf when specified as hex", function(done) {
     var web3 = new Web3();
-    var server = TestRPC.server({gasPrice: 0xf});
+    var server = TestRPC.server({gasPrice: 0xf, logger: logger});
     var port = 12346;
     server.listen(port, function() {
       var oldprovider = web3.currentProvider;
