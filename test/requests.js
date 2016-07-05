@@ -171,6 +171,27 @@ var tests = function(web3) {
         done();
       });
     });
+
+    it("should return transactions in the block as well", function(done) {
+      web3.eth.sendTransaction({
+        from: accounts[0],
+        data: contract.binary
+      }, function(err, tx_hash) {
+        if (err) return done(err);
+
+        // Assume it was processed correctly.
+        assert.deepEqual(tx_hash.length, 66);
+
+        web3.eth.getBlock("latest", function(err, block) {
+          if (err) return done(err);
+
+          assert.equal(block.transactions.length, 1, "Latest block should have one transaction");
+          assert.equal(block.transactions[0].hash, tx_hash, "Transaction hashes don't match");
+
+          done();
+        });
+      });
+    });
   });
 
   // Relies on the validity of eth_getBlockByNumber above.
