@@ -24,14 +24,12 @@ var contract = {
   position_of_value: "0x0000000000000000000000000000000000000000000000000000000000000000",
   expected_default_value: 5,
   call_data: {
-    gas: '0x2fefd8',
     gasPrice: '0x01', // This is important, as passing it has exposed errors in the past.
     to: null, // set by test
     data: '0x3fa4f245'
   },
   transaction_data: {
     from: null, // set by test
-    gas: '0x2fefd8',
     to: null, // set by test
     data: '0x552410770000000000000000000000000000000000000000000000000000000000000019' // sets value to 25 (base 10)
   }
