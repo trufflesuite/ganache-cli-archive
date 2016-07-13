@@ -6,7 +6,7 @@ var fs = require("fs");
 var solc = require("solc");
 
 var logger = {
-  log: function() {}
+  log: function(msg) { /*noop*/ }
 };
 
 var source = fs.readFileSync("./test/Example.sol", {encoding: "utf8"});
@@ -50,7 +50,6 @@ describe("Contract Fallback", function() {
     server.listen(21345, function() {
       web3.setProvider(new Web3.providers.HttpProvider(fallbackTargetUrl));
 
-
       // Deploy the test contract into the fallback testrpc
       web3.eth.getAccounts(function(err, accounts) {
         if (err) return done(err);
@@ -74,12 +73,12 @@ describe("Contract Fallback", function() {
   it("should fetch a contract from the fallback when called and not present in the testrpc", function(done) {
     var web3 = new Web3();
     var server = TestRPC.server({fallback: fallbackTargetUrl, logger: logger});
-    var port = 12345;
+    var port = 21346;
+
     server.listen(port, function() {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
       web3.eth.getCode(contractAddress, function(err, result) {
         if (err) return done(err);
-        console.log(result);
         assert.notEqual(result, null);
         assert.notEqual(result, "0x");
         done();
