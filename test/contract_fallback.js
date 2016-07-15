@@ -4,6 +4,7 @@ var assert = require('assert');
 var TestRPC = require("../index.js");
 var fs = require("fs");
 var solc = require("solc");
+var BlockchainDouble = require('../lib/blockchain_double.js');
 
 var logger = {
   log: function(msg) { /*noop*/ }
@@ -39,15 +40,16 @@ var fallbackTargetUrl = "http://localhost:21345";
 
 describe("Contract Fallback", function() {
   var contractAddress;
+  var fallbackServer;
 
   before("Initialize Fallback TestRPC server", function(done) {
     var web3 = new Web3();
 
-    var server = TestRPC.server({
+    fallbackServer = TestRPC.server({
       logger: logger
     });
 
-    server.listen(21345, function() {
+    fallbackServer.listen(21345, function() {
       web3.setProvider(new Web3.providers.HttpProvider(fallbackTargetUrl));
 
       // Deploy the test contract into the fallback testrpc
@@ -70,10 +72,15 @@ describe("Contract Fallback", function() {
     });
   });
 
+  after("Close down the fallback TestRPC server", function(done){
+    fallbackServer.close();
+    done();
+  });
+
   it("should fetch a contract from the fallback when called and not present in the testrpc", function(done) {
-    var web3 = new Web3();
+    var web3   = new Web3();
     var server = TestRPC.server({fallback: fallbackTargetUrl, logger: logger});
-    var port = 21346;
+    var port   = 21346;
 
     server.listen(port, function() {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
@@ -81,8 +88,30 @@ describe("Contract Fallback", function() {
         if (err) return done(err);
         assert.notEqual(result, null);
         assert.notEqual(result, "0x");
-        done();
+
+        server.close(done);
       });
     });
+  });
+
+  it("should have a copy of the contract locally after being fetched", function(done){
+    var web3       = new Web3();
+    var blockchain = new BlockchainDouble();
+    var server     = TestRPC.server({fallback: fallbackTargetUrl, logger: logger, blockchain: blockchain});
+    var port       = 21346;
+
+    server.listen(port, function() {
+      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+      web3.eth.getCode(contractAddress, function(err, result) {
+        if (err) return done(err);
+
+        blockchain.hasContractCode( contractAddress, function( err, result ) {
+          if(err) done(err);
+          assert.equal( result, true );
+          server.close(done);
+        });
+      });
+    });
+
   });
 });
