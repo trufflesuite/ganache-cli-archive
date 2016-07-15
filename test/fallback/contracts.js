@@ -1,10 +1,10 @@
 var Web3 = require('web3');
 var utils = require('ethereumjs-util');
 var assert = require('assert');
-var TestRPC = require("../index.js");
+var TestRPC = require("../../index.js");
 var fs = require("fs");
 var solc = require("solc");
-var BlockchainDouble = require('../lib/blockchain_double.js');
+var BlockchainDouble = require('../../lib/blockchain_double.js');
 
 var logger = {
   log: function(msg) { /*noop*/ }
