@@ -41,6 +41,7 @@ var fallbackTargetUrl = "http://localhost:21345";
 describe("Contract Fallback", function() {
   var contractAddress;
   var fallbackServer;
+  var coinbaseAccount;
 
   before("Initialize Fallback TestRPC server", function(done) {
     var web3 = new Web3();
@@ -56,8 +57,10 @@ describe("Contract Fallback", function() {
       web3.eth.getAccounts(function(err, accounts) {
         if (err) return done(err);
 
+        coinbaseAccount = accounts[0];
+
         web3.eth.sendTransaction({
-          from: accounts[0],
+          from: coinbaseAccount,
           data: contract.binary
         }, function(err, tx) {
           if (err) { return done(err); }
@@ -110,6 +113,29 @@ describe("Contract Fallback", function() {
           assert.equal( result, true );
           server.close(done);
         });
+      });
+    });
+
+  });
+
+  it("should be possible to call the copied contract in the local testrpc", function(done){
+    var web3       = new Web3();
+    var blockchain = new BlockchainDouble();
+    var server     = TestRPC.server({fallback: fallbackTargetUrl, logger: logger, blockchain: blockchain});
+    var port       = 21346;
+
+    server.listen(port, function() {
+      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+
+      var call_data  = contract.call_data;
+      call_data.to   = contractAddress;
+      call_data.from = coinbaseAccount;
+
+      web3.eth.call(call_data, function(err, result) {
+        console.log(err, result);
+        // if (err) return done(err);
+        assert.equal(web3.toDecimal(result), 5);
+        server.close(done);
       });
     });
 
