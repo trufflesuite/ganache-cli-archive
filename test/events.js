@@ -3,13 +3,13 @@ var TestRPC = require("../index.js");
 var assert = require('assert');
 var solc = require("solc");
 
-var source = "                     \
-contract EventTest {               \
+var source = "                      \
+contract EventTest {                \
   event NumberEvent(uint number);   \
-                                   \
-  function triggerEvent(uint val) {        \
-    NumberEvent(val);        \
-  }                                \
+                                    \
+  function triggerEvent(uint val) { \
+    NumberEvent(val);               \
+  }                                 \
 }"
 
 // Thanks solc. At least this works!
@@ -108,6 +108,38 @@ var tests = function(web3, EventTest) {
         }, 500);
       });
     });
+
+    // NOTE! This test relies on the events triggered in the tests above.
+    it("grabs events in the past, using `event.get()`", function(done) {
+      var expected_value = 5;
+      var event = instance.NumberEvent([{number: expected_value}], {fromBlock: 0});
+
+      event.get(function(err, logs) {
+        assert(logs.length == 2);
+        done();
+      });
+    });
+
+    // TODO: The following test was supposed to pass, according to web3, in that
+    // the web3 spec gives the appearance that it filters out logs whose topics contain a specific value:
+    //
+    // https://github.com/ethereum/wiki/wiki/JavaScript-API#contract-events
+    //
+    // But so far as I can tell, it doesn't do that. It also doesn't pass the data value to
+    // the client in eth_newFilter, so if it's the client's responsibility, I couldn't do anything
+    // about it anyway. Leaving this test here as an artifact of what *should* work, but doesn't.
+    //
+    // // NOTE! This test relies on the events triggered in the tests above.
+    // it("ensures topics are respected in past events, using `event.get()`", function(done) {
+    //   var unexpected_value = 1337;
+    //   var event = instance.NumberEvent([{number: unexpected_value}], {fromBlock: 0});
+    //
+    //   // There should be no logs because we provided a different number.
+    //   event.get(function(err, logs) {
+    //     assert(logs.length == 0);
+    //     done();
+    //   });
+    // });
   })
 };
 
