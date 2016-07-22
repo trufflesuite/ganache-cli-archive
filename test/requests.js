@@ -80,11 +80,11 @@ var tests = function(web3) {
   });
 
   describe("eth_mining", function() {
-    it("should return false", function(done) {
+    it("should return true", function(done) {
       web3.eth.getMining(function(err, result) {
         if (err) return done(err);
 
-        assert.deepEqual(result, false);
+        assert.deepEqual(result, true);
         done();
       });
     });
