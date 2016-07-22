@@ -527,6 +527,16 @@ var tests = function(web3) {
     });
   });
 
+  describe("eth_compileSolidity", function() {
+    it("correctly compiles solidity code", function(done) {
+      web3.eth.compile.solidity(source, function(err, result) {
+        if (err) return done(err);
+        assert.equal(result.code, contract.binary.replace("0x", ""));
+        done();
+      });
+    });
+  });
+
   describe("net_version", function(done) {
     it("should return a version very close to the current time", function(done) {
       web3.version.getNetwork(function(err, result) {
