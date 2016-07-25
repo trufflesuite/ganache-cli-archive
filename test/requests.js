@@ -35,7 +35,6 @@ var contract = {
   }
 };
 
-
 var tests = function(web3) {
   var accounts;
 
@@ -332,6 +331,23 @@ var tests = function(web3) {
         done();
       });
     });
+
+    it("oracle.blockhash0 should be correct", function(done){
+      var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
+      var oracleOutput = solc.compile(oracleSol).contracts.Oracle
+      web3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: accounts[0] }, function(err, oracle){
+        if(err) return done(err)
+        if(!oracle.address) return
+        web3.eth.getBlock(0, function(err, block){
+          if (err) return done(err)
+          oracle.blockhash0(function(err, blockhash){
+            if (err) return done(err)
+            assert.equal(blockhash, block.hash);
+            done()
+          })
+        })
+      })
+    })
 
     it("should be able to estimate gas of a transaction (eth_estimateGas)", function(done){
       var tx_data = contract.transaction_data;
