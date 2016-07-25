@@ -24,14 +24,12 @@ var contract = {
   position_of_value: "0x0000000000000000000000000000000000000000000000000000000000000000",
   expected_default_value: 5,
   call_data: {
-    gas: '0x2fefd8',
     gasPrice: '0x01', // This is important, as passing it has exposed errors in the past.
     to: null, // set by test
     data: '0x3fa4f245'
   },
   transaction_data: {
     from: null, // set by test
-    gas: '0x2fefd8',
     to: null, // set by test
     data: '0x552410770000000000000000000000000000000000000000000000000000000000000019' // sets value to 25 (base 10)
   }
@@ -82,11 +80,11 @@ var tests = function(web3) {
   });
 
   describe("eth_mining", function() {
-    it("should return false", function(done) {
+    it("should return true", function(done) {
       web3.eth.getMining(function(err, result) {
         if (err) return done(err);
 
-        assert.deepEqual(result, false);
+        assert.deepEqual(result, true);
         done();
       });
     });
@@ -213,20 +211,19 @@ var tests = function(web3) {
   describe("eth_sign", function() {
   	it("should produce a signature whose signer can be recovered", function(done) {
   	  var msg = web3.sha3("asparagus");
-  	  sgn = web3.eth.sign(accounts[0], msg, function(err, sgn) {
+  	  web3.eth.sign(accounts[0], msg, function(err, sgn) {
+        if (err) return done(err);
 
-      if (err) return done(err);
-
-  	  sgn = utils.stripHexPrefix(sgn);
-  		var r = new Buffer(sgn.slice(0, 64), 'hex');
-  		var s = new Buffer(sgn.slice(64, 128), 'hex');
-  		var v = new Buffer(sgn.slice(128, 130), 'hex');
-  		var pub = utils.ecrecover(new Buffer(msg, 'hex'), v, r, s);
-  		var addr = utils.setLength(utils.fromSigned(utils.pubToAddress(pub)), 20);
-  		addr = utils.addHexPrefix(addr.toString('hex'));
-  		assert.deepEqual(addr, accounts[0]);
-  		done();
-  	    });
+    	  sgn = utils.stripHexPrefix(sgn);
+    		var r = new Buffer(sgn.slice(0, 64), 'hex');
+    		var s = new Buffer(sgn.slice(64, 128), 'hex');
+    		var v = new Buffer((parseInt(sgn.slice(128, 130), 16) + 27).toString(16), 'hex');
+    		var pub = utils.ecrecover(utils.toBuffer(msg), v, r, s);
+    		var addr = utils.setLength(utils.fromSigned(utils.pubToAddress(pub)), 20);
+    		addr = utils.addHexPrefix(addr.toString('hex'));
+    		assert.deepEqual(addr, accounts[0]);
+    		done();
+	    });
   	});
   });
 
@@ -525,6 +522,16 @@ var tests = function(web3) {
         if (err) return done(err);
 
         assert.equal(result, "0x0");
+        done();
+      });
+    });
+  });
+
+  describe("eth_compileSolidity", function() {
+    it("correctly compiles solidity code", function(done) {
+      web3.eth.compile.solidity(source, function(err, result) {
+        if (err) return done(err);
+        assert.equal(result.code, contract.binary.replace("0x", ""));
         done();
       });
     });
