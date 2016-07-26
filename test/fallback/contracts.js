@@ -6,6 +6,10 @@ var fs = require("fs");
 var solc = require("solc");
 var BlockchainDouble = require('../../lib/blockchain_double.js');
 
+// Thanks solc. At least this works!
+// This removes solc's overzealous uncaughtException event handler.
+process.removeAllListeners("uncaughtException");
+
 var logger = {
   log: function(msg) { /*noop*/ }
 };
@@ -42,29 +46,33 @@ describe("Contract Fallback", function() {
   var contractAddress;
   var fallbackServer;
   var coinbaseAccount;
+  var mainAccounts;
+  var fallbackAccounts;
+
+  var fallbackWeb3 = new Web3();
+  var mainWeb3 = new Web3();
 
   before("Initialize Fallback TestRPC server", function(done) {
-    var web3 = new Web3();
-
     fallbackServer = TestRPC.server({
+      seed: "let's make this deterministic",
       logger: logger
     });
 
     fallbackServer.listen(21345, function() {
-      web3.setProvider(new Web3.providers.HttpProvider(fallbackTargetUrl));
+      fallbackWeb3.setProvider(new Web3.providers.HttpProvider(fallbackTargetUrl));
 
       // Deploy the test contract into the fallback testrpc
-      web3.eth.getAccounts(function(err, accounts) {
+      fallbackWeb3.eth.getAccounts(function(err, accounts) {
         if (err) return done(err);
 
         coinbaseAccount = accounts[0];
 
-        web3.eth.sendTransaction({
+        fallbackWeb3.eth.sendTransaction({
           from: coinbaseAccount,
           data: contract.binary
         }, function(err, tx) {
           if (err) { return done(err); }
-          web3.eth.getTransactionReceipt(tx, function(err, receipt) {
+          fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
             if (err) return done(err);
 
             contractAddress = receipt.contractAddress;
@@ -75,69 +83,105 @@ describe("Contract Fallback", function() {
     });
   });
 
+  before("Set main web3 provider", function() {
+    mainWeb3.setProvider(TestRPC.provider({
+      fallback: fallbackTargetUrl,
+      logger: logger,
+      seed: "a different seed"
+    }));
+  });
+
+  before("Gather accounts", function(done) {
+    mainWeb3.eth.getAccounts(function(err, m) {
+      if (err) return done(err);
+
+      fallbackWeb3.eth.getAccounts(function(err, f) {
+        mainAccounts = m;
+        fallbackAccounts = f;
+
+        done();
+      });
+    });
+  });
+
   after("Close down the fallback TestRPC server", function(done){
     fallbackServer.close();
     done();
   });
 
-  it("should fetch a contract from the fallback when called and not present in the testrpc", function(done) {
-    var web3   = new Web3();
-    var server = TestRPC.server({fallback: fallbackTargetUrl, logger: logger});
-    var port   = 21346;
+  it("should fetch a contract from the fallback via the main provider", function(done) {
+    mainWeb3.eth.getCode(contractAddress, function(err, mainCode) {
+      if (err) return done(err);
 
-    server.listen(port, function() {
-      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
-      web3.eth.getCode(contractAddress, function(err, result) {
+      console.log(mainCode);
+
+      // Ensure there's *something* there.
+      assert.notEqual(result, null);
+      assert.notEqual(result, "0x");
+      assert.notEqual(result, "0x0");
+
+      // Now make sure it matches exactly.
+      fallbackWeb3.eth.getCode(contractAddress, function(err, fallbackCode) {
         if (err) return done(err);
-        assert.notEqual(result, null);
-        assert.notEqual(result, "0x");
 
-        server.close(done);
+        assert.equal(mainCode, fallbackCode);
+        done();
       });
     });
   });
 
-  it("should have a copy of the contract locally after being fetched", function(done){
-    var web3       = new Web3();
-    var blockchain = new BlockchainDouble();
-    var server     = TestRPC.server({fallback: fallbackTargetUrl, logger: logger, blockchain: blockchain});
-    var port       = 21346;
+  it("should be able to get the balance of an address in the fallback provider via the main provider", function(done) {
+    // Assert preconditions
+    var first_fallback_account = fallbackAccounts[0];
+    assert(mainAccounts.indexOf(first_fallback_account) < 0);
 
-    server.listen(port, function() {
-      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
-      web3.eth.getCode(contractAddress, function(err, result) {
-        if (err) return done(err);
-
-        blockchain.hasContractCode( contractAddress, function( err, result ) {
-          if(err) done(err);
-          assert.equal( result, true );
-          server.close(done);
-        });
-      });
+    // Now for the real test: Get the balance of a fallback account through the main provider.
+    mainWeb3.eth.getBalance(first_fallback_account, function(err, balance) {
+      // We don't assert the exact balance as transactions cost eth
+      assert(balance > 999999);
+      done();
     });
-
   });
 
-  it("should be possible to call the copied contract in the local testrpc", function(done){
-    var web3       = new Web3();
-    var blockchain = new BlockchainDouble();
-    var server     = TestRPC.server({fallback: fallbackTargetUrl, logger: logger, blockchain: blockchain});
-    var port       = 21346;
+  it("should be able to get storage values on the fallback provider via the main provider", function(done) {
+    mainWeb3.eth.getStorageAt(contractAddress, contract.position_of_value, function(err, result) {
+      if (err) return done(err);
+      assert.equal(mainWeb3.toDecimal(result), 5);
+      done();
+    });
+  });
 
-    server.listen(port, function() {
-      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+  it("should be able to execute calls against a contract on the fallback provider via the main provider", function(done) {
+    var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
+    var example = Example.at(contractAddress);
 
-      var call_data  = contract.call_data;
-      call_data.to   = contractAddress;
-      call_data.from = coinbaseAccount;
+    example.value({from: mainAccounts[0]}, function(err, result){
+      if (err) return done(err);
+      assert.equal(mainWeb3.toDecimal(result), 5);
 
-      web3.eth.call(call_data, function(err, result) {
-        console.log(err, result);
-        // if (err) return done(err);
-        assert.equal(web3.toDecimal(result), 5);
-        server.close(done);
+      // Make the call again to ensure caches updated and the call still works.
+      example.value({from: mainAccounts[0]}, function(err, result){
+        if (err) return done(err);
+        assert.equal(mainWeb3.toDecimal(result), 5);
+        done(err);
       });
     });
+  });
 
+  it.only("should be able to make a transaction on the main provider while not transacting on the fallback provider", function(done) {
+    var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
+    var example = Example.at(contractAddress);
+
+    example.setValue(25, {from: mainAccounts[0]}, function(err) {
+      if (err) return done(err);
+
+      console.log("getting value");
+      // It insta-mines, so we can make a call directly after.
+      example.value({from: mainAccounts[0]}, function(err, result){
+        if (err) return done(err);
+        assert.equal(mainWeb3.toDecimal(result), 5);
+        done(err);
+      });
+    })
   });
 });

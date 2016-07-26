@@ -544,6 +544,7 @@ var tests = function(web3) {
   });
 
   describe("eth_compileSolidity", function() {
+    this.timeout(5000);
     it("correctly compiles solidity code", function(done) {
       web3.eth.compile.solidity(source, function(err, result) {
         if (err) return done(err);
