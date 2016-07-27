@@ -113,8 +113,6 @@ describe("Contract Fallback", function() {
     mainWeb3.eth.getCode(contractAddress, function(err, mainCode) {
       if (err) return done(err);
 
-      console.log(mainCode);
-
       // Ensure there's *something* there.
       assert.notEqual(result, null);
       assert.notEqual(result, "0x");
@@ -175,7 +173,6 @@ describe("Contract Fallback", function() {
     example.setValue(25, {from: mainAccounts[0]}, function(err) {
       if (err) return done(err);
 
-      console.log("getting value");
       // It insta-mines, so we can make a call directly after.
       example.value({from: mainAccounts[0]}, function(err, result){
         if (err) return done(err);
