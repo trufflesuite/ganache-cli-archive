@@ -168,7 +168,7 @@ describe("Contract Fallback", function() {
     });
   });
 
-  it.only("should be able to make a transaction on the main provider while not transacting on the fallback provider", function(done) {
+  it("should be able to make a transaction on the main provider while not transacting on the fallback provider", function(done) {
     var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
     var example = Example.at(contractAddress);
 
@@ -179,7 +179,7 @@ describe("Contract Fallback", function() {
       // It insta-mines, so we can make a call directly after.
       example.value({from: mainAccounts[0]}, function(err, result){
         if (err) return done(err);
-        assert.equal(mainWeb3.toDecimal(result), 5);
+        assert.equal(mainWeb3.toDecimal(result), 25);
         done(err);
       });
     })
