@@ -108,7 +108,7 @@ describe("Contract Fallback", function() {
     done();
   });
 
-  it("should fetch a contract from the fallback via the main provider", function(done) {
+  it("should fetch a contract from the fallback provider via the main provider", function(done) {
     mainWeb3.eth.getCode(contractAddress, function(err, mainCode) {
       if (err) return done(err);
 
@@ -171,15 +171,26 @@ describe("Contract Fallback", function() {
     var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
     var example = Example.at(contractAddress);
 
+    var FallbackExample = fallbackWeb3.eth.contract(JSON.parse(contract.abi));
+    var fallbackExample = FallbackExample.at(contractAddress);
+
     example.setValue(25, {from: mainAccounts[0]}, function(err) {
       if (err) return done(err);
 
       // It insta-mines, so we can make a call directly after.
-      example.value({from: mainAccounts[0]}, function(err, result){
+      example.value({from: mainAccounts[0]}, function(err, result) {
         if (err) return done(err);
         assert.equal(mainWeb3.toDecimal(result), 25);
-        done(err);
+
+        // Now call back to the fallback to ensure it's value stayed 5
+        fallbackExample.value({from: fallbackAccounts[0]}, function(err, result) {
+          if (err) return done(err);
+          assert.equal(fallbackWeb3.toDecimal(result), 5);
+          done();
+        })
       });
-    })
+    });
   });
+
+
 });
