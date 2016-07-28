@@ -63,7 +63,7 @@ var tests = function(web3, EventTest) {
       };
 
       event.watch(function(err, result) {
-        if (err) return done(err);
+        if (err) return cleanup(err);
 
         if (result.args.number == expected_value) {
           return cleanup();
@@ -115,6 +115,8 @@ var tests = function(web3, EventTest) {
       var event = instance.NumberEvent([{number: expected_value}], {fromBlock: 0});
 
       event.get(function(err, logs) {
+        event.stopWatching();
+        if (err) return done(err);
         assert(logs.length == 2);
         done();
       });
