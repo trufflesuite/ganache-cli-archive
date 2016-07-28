@@ -1,10 +1,9 @@
 var Web3 = require('web3');
 var utils = require('ethereumjs-util');
 var assert = require('assert');
-var TestRPC = require("../../index.js");
+var TestRPC = require("../index.js");
 var fs = require("fs");
 var solc = require("solc");
-var BlockchainDouble = require('../../lib/blockchain_double.js');
 
 // Thanks solc. At least this works!
 // This removes solc's overzealous uncaughtException event handler.
@@ -135,6 +134,8 @@ describe("Contract Fallback", function() {
 
     // Now for the real test: Get the balance of a fallback account through the main provider.
     mainWeb3.eth.getBalance(first_fallback_account, function(err, balance) {
+      if (err) return done(err);
+
       // We don't assert the exact balance as transactions cost eth
       assert(balance > 999999);
       done();
