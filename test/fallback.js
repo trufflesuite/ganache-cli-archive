@@ -43,6 +43,7 @@ var fallbackTargetUrl = "http://localhost:21345";
 
 describe("Contract Fallback", function() {
   var contractAddress;
+  var secondContractAddress; // used sparingly
   var fallbackServer;
   var coinbaseAccount;
   var mainAccounts;
@@ -75,7 +76,21 @@ describe("Contract Fallback", function() {
             if (err) return done(err);
 
             contractAddress = receipt.contractAddress;
-            done();
+
+            // Deploy a second one, which we won't use often.
+            fallbackWeb3.eth.sendTransaction({
+              from: coinbaseAccount,
+              data: contract.binary
+            }, function(err, tx) {
+              if (err) { return done(err); }
+              fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
+                if (err) return done(err);
+
+                secondContractAddress = receipt.contractAddress;
+                done();
+              });
+            });
+
           });
         });
       });
@@ -192,5 +207,35 @@ describe("Contract Fallback", function() {
     });
   });
 
+  it("should ignore continued transactions on the fallback blockchain by pegging the forked block number", function(done) {
+    // In this test, we're going to use the second contract address that we haven't
+    // used previously. This ensures the data hasn't been cached on the main web3 trie
+    // yet, and it will require it fallback to the fallback provider at a specific block.
+    // If that block handling is done improperly, this should fail.
 
+    var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
+    var example = Example.at(secondContractAddress);
+
+    var FallbackExample = fallbackWeb3.eth.contract(JSON.parse(contract.abi));
+    var fallbackExample = FallbackExample.at(secondContractAddress);
+
+    // This transaction happens entirely on the fallback chain after forking.
+    // It should be ignored by the main chain.
+    fallbackExample.setValue(800, {from: fallbackAccounts[0]}, function(err, result) {
+      if (err) return done(err);
+      // Let's assert the value was set correctly.
+      fallbackExample.value({from: fallbackAccounts[0]}, function(err, result) {
+        if (err) return done(err);
+        assert.equal(fallbackWeb3.toDecimal(result), 800);
+
+        // Now lets check the value on the main chain. It shouldn't be 800.
+        example.value({from: mainAccounts[0]}, function(err, result) {
+          if (err) return done(err);
+
+          assert.equal(mainWeb3.toDecimal(result), 5);
+          done();
+        })
+      })
+    });
+  });
 });
