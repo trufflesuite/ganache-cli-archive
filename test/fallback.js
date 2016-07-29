@@ -238,4 +238,19 @@ describe("Contract Fallback", function() {
       })
     });
   });
+
+  it("should maintain a block number that includes new blocks PLUS the existing chain", function(done) {
+    // Note: The main provider should be at block 4 at this test. Reasoning:
+    // - The fallback chain has an initial block, which is block 0.
+    // - The fallback chain had two transactions initially, resulting blocks 1 and 2.
+    // - The main chain forked from there, creating its own initial block, block 3.
+    // - Then the main chain performed a transaction, putting it at block 4.
+
+    mainWeb3.eth.getBlockNumber(function(err, result) {
+      if (err) return done(err);
+
+      assert.equal(mainWeb3.toDecimal(result), 4);
+      done();
+    });
+  });
 });
