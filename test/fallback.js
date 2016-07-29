@@ -338,6 +338,7 @@ describe("Contract Fallback", function() {
     });
   });
 
+  // Note: This test also puts a new contract on the forked chain, which is a good test.
   it("should represent the block number correctly in the Oracle contract (oracle.blockhash0), providing fallback block hash and number", function(done){
     var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
     var oracleOutput = solc.compile(oracleSol).contracts.Oracle;
@@ -345,13 +346,22 @@ describe("Contract Fallback", function() {
     mainWeb3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: mainAccounts[0] }, function(err, oracle){
       if(err) return done(err)
       if(!oracle.address) return
-
       mainWeb3.eth.getBlock(0, function(err, block){
         if (err) return done(err)
-        oracle.blockhash0(function(err, blockhash){
+        oracle.blockhash0.call(function(err, blockhash){
           if (err) return done(err)
           assert.equal(blockhash, block.hash);
-          done()
+
+          // Now check the block number.
+          mainWeb3.eth.getBlockNumber(function(err, expected_number) {
+            if (err) return done(err);
+
+            oracle.currentBlock.call(function(err, number) {
+              if (err) return done(err);
+              assert.equal(number, expected_number);
+              done();
+            });
+          });
         })
       })
     })
