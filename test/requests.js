@@ -332,7 +332,7 @@ var tests = function(web3) {
       });
     });
 
-    it("oracle.blockhash0 should be correct", function(done){
+    it("should represent the block number correctly in the Oracle contract (oracle.blockhash0)", function(done){
       var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
       var oracleOutput = solc.compile(oracleSol).contracts.Oracle
       web3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: accounts[0] }, function(err, oracle){

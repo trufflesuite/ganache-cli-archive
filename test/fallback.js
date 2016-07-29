@@ -52,8 +52,11 @@ describe("Contract Fallback", function() {
   var fallbackWeb3 = new Web3();
   var mainWeb3 = new Web3();
 
+  var forkedBlockNumber;
+
   before("Initialize Fallback TestRPC server", function(done) {
     fallbackServer = TestRPC.server({
+      // Do not change seed. Determinism matters for these tests.
       seed: "let's make this deterministic",
       logger: logger
     });
@@ -97,24 +100,68 @@ describe("Contract Fallback", function() {
     });
   });
 
-  before("Set main web3 provider", function() {
+  before("Gather fallback accounts", function(done) {
+    fallbackWeb3.eth.getAccounts(function(err, f) {
+      if (err) return done(err);
+      fallbackAccounts = f;
+      done();
+    });
+  });
+
+  before("Make a transaction on the fallback chain that produces a log", function(done) {
+    this.timeout(10000)
+
+    var FallbackExample = fallbackWeb3.eth.contract(JSON.parse(contract.abi));
+    var fallbackExample = FallbackExample.at(contractAddress);
+
+    var interval;
+
+    var event = fallbackExample.ValueSet([{}]);
+
+    function cleanup(err) {
+      event.stopWatching();
+      clearInterval(interval);
+      done(err);
+    }
+
+    fallbackExample.setValue(7, {from: fallbackAccounts[0]}, function(err, tx) {
+      if (err) return done(err);
+
+      interval = setInterval(function() {
+        event.get(function(err, logs) {
+          if (err) return cleanup(err);
+
+          if (logs.length == 0) return;
+
+          assert(logs.length == 1);
+
+          cleanup();
+        });
+      }, 500);
+    });
+  });
+
+  before("Set main web3 provider, forking from fallback chain at this point", function(done) {
     mainWeb3.setProvider(TestRPC.provider({
       fallback: fallbackTargetUrl,
       logger: logger,
+
+      // Do not change seed. Determinism matters for these tests.
       seed: "a different seed"
     }));
+
+    fallbackWeb3.eth.getBlockNumber(function(err, number) {
+      if (err) return done(err);
+      forkBlockNumber = number;
+      done();
+    });
   });
 
-  before("Gather accounts", function(done) {
+  before("Gather main accounts", function(done) {
     mainWeb3.eth.getAccounts(function(err, m) {
       if (err) return done(err);
-
-      fallbackWeb3.eth.getAccounts(function(err, f) {
-        mainAccounts = m;
-        fallbackAccounts = f;
-
-        done();
-      });
+      mainAccounts = m;
+      done();
     });
   });
 
@@ -160,7 +207,7 @@ describe("Contract Fallback", function() {
   it("should be able to get storage values on the fallback provider via the main provider", function(done) {
     mainWeb3.eth.getStorageAt(contractAddress, contract.position_of_value, function(err, result) {
       if (err) return done(err);
-      assert.equal(mainWeb3.toDecimal(result), 5);
+      assert.equal(mainWeb3.toDecimal(result), 7);
       done();
     });
   });
@@ -171,12 +218,12 @@ describe("Contract Fallback", function() {
 
     example.value({from: mainAccounts[0]}, function(err, result){
       if (err) return done(err);
-      assert.equal(mainWeb3.toDecimal(result), 5);
+      assert.equal(mainWeb3.toDecimal(result), 7);
 
       // Make the call again to ensure caches updated and the call still works.
       example.value({from: mainAccounts[0]}, function(err, result){
         if (err) return done(err);
-        assert.equal(mainWeb3.toDecimal(result), 5);
+        assert.equal(mainWeb3.toDecimal(result), 7);
         done(err);
       });
     });
@@ -200,7 +247,7 @@ describe("Contract Fallback", function() {
         // Now call back to the fallback to ensure it's value stayed 5
         fallbackExample.value({from: fallbackAccounts[0]}, function(err, result) {
           if (err) return done(err);
-          assert.equal(fallbackWeb3.toDecimal(result), 5);
+          assert.equal(fallbackWeb3.toDecimal(result), 7);
           done();
         })
       });
@@ -240,16 +287,87 @@ describe("Contract Fallback", function() {
   });
 
   it("should maintain a block number that includes new blocks PLUS the existing chain", function(done) {
-    // Note: The main provider should be at block 4 at this test. Reasoning:
+    // Note: The main provider should be at block 5 at this test. Reasoning:
     // - The fallback chain has an initial block, which is block 0.
-    // - The fallback chain had two transactions initially, resulting blocks 1 and 2.
-    // - The main chain forked from there, creating its own initial block, block 3.
-    // - Then the main chain performed a transaction, putting it at block 4.
+    // - The fallback chain performed a transaction that produced a log, resulting in block 1.
+    // - The fallback chain had two transactions initially, resulting blocks 2 and 3.
+    // - The main chain forked from there, creating its own initial block, block 4.
+    // - Then the main chain performed a transaction, putting it at block 5.
 
     mainWeb3.eth.getBlockNumber(function(err, result) {
       if (err) return done(err);
 
-      assert.equal(mainWeb3.toDecimal(result), 4);
+      assert.equal(mainWeb3.toDecimal(result), 5);
+
+      // Now lets get a block that exists on the fallback chain.
+      mainWeb3.eth.getBlock(0, function(err, mainBlock) {
+        if (err) return done(err);
+
+        // And compare it to the fallback chain's block
+        fallbackWeb3.eth.getBlock(0, function(err, fallbackBlock) {
+          if (err) return done(err);
+
+          // Block hashes should be the same.
+          assert.equal(mainBlock.hash, fallbackBlock.hash);
+
+          // Now make sure we can get the block by hash as well.
+          mainWeb3.eth.getBlock(mainBlock.hash, function(err, mainBlockByHash) {
+            if (err) return done(err);
+
+            assert.equal(mainBlock.hash, mainBlockByHash.hash);
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  it("should have a genesis block whose parent is the last block from the fallback provider", function(done) {
+    fallbackWeb3.eth.getBlock(forkBlockNumber, function(err, forkedBlock) {
+      if (err) return done(err);
+
+      var parentHash = forkedBlock.hash;
+
+      var mainGenesisNumber = mainWeb3.toDecimal(forkBlockNumber) + 1;
+      mainWeb3.eth.getBlock(mainGenesisNumber, function(err, mainGenesis) {
+        if (err) return done(err);
+
+        assert.equal(mainGenesis.parentHash, parentHash);
+        done();
+      })
+    });
+  });
+
+  it("should represent the block number correctly in the Oracle contract (oracle.blockhash0), providing fallback block hash and number", function(done){
+    var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
+    var oracleOutput = solc.compile(oracleSol).contracts.Oracle;
+
+    mainWeb3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: mainAccounts[0] }, function(err, oracle){
+      if(err) return done(err)
+      if(!oracle.address) return
+
+      mainWeb3.eth.getBlock(0, function(err, block){
+        if (err) return done(err)
+        oracle.blockhash0(function(err, blockhash){
+          if (err) return done(err)
+          assert.equal(blockhash, block.hash);
+          done()
+        })
+      })
+    })
+  })
+
+  it("should be able to get logs across the fork boundary", function(done) {
+    this.timeout(10000)
+
+    var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
+    var example = Example.at(contractAddress);
+
+    var event = example.ValueSet({}, {fromBlock: 0, toBlock: "latest"});
+
+    event.get(function(err, logs) {
+      if (err) return callback(err);
+      assert.equal(logs.length, 2);
       done();
     });
   });
