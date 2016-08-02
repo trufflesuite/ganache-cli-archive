@@ -2,7 +2,6 @@ var Web3 = require('web3');
 var TestRPC = require("../index.js");
 var assert = require('assert');
 
-
 describe("Accounts", function() {
   it("should respect the BIP99 mnemonic", function(done) {
     var expected_address = "0x604a95C9165Bc95aE016a5299dd7d400dDDBEa9A";
