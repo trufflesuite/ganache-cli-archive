@@ -40,6 +40,7 @@ var options = {
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
   fallback: argv.f || argv.fallback || false,
+  network_id: argv.i || argv.networkId,
   logger: console
 }
 
