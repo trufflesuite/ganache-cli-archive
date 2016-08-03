@@ -4,6 +4,8 @@ var assert = require('assert');
 var TestRPC = require("../index.js");
 var fs = require("fs");
 var solc = require("solc");
+var to = require("../lib/utils/to.js");
+var async = require("async");
 
 // Thanks solc. At least this works!
 // This removes solc's overzealous uncaughtException event handler.
@@ -45,14 +47,15 @@ describe("Contract Fallback", function() {
   var contractAddress;
   var secondContractAddress; // used sparingly
   var fallbackServer;
-  var coinbaseAccount;
   var mainAccounts;
   var fallbackAccounts;
+
+  var initialFallbackAccountState = {};
 
   var fallbackWeb3 = new Web3();
   var mainWeb3 = new Web3();
 
-  var forkedBlockNumber;
+  var forkBlockNumber;
 
   before("Initialize Fallback TestRPC server", function(done) {
     fallbackServer = TestRPC.server({
@@ -61,42 +64,11 @@ describe("Contract Fallback", function() {
       logger: logger
     });
 
-    fallbackServer.listen(21345, function() {
+    fallbackServer.listen(21345, function(err) {
+      if (err) return done(err);
+
       fallbackWeb3.setProvider(new Web3.providers.HttpProvider(fallbackTargetUrl));
-
-      // Deploy the test contract into the fallback testrpc
-      fallbackWeb3.eth.getAccounts(function(err, accounts) {
-        if (err) return done(err);
-
-        coinbaseAccount = accounts[0];
-
-        fallbackWeb3.eth.sendTransaction({
-          from: coinbaseAccount,
-          data: contract.binary
-        }, function(err, tx) {
-          if (err) { return done(err); }
-          fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
-            if (err) return done(err);
-
-            contractAddress = receipt.contractAddress;
-
-            // Deploy a second one, which we won't use often.
-            fallbackWeb3.eth.sendTransaction({
-              from: coinbaseAccount,
-              data: contract.binary
-            }, function(err, tx) {
-              if (err) { return done(err); }
-              fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
-                if (err) return done(err);
-
-                secondContractAddress = receipt.contractAddress;
-                done();
-              });
-            });
-
-          });
-        });
-      });
+      done();
     });
   });
 
@@ -105,6 +77,34 @@ describe("Contract Fallback", function() {
       if (err) return done(err);
       fallbackAccounts = f;
       done();
+    });
+  });
+
+  before("Deploy initial contracts", function(done) {
+    fallbackWeb3.eth.sendTransaction({
+      from: fallbackAccounts[0],
+      data: contract.binary
+    }, function(err, tx) {
+      if (err) { return done(err); }
+      fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
+        if (err) return done(err);
+
+        contractAddress = receipt.contractAddress;
+
+        // Deploy a second one, which we won't use often.
+        fallbackWeb3.eth.sendTransaction({
+          from: fallbackAccounts[0],
+          data: contract.binary
+        }, function(err, tx) {
+          if (err) { return done(err); }
+          fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
+            if (err) return done(err);
+
+            secondContractAddress = receipt.contractAddress;
+            done();
+          });
+        });
+      });
     });
   });
 
@@ -138,6 +138,18 @@ describe("Contract Fallback", function() {
           cleanup();
         });
       }, 500);
+    });
+  });
+
+  before("Get initial balance and nonce", function(done) {
+    async.parallel({
+      balance: fallbackWeb3.eth.getBalance.bind(fallbackWeb3.eth, fallbackAccounts[0]),
+      nonce: fallbackWeb3.eth.getTransactionCount.bind(fallbackWeb3.eth, fallbackAccounts[0])
+    }, function(err, result) {
+      if (err) return done(err);
+      initialFallbackAccountState = result;
+      initialFallbackAccountState.nonce = to.number(initialFallbackAccountState.nonce);
+      done();
     });
   });
 
@@ -380,5 +392,99 @@ describe("Contract Fallback", function() {
       assert.equal(logs.length, 2);
       done();
     });
+  });
+
+  it("should return the correct nonce based on block number", function(done) {
+    // Note for the first two requests, we choose the block numbers 1 before and after the fork to
+    // ensure we're pulling data off the correct provider in both cases.
+    async.parallel({
+      nonceBeforeFork: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber - 1),
+      nonceAtFork: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber + 1),
+      nonceLatestMain: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, fallbackAccounts[0], "latest"),
+      nonceLatestFallback: fallbackWeb3.eth.getTransactionCount.bind(fallbackWeb3.eth, fallbackAccounts[0], "latest")
+    }, function(err, results) {
+      if (err) return done(err);
+
+      var nonceBeforeFork = results.nonceBeforeFork;
+      var nonceAtFork  = results.nonceAtFork;
+      var nonceLatestMain = results.nonceLatestMain;
+      var nonceLatestFallback = results.nonceLatestFallback;
+
+      // First ensure our nonces for the block before the fork
+      // Note that we're asking for the block *before* the forked block,
+      // which automatically means we sacrifice a transaction (i.e., one nonce value)
+      assert.equal(nonceBeforeFork, initialFallbackAccountState.nonce - 1);
+
+      // Now check at the fork. We should expect our initial state.
+      assert.equal(nonceAtFork, initialFallbackAccountState.nonce);
+
+      // Make sure the main web3 provider didn't alter the state of the fallback account.
+      // This means the nonce should stay the same.
+      assert.equal(nonceLatestMain, initialFallbackAccountState.nonce);
+
+      // And since we made one additional transaction with this account on the fallback
+      // provider AFTER the fork, it's nonce should be one ahead, and the main provider's
+      // nonce for that address shouldn't acknowledge it.
+      assert.equal(nonceLatestFallback, nonceLatestMain + 1);
+
+      done();
+    });
+  });
+
+  it("should return the correct balance based on block number", function(done) {
+    // Note for the first two requests, we choose the block numbers 1 before and after the fork to
+    // ensure we're pulling data off the correct provider in both cases.
+    async.parallel({
+      balanceBeforeFork: mainWeb3.eth.getBalance.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber - 1),
+      balanceAfterFork: mainWeb3.eth.getBalance.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber + 1),
+      balanceLatestMain: mainWeb3.eth.getBalance.bind(mainWeb3.eth, fallbackAccounts[0], "latest"),
+      balanceLatestFallback: fallbackWeb3.eth.getBalance.bind(fallbackWeb3.eth, fallbackAccounts[0], "latest")
+    }, function(err, results) {
+      if (err) return done(err);
+
+      var balanceBeforeFork = results.balanceBeforeFork;
+      var balanceAfterFork  = results.balanceAfterFork;
+      var balanceLatestMain = results.balanceLatestMain;
+      var balanceLatestFallback = results.balanceLatestFallback;
+
+      // First ensure our balances for the block before the fork
+      // We do this by simply ensuring the balance has decreased since exact values
+      // are hard to assert in this case.
+      assert(balanceBeforeFork.gt(balanceAfterFork));
+
+      // Since the fallback provider had once extra transaction for this account,
+      // it should have a lower balance, and the main provider shouldn't acknowledge
+      // that transaction.
+      assert(balanceLatestMain.gt(balanceLatestFallback));
+
+      done();
+    });
+  });
+
+  it("should return the correct code based on block number", function(done) {
+    // This one is simpler than the previous two. Either the code exists or doesn't.
+    async.parallel({
+      codeEarliest: mainWeb3.eth.getCode.bind(mainWeb3.eth, contractAddress, "earliest"),
+      codeAfterFork: mainWeb3.eth.getCode.bind(mainWeb3.eth, contractAddress, forkBlockNumber + 1),
+      codeLatest: mainWeb3.eth.getCode.bind(mainWeb3.eth, contractAddress, "latest")
+    }, function(err, results) {
+      if (err) return done(err);
+
+      var codeEarliest = results.codeEarliest;
+      var codeAfterFork = results.codeAfterFork;
+      var codeLatest = results.codeLatest;
+
+      // There should be no code initially.
+      assert(mainWeb3.toBigNumber(codeEarliest).eq(0));
+
+      // Arbitrary length check since we can't assert the exact value
+      assert(codeAfterFork.length > 20);
+      assert(codeLatest.length > 20);
+
+      // These should be the same since code can't change.
+      assert.equal(codeAfterFork, codeLatest);
+
+      done();
+    })
   });
 });
