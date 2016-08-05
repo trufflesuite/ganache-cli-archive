@@ -371,7 +371,17 @@ describe("Contract Fallback", function() {
             oracle.currentBlock.call(function(err, number) {
               if (err) return done(err);
               assert.equal(number, expected_number);
-              done();
+
+              oracle.setCurrentBlock({from: mainAccounts[0]}, function(err, tx) {
+                if (err) return done(err);
+
+                oracle.lastBlock.call({from: mainAccounts[0]}, function(err, val) {
+                  if (err) return done(err);
+
+                  assert(val.eq(expected_number + 1));
+                  done();
+                });
+              })
             });
           });
         })
