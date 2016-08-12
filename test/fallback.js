@@ -57,6 +57,8 @@ describe("Contract Fallback", function() {
 
   var forkBlockNumber;
 
+  var initialDeployTransactionHash;
+
   before("Initialize Fallback TestRPC server", function(done) {
     fallbackServer = TestRPC.server({
       // Do not change seed. Determinism matters for these tests.
@@ -86,6 +88,10 @@ describe("Contract Fallback", function() {
       data: contract.binary
     }, function(err, tx) {
       if (err) { return done(err); }
+
+      // Save this for a later test.
+      initialDeployTransactionHash = tx;
+
       fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
         if (err) return done(err);
 
@@ -497,4 +503,48 @@ describe("Contract Fallback", function() {
       done();
     })
   });
+
+  it("should return transactions for blocks requested before the fork", function(done) {
+    fallbackWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, receipt) {
+      if (err) return done(err);
+
+      fallbackWeb3.eth.getBlock(receipt.blockNumber, function(err, referenceBlock) {
+        if (err) return done(err);
+
+        mainWeb3.eth.getBlock(receipt.blockNumber, function(err, fallbackBlock) {
+          if (err) return done(err);
+
+          assert.equal(fallbackBlock.transactions.length, referenceBlock.transactions.length)
+          assert.deepEqual(fallbackBlock.transactions, referenceBlock.transactions);
+          done();
+        });
+      });
+    });
+  });
+
+  it("should return a transaction for transactions made before the fork", function(done) {
+    fallbackWeb3.eth.getTransaction(initialDeployTransactionHash, function(err, referenceTransaction) {
+      if (err) return done(err);
+
+      mainWeb3.eth.getTransaction(initialDeployTransactionHash, function(err, fallbackTransaction) {
+        if (err) return done(err);
+
+        assert.deepEqual(referenceTransaction, fallbackTransaction);
+        done();
+      });
+    });
+  });
+
+  it("should return a transaction receipt for transactions made before the fork", function(done) {
+    fallbackWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, referenceReceipt) {
+      if (err) return done(err);
+
+      mainWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, fallbackReceipt) {
+        if (err) return done(err);
+
+        assert.deepEqual(referenceReceipt, fallbackReceipt);
+        done();
+      });
+    });
+  })
 });
