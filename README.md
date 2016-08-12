@@ -31,6 +31,7 @@ Options:
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
 * `-p` or `--port`: Port number to listen on.
+* `-h` or `--hostname`: Hostname to listen on.
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 1)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
