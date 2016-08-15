@@ -39,6 +39,8 @@ var options = {
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
+  fallback: argv.f || argv.fallback || false,
+  network_id: argv.i || argv.networkId,
   logger: console
 }
 
@@ -75,7 +77,7 @@ server.listen(options.port, function(err, blockchain) {
     console.log("HD Wallet");
     console.log("==================");
     console.log("Mnemonic:      " + blockchain.mnemonic);
-    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "/{account_index}")
+    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
   }
 
   if (options.gasPrice) {
@@ -90,6 +92,13 @@ server.listen(options.port, function(err, blockchain) {
     console.log("Gas Limit");
     console.log("======================");
     console.log(options.gasLimit);
+  }
+
+  if (options.fallback) {
+    console.log("");
+    console.log("Fallback Contracts");
+    console.log("======================");
+    console.log("Using " + options.fallback + " as contract fallback location.");
   }
 
   console.log("");

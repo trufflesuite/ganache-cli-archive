@@ -144,7 +144,7 @@ var tests = function(web3) {
           sha3Uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
           logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
           transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-          stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+          stateRoot: '0x484475ce2cad3b248148f8e0ed8b1a65da0b7d6b541ab5c6ef9393477724a619',
           receiptRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
           miner: '0x0000000000000000000000000000000000000000',
           difficulty: { s: 1, e: 0, c: [ 0 ] },
@@ -332,7 +332,7 @@ var tests = function(web3) {
       });
     });
 
-    it("oracle.blockhash0 should be correct", function(done){
+    it("should represent the block number correctly in the Oracle contract (oracle.blockhash0)", function(done){
       var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
       var oracleOutput = solc.compile(oracleSol).contracts.Oracle
       web3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: accounts[0] }, function(err, oracle){
@@ -544,6 +544,7 @@ var tests = function(web3) {
   });
 
   describe("eth_compileSolidity", function() {
+    this.timeout(5000);
     it("correctly compiles solidity code", function(done) {
       web3.eth.compile.solidity(source, function(err, result) {
         if (err) return done(err);
@@ -574,7 +575,8 @@ var logger = {
 describe("Provider:", function() {
   var web3 = new Web3();
   web3.setProvider(TestRPC.provider({
-    logger: logger
+    logger: logger,
+    seed: "1337"
   }));
   tests(web3);
 });
@@ -586,7 +588,8 @@ describe("Server:", function(done) {
 
   before("Initialize TestRPC server", function(done) {
     server = TestRPC.server({
-      logger: logger
+      logger: logger,
+      seed: "1337"
     });
     server.listen(port, function() {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));

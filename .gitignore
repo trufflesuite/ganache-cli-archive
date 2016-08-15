@@ -1,3 +1,5 @@
 node_modules
 TODO
 *.log
+.eslintrc.js
+.tern-project
