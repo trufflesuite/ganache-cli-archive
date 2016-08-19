@@ -3,6 +3,9 @@ var argv = require('yargs').argv;
 var TestRPC = require('..');
 var pkg = require("../package.json");
 var util = require("ethereumjs-util");
+var URL = require("url");
+var Web3 = require("web3");
+var web3 = new Web3(); // Used only for its BigNumber library.
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -30,7 +33,7 @@ if (argv.d || argv.deterministic) {
 }
 
 var options = {
-  port: argv.p || argv.port || 8545,
+  port: argv.p || argv.port || "8545",
   debug: argv.debug,
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
@@ -39,17 +42,35 @@ var options = {
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
-  fallback: argv.f || argv.fallback || false,
+  fork: argv.f || argv.fork || false,
   network_id: argv.i || argv.networkId,
   verbose: argv.v || argv.verbose,
   logger: console
+}
+
+var fork_address;
+
+// If we're forking from another client, don't try to use the same port.
+if (options.fork) {
+  var split = options.fork.split("@");
+  fork_address = split[0];
+  var block;
+  if (split.length > 1) {
+    block = split[1];
+  }
+
+  if (URL.parse(fork_address).port == options.port) {
+    options.port = (parseInt(options.port) + 1);
+  }
+
+  options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
 var server = TestRPC.server(options);
 
 console.log("EthereumJS TestRPC v" + pkg.version);
 
-server.listen(options.port, function(err, blockchain) {
+server.listen(options.port, function(err, state) {
   if (err) {
     console.log(err);
     return;
@@ -58,7 +79,7 @@ server.listen(options.port, function(err, blockchain) {
   console.log("Available Accounts");
   console.log("==================");
 
-  var accounts = blockchain.accounts;
+  var accounts = state.accounts;
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
@@ -77,8 +98,8 @@ server.listen(options.port, function(err, blockchain) {
     console.log("");
     console.log("HD Wallet");
     console.log("==================");
-    console.log("Mnemonic:      " + blockchain.mnemonic);
-    console.log("Base HD Path:  " + blockchain.wallet_hdpath + "{account_index}")
+    console.log("Mnemonic:      " + state.mnemonic);
+    console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}")
   }
 
   if (options.gasPrice) {
@@ -95,11 +116,11 @@ server.listen(options.port, function(err, blockchain) {
     console.log(options.gasLimit);
   }
 
-  if (options.fallback) {
+  if (options.fork) {
     console.log("");
-    console.log("Fallback Contracts");
+    console.log("Forked Chain");
     console.log("======================");
-    console.log("Using " + options.fallback + " as contract fallback location.");
+    console.log("Forked from " + fork_address + " at block " + web3.toBigNumber(state.blockchain.fork_block_number).toString(10));
   }
 
   console.log("");

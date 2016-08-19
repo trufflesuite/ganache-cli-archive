@@ -34,6 +34,7 @@ Options:
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 1)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
+* `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
 * `--debug`: Output VM opcodes for debugging
 
 You can also specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
@@ -72,6 +73,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"port"`: Port number to listen on when running as a server.
 * `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
+* `"fork"`: `string` - Same as `--fork` option above.
 
 # IMPLEMENTED METHODS
 

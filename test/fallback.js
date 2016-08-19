@@ -161,7 +161,7 @@ describe("Contract Fallback", function() {
 
   before("Set main web3 provider, forking from fallback chain at this point", function(done) {
     mainWeb3.setProvider(TestRPC.provider({
-      fallback: fallbackTargetUrl,
+      fork: fallbackTargetUrl,
       logger: logger,
 
       // Do not change seed. Determinism matters for these tests.
