@@ -105,22 +105,25 @@ server.listen(options.port, function(err, state) {
   if (options.gasPrice) {
     console.log("");
     console.log("Gas Price");
-    console.log("======================");
+    console.log("==================");
     console.log(options.gasPrice);
   }
 
   if (options.gasLimit) {
     console.log("");
     console.log("Gas Limit");
-    console.log("======================");
+    console.log("==================");
     console.log(options.gasLimit);
   }
 
   if (options.fork) {
     console.log("");
     console.log("Forked Chain");
-    console.log("======================");
-    console.log("Forked from " + fork_address + " at block " + web3.toBigNumber(state.blockchain.fork_block_number).toString(10));
+    console.log("==================");
+    console.log("Location:    " + fork_address);
+    console.log("Block:       " + web3.toBigNumber(state.blockchain.fork_block_number).toString(10));
+    console.log("Network ID:  " + state.net_version);
+    console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
   }
 
   console.log("");
