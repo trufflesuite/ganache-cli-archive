@@ -41,18 +41,18 @@ var contract = {
   }
 };
 
-var fallbackTargetUrl = "http://localhost:21345";
+var forkedTargetUrl = "http://localhost:21345";
 
-describe("Contract Fallback", function() {
+describe("Forking", function() {
   var contractAddress;
   var secondContractAddress; // used sparingly
-  var fallbackServer;
+  var forkedServer;
   var mainAccounts;
-  var fallbackAccounts;
+  var forkedAccounts;
 
   var initialFallbackAccountState = {};
 
-  var fallbackWeb3 = new Web3();
+  var forkedWeb3 = new Web3();
   var mainWeb3 = new Web3();
 
   var forkBlockNumber;
@@ -60,31 +60,31 @@ describe("Contract Fallback", function() {
   var initialDeployTransactionHash;
 
   before("Initialize Fallback TestRPC server", function(done) {
-    fallbackServer = TestRPC.server({
+    forkedServer = TestRPC.server({
       // Do not change seed. Determinism matters for these tests.
       seed: "let's make this deterministic",
       logger: logger
     });
 
-    fallbackServer.listen(21345, function(err) {
+    forkedServer.listen(21345, function(err) {
       if (err) return done(err);
 
-      fallbackWeb3.setProvider(new Web3.providers.HttpProvider(fallbackTargetUrl));
+      forkedWeb3.setProvider(new Web3.providers.HttpProvider(forkedTargetUrl));
       done();
     });
   });
 
-  before("Gather fallback accounts", function(done) {
-    fallbackWeb3.eth.getAccounts(function(err, f) {
+  before("Gather forked accounts", function(done) {
+    forkedWeb3.eth.getAccounts(function(err, f) {
       if (err) return done(err);
-      fallbackAccounts = f;
+      forkedAccounts = f;
       done();
     });
   });
 
   before("Deploy initial contracts", function(done) {
-    fallbackWeb3.eth.sendTransaction({
-      from: fallbackAccounts[0],
+    forkedWeb3.eth.sendTransaction({
+      from: forkedAccounts[0],
       data: contract.binary
     }, function(err, tx) {
       if (err) { return done(err); }
@@ -92,18 +92,18 @@ describe("Contract Fallback", function() {
       // Save this for a later test.
       initialDeployTransactionHash = tx;
 
-      fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
+      forkedWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
         if (err) return done(err);
 
         contractAddress = receipt.contractAddress;
 
         // Deploy a second one, which we won't use often.
-        fallbackWeb3.eth.sendTransaction({
-          from: fallbackAccounts[0],
+        forkedWeb3.eth.sendTransaction({
+          from: forkedAccounts[0],
           data: contract.binary
         }, function(err, tx) {
           if (err) { return done(err); }
-          fallbackWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
+          forkedWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
             if (err) return done(err);
 
             secondContractAddress = receipt.contractAddress;
@@ -114,15 +114,15 @@ describe("Contract Fallback", function() {
     });
   });
 
-  before("Make a transaction on the fallback chain that produces a log", function(done) {
+  before("Make a transaction on the forked chain that produces a log", function(done) {
     this.timeout(10000)
 
-    var FallbackExample = fallbackWeb3.eth.contract(JSON.parse(contract.abi));
-    var fallbackExample = FallbackExample.at(contractAddress);
+    var FallbackExample = forkedWeb3.eth.contract(JSON.parse(contract.abi));
+    var forkedExample = FallbackExample.at(contractAddress);
 
     var interval;
 
-    var event = fallbackExample.ValueSet([{}]);
+    var event = forkedExample.ValueSet([{}]);
 
     function cleanup(err) {
       event.stopWatching();
@@ -130,7 +130,7 @@ describe("Contract Fallback", function() {
       done(err);
     }
 
-    fallbackExample.setValue(7, {from: fallbackAccounts[0]}, function(err, tx) {
+    forkedExample.setValue(7, {from: forkedAccounts[0]}, function(err, tx) {
       if (err) return done(err);
 
       interval = setInterval(function() {
@@ -149,8 +149,8 @@ describe("Contract Fallback", function() {
 
   before("Get initial balance and nonce", function(done) {
     async.parallel({
-      balance: fallbackWeb3.eth.getBalance.bind(fallbackWeb3.eth, fallbackAccounts[0]),
-      nonce: fallbackWeb3.eth.getTransactionCount.bind(fallbackWeb3.eth, fallbackAccounts[0])
+      balance: forkedWeb3.eth.getBalance.bind(forkedWeb3.eth, forkedAccounts[0]),
+      nonce: forkedWeb3.eth.getTransactionCount.bind(forkedWeb3.eth, forkedAccounts[0])
     }, function(err, result) {
       if (err) return done(err);
       initialFallbackAccountState = result;
@@ -159,16 +159,16 @@ describe("Contract Fallback", function() {
     });
   });
 
-  before("Set main web3 provider, forking from fallback chain at this point", function(done) {
+  before("Set main web3 provider, forking from forked chain at this point", function(done) {
     mainWeb3.setProvider(TestRPC.provider({
-      fork: fallbackTargetUrl,
+      fork: forkedTargetUrl,
       logger: logger,
 
       // Do not change seed. Determinism matters for these tests.
       seed: "a different seed"
     }));
 
-    fallbackWeb3.eth.getBlockNumber(function(err, number) {
+    forkedWeb3.eth.getBlockNumber(function(err, number) {
       if (err) return done(err);
       forkBlockNumber = number;
       done();
@@ -183,12 +183,12 @@ describe("Contract Fallback", function() {
     });
   });
 
-  after("Close down the fallback TestRPC server", function(done){
-    fallbackServer.close();
+  after("Close down the forked TestRPC server", function(done){
+    forkedServer.close();
     done();
   });
 
-  it("should fetch a contract from the fallback provider via the main provider", function(done) {
+  it("should fetch a contract from the forked provider via the main provider", function(done) {
     mainWeb3.eth.getCode(contractAddress, function(err, mainCode) {
       if (err) return done(err);
 
@@ -198,22 +198,22 @@ describe("Contract Fallback", function() {
       assert.notEqual(result, "0x0");
 
       // Now make sure it matches exactly.
-      fallbackWeb3.eth.getCode(contractAddress, function(err, fallbackCode) {
+      forkedWeb3.eth.getCode(contractAddress, function(err, forkedCode) {
         if (err) return done(err);
 
-        assert.equal(mainCode, fallbackCode);
+        assert.equal(mainCode, forkedCode);
         done();
       });
     });
   });
 
-  it("should be able to get the balance of an address in the fallback provider via the main provider", function(done) {
+  it("should be able to get the balance of an address in the forked provider via the main provider", function(done) {
     // Assert preconditions
-    var first_fallback_account = fallbackAccounts[0];
-    assert(mainAccounts.indexOf(first_fallback_account) < 0);
+    var first_forked_account = forkedAccounts[0];
+    assert(mainAccounts.indexOf(first_forked_account) < 0);
 
-    // Now for the real test: Get the balance of a fallback account through the main provider.
-    mainWeb3.eth.getBalance(first_fallback_account, function(err, balance) {
+    // Now for the real test: Get the balance of a forked account through the main provider.
+    mainWeb3.eth.getBalance(first_forked_account, function(err, balance) {
       if (err) return done(err);
 
       // We don't assert the exact balance as transactions cost eth
@@ -222,7 +222,7 @@ describe("Contract Fallback", function() {
     });
   });
 
-  it("should be able to get storage values on the fallback provider via the main provider", function(done) {
+  it("should be able to get storage values on the forked provider via the main provider", function(done) {
     mainWeb3.eth.getStorageAt(contractAddress, contract.position_of_value, function(err, result) {
       if (err) return done(err);
       assert.equal(mainWeb3.toDecimal(result), 7);
@@ -230,7 +230,7 @@ describe("Contract Fallback", function() {
     });
   });
 
-  it("should be able to execute calls against a contract on the fallback provider via the main provider", function(done) {
+  it("should be able to execute calls against a contract on the forked provider via the main provider", function(done) {
     var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
     var example = Example.at(contractAddress);
 
@@ -247,12 +247,12 @@ describe("Contract Fallback", function() {
     });
   });
 
-  it("should be able to make a transaction on the main provider while not transacting on the fallback provider", function(done) {
+  it("should be able to make a transaction on the main provider while not transacting on the forked provider", function(done) {
     var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
     var example = Example.at(contractAddress);
 
-    var FallbackExample = fallbackWeb3.eth.contract(JSON.parse(contract.abi));
-    var fallbackExample = FallbackExample.at(contractAddress);
+    var FallbackExample = forkedWeb3.eth.contract(JSON.parse(contract.abi));
+    var forkedExample = FallbackExample.at(contractAddress);
 
     example.setValue(25, {from: mainAccounts[0]}, function(err) {
       if (err) return done(err);
@@ -262,36 +262,36 @@ describe("Contract Fallback", function() {
         if (err) return done(err);
         assert.equal(mainWeb3.toDecimal(result), 25);
 
-        // Now call back to the fallback to ensure it's value stayed 5
-        fallbackExample.value({from: fallbackAccounts[0]}, function(err, result) {
+        // Now call back to the forked to ensure it's value stayed 5
+        forkedExample.value({from: forkedAccounts[0]}, function(err, result) {
           if (err) return done(err);
-          assert.equal(fallbackWeb3.toDecimal(result), 7);
+          assert.equal(forkedWeb3.toDecimal(result), 7);
           done();
         })
       });
     });
   });
 
-  it("should ignore continued transactions on the fallback blockchain by pegging the forked block number", function(done) {
+  it("should ignore continued transactions on the forked blockchain by pegging the forked block number", function(done) {
     // In this test, we're going to use the second contract address that we haven't
     // used previously. This ensures the data hasn't been cached on the main web3 trie
-    // yet, and it will require it fallback to the fallback provider at a specific block.
+    // yet, and it will require it forked to the forked provider at a specific block.
     // If that block handling is done improperly, this should fail.
 
     var Example = mainWeb3.eth.contract(JSON.parse(contract.abi));
     var example = Example.at(secondContractAddress);
 
-    var FallbackExample = fallbackWeb3.eth.contract(JSON.parse(contract.abi));
-    var fallbackExample = FallbackExample.at(secondContractAddress);
+    var FallbackExample = forkedWeb3.eth.contract(JSON.parse(contract.abi));
+    var forkedExample = FallbackExample.at(secondContractAddress);
 
-    // This transaction happens entirely on the fallback chain after forking.
+    // This transaction happens entirely on the forked chain after forking.
     // It should be ignored by the main chain.
-    fallbackExample.setValue(800, {from: fallbackAccounts[0]}, function(err, result) {
+    forkedExample.setValue(800, {from: forkedAccounts[0]}, function(err, result) {
       if (err) return done(err);
       // Let's assert the value was set correctly.
-      fallbackExample.value({from: fallbackAccounts[0]}, function(err, result) {
+      forkedExample.value({from: forkedAccounts[0]}, function(err, result) {
         if (err) return done(err);
-        assert.equal(fallbackWeb3.toDecimal(result), 800);
+        assert.equal(forkedWeb3.toDecimal(result), 800);
 
         // Now lets check the value on the main chain. It shouldn't be 800.
         example.value({from: mainAccounts[0]}, function(err, result) {
@@ -306,9 +306,9 @@ describe("Contract Fallback", function() {
 
   it("should maintain a block number that includes new blocks PLUS the existing chain", function(done) {
     // Note: The main provider should be at block 5 at this test. Reasoning:
-    // - The fallback chain has an initial block, which is block 0.
-    // - The fallback chain performed a transaction that produced a log, resulting in block 1.
-    // - The fallback chain had two transactions initially, resulting blocks 2 and 3.
+    // - The forked chain has an initial block, which is block 0.
+    // - The forked chain performed a transaction that produced a log, resulting in block 1.
+    // - The forked chain had two transactions initially, resulting blocks 2 and 3.
     // - The main chain forked from there, creating its own initial block, block 4.
     // - Then the main chain performed a transaction, putting it at block 5.
 
@@ -317,16 +317,16 @@ describe("Contract Fallback", function() {
 
       assert.equal(mainWeb3.toDecimal(result), 5);
 
-      // Now lets get a block that exists on the fallback chain.
+      // Now lets get a block that exists on the forked chain.
       mainWeb3.eth.getBlock(0, function(err, mainBlock) {
         if (err) return done(err);
 
-        // And compare it to the fallback chain's block
-        fallbackWeb3.eth.getBlock(0, function(err, fallbackBlock) {
+        // And compare it to the forked chain's block
+        forkedWeb3.eth.getBlock(0, function(err, forkedBlock) {
           if (err) return done(err);
 
           // Block hashes should be the same.
-          assert.equal(mainBlock.hash, fallbackBlock.hash);
+          assert.equal(mainBlock.hash, forkedBlock.hash);
 
           // Now make sure we can get the block by hash as well.
           mainWeb3.eth.getBlock(mainBlock.hash, function(err, mainBlockByHash) {
@@ -340,8 +340,8 @@ describe("Contract Fallback", function() {
     });
   });
 
-  it("should have a genesis block whose parent is the last block from the fallback provider", function(done) {
-    fallbackWeb3.eth.getBlock(forkBlockNumber, function(err, forkedBlock) {
+  it("should have a genesis block whose parent is the last block from the forked provider", function(done) {
+    forkedWeb3.eth.getBlock(forkBlockNumber, function(err, forkedBlock) {
       if (err) return done(err);
 
       var parentHash = forkedBlock.hash;
@@ -357,7 +357,7 @@ describe("Contract Fallback", function() {
   });
 
   // Note: This test also puts a new contract on the forked chain, which is a good test.
-  it("should represent the block number correctly in the Oracle contract (oracle.blockhash0), providing fallback block hash and number", function(done){
+  it("should represent the block number correctly in the Oracle contract (oracle.blockhash0), providing forked block hash and number", function(done){
     var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
     var oracleOutput = solc.compile(oracleSol).contracts.Oracle;
 
@@ -414,10 +414,10 @@ describe("Contract Fallback", function() {
     // Note for the first two requests, we choose the block numbers 1 before and after the fork to
     // ensure we're pulling data off the correct provider in both cases.
     async.parallel({
-      nonceBeforeFork: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber - 1),
-      nonceAtFork: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber + 1),
-      nonceLatestMain: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, fallbackAccounts[0], "latest"),
-      nonceLatestFallback: fallbackWeb3.eth.getTransactionCount.bind(fallbackWeb3.eth, fallbackAccounts[0], "latest")
+      nonceBeforeFork: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, forkedAccounts[0], forkBlockNumber - 1),
+      nonceAtFork: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, forkedAccounts[0], forkBlockNumber + 1),
+      nonceLatestMain: mainWeb3.eth.getTransactionCount.bind(mainWeb3.eth, forkedAccounts[0], "latest"),
+      nonceLatestFallback: forkedWeb3.eth.getTransactionCount.bind(forkedWeb3.eth, forkedAccounts[0], "latest")
     }, function(err, results) {
       if (err) return done(err);
 
@@ -434,11 +434,11 @@ describe("Contract Fallback", function() {
       // Now check at the fork. We should expect our initial state.
       assert.equal(nonceAtFork, initialFallbackAccountState.nonce);
 
-      // Make sure the main web3 provider didn't alter the state of the fallback account.
+      // Make sure the main web3 provider didn't alter the state of the forked account.
       // This means the nonce should stay the same.
       assert.equal(nonceLatestMain, initialFallbackAccountState.nonce);
 
-      // And since we made one additional transaction with this account on the fallback
+      // And since we made one additional transaction with this account on the forked
       // provider AFTER the fork, it's nonce should be one ahead, and the main provider's
       // nonce for that address shouldn't acknowledge it.
       assert.equal(nonceLatestFallback, nonceLatestMain + 1);
@@ -451,10 +451,10 @@ describe("Contract Fallback", function() {
     // Note for the first two requests, we choose the block numbers 1 before and after the fork to
     // ensure we're pulling data off the correct provider in both cases.
     async.parallel({
-      balanceBeforeFork: mainWeb3.eth.getBalance.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber - 1),
-      balanceAfterFork: mainWeb3.eth.getBalance.bind(mainWeb3.eth, fallbackAccounts[0], forkBlockNumber + 1),
-      balanceLatestMain: mainWeb3.eth.getBalance.bind(mainWeb3.eth, fallbackAccounts[0], "latest"),
-      balanceLatestFallback: fallbackWeb3.eth.getBalance.bind(fallbackWeb3.eth, fallbackAccounts[0], "latest")
+      balanceBeforeFork: mainWeb3.eth.getBalance.bind(mainWeb3.eth, forkedAccounts[0], forkBlockNumber - 1),
+      balanceAfterFork: mainWeb3.eth.getBalance.bind(mainWeb3.eth, forkedAccounts[0], forkBlockNumber + 1),
+      balanceLatestMain: mainWeb3.eth.getBalance.bind(mainWeb3.eth, forkedAccounts[0], "latest"),
+      balanceLatestFallback: forkedWeb3.eth.getBalance.bind(forkedWeb3.eth, forkedAccounts[0], "latest")
     }, function(err, results) {
       if (err) return done(err);
 
@@ -468,7 +468,7 @@ describe("Contract Fallback", function() {
       // are hard to assert in this case.
       assert(balanceBeforeFork.gt(balanceAfterFork));
 
-      // Since the fallback provider had once extra transaction for this account,
+      // Since the forked provider had once extra transaction for this account,
       // it should have a lower balance, and the main provider shouldn't acknowledge
       // that transaction.
       assert(balanceLatestMain.gt(balanceLatestFallback));
@@ -505,17 +505,17 @@ describe("Contract Fallback", function() {
   });
 
   it("should return transactions for blocks requested before the fork", function(done) {
-    fallbackWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, receipt) {
+    forkedWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, receipt) {
       if (err) return done(err);
 
-      fallbackWeb3.eth.getBlock(receipt.blockNumber, function(err, referenceBlock) {
+      forkedWeb3.eth.getBlock(receipt.blockNumber, function(err, referenceBlock) {
         if (err) return done(err);
 
-        mainWeb3.eth.getBlock(receipt.blockNumber, function(err, fallbackBlock) {
+        mainWeb3.eth.getBlock(receipt.blockNumber, function(err, forkedBlock) {
           if (err) return done(err);
 
-          assert.equal(fallbackBlock.transactions.length, referenceBlock.transactions.length)
-          assert.deepEqual(fallbackBlock.transactions, referenceBlock.transactions);
+          assert.equal(forkedBlock.transactions.length, referenceBlock.transactions.length)
+          assert.deepEqual(forkedBlock.transactions, referenceBlock.transactions);
           done();
         });
       });
@@ -523,26 +523,26 @@ describe("Contract Fallback", function() {
   });
 
   it("should return a transaction for transactions made before the fork", function(done) {
-    fallbackWeb3.eth.getTransaction(initialDeployTransactionHash, function(err, referenceTransaction) {
+    forkedWeb3.eth.getTransaction(initialDeployTransactionHash, function(err, referenceTransaction) {
       if (err) return done(err);
 
-      mainWeb3.eth.getTransaction(initialDeployTransactionHash, function(err, fallbackTransaction) {
+      mainWeb3.eth.getTransaction(initialDeployTransactionHash, function(err, forkedTransaction) {
         if (err) return done(err);
 
-        assert.deepEqual(referenceTransaction, fallbackTransaction);
+        assert.deepEqual(referenceTransaction, forkedTransaction);
         done();
       });
     });
   });
 
   it("should return a transaction receipt for transactions made before the fork", function(done) {
-    fallbackWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, referenceReceipt) {
+    forkedWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, referenceReceipt) {
       if (err) return done(err);
 
-      mainWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, fallbackReceipt) {
+      mainWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, forkedReceipt) {
         if (err) return done(err);
 
-        assert.deepEqual(referenceReceipt, fallbackReceipt);
+        assert.deepEqual(referenceReceipt, forkedReceipt);
         done();
       });
     });
