@@ -547,4 +547,17 @@ describe("Forking", function() {
       });
     });
   })
+
+  it("should return the same network version as the chain it forked from", function(done) {
+    forkedWeb3.version.getNetwork(function(err, forkedNetwork) {
+      if (err) return done(err);
+
+      mainWeb3.version.getNetwork(function(err, mainNetwork) {
+        if (err) return done(err);
+
+        assert.equal(mainNetwork, forkedNetwork);
+        done();
+      });
+    })
+  });
 });
