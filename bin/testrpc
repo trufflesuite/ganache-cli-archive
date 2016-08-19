@@ -31,6 +31,7 @@ if (argv.d || argv.deterministic) {
 
 var options = {
   port: argv.p || argv.port || 8545,
+  hostname: argv.h || argv.hostname || 'localhost',
   debug: argv.debug,
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
@@ -49,7 +50,7 @@ var server = TestRPC.server(options);
 
 console.log("EthereumJS TestRPC v" + pkg.version);
 
-server.listen(options.port, function(err, blockchain) {
+server.listen(options.port, options.hostname, function(err, blockchain) {
   if (err) {
     console.log(err);
     return;
@@ -103,5 +104,5 @@ server.listen(options.port, function(err, blockchain) {
   }
 
   console.log("");
-  console.log("Listening on localhost:" + options.port);
+  console.log("Listening on " + options.hostname + ":" + options.port);
 });
