@@ -122,6 +122,32 @@ var tests = function(web3, EventTest) {
       });
     });
 
+    it("only returns logs for the expected address", function(done) {
+      var expected_value = 5;
+
+      EventTest.new({from: accounts[0], data: EventTest._data}, function(err, newInstance) {
+        if (err) return done(err);
+
+        if (!newInstance.address) {
+          return;
+        }
+
+        newInstance.triggerEvent(expected_value, {from: accounts[0]}, function(err, result) {
+          if (err) return done(err);
+
+          var event = newInstance.NumberEvent([{number: expected_value}], {fromBlock: 0});
+
+          // Only one event should be triggered for this new instance.
+          event.get(function(err, logs) {
+            event.stopWatching();
+            if (err) return done(err);
+            assert(logs.length == 1);
+            done();
+          });
+        });
+      });
+    })
+
     // TODO: The following test was supposed to pass, according to web3, in that
     // the web3 spec gives the appearance that it filters out logs whose topics contain a specific value:
     //
