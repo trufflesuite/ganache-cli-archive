@@ -1,6 +1,6 @@
 {
   "name": "ethereumjs-testrpc",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "bin": {
     "testrpc": "./bin/testrpc"
   },
