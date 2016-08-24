@@ -2,8 +2,11 @@ var TestRPC = require("../index.js");
 var assert = require('assert');
 var Web3 = require("web3");
 
-describe('Time adjustment', function(){
-  var provider = TestRPC.provider()
+describe('Time adjustment', function() {
+  var startTime = new Date("Wed Aug 24 2016 00:00:00 GMT-0700 (PDT)");
+  var provider = TestRPC.provider({
+    time: startTime
+  });
   var web3 = new Web3(provider);
   var secondsToJump = 5 * 60 * 60;
 
@@ -30,6 +33,13 @@ describe('Time adjustment', function(){
       done()
     })
   })
+
+  it('should mine the first block at the time provided', function(done) {
+    web3.eth.getBlock(0, function(err, result) {
+      assert.equal(result.timestamp, startTime / 1000 | 0);
+      done();
+    });
+  });
 
   it('should jump 5 hours', function(done) {
     // Adjust time
