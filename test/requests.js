@@ -554,7 +554,27 @@ var tests = function(web3) {
     });
   });
 
-  describe("net_version", function(done) {
+  describe("web3_sha3", function() {
+    it("should hash the given input", function(done) {
+      var input = "Tim is a swell guy.";
+
+      // web3.sha3() doesn't actually call the function, so we need to call it ourselves.
+      web3.currentProvider.sendAsync({
+        jsonrpc: "2.0",
+        method: "web3_sha3",
+        params: [input],
+        id: new Date().getTime()
+      }, function(err, result) {
+        if (err) return done(err);
+        if (result.error) return done(result.error);
+
+        assert.equal(result.result, web3.sha3(input));
+        done();
+      })
+    });
+  });
+
+  describe("net_version", function() {
     it("should return a version very close to the current time", function(done) {
       web3.version.getNetwork(function(err, result) {
         if (err) return done(err);

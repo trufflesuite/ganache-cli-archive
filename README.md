@@ -113,6 +113,7 @@ The RPC methods currently implemented are:
 * `net_peerCount`
 * `net_version`
 * `web3_clientVersion`
+* `web3_sha3`
 
 There’s also special non-standard methods that aren’t included within the original RPC specification:
 
