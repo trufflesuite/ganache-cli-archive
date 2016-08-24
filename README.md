@@ -30,7 +30,8 @@ Options:
 * `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
-* `-p` or `--port`: Port number to listen on.
+* `-p` or `--port`: Port number to listen on. Defaults to 8545.
+* `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 1)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
