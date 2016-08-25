@@ -77,20 +77,45 @@ var tests = function(web3) {
         provider.sendAsync(request, done)
       });
     });
-  })
-};
 
-var logger = {
-  log: function(message) {
-    //console.log(message);
-  }
+    it("recovers after bad balance", function(done) {
+      web3.eth.getBalance(accounts[0], function(err, balance) {
+        if (err) return done(err);
+
+        var provider = web3.currentProvider;
+
+        var request = {
+          "jsonrpc": "2.0",
+          "method": "eth_sendTransaction",
+          "params": [
+            {
+              "value": "0x1000000000000000000000000000",
+              "gas": "0xf4240",
+              "from": accounts[0],
+              "to": accounts[1]
+            }
+          ],
+          "id": 2
+        }
+
+        provider.sendAsync(request, function(err, result) {
+          // We're supposed to get an error the first time. Let's assert we get the right one.
+          // Note that if using the TestRPC as a provider, err will be non-null when there's
+          // an error. However, when using it as a server it won't be. In both cases, however,
+          // result.error should be set with the same error message. We'll check for that.
+          assert(result.error.message.indexOf("sender doesn't have enough funds to send tx. The upfront cost is: 324518553658426726783156021576256 and the senders account only has: 99999999999731543544") >= 0);
+
+          request.params[0].value = "0x5";
+          provider.sendAsync(request, done)
+        });
+      })
+    });
+  })
 };
 
 describe("Provider:", function() {
   var web3 = new Web3();
-  web3.setProvider(TestRPC.provider({
-    logger: logger
-  }));
+  web3.setProvider(TestRPC.provider());
   tests(web3);
 });
 
@@ -100,9 +125,7 @@ describe("Server:", function(done) {
   var server;
 
   before("Initialize TestRPC server", function(done) {
-    server = TestRPC.server({
-      logger: logger
-    });
+    server = TestRPC.server();
     server.listen(port, function() {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
       done();
