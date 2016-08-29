@@ -1,6 +1,6 @@
 {
   "name": "ethereumjs-testrpc",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "bin": {
     "testrpc": "./bin/testrpc"
   },
@@ -27,7 +27,7 @@
     "seedrandom": "^2.4.2",
     "shelljs": "^0.6.0",
     "web3": "^0.16.0",
-    "web3-provider-engine": "^7.8.7",
+    "web3-provider-engine": "^8.0.3",
     "yargs": "^3.29.0"
   },
   "devDependencies": {
