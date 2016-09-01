@@ -258,6 +258,15 @@ var tests = function(web3) {
       });
     });
 
+    it("should return null if asked for a receipt for a nonexistent transaction (eth_getTransactionReceipt)", function(done) {
+      web3.eth.getTransactionReceipt("0xdeadbeef", function(err, receipt) {
+        if (err) return done(err);
+
+        assert.equal(receipt, null, "Transaction receipt should be null");
+        done();
+      });
+    });
+
     it("should verify there's code at the address (eth_getCode)", function(done) {
       web3.eth.getCode(contractAddress, function(err, result) {
         if (err) return done(err);
