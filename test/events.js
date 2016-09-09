@@ -2,6 +2,7 @@ var Web3 = require('web3');
 var TestRPC = require("../index.js");
 var assert = require('assert');
 var solc = require("solc");
+var async = require("async");
 
 var source = "                      \
 contract EventTest {                \
@@ -146,7 +147,68 @@ var tests = function(web3, EventTest) {
           });
         });
       });
-    })
+    });
+
+    it("always returns a change for every new block filter when instamining", function(done) {
+      var provider = web3.currentProvider;
+
+      // In this test, we'll create a block filter and request filter changes twice.
+      // The responses from the first and second filter changes request must be different,
+      // and the first must return the block hash of the previous block to ensure it gets
+      // some response even though no transaction was made.
+
+      var filter_id;
+      var first_changes;
+      var second_changes;
+
+      async.series([
+        function(c) {
+          provider.sendAsync({
+            jsonrpc: "2.0",
+            method: "eth_newBlockFilter",
+            params: [],
+            id: new Date().getTime()
+          }, function(err, result) {
+            if (err) return c(err);
+            filter_id = result.result;
+            c();
+          });
+        },
+        function(c) {
+          provider.sendAsync({
+            jsonrpc: "2.0",
+            method: "eth_getFilterChanges",
+            params: [filter_id],
+            id: new Date().getTime()
+          }, function(err, result) {
+            if (err) return c(err);
+            first_changes = result.result;
+            c();
+          });
+        },
+        function(c) {
+          provider.sendAsync({
+            jsonrpc: "2.0",
+            method: "eth_getFilterChanges",
+            params: [filter_id],
+            id: new Date().getTime()
+          }, function(err, result) {
+            if (err) return c(err);
+            second_changes = result.result;
+            c();
+          });
+        }
+      ], function(err) {
+        if (err) return done(err);
+
+        assert.equal(first_changes.length, 1);
+        assert.equal(first_changes[0].length, 66); // Ensure we have a hash
+        assert.equal(second_changes.length, 0); // no transactions were actually made
+        assert.notEqual(first_changes[0], second_changes[0]);
+
+        done();
+      })
+    });
 
     // TODO: The following test was supposed to pass, according to web3, in that
     // the web3 spec gives the appearance that it filters out logs whose topics contain a specific value:
