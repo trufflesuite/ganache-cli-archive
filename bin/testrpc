@@ -46,7 +46,6 @@ var options = {
   fork: argv.f || argv.fork || false,
   network_id: argv.i || argv.networkId,
   verbose: argv.v || argv.verbose,
-  no_mine_after_transaction: argv.n || argv.noMineAfterTransaction || false,
   logger: console
 }
 
