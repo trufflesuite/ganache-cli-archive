@@ -563,6 +563,69 @@ var tests = function(web3) {
     });
   });
 
+  describe("miner_stop", function(){
+    it("should stop mining", function(done){
+      web3.currentProvider.sendAsync({
+        jsonrpc: "2.0",
+        method: "miner_stop",
+      }, function(err,result){
+        var tx_data = {}
+        tx_data.to = accounts[1];
+        tx_data.from = accounts[0];
+        tx_data.value = 0x1;
+
+        web3.eth.sendTransaction(tx_data, function(err, tx) {
+          if (err) return done(err);
+
+          web3.eth.getTransactionReceipt(tx, function(err, receipt) {
+            if (err) return done(err);
+
+            assert.equal(receipt, null);
+            web3.currentProvider.sendAsync({
+              jsonrpc: "2.0",
+              method: "miner_start",
+              params: [1]
+            }, function(err, result){
+              if (err) return done(err);
+              done();
+            })
+          });
+        });
+      })
+    })
+  });
+
+  describe("miner_start", function(){
+    it("should start mining", function(done){
+      web3.currentProvider.sendAsync({
+        jsonrpc: "2.0",
+        method: "miner_stop",
+      }, function(err,result){
+        web3.currentProvider.sendAsync({
+          jsonrpc: "2.0",
+          method: "miner_start",
+          params: [1]
+        }, function(err,result){
+          var tx_data = {}
+          tx_data.to = accounts[1];
+          tx_data.from = accounts[0];
+          tx_data.value = 0x1;
+
+
+          web3.eth.sendTransaction(tx_data, function(err, tx) {
+            if (err) return done(err);
+            //Check the receipt
+            web3.eth.getTransactionReceipt(tx, function(err, receipt) {
+              if (err) return done(err);
+              assert.notEqual(receipt, null); //i.e. receipt exists, so transaction was mined
+              done();
+            });
+          });
+        })
+      })
+    })
+  });
+
   describe("web3_sha3", function() {
     it("should hash the given input", function(done) {
       var input = "Tim is a swell guy.";
