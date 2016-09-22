@@ -21,12 +21,14 @@ Having problems? Be sure to check out the [FAQ](https://github.com/ethereumjs/te
 ##### Command Line
 
 ```Bash
+$ testrpc --help
+
 $ testrpc <options>
 ```
 
 Options:
 
-* `-a` or `--accounts`: Specify the number of accounts to generate at startup.
+* `-a` or `--accounts`: Specify the list of accounts to generate at startup.
 * `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
