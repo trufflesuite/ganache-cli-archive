@@ -188,7 +188,8 @@ server.listen(options.port, options.hostname, function(err, state) {
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
-    console.log("(" + index + ") " + address);
+    var balanceInEth = util.bufferToInt(accounts[address].account.balance)*1e-18;
+    console.log("(" + index + ") " + address + ' - ' + balanceInEth + ' ETH' );
   });
 
   console.log("");
