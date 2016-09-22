@@ -94,6 +94,11 @@ yargs
   describe: 'Show some help',
   type: 'boolean',
   default: false
+})
+.option('version', {
+  describe: 'Show the version',
+  type: 'boolean',
+  default: false
 });
 
 var argv = yargs.argv;
@@ -143,6 +148,11 @@ if (argv.help) {
   console.log('This is TestRPC version '+ pkg.version);
   console.log('More at ' + pkg.repository.url);
   yargs.showHelp();
+  process.exit(0);
+}
+
+if (argv.version) {
+  console.log('TestRPC version '+ pkg.version);
   process.exit(0);
 }
 
