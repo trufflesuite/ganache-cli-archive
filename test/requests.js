@@ -611,7 +611,6 @@ var tests = function(web3) {
           tx_data.from = accounts[0];
           tx_data.value = 0x1;
 
-
           web3.eth.sendTransaction(tx_data, function(err, tx) {
             if (err) return done(err);
             //Check the receipt

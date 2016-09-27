@@ -2,37 +2,34 @@ var Web3 = require('web3');
 var TestRPC = require("../index.js");
 var assert = require('assert');
 
-
-
-var accounts;
-var web3 = new Web3(TestRPC.provider());
-
-before(function(done) {
-  web3.eth.getAccounts(function(err, accs) {
-    if (err) return done(err);
-
-    accounts = accs;
-    done();
-  });
-});
-
-beforeEach(function(done){
-  web3.currentProvider.sendAsync({
-    jsonrpc: "2.0",
-    method: "miner_stop",
-  }, done)
-});
-
-afterEach(function(done){
-  web3.currentProvider.sendAsync({
-    jsonrpc: "2.0",
-    method: "miner_start",
-    params: [1]
-  }, done)
-});
-
-
 describe("Ordering transactions", function() {
+  var accounts;
+  var web3 = new Web3(TestRPC.provider());
+
+  before(function(done) {
+    web3.eth.getAccounts(function(err, accs) {
+      if (err) return done(err);
+
+      accounts = accs;
+      done();
+    });
+  });
+
+  beforeEach(function(done){
+    web3.currentProvider.sendAsync({
+      jsonrpc: "2.0",
+      method: "miner_stop",
+    }, done)
+  });
+
+  afterEach(function(done){
+    web3.currentProvider.sendAsync({
+      jsonrpc: "2.0",
+      method: "miner_start",
+      params: [1]
+    }, done)
+  });
+
   it("should order queued transactions correctly by nonce before adding to the block", function(done) {
     var tx_data = {}
     tx_data.to = accounts[1];
@@ -59,6 +56,7 @@ describe("Ordering transactions", function() {
       })
     })
   });
+  
   it("should order queued transactions correctly by price before adding to the block", function(done) {
     var tx_data = {}
     tx_data.to = accounts[1];
