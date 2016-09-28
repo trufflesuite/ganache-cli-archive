@@ -99,6 +99,8 @@ The RPC methods currently implemented are:
 * `eth_getLogs`
 * `eth_getStorageAt`
 * `eth_getTransactionByHash`
+* `eth_getTransactionByBlockHashAndIndex`
+* `eth_getTransactionByBlockNumberAndIndex`
 * `eth_getTransactionCount`
 * `eth_getTransactionReceipt`
 * `eth_hashrate`

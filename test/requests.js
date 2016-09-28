@@ -485,6 +485,8 @@ var tests = function(web3) {
 
     // These are expected to be run in order.
     var initialTransaction;
+    var blockHash;
+    var blockNumber;
     var contractAddress;
 
     it("should first populate senders address", function(done) {
@@ -512,9 +514,22 @@ var tests = function(web3) {
         if (err) return done(err);
 
         contractAddress = receipt.contractAddress;
+        blockHash = receipt.blockHash;
+        blockNumber = receipt.blockNumber;
 
         assert.notEqual(receipt, null, "Transaction receipt shouldn't be null");
         assert.notEqual(contractAddress, null, "Transaction did not create a contract");
+        done();
+      });
+    });
+
+    it("should verify the transaction immediately (eth_getTransactionByHash)", function(done) {
+      web3.eth.getTransaction(initialTransaction, function(err, result) {
+        if (err) return done(err);
+
+        assert.notEqual(result, null, "Transaction result shouldn't be null");
+        assert.equal(result.hash, initialTransaction, "Resultant hash isn't what we expected")
+
         done();
       });
     });
@@ -533,10 +548,36 @@ var tests = function(web3) {
       });
     });
 
-  });
+    it("should be able to get the transaction from the block (eth_getTransactionByBlockHashAndIndex)", function(done) {
+      web3.eth.getTransactionFromBlock(blockHash, 0, function(err, result) {
+        if (err) return done(err);
 
-  describe("eth_getTransactionByHash", function() {
-    it("should return transaction"); //, function() {
+        assert.equal(result.hash, initialTransaction);
+        assert.equal(result.blockNumber, blockNumber);
+        assert.equal(result.blockHash, blockHash);
+        done();
+      });
+    });
+
+    it("should be able to get the transaction from the block (eth_getTransactionByBlockNumberAndIndex)", function(done) {
+      web3.eth.getTransactionFromBlock(blockNumber, 0, function(err, result) {
+        if (err) return done(err);
+
+        assert.equal(result.hash, initialTransaction);
+        assert.equal(result.blockNumber, blockNumber);
+        assert.equal(result.blockHash, blockHash);
+        done();
+      });
+    });
+
+    it("should throw error for transactions that don't exist in block (eth_getTransactionByBlockNumberAndIndex)", function(done) {
+      web3.eth.getTransactionFromBlock(blockNumber, 3, function(err, result) {
+        // We want an error because there is no transaction with id 3.
+        if (err) return done();
+
+        done(new Error("We didn't receive an error like we expected"));
+      });
+    });
   });
 
   describe("eth_getTransactionCount", function() {
