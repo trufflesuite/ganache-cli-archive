@@ -93,6 +93,8 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
 * `"fork"`: `string` - Same as `--fork` option above.
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
+* `"locked"`: `boolean` - whether or not accounts are locked by default.
+* `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 
 # IMPLEMENTED METHODS
 

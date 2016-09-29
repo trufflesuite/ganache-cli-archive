@@ -24,7 +24,7 @@ describe("Accounts", function() {
     var web3 = new Web3();
     web3.setProvider(TestRPC.provider({
       mnemonic: mnemonic,
-      locked: true
+      secure: true
     }));
 
     web3.eth.sendTransaction({
@@ -43,7 +43,7 @@ describe("Accounts", function() {
     var web3 = new Web3();
     web3.setProvider(TestRPC.provider({
       mnemonic: mnemonic,
-      locked: true,
+      secure: true,
       unlocked_accounts: [expected_address]
     }));
 
@@ -63,7 +63,7 @@ describe("Accounts", function() {
     var web3 = new Web3();
     web3.setProvider(TestRPC.provider({
       mnemonic: mnemonic,
-      locked: true,
+      secure: true,
       unlocked_accounts: [0]
     }));
 
@@ -85,7 +85,7 @@ describe("Accounts", function() {
     var web3 = new Web3();
     web3.setProvider(TestRPC.provider({
       mnemonic: mnemonic,
-      locked: true,
+      secure: true,
       unlocked_accounts: [0, second_address]
     }));
 
@@ -128,7 +128,7 @@ describe("Accounts", function() {
     var web3 = new Web3();
     web3.setProvider(TestRPC.provider({
       mnemonic: mnemonic,
-      locked: true,
+      secure: true,
       unlocked_accounts: [0, second_address]
     }));
 

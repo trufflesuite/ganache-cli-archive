@@ -59,7 +59,7 @@ var options = {
   fork: argv.f || argv.fork || false,
   network_id: argv.i || argv.networkId,
   verbose: argv.v || argv.verbose,
-  locked: argv.n || argv.secure || false,
+  secure: argv.n || argv.secure || false,
   logger: console
 }
 
