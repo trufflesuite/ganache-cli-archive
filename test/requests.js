@@ -101,11 +101,11 @@ var tests = function(web3) {
   });
 
   describe("eth_gasPrice", function() {
-    it("should return gas price of 1", function(done) {
+    it("should return gas price of 0.02 szabo", function(done) {
       web3.eth.getGasPrice(function(err, result) {
         if (err) return done(err);
 
-        assert.deepEqual(result.toNumber(), 1);
+        assert.deepEqual(result.toNumber(), 20000000000);
         done();
       });
     });
