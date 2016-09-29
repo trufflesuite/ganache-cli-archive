@@ -5,6 +5,7 @@ var assert = require('assert');
 var TestRPC = require("../index.js");
 var solc = require("solc");
 var fs = require("fs");
+var to = require("../lib/utils/to");
 
 var source = fs.readFileSync("./test/Example.sol", {encoding: "utf8"});
 var result = solc.compile(source, 1);
@@ -31,7 +32,8 @@ var contract = {
   transaction_data: {
     from: null, // set by test
     to: null, // set by test
-    data: '0x552410770000000000000000000000000000000000000000000000000000000000000019' // sets value to 25 (base 10)
+    data: '0x552410770000000000000000000000000000000000000000000000000000000000000019', // sets value to 25 (base 10)
+    gas: 3141592
   }
 };
 
@@ -172,7 +174,8 @@ var tests = function(web3) {
     it("should return transactions in the block as well", function(done) {
       web3.eth.sendTransaction({
         from: accounts[0],
-        data: contract.binary
+        data: contract.binary,
+        gas: 3141592
       }, function(err, tx_hash) {
         if (err) return done(err);
 
@@ -236,7 +239,8 @@ var tests = function(web3) {
     it("should add a contract to the network (eth_sendTransaction)", function(done) {
       web3.eth.sendTransaction({
         from: accounts[0],
-        data: contract.binary
+        data: contract.binary,
+        gas: 3141592
       }, function(err, result) {
         if (err) return done(err);
 
@@ -344,7 +348,7 @@ var tests = function(web3) {
     it("should represent the block number correctly in the Oracle contract (oracle.blockhash0)", function(done){
       var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
       var oracleOutput = solc.compile(oracleSol).contracts.Oracle
-      web3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: accounts[0] }, function(err, oracle){
+      web3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: accounts[0], gas: 3141592 }, function(err, oracle){
         if(err) return done(err)
         if(!oracle.address) return
         web3.eth.getBlock(0, function(err, block){
@@ -477,6 +481,7 @@ var tests = function(web3) {
 
     var tx = new Transaction({
       data: contract.binary,
+      gasLimit: to.hex(3141592)
     })
     var privateKey = new Buffer('e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109', 'hex')
     var senderAddress = '0x'+utils.privateToAddress(privateKey).toString('hex')
@@ -495,6 +500,7 @@ var tests = function(web3) {
         from: accounts[0],
         to: senderAddress,
         value: '0x3141592',
+        gas: 3141592
       }, function(err, result) {
         if (err) return done(err);
         done();

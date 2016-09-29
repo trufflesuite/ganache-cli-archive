@@ -85,7 +85,8 @@ describe("Forking", function() {
   before("Deploy initial contracts", function(done) {
     forkedWeb3.eth.sendTransaction({
       from: forkedAccounts[0],
-      data: contract.binary
+      data: contract.binary,
+      gas: 3141592
     }, function(err, tx) {
       if (err) { return done(err); }
 
@@ -100,7 +101,8 @@ describe("Forking", function() {
         // Deploy a second one, which we won't use often.
         forkedWeb3.eth.sendTransaction({
           from: forkedAccounts[0],
-          data: contract.binary
+          data: contract.binary,
+          gas: 3141592
         }, function(err, tx) {
           if (err) { return done(err); }
           forkedWeb3.eth.getTransactionReceipt(tx, function(err, receipt) {
@@ -361,7 +363,7 @@ describe("Forking", function() {
     var oracleSol = fs.readFileSync("./test/Oracle.sol", {encoding: "utf8"});
     var oracleOutput = solc.compile(oracleSol).contracts.Oracle;
 
-    mainWeb3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: mainAccounts[0] }, function(err, oracle){
+    mainWeb3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: mainAccounts[0], gas: 3141592 }, function(err, oracle){
       if(err) return done(err)
       if(!oracle.address) return
       mainWeb3.eth.getBlock(0, function(err, block){
@@ -378,7 +380,7 @@ describe("Forking", function() {
               if (err) return done(err);
               assert.equal(number, expected_number);
 
-              oracle.setCurrentBlock({from: mainAccounts[0]}, function(err, tx) {
+              oracle.setCurrentBlock({from: mainAccounts[0], gas: 3141592}, function(err, tx) {
                 if (err) return done(err);
 
                 oracle.lastBlock.call({from: mainAccounts[0]}, function(err, val) {

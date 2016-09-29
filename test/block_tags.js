@@ -80,9 +80,10 @@ describe("Block Tags", function() {
   before("Make transaction that changes balance, nonce and code", function(done) {
     web3.eth.sendTransaction({
       from: accounts[0],
-      data: contract.binary
+      data: contract.binary,
+      gas: 3141592
     }, function(err, tx) {
-      if (err) return callback(err);
+      if (err) return done(err);
 
       web3.eth.getTransactionReceipt(tx, function(err, receipt) {
         if (err) return done(err);
