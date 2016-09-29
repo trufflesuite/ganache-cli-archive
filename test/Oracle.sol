@@ -5,9 +5,9 @@ contract Oracle{
     blockhash0 = block.blockhash(0);
   }
   function currentBlock() returns (uint) {
-    return block.number;
+    return 1;
   }
   function setCurrentBlock() {
-    lastBlock = block.number;
+    lastBlock = 1;
   }
 }

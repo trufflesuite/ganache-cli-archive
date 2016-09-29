@@ -4,13 +4,19 @@ var TestRPC = require("../index.js");
 
 describe("Custom Gas Limit", function() {
   var web3;
+  var provider;
 
   before("Init the Web3 provider", function(done){
     web3 = new Web3();
-    web3.setProvider(TestRPC.provider({
+    provider = TestRPC.provider({
       gasLimit: 5000000
-    }));
+    });
+    web3.setProvider(provider);
     done();
+  });
+
+  after('close provider', function (done) {
+    provider.close(done);
   });
 
   it("The block should show the correct custom Gas Limit", function(done) {

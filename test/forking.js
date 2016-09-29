@@ -43,7 +43,7 @@ var contract = {
 
 var forkedTargetUrl = "http://localhost:21345";
 
-describe("Forking", function() {
+describe.only("Forking", function() {
   var contractAddress;
   var secondContractAddress; // used sparingly
   var forkedServer;
@@ -159,14 +159,20 @@ describe("Forking", function() {
     });
   });
 
-  before("Set main web3 provider, forking from forked chain at this point", function(done) {
-    mainWeb3.setProvider(TestRPC.provider({
+  var _provider;
+  before('init provider async', function (done) {
+    _provider = TestRPC.provider({
       fork: forkedTargetUrl,
       logger: logger,
 
       // Do not change seed. Determinism matters for these tests.
       seed: "a different seed"
-    }));
+    });
+    _provider.waitForInitialization(done);
+  });
+
+  before("Set main web3 provider, forking from forked chain at this point", function(done) {
+    mainWeb3.setProvider(_provider);
 
     forkedWeb3.eth.getBlockNumber(function(err, number) {
       if (err) return done(err);

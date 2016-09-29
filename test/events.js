@@ -241,9 +241,20 @@ var logger = {
 
 describe("Provider:", function() {
   var web3 = new Web3();
-  web3.setProvider(TestRPC.provider({
-    logger: logger
-  }));
+  var provider;
+  before('init provider', function (done) {
+    provider = TestRPC.provider({
+      logger: logger
+    });
+    provider.waitForInitialization(done);
+  });
+  before('init web3', function (done) {
+    web3.setProvider(provider);
+    done();
+  });
+  after('close down provider', function (done) {
+    provider.close(done);
+  });
   tests(web3);
 });
 
@@ -263,6 +274,7 @@ describe("Server:", function(done) {
   });
 
   after("Shutdown server", function(done) {
+    console.log('closing');
     server.close(done);
   });
 

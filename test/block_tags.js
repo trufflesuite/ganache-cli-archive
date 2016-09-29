@@ -43,11 +43,22 @@ var contract = {
 
 describe("Block Tags", function() {
   var accounts;
-  var web3 = new Web3(TestRPC.provider());
+  var web3;
+  var provider;
   var contractAddress;
 
   var initial_block_number;
   var initial = {};
+
+  before("init web3", function (done) {
+    provider = TestRPC.provider();
+    web3 = new Web3(provider);
+    done();
+  });
+
+  after('close provider', function (done) {
+    provider.close(done);
+  });
 
   before("Gather accounts", function(done) {
     web3.eth.getAccounts(function(err, accs) {
@@ -82,7 +93,7 @@ describe("Block Tags", function() {
       from: accounts[0],
       data: contract.binary
     }, function(err, tx) {
-      if (err) return callback(err);
+      if (err) return done(err);
 
       web3.eth.getTransactionReceipt(tx, function(err, receipt) {
         if (err) return done(err);
