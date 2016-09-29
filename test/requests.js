@@ -485,6 +485,8 @@ var tests = function(web3) {
 
     // These are expected to be run in order.
     var initialTransaction;
+    var blockHash;
+    var blockNumber;
     var contractAddress;
 
     it("should first populate senders address", function(done) {
@@ -512,9 +514,22 @@ var tests = function(web3) {
         if (err) return done(err);
 
         contractAddress = receipt.contractAddress;
+        blockHash = receipt.blockHash;
+        blockNumber = receipt.blockNumber;
 
         assert.notEqual(receipt, null, "Transaction receipt shouldn't be null");
         assert.notEqual(contractAddress, null, "Transaction did not create a contract");
+        done();
+      });
+    });
+
+    it("should verify the transaction immediately (eth_getTransactionByHash)", function(done) {
+      web3.eth.getTransaction(initialTransaction, function(err, result) {
+        if (err) return done(err);
+
+        assert.notEqual(result, null, "Transaction result shouldn't be null");
+        assert.equal(result.hash, initialTransaction, "Resultant hash isn't what we expected")
+
         done();
       });
     });
@@ -533,10 +548,36 @@ var tests = function(web3) {
       });
     });
 
-  });
+    it("should be able to get the transaction from the block (eth_getTransactionByBlockHashAndIndex)", function(done) {
+      web3.eth.getTransactionFromBlock(blockHash, 0, function(err, result) {
+        if (err) return done(err);
 
-  describe("eth_getTransactionByHash", function() {
-    it("should return transaction"); //, function() {
+        assert.equal(result.hash, initialTransaction);
+        assert.equal(result.blockNumber, blockNumber);
+        assert.equal(result.blockHash, blockHash);
+        done();
+      });
+    });
+
+    it("should be able to get the transaction from the block (eth_getTransactionByBlockNumberAndIndex)", function(done) {
+      web3.eth.getTransactionFromBlock(blockNumber, 0, function(err, result) {
+        if (err) return done(err);
+
+        assert.equal(result.hash, initialTransaction);
+        assert.equal(result.blockNumber, blockNumber);
+        assert.equal(result.blockHash, blockHash);
+        done();
+      });
+    });
+
+    it("should throw error for transactions that don't exist in block (eth_getTransactionByBlockNumberAndIndex)", function(done) {
+      web3.eth.getTransactionFromBlock(blockNumber, 3, function(err, result) {
+        // We want an error because there is no transaction with id 3.
+        if (err) return done();
+
+        done(new Error("We didn't receive an error like we expected"));
+      });
+    });
   });
 
   describe("eth_getTransactionCount", function() {
@@ -561,6 +602,68 @@ var tests = function(web3) {
         done();
       });
     });
+  });
+
+  describe("miner_stop", function(){
+    it("should stop mining", function(done){
+      web3.currentProvider.sendAsync({
+        jsonrpc: "2.0",
+        method: "miner_stop",
+      }, function(err,result){
+        var tx_data = {}
+        tx_data.to = accounts[1];
+        tx_data.from = accounts[0];
+        tx_data.value = 0x1;
+
+        web3.eth.sendTransaction(tx_data, function(err, tx) {
+          if (err) return done(err);
+
+          web3.eth.getTransactionReceipt(tx, function(err, receipt) {
+            if (err) return done(err);
+
+            assert.equal(receipt, null);
+            web3.currentProvider.sendAsync({
+              jsonrpc: "2.0",
+              method: "miner_start",
+              params: [1]
+            }, function(err, result){
+              if (err) return done(err);
+              done();
+            })
+          });
+        });
+      })
+    })
+  });
+
+  describe("miner_start", function(){
+    it("should start mining", function(done){
+      web3.currentProvider.sendAsync({
+        jsonrpc: "2.0",
+        method: "miner_stop",
+      }, function(err,result){
+        web3.currentProvider.sendAsync({
+          jsonrpc: "2.0",
+          method: "miner_start",
+          params: [1]
+        }, function(err,result){
+          var tx_data = {}
+          tx_data.to = accounts[1];
+          tx_data.from = accounts[0];
+          tx_data.value = 0x1;
+
+          web3.eth.sendTransaction(tx_data, function(err, tx) {
+            if (err) return done(err);
+            //Check the receipt
+            web3.eth.getTransactionReceipt(tx, function(err, receipt) {
+              if (err) return done(err);
+              assert.notEqual(receipt, null); //i.e. receipt exists, so transaction was mined
+              done();
+            });
+          });
+        })
+      })
+    })
   });
 
   describe("web3_sha3", function() {

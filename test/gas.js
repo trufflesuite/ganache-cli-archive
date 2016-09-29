@@ -20,7 +20,7 @@ describe("Gas Estimation", function() {
   });
 
   before("compile source", function(done) {
-    this.timeout(5000);
+    this.timeout(10000);
     web3.eth.compile.solidity(source, function(err, result) {
       if (err) return done(err);
 
