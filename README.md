@@ -29,6 +29,7 @@ Options:
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
 * `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
+* `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
 * `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
@@ -38,15 +39,31 @@ Options:
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
 * `--debug`: Output VM opcodes for debugging
 
-You can also specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
+Special Options:
 
-```
-$ testrpc --account="<privatekey>,balance" [--account="<privatekey>,balance"]
-```
+* `--account`: Specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
 
-Note that private keys are 64 characters long, and must be input as a 0x-prefixed hex string. Balance can either be input as an integer or 0x-prefixed hex value specifying the amount of wei in that account.
+  ```
+  $ testrpc --account="<privatekey>,balance" [--account="<privatekey>,balance"]
+  ```
 
-An HD wallet will not be created for you when using `--account`.
+  Note that private keys are 64 characters long, and must be input as a 0x-prefixed hex string. Balance can either be input as an integer or 0x-prefixed hex value specifying the amount of wei in that account.
+
+  An HD wallet will not be created for you when using `--account`.
+
+* `-u` or `--unlock`: Specify `--unlock ...` any number of times passing either an address or an account index to unlock specific accounts. When used in conjunction with `--secure`, `--unlock` will override the locked state of specified accounts.
+
+  ```
+  $ testrpc --secure --unlock "0x1234..." --unlock "0xabcd..."
+  ```
+
+  You can also specify a number, unlocking accounts by their index:
+
+  ```
+  $ testrpc --secure -u 0 -u 1
+  ```
+
+  This feature can also be used to impersonate accounts and unlock addresses you wouldn't otherwise have access to. When used with the `--fork` feature, you can use the TestRPC to make transactions as any address on the blockchain, which is very useful for testing and dynamic analysis.
 
 ##### Library
 
