@@ -5,6 +5,7 @@ var solc = require("solc");
 var async = require("async");
 
 var source = "                      \
+pragma solidity ^0.4.2;             \
 contract EventTest {                \
   event ExampleEvent(uint indexed first, uint indexed second);   \
                                     \
