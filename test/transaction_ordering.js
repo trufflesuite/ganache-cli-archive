@@ -2,7 +2,7 @@ var Web3 = require('web3');
 var TestRPC = require("../index.js");
 var assert = require('assert');
 
-describe("Ordering transactions", function() {
+describe("Transaction Ordering", function() {
   var accounts;
   var web3 = new Web3(TestRPC.provider());
 
@@ -56,7 +56,7 @@ describe("Ordering transactions", function() {
       })
     })
   });
-  
+
   it("should order queued transactions correctly by price before adding to the block", function(done) {
     var tx_data = {}
     tx_data.to = accounts[1];
