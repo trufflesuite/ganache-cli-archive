@@ -151,7 +151,7 @@ describe("Interval Mining", function() {
       logger: logger
     }));
 
-    web3.eth.compile.solidity("contract Example { function Example() {throw;} }", function(err, result) {
+    web3.eth.compile.solidity("pragma solidity ^0.4.2; contract Example { function Example() {throw;} }", function(err, result) {
       if (err) return done(err);
       var bytecode = "0x" + result.code;
 
