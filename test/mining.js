@@ -81,6 +81,19 @@ describe("Block Processing", function() {
     });
   }
 
+  function checkMining() {
+    return new Promise(function(accept, reject) {
+      web3.currentProvider.sendAsync({
+        jsonrpc: "2.0",
+        method: "eth_mining",
+        id: new Date().getTime()
+      }, function(err, res) {
+        if (err) return reject(err);
+        accept(res.result);
+      });
+    });
+  }
+
   function mineSingleBlock() {
     return new Promise(function(accept, reject) {
       web3.currentProvider.sendAsync({
@@ -394,6 +407,19 @@ describe("Block Processing", function() {
         // Hot diggety dog!
         done();
       });
+    });
+  });
+
+  it("should return the correct value for eth_mining when miner started and stopped", function() {
+    return stopMining().then(function() {
+      return checkMining();
+    }).then(function(is_mining) {
+      assert(!is_mining);
+      return startMining();
+    }).then(function() {
+      return checkMining();
+    }).then(function(is_mining) {
+      assert(is_mining);
     });
   });
 });
