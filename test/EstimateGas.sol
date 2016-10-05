@@ -1,3 +1,5 @@
+pragma solidity ^0.4.2;
+
 // From https://github.com/ethereumjs/testrpc/issues/58
 contract EstimateGas {
     event Add(bytes32 name, bytes32 description, uint value, address owner);

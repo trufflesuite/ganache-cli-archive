@@ -1,11 +1,19 @@
 #!/usr/bin/env node
-var argv = require('yargs').argv;
+var yargs = require('yargs');
 var TestRPC = require('..');
 var pkg = require("../package.json");
 var util = require("ethereumjs-util");
 var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
+
+yargs
+.option("unlock", {
+  type: "string",
+  alias: "u"
+});
+
+var argv = yargs.argv;
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -32,6 +40,10 @@ if (argv.d || argv.deterministic) {
   argv.s = "TestRPC is awesome!";
 }
 
+if (typeof argv.unlock == "string") {
+  argv.unlock = [argv.unlock];
+}
+
 var options = {
   port: argv.p || argv.port || "8545",
   hostname: argv.h || argv.hostname,
@@ -43,9 +55,11 @@ var options = {
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
+  unlocked_accounts: argv.unlock,
   fork: argv.f || argv.fork || false,
   network_id: argv.i || argv.networkId,
   verbose: argv.v || argv.verbose,
+  secure: argv.n || argv.secure || false,
   logger: console
 }
 
@@ -84,7 +98,13 @@ server.listen(options.port, options.hostname, function(err, state) {
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
-    console.log("(" + index + ") " + address);
+    var line = "(" + index + ") " + address;
+
+    if (state.isUnlocked(address) == false) {
+      line += " 🔒";
+    }
+
+    console.log(line);
   });
 
   console.log("");
