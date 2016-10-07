@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var argv = require('yargs').argv;
+var yargs = require('yargs');
 var TestRPC = require('..');
 var pkg = require("../package.json");
 var util = require("ethereumjs-util");
@@ -7,106 +7,14 @@ var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
 
-<<<<<<< HEAD
 yargs
-.usage('Usage: $0 [options...] ')
-// .command('start', 'Start the server')
-.option('port', {
-  describe: 'The port to serve',
-  alias: 'p',
-  type: 'string',   // for compativility with previous version
-  default: '8545'
-})
-.option('hostname', {
-  describe: 'Hostname to listen on. Defaults to Node\'s server.listen() default.',
-  alias: 'h',
-  type: 'string'
-})
-.option('debug', {
-  describe: 'Output VM opcodes for debugging',
-  type: 'boolean',
-  default: false
-})
-.option('deterministic', {
-  describe: 'Generate deterministic addresses based on a pre-defined mnemonic.',
-  alias: 'd',
-  type: 'boolean',
-  default: false
-})
-.option('seed', {
-  describe: 'Use arbitrary data to generate the HD wallet mnemonic to be used.',
-  alias: 's',
-  type: 'string',
-  default: 'TestRPC is awesome!'
-})
-.option('mnemonic', {
-  describe: 'Use a specific HD wallet mnemonic to generate initial addresses.',
-  alias: 'm',
-  type: 'string'
-})
-.option('total_accounts', {
-  describe: 'Number of accounts to generate at startup.',
-  alias: 't',
-  type: 'integer',
-  default: 10
-})
-.option('blocktime', {
-  describe: 'Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.',
-  alias: 'b',
-  type: 'integer',
-  default: 0
-})
-.option('gasPrice', {
-  describe: 'Use a custom Gas Price (defaults to 1)',
-  alias: 'g',
-  type: 'integer',
-  default: 1
-})
-.option('gasLimit', {
-  describe: 'Use a custom Gas Limit (defaults to 0x47E7C4)',
-  alias: 'l',
-  type: 'integer',
-  default: 4712388 // 0x47E7C4
-})
-.option('accounts', {
-  describe: 'Specify the accounts to generate at startup. testrpc --account="<privatekey with 0x>,<balance in wei>" [--account="<privatekey>,balance"]',
-  alias: 'a',
-  type: 'string'
-})
-.option('fork', {
-  describe: 'Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. http://localhost:8545. You can optionally specify the block to fork from using an @ sign: http://localhost:8545@1599200',
-  alias: 'f',
-  type: 'boolean',
-  default: false
-})
-.option('network_id', {
-  describe: 'The network id',
-  alias: 'i',
-  type: 'integer',
-  default: 1377
-})
-.option('verbose', {
-  describe: 'Tell me more!',
-  alias: 'v',
-  type: 'boolean',
-  default: false
-})
-.option('help', {
-  describe: 'Show some help',
-  type: 'boolean',
-  default: false
-})
-.option('version', {
-  describe: 'Show the version',
-  type: 'boolean',
-  default: false
+.option("unlock", {
+  type: "string",
+  alias: "u"
 });
 
 var argv = yargs.argv;
 
-
-=======
->>>>>>> parent of 3b3c1ed... Add help option (testrpc --help)
 function parseAccounts(accounts) {
   function splitAccount(account) {
     account = account.split(',')
@@ -132,6 +40,10 @@ if (argv.d || argv.deterministic) {
   argv.s = "TestRPC is awesome!";
 }
 
+if (typeof argv.unlock == "string") {
+  argv.unlock = [argv.unlock];
+}
+
 var options = {
   port: argv.p || argv.port || "8545",
   hostname: argv.h || argv.hostname,
@@ -143,29 +55,16 @@ var options = {
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
+  unlocked_accounts: argv.unlock,
   fork: argv.f || argv.fork || false,
   network_id: argv.i || argv.networkId,
   verbose: argv.v || argv.verbose,
+  secure: argv.n || argv.secure || false,
   logger: console
 }
 
 var fork_address;
 
-<<<<<<< HEAD
-if (argv.help) {
-  console.log('This is TestRPC version '+ pkg.version);
-  console.log('More at ' + pkg.repository.url);
-  yargs.showHelp();
-  process.exit(0);
-}
-
-if (argv.version) {
-  console.log('TestRPC version '+ pkg.version);
-  process.exit(0);
-}
-
-=======
->>>>>>> parent of 3b3c1ed... Add help option (testrpc --help)
 // If we're forking from another client, don't try to use the same port.
 if (options.fork) {
   var split = options.fork.split("@");
@@ -199,8 +98,14 @@ server.listen(options.port, options.hostname, function(err, state) {
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
-    var balanceInEth = util.bufferToInt(accounts[address].account.balance)*1e-18;
-    console.log("(" + index + ") " + address + ' - ' + balanceInEth + ' ETH' );
+    var balanceInEth = web3.fromWei(util.bufferToInt(accounts[address].account.balance), 'ether');
+    var line = "(" + index + ") " + address + ' - ' + balanceInEth + ' ETH';
+    
+    if (state.isUnlocked(address) == false) {
+      line += " 🔒";
+    }
+
+    console.log(line);
   });
 
   console.log("");
