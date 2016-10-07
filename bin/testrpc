@@ -101,7 +101,7 @@ yargs
   default: false
 })
 .option("secure", {
-  type: "string",
+  type: "boolean",
   describe: 'All accounts are locked by default',
   alias: "n",
   default: false
