@@ -100,6 +100,12 @@ yargs
   type: 'boolean',
   default: false
 })
+.option("secure", {
+  type: "string",
+  describe: 'All accounts are locked by default',
+  alias: "n",
+  default: false
+})
 .option("unlock", {
   type: "string",
   alias: "u"
@@ -148,10 +154,10 @@ var options = {
   gasLimit: argv.gasLimit,
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
-  fork: argv.f || argv.fork || false,
-  network_id: argv.i || argv.network_id,
-  verbose: argv.v || argv.verbose,
-  secure: argv.n || argv.secure || false,
+  fork: argv.fork,
+  network_id: argv.network_id,
+  verbose: argv.verbose,
+  secure: argv.secure,
   logger: console
 };
 
