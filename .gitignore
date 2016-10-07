@@ -3,3 +3,4 @@ TODO
 *.log
 .eslintrc.js
 .tern-project
+.DS_Store

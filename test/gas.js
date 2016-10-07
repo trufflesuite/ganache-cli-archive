@@ -20,7 +20,7 @@ describe("Gas Estimation", function() {
   });
 
   before("compile source", function(done) {
-    this.timeout(5000);
+    this.timeout(10000);
     web3.eth.compile.solidity(source, function(err, result) {
       if (err) return done(err);
 
@@ -29,7 +29,7 @@ describe("Gas Estimation", function() {
 
       EstimateGasContract = web3.eth.contract(abi);
       EstimateGasContract._code = code;
-      EstimateGasContract.new({data: code, from: accounts[0]}, function(err, instance) {
+      EstimateGasContract.new({data: code, from: accounts[0], gas: 3141592}, function(err, instance) {
         if (err) return done(err);
         if (!instance.address) return;
 
@@ -70,11 +70,11 @@ describe("Gas Estimation", function() {
   // });
 
   it("matches usage for complex function call (add)", function(done) {
-    testTransactionEstimate(EstimateGas.add, ["Tim", "A great guy", 5, {from: accounts[0]}], done);
+    testTransactionEstimate(EstimateGas.add, ["Tim", "A great guy", 5, {from: accounts[0], gas: 3141592}], done);
   });
 
   it("matches usage for complex function call (transfer)", function(done) {
-    testTransactionEstimate(EstimateGas.transfer, ["0x0123456789012345678901234567890123456789", 5, "Tim", {from: accounts[0]}], done);
+    testTransactionEstimate(EstimateGas.transfer, ["0x0123456789012345678901234567890123456789", 5, "Tim", {from: accounts[0], gas: 3141592}], done);
   });
 
 })
