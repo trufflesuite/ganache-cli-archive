@@ -100,7 +100,7 @@ server.listen(options.port, options.hostname, function(err, state) {
   addresses.forEach(function(address, index) {
     var balanceInEth = web3.fromWei(util.bufferToInt(accounts[address].account.balance), 'ether');
     var line = "(" + index + ") " + address;
-    line += state.isUnlocked(address)?" 🔓":" 🔒"; 
+    line += state.isUnlocked(address)?" 🔓 ":" 🔒 "; 
     line += ' - ' + balanceInEth + ' ETH';
     
     console.log(line);
