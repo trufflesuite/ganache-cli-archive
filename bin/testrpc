@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var yargs =require('yargs'); 
+var yargs = require('yargs');
 var TestRPC = require('..');
 var pkg = require("../package.json");
 var util = require("ethereumjs-util");
@@ -99,10 +99,13 @@ yargs
   describe: 'Show the version',
   type: 'boolean',
   default: false
+})
+.option("unlock", {
+  type: "string",
+  alias: "u"
 });
 
 var argv = yargs.argv;
-
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -125,6 +128,14 @@ function parseAccounts(accounts) {
   return ret;
 }
 
+if (argv.d || argv.deterministic) {
+  argv.s = "TestRPC is awesome!";
+}
+
+if (typeof argv.unlock == "string") {
+  argv.unlock = [argv.unlock];
+}
+
 var options = {
   port: argv.port,
   hostname: argv.hostname,
@@ -136,9 +147,11 @@ var options = {
   gasPrice: argv.gasPrice,
   gasLimit: argv.gasLimit,
   accounts: parseAccounts(argv.account),
-  fork: argv.fork,
-  network_id: argv.network_id,
-  verbose: argv.verbose,
+  unlocked_accounts: argv.unlock,
+  fork: argv.f || argv.fork || false,
+  network_id: argv.i || argv.networkId,
+  verbose: argv.v || argv.verbose,
+  secure: argv.n || argv.secure || false,
   logger: console
 };
 
@@ -188,8 +201,14 @@ server.listen(options.port, options.hostname, function(err, state) {
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
-    var balanceInEth = util.bufferToInt(accounts[address].account.balance)*1e-18;
-    console.log("(" + index + ") " + address + ' - ' + balanceInEth + ' ETH' );
+    var balanceInEth = web3.fromWei(util.bufferToInt(accounts[address].account.balance), 'ether');
+    var line = "(" + index + ") " + address + ' - ' + balanceInEth + ' ETH';
+
+    if (state.isUnlocked(address) == false) {
+      line += " 🔒";
+    }
+
+    console.log(line);
   });
 
   console.log("");
