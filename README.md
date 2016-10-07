@@ -21,8 +21,6 @@ Having problems? Be sure to check out the [FAQ](https://github.com/ethereumjs/te
 ##### Command Line
 
 ```Bash
-$ testrpc --help
-
 $ testrpc <options>
 ```
 

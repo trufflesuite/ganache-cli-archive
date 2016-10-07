@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var yargs =require('yargs'); 
+var argv = require('yargs').argv;
 var TestRPC = require('..');
 var pkg = require("../package.json");
 var util = require("ethereumjs-util");
@@ -7,6 +7,7 @@ var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
 
+<<<<<<< HEAD
 yargs
 .usage('Usage: $0 [options...] ')
 // .command('start', 'Start the server')
@@ -104,9 +105,11 @@ yargs
 var argv = yargs.argv;
 
 
+=======
+>>>>>>> parent of 3b3c1ed... Add help option (testrpc --help)
 function parseAccounts(accounts) {
   function splitAccount(account) {
-    account = account.split(',');
+    account = account.split(',')
     return {
       secretKey: account[0],
       balance: account[1]
@@ -118,32 +121,37 @@ function parseAccounts(accounts) {
   else if (!Array.isArray(accounts))
     return;
 
-  var ret = [];
+  var ret = []
   for (var i = 0; i < accounts.length; i++) {
     ret.push(splitAccount(accounts[i]));
   }
   return ret;
 }
 
+if (argv.d || argv.deterministic) {
+  argv.s = "TestRPC is awesome!";
+}
+
 var options = {
-  port: argv.port,
-  hostname: argv.hostname,
+  port: argv.p || argv.port || "8545",
+  hostname: argv.h || argv.hostname,
   debug: argv.debug,
-  seed: argv.seed,
-  mnemonic: argv.mnemonic,
-  total_accounts: argv.total_accounts,
-  blocktime: argv.blocktime,
-  gasPrice: argv.gasPrice,
-  gasLimit: argv.gasLimit,
+  seed: argv.s || argv.seed,
+  mnemonic: argv.m || argv.mnemonic,
+  total_accounts: argv.a || argv.accounts,
+  blocktime: argv.b || argv.blocktime,
+  gasPrice: argv.g || argv.gasPrice,
+  gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
-  fork: argv.fork,
-  network_id: argv.network_id,
-  verbose: argv.verbose,
+  fork: argv.f || argv.fork || false,
+  network_id: argv.i || argv.networkId,
+  verbose: argv.v || argv.verbose,
   logger: console
-};
+}
 
 var fork_address;
 
+<<<<<<< HEAD
 if (argv.help) {
   console.log('This is TestRPC version '+ pkg.version);
   console.log('More at ' + pkg.repository.url);
@@ -156,6 +164,8 @@ if (argv.version) {
   process.exit(0);
 }
 
+=======
+>>>>>>> parent of 3b3c1ed... Add help option (testrpc --help)
 // If we're forking from another client, don't try to use the same port.
 if (options.fork) {
   var split = options.fork.split("@");
@@ -175,6 +185,7 @@ if (options.fork) {
 var server = TestRPC.server(options);
 
 console.log("EthereumJS TestRPC v" + pkg.version);
+
 server.listen(options.port, options.hostname, function(err, state) {
   if (err) {
     console.log(err);
@@ -205,7 +216,7 @@ server.listen(options.port, options.hostname, function(err, state) {
     console.log("HD Wallet");
     console.log("==================");
     console.log("Mnemonic:      " + state.mnemonic);
-    console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}");
+    console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}")
   }
 
   if (options.gasPrice) {
