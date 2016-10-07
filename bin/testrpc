@@ -67,7 +67,7 @@ yargs
   type: 'integer',
   default: 4712388 // 0x47E7C4
 })
-.option('accounts', {
+.option('account', {
   describe: 'Specify the accounts to generate at startup. testrpc --account="<privatekey with 0x>,<balance in wei>" [--account="<privatekey>,balance"]',
   alias: 'a',
   type: 'string'
