@@ -108,7 +108,9 @@ yargs
 .option("unlock", {
   type: "string",
   alias: "u"
-});
+})
+.strict()
+.showHelpOnFail(true);
 
 var argv = yargs.argv;
 
