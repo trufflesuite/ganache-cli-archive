@@ -245,7 +245,7 @@ server.listen(options.port, options.hostname, function(err, state) {
     console.log(options.gasLimit);
   }
 
-  if (options.fork !== '') {
+  if (options.fork) {
     console.log("");
     console.log("Forked Chain");
     console.log("==================");
