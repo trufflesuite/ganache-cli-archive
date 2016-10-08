@@ -75,8 +75,7 @@ yargs
 .option('fork', {
   describe: 'Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. http://localhost:8545. You can optionally specify the block to fork from using an @ sign: http://localhost:8545@1599200',
   alias: 'f',
-  type: 'boolean',
-  default: false
+  type: 'string'
 })
 .option('network_id', {
   describe: 'The network id',
@@ -246,7 +245,7 @@ server.listen(options.port, options.hostname, function(err, state) {
     console.log(options.gasLimit);
   }
 
-  if (options.fork) {
+  if (options.fork !== '') {
     console.log("");
     console.log("Forked Chain");
     console.log("==================");
