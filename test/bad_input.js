@@ -127,7 +127,7 @@ describe("Provider:", function() {
   });
 });
 
-describe("Server:", function(done) {
+describe("Server:", function() {
   var web3 = new Web3();
   var port = 12345;
   var server;

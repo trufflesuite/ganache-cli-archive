@@ -2,7 +2,7 @@ var Web3 = require('web3');
 var TestRPC = require("../index.js");
 var assert = require('assert');
 
-describe.only("Accounts", function() {
+describe("Accounts", function() {
   var web3 = new Web3();
   var provider;
 

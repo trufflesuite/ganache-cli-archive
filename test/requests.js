@@ -226,7 +226,7 @@ var tests = function(web3) {
   });
 
 
-  describe("contract scenario", function() {
+  describe.only("contract scenario", function() {
 
     // These are expected to be run in order.
     var initialTransaction;

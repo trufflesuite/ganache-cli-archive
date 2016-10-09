@@ -15,7 +15,7 @@ describe('Time adjustment', function() {
       time: startTime
     });
     web3 = new Web3(provider);
-    provider.waitForInitialization(done);
+    done();
   });
 
   after('close provider', function (done) {

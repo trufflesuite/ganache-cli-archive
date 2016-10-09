@@ -164,13 +164,12 @@ describe("Forking", function() {
     _provider = TestRPC.provider({
       fork: forkedTargetUrl,
       logger: logger,
-      db_path: '/Users/mhhf/test',
       total_accounts: 5,
       // Do not change seed. Determinism matters for these tests.
       // seed: "a different seed"
       seed: "let's make this deterministic",
     });
-    _provider.waitForInitialization(done);
+    done();
   });
 
   before("Set main web3 provider, forking from forked chain at this point", function(done) {

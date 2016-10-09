@@ -15,7 +15,7 @@ describe("Gas Estimation", function() {
   before('init web3', function (done) {
     provider = TestRPC.provider();
     web3 = new Web3(provider);
-    provider.waitForInitialization(done);
+    done();
   });
 
   after('close provider', function (done) {
