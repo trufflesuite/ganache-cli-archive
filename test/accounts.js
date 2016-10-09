@@ -2,7 +2,7 @@ var Web3 = require('web3');
 var TestRPC = require("../index.js");
 var assert = require('assert');
 
-describe.skip("Accounts", function() {
+describe.only("Accounts", function() {
   var web3 = new Web3();
   var provider;
 
@@ -10,7 +10,7 @@ describe.skip("Accounts", function() {
     provider = TestRPC.provider({
       mnemonic: "into trim cross then helmet popular suit hammer cart shrug oval student"
     });
-    provider.waitForInitialization(done);
+    done();
   });
 
   after('close provider', function (done) {
