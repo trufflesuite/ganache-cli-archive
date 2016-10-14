@@ -5,21 +5,14 @@ var assert = require('assert');
 describe("Accounts", function() {
   var web3 = new Web3();
   var provider;
-
-  before('init provider', function (done) {
-    provider = TestRPC.provider({
-      mnemonic: "into trim cross then helmet popular suit hammer cart shrug oval student"
-    });
-    done();
-  });
-
-  after('close provider', function (done) {
-    provider.close(done);
-  });
+  var mnemonic = "into trim cross then helmet popular suit hammer cart shrug oval student";
+  var expected_address = "0x604a95C9165Bc95aE016a5299dd7d400dDDBEa9A";
 
   it("should respect the BIP99 mnemonic", function(done) {
-    var expected_address = "0x604a95C9165Bc95aE016a5299dd7d400dDDBEa9A";
 
+    provider = TestRPC.provider({
+      mnemonic: mnemonic
+    });
     web3.setProvider(provider);
 
     web3.eth.getAccounts(function(err, accounts) {
@@ -28,5 +21,128 @@ describe("Accounts", function() {
       assert(accounts[0].toLowerCase(), expected_address.toLowerCase());
       provider.close(done);
     });
-  })
+  });
+
+  it("should lock all accounts when specified", function(done) {
+    provider = TestRPC.provider({
+      mnemonic: mnemonic,
+      secure: true
+    });
+    web3.setProvider(provider);
+
+    web3.eth.sendTransaction({
+      from: expected_address,
+      to: "0x1234567890123456789012345678901234567890", // doesn't need to exist
+      value: web3.toWei(1, "Ether"),
+      gasLimit: 90000
+    }, function(err, tx) {
+      if (!err) return done(new Error("We expected the account to be locked, which should throw an error when sending a transaction"));
+      assert(err.message.toLowerCase().indexOf("could not unlock signer account") >= 0);
+      provider.close(done);
+    });
+  });
+
+  it("should unlock specified accounts, in conjunction with --secure", function(done) {
+    provider = TestRPC.provider({
+      mnemonic: mnemonic,
+      secure: true,
+      unlocked_accounts: [expected_address]
+    });
+    web3.setProvider(provider);
+
+    web3.eth.sendTransaction({
+      from: expected_address,
+      to: "0x1234567890123456789012345678901234567890", // doesn't need to exist
+      value: web3.toWei(1, "Ether"),
+      gasLimit: 90000
+    }, function(err, tx) {
+      if (err) return done(err);
+      // We should have no error here because the account is unlocked.
+      provider.close(done);
+    });
+  });
+
+  it("should unlock specified accounts, in conjunction with --secure, using array indexes", function(done) {
+    provider = TestRPC.provider({
+      mnemonic: mnemonic,
+      secure: true,
+      unlocked_accounts: [0]
+    });
+    web3.setProvider(provider);
+
+    web3.eth.sendTransaction({
+      from: expected_address,
+      to: "0x1234567890123456789012345678901234567890", // doesn't need to exist
+      value: web3.toWei(1, "Ether"),
+      gasLimit: 90000
+    }, function(err, tx) {
+      if (err) return done(err);
+      // We should have no error here because the account is unlocked.
+      provider.close(done);
+    });
+  });
+
+  // TODO - skipping because its not clear how to save fake transactions
+  it.skip("should unlock accounts even if private key isn't managed by the testrpc (impersonation)", function(done) {
+    var second_address = "0x1234567890123456789012345678901234567890";
+
+    provider = TestRPC.provider({
+      mnemonic: mnemonic,
+      secure: true,
+      unlocked_accounts: [0, second_address]
+    });
+    web3.setProvider(provider);
+
+    // Set up: give second address some ether
+    web3.eth.sendTransaction({
+      from: expected_address,
+      to: second_address,
+      value: web3.toWei(10, "Ether"),
+      gasLimit: 90000
+    }, function(err, tx) {
+      if (err) return done(err);
+
+      // Now we should be able to send a transaction from second address without issue.
+      web3.eth.sendTransaction({
+        from: second_address,
+        to: expected_address,
+        value: web3.toWei(5, "Ether"),
+        gasLimit: 90000
+      }, function(err, tx) {
+        if (err) return done(err);
+
+        // And for the heck of it let's check the balance just to make sure it went througj
+        web3.eth.getBalance(second_address, function(err, balance) {
+          if (err) return done(err);
+
+          var balanceInEther = web3.fromWei(balance, "Ether");
+
+          // Can't check the balance exactly. It cost some ether to send the transaction.
+          assert(balanceInEther.gt(4));
+          assert(balanceInEther.lt(5));
+          provider.close(done);
+        });
+      });
+    });
+  });
+
+  it("errors when we try to sign a transaction from an account we're impersonating", function(done) {
+    var second_address = "0x1234567890123456789012345678901234567890";
+
+    provider = TestRPC.provider({
+      mnemonic: mnemonic,
+      secure: true,
+      unlocked_accounts: [0, second_address]
+    });
+    web3.setProvider(provider);
+
+    web3.eth.sign(second_address, "some data", function(err, result) {
+      if (!err) return done(new Error("Expected an error while signing when not managing the private key"));
+
+      assert(err.message.toLowerCase().indexOf("cannot sign data; no private key") >= 0);
+      provider.close(done);
+    });
+  });
+
+
 });

@@ -1,3 +1,5 @@
+pragma solidity ^0.4.2;
+
 contract Oracle{
   bytes32 public blockhash0;
   uint public lastBlock;

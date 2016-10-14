@@ -29,6 +29,7 @@ Options:
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
 * `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
+* `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
 * `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
@@ -38,15 +39,31 @@ Options:
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
 * `--debug`: Output VM opcodes for debugging
 
-You can also specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
+Special Options:
 
-```
-$ testrpc --account="<privatekey>,balance" [--account="<privatekey>,balance"]
-```
+* `--account`: Specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
 
-Note that private keys are 64 characters long, and must be input as a 0x-prefixed hex string. Balance can either be input as an integer or 0x-prefixed hex value specifying the amount of wei in that account.
+  ```
+  $ testrpc --account="<privatekey>,balance" [--account="<privatekey>,balance"]
+  ```
 
-An HD wallet will not be created for you when using `--account`.
+  Note that private keys are 64 characters long, and must be input as a 0x-prefixed hex string. Balance can either be input as an integer or 0x-prefixed hex value specifying the amount of wei in that account.
+
+  An HD wallet will not be created for you when using `--account`.
+
+* `-u` or `--unlock`: Specify `--unlock ...` any number of times passing either an address or an account index to unlock specific accounts. When used in conjunction with `--secure`, `--unlock` will override the locked state of specified accounts.
+
+  ```
+  $ testrpc --secure --unlock "0x1234..." --unlock "0xabcd..."
+  ```
+
+  You can also specify a number, unlocking accounts by their index:
+
+  ```
+  $ testrpc --secure -u 0 -u 1
+  ```
+
+  This feature can also be used to impersonate accounts and unlock addresses you wouldn't otherwise have access to. When used with the `--fork` feature, you can use the TestRPC to make transactions as any address on the blockchain, which is very useful for testing and dynamic analysis.
 
 ##### Library
 
@@ -76,6 +93,8 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
 * `"fork"`: `string` - Same as `--fork` option above.
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
+* `"locked"`: `boolean` - whether or not accounts are locked by default.
+* `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 
 # IMPLEMENTED METHODS
 
@@ -99,6 +118,8 @@ The RPC methods currently implemented are:
 * `eth_getLogs`
 * `eth_getStorageAt`
 * `eth_getTransactionByHash`
+* `eth_getTransactionByBlockHashAndIndex`
+* `eth_getTransactionByBlockNumberAndIndex`
 * `eth_getTransactionCount`
 * `eth_getTransactionReceipt`
 * `eth_hashrate`
@@ -113,6 +134,9 @@ The RPC methods currently implemented are:
 * `net_listening`
 * `net_peerCount`
 * `net_version`
+* `miner_start`
+* `miner_stop`
+* `rpc_modules`
 * `web3_clientVersion`
 * `web3_sha3`
 
@@ -121,7 +145,7 @@ There’s also special non-standard methods that aren’t included within the or
 * `evm_snapshot` : Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created.
 * `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
 * `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
-* `evm_mine` : Force a block to be mined. Takes no parameters.
+* `evm_mine` : Force a block to be mined. Takes no parameters. Mines a block independent of whether or not mining is started or stopped.
 
 # TESTING
 
