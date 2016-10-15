@@ -64,13 +64,16 @@ describe("Persistency", function() {
   before("send transaction", function (done) {
     web3.eth.sendTransaction({
       from: accs[0],
+      gas: '0x2fefd8',
       data: contract.binary
     }, done);
   });
 
   after('close provider', function (done) {
-    cleanup();
-    provider.close(done);
+    provider.close(() => {
+      cleanup();
+      done();
+    });
   });
 
   it("should have block height 1", function (done) {
