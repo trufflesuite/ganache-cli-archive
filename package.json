@@ -36,12 +36,17 @@
     "yargs": "^3.29.0"
   },
   "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^5.3.5",
     "eslint-plugin-standard": "^1.3.3",
+    "json-loader": "^0.5.4",
     "mocha": "^2.2.5",
     "solc": "^0.3.0-1",
-    "tmp": "0.0.29"
+    "tmp": "0.0.29",
+    "webpack": "^1.13.2"
   },
   "repository": {
     "type": "git",
