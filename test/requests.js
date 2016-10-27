@@ -211,7 +211,30 @@ var tests = function(web3) {
   });
 
   describe("eth_sign", function() {
-  	it("should produce a signature whose signer can be recovered", function(done) {
+    var accounts;
+    var web3;
+
+    // This account produces an edge case signature when it signs the string:
+    // "558d2681eeb61e8bd3ee590aa624a6739caf9bef529a3f6e63dc54459be3ebd1". (See Issue #190)
+    var acc = {
+      balance: "0X00",
+      secretKey: "0xe6d66f02cd45a13982b99a5abf3deab1f67cf7be9fee62f0a072cb70896342e4"
+    };
+
+    // Load account.
+    before(function( done ){     
+      web3 = new Web3();
+      web3.setProvider(TestRPC.provider({
+        accounts: [ acc ]
+      }));
+      web3.eth.getAccounts(function(err, accs) {
+        if (err) return done(err);
+        accounts = accs;
+        done();
+      });
+    });
+
+    it("should produce a signature whose signer can be recovered", function(done) {
   	  var msg = web3.sha3("asparagus");
   	  web3.eth.sign(accounts[0], msg, function(err, sgn) {
         if (err) return done(err);
@@ -227,6 +250,27 @@ var tests = function(web3) {
     		done();
 	    });
   	});
+
+    it("should work if ecsign produces 'r' or 's' components that start with 0", function(done){
+      // This message produces a zero prefixed 'r' component when signed by ecsign
+      // w/ the account set in this test's 'before' block.
+      var edgeCaseMsg = "558d2681eeb61e8bd3ee590aa624a6739caf9bef529a3f6e63dc54459be3ebd1";
+      var msg = web3.sha3(edgeCaseMsg);
+      web3.eth.sign( accounts[0], msg, function(err, sgn) {
+        if (err) return done(err);
+
+        sgn = utils.stripHexPrefix(sgn);
+        var r = new Buffer(sgn.slice(0, 64), 'hex');
+        var s = new Buffer(sgn.slice(64, 128), 'hex');
+        var v = new Buffer((parseInt(sgn.slice(128, 130), 16) + 27).toString(16), 'hex');
+        var pub = utils.ecrecover(utils.toBuffer(msg), v, r, s);
+        var addr = utils.setLength(utils.fromSigned(utils.pubToAddress(pub)), 20);
+        addr = utils.addHexPrefix(addr.toString('hex'));
+        assert.deepEqual(addr, accounts[0]);
+        done();
+      });
+    })
+  
   });
 
 
