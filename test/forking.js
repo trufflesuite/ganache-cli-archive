@@ -43,7 +43,7 @@ var contract = {
 
 var forkedTargetUrl = "http://localhost:21345";
 
-describe("Forking", function() {
+describe.only("Forking", function() {
   var contractAddress;
   var secondContractAddress; // used sparingly
   var forkedServer;
