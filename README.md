@@ -1,18 +1,26 @@
+[![npm](https://img.shields.io/npm/v/ethereumjs-testrpc.svg)]()
+[![npm](https://img.shields.io/npm/dm/ethereumjs-testrpc.svg)]()
+
+*NOTE: As of version `3.0.2`, `testrpc` requires at least `Node 6.9.1` to run - this is because the `ethereumjs-vm@2.0.1` dependency is now shipping using ES2015 language features.*
+
 # Welcome to `testrpc`
 
 `testrpc` is a Node.js based Ethereum client for testing and development. It uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
 
 # INSTALL
 
-`testrpc` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js installed, and your environment is capable of installing and compiling `npm` modules.
+`testrpc` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js (>= v6.9.1) installed, and your environment is capable of installing and compiling `npm` modules.
+
+**macOS** Make sure you have the XCode Command Line Tools installed. These are needed in general to be able to compile most C based languages on your machine, as well as many npm modules.
+
+**Windows** See our [Windows install instructions](https://github.com/ethereumjs/testrpc/wiki/Installing-TestRPC-on-Windows).
+
+**Ubuntu/Linux** Follow the basic instructions for installing [Node.js](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) and make sure that you have `npm` installed, as well as the `build-essential` `apt` package (it supplies `make` which you will need to compile most things). Use the official Node.js packages, *do not use the package supplied by your distribution.*
+
 
 ```Bash
 npm install -g ethereumjs-testrpc
 ```
-
-**Using Windows?** See our [Windows install instructions](https://github.com/ethereumjs/testrpc/wiki/Installing-TestRPC-on-Windows).
-
-**Ubuntu User?** Follow the basic instructions for installing [Node.js](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) and make sure that you have `npm` installed, as well as the `build-essential` `apt` package (it supplies `make` which you will need to compile most things). Use the official Node.js packages, *do not use the package supplied by your distribution.*
 
 Having problems? Be sure to check out the [FAQ](https://github.com/ethereumjs/testrpc/wiki/FAQ) and if you're still having issues and you're sure its a problem with `testrpc` please open an issue.
 
