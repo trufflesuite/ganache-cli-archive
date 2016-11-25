@@ -147,7 +147,7 @@ var tests = function(web3) {
           logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
           transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
           stateRoot: '0x0585f2eb9148c8a01e03a178418f59e5eccb4a8b4e3f619a307cb8ce9084908e',
-          receiptRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+          receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
           miner: '0x0000000000000000000000000000000000000000',
           difficulty: { s: 1, e: 0, c: [ 0 ] },
           totalDifficulty: { s: 1, e: 0, c: [ 0 ] },
@@ -376,7 +376,7 @@ var tests = function(web3) {
 
         web3.eth.estimateGas(tx_data, function(err, result) {
           if (err) return done(err);
-          assert.equal(result, 27641);
+          assert.equal(result, 27665);
 
           web3.eth.getBlockNumber(function(err, result) {
             if (err) return done(err);
@@ -397,7 +397,7 @@ var tests = function(web3) {
 
       web3.eth.estimateGas(tx_data, function(err, result) {
         if (err) return done(err);
-        assert.equal(result, 27641);
+        assert.equal(result, 27665);
         done();
       });
     });
@@ -411,7 +411,7 @@ var tests = function(web3) {
 
       web3.eth.estimateGas(tx_data, function(err, result) {
         if (err) return done(err);
-        assert.equal(result, 27641);
+        assert.equal(result, 27665);
         done();
       });
     });

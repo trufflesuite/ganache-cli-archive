@@ -31,7 +31,7 @@ var contract = {
   }
 };
 
-describe("Persistency", function() {
+describe.skip("Persistency", function() {
   var web3 = new Web3();
   var provider;
   var cleanup;
