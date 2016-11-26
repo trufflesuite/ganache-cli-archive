@@ -34,7 +34,9 @@ describe("TestRPC", function(done) {
   });
 
   after("Shutdown server", function(done) {
-    server.close(done);
+    setTimeout(() => {
+      server.close(done);
+    }, 100)
   });
 
   it("should be able to handle multiple transactions at once and manage nonces accordingly", function(done) {
