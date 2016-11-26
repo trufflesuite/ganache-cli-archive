@@ -482,7 +482,6 @@ var tests = function(web3) {
           assert.equal(receipt.logs.length, 1, "Receipt had wrong amount of logs");
           assert.equal(receipt.logs[0].blockHash, receipt.blockHash, "Logs blockhash doesn't match block blockhash");
 
-          //console.log(call_data);
           web3.eth.call(call_data, function(err, result) {
             if (err) return done(err);
 
