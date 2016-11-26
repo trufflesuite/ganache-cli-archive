@@ -788,7 +788,9 @@ describe("Server:", function(done) {
   });
 
   after("Shutdown server", function(done) {
-    server.close(done);
+    setTimeout(() => { // Prevent interference with "something"
+      server.close(done);
+    }, 100);
   });
 
   tests(web3);
