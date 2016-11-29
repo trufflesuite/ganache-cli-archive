@@ -512,8 +512,22 @@ var tests = function(web3) {
       });
     });
 
-    it("should get the data from storage (eth_getStorageAt)", function(done) {
+    it("should get the data from storage (eth_getStorageAt) with padded hex", function(done) {
       web3.eth.getStorageAt(contractAddress, contract.position_of_value, function(err, result) {
+        assert.equal(web3.toDecimal(result), 25);
+        done();
+      });
+    });
+
+    it("should get the data from storage (eth_getStorageAt) with unpadded hex", function(done) {
+      web3.eth.getStorageAt(contractAddress, '0x0', function(err, result) {
+        assert.equal(web3.toDecimal(result), 25);
+        done();
+      });
+    });
+
+    it("should get the data from storage (eth_getStorageAt) with number", function(done) {
+      web3.eth.getStorageAt(contractAddress, 0, function(err, result) {
         assert.equal(web3.toDecimal(result), 25);
         done();
       });
