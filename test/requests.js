@@ -135,7 +135,7 @@ var tests = function(web3) {
 
   describe("eth_getBlockByNumber", function() {
     it("should return block given the block number", function(done) {
-      web3.eth.getBlock(0, function(err, block) {
+      web3.eth.getBlock(0, true, function(err, block) {
         if (err) return done(err);
 
         var expectedFirstBlock = {
@@ -182,13 +182,21 @@ var tests = function(web3) {
         // Assume it was processed correctly.
         assert.deepEqual(tx_hash.length, 66);
 
-        web3.eth.getBlock("latest", function(err, block) {
+        web3.eth.getBlock("latest", true, function(err, block) {
           if (err) return done(err);
 
           assert.equal(block.transactions.length, 1, "Latest block should have one transaction");
           assert.equal(block.transactions[0].hash, tx_hash, "Transaction hashes don't match");
 
-          done();
+          //Retest, with transaction only as hash
+          web3.eth.getBlock("latest", false, function(err, block) {
+            if (err) return done(err);
+
+            assert.equal(block.transactions.length, 1, "Latest block should have one transaction");
+            assert.equal(block.transactions[0], tx_hash, "Transaction hashes don't match");
+
+            done()
+          });
         });
       });
     });
@@ -197,10 +205,10 @@ var tests = function(web3) {
   // Relies on the validity of eth_getBlockByNumber above.
   describe("eth_getBlockByHash", function() {
     it("should return block given the block hash", function(done) {
-      web3.eth.getBlock(0, function(err, blockByNumber) {
+      web3.eth.getBlock(0, true, function(err, blockByNumber) {
         if (err) return done(err);
 
-        web3.eth.getBlock(blockByNumber.hash, function(err, blockByHash) {
+        web3.eth.getBlock(blockByNumber.hash, true, function(err, blockByHash) {
           if (err) return done(err);
 
           assert.deepEqual(blockByHash, blockByNumber);
@@ -395,7 +403,7 @@ var tests = function(web3) {
       web3.eth.contract(JSON.parse(oracleOutput.interface)).new({ data: oracleOutput.bytecode, from: accounts[0], gas: 3141592 }, function(err, oracle){
         if(err) return done(err)
         if(!oracle.address) return
-        web3.eth.getBlock(0, function(err, block){
+        web3.eth.getBlock(0, true, function(err, block){
           if (err) return done(err)
           oracle.blockhash0(function(err, blockhash){
             if (err) return done(err)
