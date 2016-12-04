@@ -522,10 +522,10 @@ describe("Forking", function() {
     forkedWeb3.eth.getTransactionReceipt(initialDeployTransactionHash, function(err, receipt) {
       if (err) return done(err);
 
-      forkedWeb3.eth.getBlock(receipt.blockNumber, function(err, referenceBlock) {
+      forkedWeb3.eth.getBlock(receipt.blockNumber, true, function(err, referenceBlock) {
         if (err) return done(err);
 
-        mainWeb3.eth.getBlock(receipt.blockNumber, function(err, forkedBlock) {
+        mainWeb3.eth.getBlock(receipt.blockNumber, true, function(err, forkedBlock) {
           if (err) return done(err);
 
           assert.equal(forkedBlock.transactions.length, referenceBlock.transactions.length)

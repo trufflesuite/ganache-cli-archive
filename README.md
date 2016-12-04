@@ -1,5 +1,6 @@
 [![npm](https://img.shields.io/npm/v/ethereumjs-testrpc.svg)]()
 [![npm](https://img.shields.io/npm/dm/ethereumjs-testrpc.svg)]()
+[![Build Status](https://travis-ci.org/ethereumjs/testrpc.svg?branch=master)](https://travis-ci.org/ethereumjs/testrpc)
 
 *NOTE: As of version `3.0.2`, `testrpc` requires at least `Node 6.9.1` to run - this is because the `ethereumjs-vm@2.0.1` dependency is now shipping using ES2015 language features.*
 

@@ -1,6 +1,6 @@
 {
   "name": "ethereumjs-testrpc",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "bin": {
     "testrpc": "./bin/testrpc"
   },
@@ -30,7 +30,7 @@
     "merkle-patricia-tree": "~2.1.2",
     "seedrandom": "~2.4.2",
     "shelljs": "~0.6.0",
-    "solc": "~0.4.2",
+    "solc": "0.4.6",
     "web3": "~0.16.0",
     "web3-provider-engine": "git+https://github.com/nexusdev/provider-engine.git",
     "yargs": "~3.29.0"

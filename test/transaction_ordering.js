@@ -85,7 +85,7 @@ describe("Transaction Ordering", function() {
           method: "miner_start",
           params: [1]
         }, function(err,tx){
-          web3.eth.getBlock("latest", function(err, block) {
+          web3.eth.getBlock("latest", true, function(err, block) {
             if (err) return done(err);
             assert.equal(block.transactions.length, 2, "Latest block should have two transactions");
             assert.equal(block.transactions[0].gasPrice.toNumber(),2)
