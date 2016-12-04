@@ -4,6 +4,14 @@ node_js:
   - "6.1"
   - "5.11"
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.7
+      - g++-4.7
+
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
       export CC="gcc-4.7";
