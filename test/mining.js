@@ -12,13 +12,13 @@ describe("Block Processing", function() {
 
   before("compile solidity code that causes runtime errors", function() {
     return compileSolidity("pragma solidity ^0.4.2; contract Example { function Example() {throw;} }").then(function(result) {
-      badBytecode = "0x" + result.code;
+      badBytecode = result.code;
     });
   });
 
   before("compile solidity code that causes an event", function() {
     return compileSolidity("pragma solidity ^0.4.2; contract Example { event Event(); function Example() { Event(); } }").then(function(result) {
-      goodBytecode = "0x" + result.code;
+      goodBytecode = result.code;
     });
   });
 
