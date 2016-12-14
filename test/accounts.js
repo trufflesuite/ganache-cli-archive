@@ -19,7 +19,7 @@ describe("Accounts", function() {
       if (err) return done(err);
 
       assert(accounts[0].toLowerCase(), expected_address.toLowerCase());
-      provider.close(done);
+      done();
     });
   });
 
@@ -38,7 +38,7 @@ describe("Accounts", function() {
     }, function(err, tx) {
       if (!err) return done(new Error("We expected the account to be locked, which should throw an error when sending a transaction"));
       assert(err.message.toLowerCase().indexOf("could not unlock signer account") >= 0);
-      provider.close(done);
+      done();
     });
   });
 
@@ -58,7 +58,7 @@ describe("Accounts", function() {
     }, function(err, tx) {
       if (err) return done(err);
       // We should have no error here because the account is unlocked.
-      provider.close(done);
+      done();
     });
   });
 
@@ -78,7 +78,7 @@ describe("Accounts", function() {
     }, function(err, tx) {
       if (err) return done(err);
       // We should have no error here because the account is unlocked.
-      provider.close(done);
+      done();
     });
   });
 
@@ -120,7 +120,7 @@ describe("Accounts", function() {
           // Can't check the balance exactly. It cost some ether to send the transaction.
           assert(balanceInEther.gt(4));
           assert(balanceInEther.lt(5));
-          provider.close(done);
+          done();
         });
       });
     });
@@ -140,7 +140,7 @@ describe("Accounts", function() {
       if (!err) return done(new Error("Expected an error while signing when not managing the private key"));
 
       assert(err.message.toLowerCase().indexOf("cannot sign data; no private key") >= 0);
-      provider.close(done);
+      done();
     });
   });
 

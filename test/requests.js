@@ -787,9 +787,6 @@ describe("Provider:", function() {
     web3.setProvider(provider);
     done();
   });
-  after('close provider', function (done) {
-    provider.close(done)
-  });
   tests(web3);
 });
 

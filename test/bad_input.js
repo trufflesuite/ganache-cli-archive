@@ -122,9 +122,6 @@ describe("Provider:", function() {
     done();
   });
   tests(web3);
-  after('clean provider', function (cb) {
-    provider.close(cb);
-  });
 });
 
 describe("Server:", function() {

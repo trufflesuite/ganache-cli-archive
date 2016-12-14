@@ -56,10 +56,6 @@ describe("Block Tags", function() {
     done();
   });
 
-  after('close provider', function (done) {
-    provider.close(done);
-  });
-
   before("Gather accounts", function(done) {
     web3.eth.getAccounts(function(err, accs) {
       if (err) return done(err);

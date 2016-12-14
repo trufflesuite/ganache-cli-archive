@@ -12,10 +12,6 @@ describe("Transaction Ordering", function() {
     web3 = new Web3(provider);
   });
 
-  after("close provider", function (done) {
-    provider.close(done);
-  });
-
   before(function(done) {
     web3.eth.getAccounts(function(err, accs) {
       if (err) return done(err);

@@ -70,10 +70,8 @@ describe.skip("Persistency", function() {
   });
 
   after('close provider', function (done) {
-    provider.close(() => {
-      cleanup();
-      done();
-    });
+    cleanup();
+    done();
   });
 
   it("should have block height 1", function (done) {
@@ -81,10 +79,6 @@ describe.skip("Persistency", function() {
       assert(res == 1);
       done();
     });
-  });
-
-  it("should close the provider", function (done) {
-    provider.close(done);
   });
 
   it("should reopen the provider", function (done) {

@@ -18,10 +18,6 @@ describe('Time adjustment', function() {
     done();
   });
 
-  after('close provider', function (done) {
-    provider.close(done);
-  });
-
   function send(method, params, callback) {
     if (typeof params == "function") {
       callback = params;

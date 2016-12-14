@@ -255,9 +255,6 @@ describe("Provider:", function() {
     web3.setProvider(provider);
     done();
   });
-  after('close down provider', function (done) {
-    provider.close(done);
-  });
   tests(web3);
 });
 

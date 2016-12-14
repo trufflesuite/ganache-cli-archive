@@ -18,10 +18,6 @@ describe("Gas Estimation", function() {
     done();
   });
 
-  after('close provider', function (done) {
-    provider.close(done);
-  });
-
   before("get accounts", function(done) {
     web3.eth.getAccounts(function(err, accs) {
       if (err) return done(err);

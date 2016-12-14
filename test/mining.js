@@ -16,11 +16,6 @@ describe("Block Processing", function() {
     done();
   });
 
-  after("close provider", function (done) {
-    provider.close(done);
-  });
-
-
   before("compile solidity code that causes runtime errors", function() {
     return compileSolidity("pragma solidity ^0.4.2; contract Example { function Example() {throw;} }").then(function(result) {
       badBytecode = "0x" + result.code;

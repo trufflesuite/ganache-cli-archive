@@ -15,10 +15,6 @@ describe("Custom Gas Limit", function() {
     done();
   });
 
-  after('close provider', function (done) {
-    provider.close(done);
-  });
-
   it("The block should show the correct custom Gas Limit", function(done) {
     web3.eth.getBlock(0, function(err, block) {
       if (err) return done(err);
