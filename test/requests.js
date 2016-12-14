@@ -22,6 +22,7 @@ var contract = {
   solidity: source,
   abi: result.contracts.Example.interface,
   binary: "0x" + result.contracts.Example.bytecode,
+  runtimeBinary: '0x' + result.contracts.Example.runtimeBytecode,
   position_of_value: "0x0000000000000000000000000000000000000000000000000000000000000000",
   expected_default_value: 5,
   call_data: {
@@ -323,16 +324,10 @@ var tests = function(web3) {
       });
     });
 
-    it("should verify there's code at the address (eth_getCode)", function(done) {
+    it("should verify the code at the address matches the runtimeBinary (eth_getCode)", function(done) {
       web3.eth.getCode(contractAddress, function(err, result) {
         if (err) return done(err);
-        assert.notEqual(result, null);
-        assert.notEqual(result, "0x");
-
-        // NOTE: We can't test the code returned is correct because the results
-        // of getCode() are *supposed* to be different than the code that was
-        // added to the chain.
-
+        assert.equal(result, contract.runtimeBinary);
         done();
       });
     });
