@@ -3,7 +3,7 @@ var TestRPC = require("../index.js");
 var assert = require('assert');
 var to = require("../lib/utils/to.js");
 
-describe("Block Processing", function() {
+describe.skip("Block Processing", function() {
   var web3;
   var accounts;
   var snapshot_id;

@@ -670,7 +670,7 @@ var tests = function(web3) {
     it("correctly compiles solidity code", function(done) {
       web3.eth.compile.solidity(source, function(err, result) {
         if (err) return done(err);
-        assert.equal(result.code, contract.binary.replace("0x", ""));
+        assert.equal(result.code, contract.binary);
         done();
       });
     });
