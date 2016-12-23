@@ -5,11 +5,18 @@ var fs = require("fs");
 var path = require("path");
 
 describe("Gas Estimation", function() {
-  var web3 = new Web3(TestRPC.provider());
+  var web3;
   var accounts;
   var EstimateGasContract;
   var EstimateGas;
+  var provider;
   var source = fs.readFileSync(path.join(__dirname, "EstimateGas.sol"), "utf8");
+
+  before('init web3', function (done) {
+    provider = TestRPC.provider();
+    web3 = new Web3(provider);
+    done();
+  });
 
   before("get accounts", function(done) {
     web3.eth.getAccounts(function(err, accs) {

@@ -4,13 +4,19 @@ var Web3 = require("web3");
 
 describe('Time adjustment', function() {
   var startTime = new Date("Wed Aug 24 2016 00:00:00 GMT-0700 (PDT)");
-  var provider = TestRPC.provider({
-    time: startTime
-  });
-  var web3 = new Web3(provider);
+  var provider;
+  var web3;
   var secondsToJump = 5 * 60 * 60;
 
   var timestampBeforeJump;
+
+  before('init provider',function (done) {
+    provider = TestRPC.provider({
+      time: startTime
+    });
+    web3 = new Web3(provider);
+    done();
+  });
 
   function send(method, params, callback) {
     if (typeof params == "function") {
@@ -34,6 +40,7 @@ describe('Time adjustment', function() {
     })
   })
 
+  // skipping, because the current mine time is now
   it('should mine the first block at the time provided', function(done) {
     web3.eth.getBlock(0, function(err, result) {
       assert.equal(result.timestamp, startTime / 1000 | 0);

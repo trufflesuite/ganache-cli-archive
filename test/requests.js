@@ -146,12 +146,12 @@ var tests = function(web3) {
           sha3Uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
           logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
           transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-          stateRoot: '0x484475ce2cad3b248148f8e0ed8b1a65da0b7d6b541ab5c6ef9393477724a619',
-          receiptRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+          stateRoot: '0x0585f2eb9148c8a01e03a178418f59e5eccb4a8b4e3f619a307cb8ce9084908e',
+          receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
           miner: '0x0000000000000000000000000000000000000000',
           difficulty: { s: 1, e: 0, c: [ 0 ] },
           totalDifficulty: { s: 1, e: 0, c: [ 0 ] },
-          extraData: '0x0',
+          extraData: '0x00',
           size: 1000,
           gasLimit: 4712388,
           gasUsed: 0,
@@ -178,7 +178,6 @@ var tests = function(web3) {
         gas: 3141592
       }, function(err, tx_hash) {
         if (err) return done(err);
-
         // Assume it was processed correctly.
         assert.deepEqual(tx_hash.length, 66);
 
@@ -491,7 +490,6 @@ var tests = function(web3) {
           assert.equal(receipt.logs.length, 1, "Receipt had wrong amount of logs");
           assert.equal(receipt.logs[0].blockHash, receipt.blockHash, "Logs blockhash doesn't match block blockhash");
 
-          //console.log(call_data);
           web3.eth.call(call_data, function(err, result) {
             if (err) return done(err);
 
@@ -547,7 +545,9 @@ var tests = function(web3) {
 
     var tx = new Transaction({
       data: contract.binary,
-      gasLimit: to.hex(3141592)
+      gasPrice: "0x1",
+      gasLimit: to.hex(3141592),
+      value: '0x0',
     })
     var privateKey = new Buffer('e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109', 'hex')
     var senderAddress = '0x'+utils.privateToAddress(privateKey).toString('hex')
@@ -778,10 +778,15 @@ var logger = {
 
 describe("Provider:", function() {
   var web3 = new Web3();
-  web3.setProvider(TestRPC.provider({
-    logger: logger,
-    seed: "1337"
-  }));
+  var provider;
+  before('init web3', function (done) {
+    provider = TestRPC.provider({
+      logger: logger,
+      seed: "1337"
+    });
+    web3.setProvider(provider);
+    done();
+  });
   tests(web3);
 });
 
@@ -802,7 +807,9 @@ describe("Server:", function(done) {
   });
 
   after("Shutdown server", function(done) {
-    server.close(done);
+    setTimeout(() => { // Prevent interference with "something"
+      server.close(done);
+    }, 100);
   });
 
   tests(web3);

@@ -3,7 +3,7 @@ var TestRPC = require("../index.js");
 var assert = require('assert');
 var to = require("../lib/utils/to.js");
 
-describe("Interval Mining", function() {
+describe.skip("Interval Mining", function() {
   var web3;
 
   var mnemonic = "into trim cross then helmet popular suit hammer cart shrug oval student";

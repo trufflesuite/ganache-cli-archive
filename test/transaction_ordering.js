@@ -4,7 +4,13 @@ var assert = require('assert');
 
 describe("Transaction Ordering", function() {
   var accounts;
-  var web3 = new Web3(TestRPC.provider());
+  var web3;
+  var provider;
+
+  before(function () {
+    provider = TestRPC.provider();
+    web3 = new Web3(provider);
+  });
 
   before(function(done) {
     web3.eth.getAccounts(function(err, accs) {

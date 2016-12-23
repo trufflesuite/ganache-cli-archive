@@ -244,9 +244,17 @@ var logger = {
 
 describe("Provider:", function() {
   var web3 = new Web3();
-  web3.setProvider(TestRPC.provider({
-    logger: logger
-  }));
+  var provider;
+  before('init provider', function (done) {
+    provider = TestRPC.provider({
+      logger: logger
+    });
+    done();
+  });
+  before('init web3', function (done) {
+    web3.setProvider(provider);
+    done();
+  });
   tests(web3);
 });
 
