@@ -9,6 +9,18 @@ var to = require("../lib/utils/to");
 
 var source = fs.readFileSync("./test/Example.sol", {encoding: "utf8"});
 var result = solc.compile(source, 1);
+var secretKeys = [
+  '0xda09f8cdec20b7c8334ce05b27e6797bef01c1ad79c59381666467552c5012e3',
+  '0x0d14f32c8e3ed7417fb7db52ebab63572bf7cfcd557351d4ccf19a05edeecfa5',
+  '0x0d80aca78bfaf3ab47865a53e5977e285c41c028a15313f917fe78abe5a50ef7',
+  '0x00af8067d4c69abca7234194f154d7f31e13c0e53dae9260432f1bcc6d1d13fb',
+  '0x8939a6a37b48c47f9bc683c371dd96e819d65f6138f3b376a622ecb40379bd22',
+  '0x4a3665bf95efd38cb9820ce129a26fee03927f17930924c98908c8885ca53606',
+  '0x111bd4b380f2eeb0d00b025d574908d59c1bfa0030d7a69f69445c171d8cfa27',
+  '0x6aff34e843c3a99fe21dcc014e3b5bf6a160a4bb8c4c470ea79acd33d9bea41f',
+  '0x12ae0eb585babc60c88a74190a6074488a0d2f296124ce37f85dbec1d693906f',
+  '0xd46dc75904628a0b0eaffdda6acbe2687924299995708e30d05a1e8a2a1c5d45'
+];
 
 // Thanks solc. At least this works!
 // This removes solc's overzealous uncaughtException event handler.
@@ -281,6 +293,69 @@ var tests = function(web3) {
 
   });
 
+  describe('eth_sendRawTransaction', () => {
+
+    it("should fail with bad nonce (too low)", function(done) {
+      var provider = web3.currentProvider;
+      var transaction = new Transaction({
+        "value": "0x10000000",
+        "gasLimit": "0x33450",
+        "from": accounts[0],
+        "to": accounts[1],
+        "nonce": "0x00",  // too low nonce
+      })
+
+      var secretKeyBuffer = Buffer.from(secretKeys[0].substr(2), 'hex')
+      transaction.sign(secretKeyBuffer)
+
+      web3.eth.sendRawTransaction(transaction.serialize(), function(err, result) {
+        assert(err.message.indexOf("the tx doesn't have the correct nonce. account has nonce of: 1 tx has nonce of: 0") >= 0);
+        done()
+      })
+
+    })
+
+    it("should fail with bad nonce (too high)", function(done) {
+      var provider = web3.currentProvider;
+      var transaction = new Transaction({
+        "value": "0x10000000",
+        "gasLimit": "0x33450",
+        "from": accounts[0],
+        "to": accounts[1],
+        "nonce": "0xff",  // too low nonce
+      })
+
+      var secretKeyBuffer = Buffer.from(secretKeys[0].substr(2), 'hex')
+      transaction.sign(secretKeyBuffer)
+
+      web3.eth.sendRawTransaction(transaction.serialize(), function(err, result) {
+        assert(err.message.indexOf("the tx doesn't have the correct nonce. account has nonce of: 1 tx has nonce of: 255") >= 0);
+        done()
+      })
+
+    })
+
+    it("should suceed with right nonce (1)", function(done) {
+      var provider = web3.currentProvider;
+      var transaction = new Transaction({
+        "value": "0x10000000",
+        "gasLimit": "0x33450",
+        "from": accounts[0],
+        "to": accounts[1],
+        "nonce": "0x01"
+      })
+
+      var secretKeyBuffer = Buffer.from(secretKeys[0].substr(2), 'hex')
+      transaction.sign(secretKeyBuffer)
+
+      web3.eth.sendRawTransaction(transaction.serialize(), function(err, result) {
+        done(err)
+      })
+
+    })
+
+
+  })
 
   describe("contract scenario", function() {
 
@@ -679,7 +754,7 @@ var tests = function(web3) {
     it("correctly compiles solidity code", function(done) {
       web3.eth.compile.solidity(source, function(err, result) {
         if (err) return done(err);
-        assert.equal(result.code, contract.binary.replace("0x", ""));
+        assert.equal(result.code, contract.binary);
         done();
       });
     });
