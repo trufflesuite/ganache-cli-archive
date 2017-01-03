@@ -48,7 +48,7 @@ var tests = function(web3) {
       });
     });
 
-    it("recovers after bad nonce", function(done) {
+    it("recovers after bad nonce (too high)", function(done) {
       var provider = web3.currentProvider;
 
       var request = {
@@ -72,6 +72,36 @@ var tests = function(web3) {
         // an error. However, when using it as a server it won't be. In both cases, however,
         // result.error should be set with the same error message. We'll check for that.
         assert(result.error.message.indexOf("the tx doesn't have the correct nonce. account has nonce of: 0 tx has nonce of: 4294967295") >= 0);
+
+        delete request.params[0].nonce
+        provider.sendAsync(request, done)
+      });
+    });
+
+    it("recovers after bad nonce (too low)", function(done) {
+      var provider = web3.currentProvider;
+
+      var request = {
+        "jsonrpc": "2.0",
+        "method": "eth_sendTransaction",
+        "params": [
+          {
+            "value": "0x10000000",
+            "gas": "0xf4240",
+            "from": accounts[0],
+            "to": accounts[1],
+            "nonce": "0x00",  // too low nonce
+          }
+        ],
+        "id": 2
+      }
+
+      provider.sendAsync(request, function(err, result) {
+        // We're supposed to get an error the first time. Let's assert we get the right one.
+        // Note that if using the TestRPC as a provider, err will be non-null when there's
+        // an error. However, when using it as a server it won't be. In both cases, however,
+        // result.error should be set with the same error message. We'll check for that.
+        assert(result.error.message.indexOf("the tx doesn't have the correct nonce. account has nonce of: 1 tx has nonce of: 0") >= 0);
 
         delete request.params[0].nonce
         provider.sendAsync(request, done)
@@ -103,7 +133,7 @@ var tests = function(web3) {
           // Note that if using the TestRPC as a provider, err will be non-null when there's
           // an error. However, when using it as a server it won't be. In both cases, however,
           // result.error should be set with the same error message. We'll check for that.
-          assert(result.error.message.indexOf("sender doesn't have enough funds to send tx. The upfront cost is: 324518553658426726783156021576256 and the senders account only has: 99999999999731543544") >= 0);
+          assert(result.error.message.indexOf("sender doesn't have enough funds to send tx. The upfront cost is: 324518553658426726783156021576256 and the senders account only has: 99999999999463087088") >= 0);
 
           request.params[0].value = "0x5";
           provider.sendAsync(request, done)
