@@ -120,6 +120,8 @@ The RPC methods currently implemented are:
 * `eth_getBalance`
 * `eth_getBlockByNumber`
 * `eth_getBlockByHash`
+* `eth_getBlockTransactionCountByNumber`
+* `eth_getBlockTransactionCountByHash`
 * `eth_getCode` (only supports block number “latest”)
 * `eth_getCompilers`
 * `eth_getFilterChanges`
