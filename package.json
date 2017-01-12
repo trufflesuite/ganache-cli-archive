@@ -28,6 +28,7 @@
     "seedrandom": "~2.4.2",
     "shelljs": "~0.6.0",
     "solc": "0.4.6",
+    "swarmhash": "~0.1.0",
     "web3": "~0.16.0",
     "web3-provider-engine": "~8.1.0",
     "yargs": "~3.29.0"
