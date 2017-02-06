@@ -257,8 +257,7 @@ var tests = function(web3) {
 
     it("should produce a signature whose signer can be recovered", function(done) {
   	  var msg = utils.toBuffer("asparagus");
-      var prefix = utils.toBuffer('\u0019Ethereum Signed Message:\n' + msg.length.toString());
-      var msgHash = utils.sha3(Buffer.concat([prefix, msg]));
+      var msgHash = utils.hashPersonalMessage(msg);
   	  web3.eth.sign(accounts[0], utils.bufferToHex(msg), function(err, sgn) {
         if (err) return done(err);
 
@@ -279,8 +278,7 @@ var tests = function(web3) {
       // w/ the account set in this test's 'before' block.
       var msgHex = '0x07091653daf94aafce9acf09e22dbde1ddf77f740f9844ac1f0ab790334f0627';
       var edgeCaseMsg = utils.toBuffer(msgHex);
-      var prefix = utils.toBuffer('\u0019Ethereum Signed Message:\n' + edgeCaseMsg.length.toString());
-      var msgHash = utils.sha3(Buffer.concat([prefix, edgeCaseMsg]))
+      var msgHash = utils.hashPersonalMessage(edgeCaseMsg);
       web3.eth.sign( accounts[0], msgHex, function(err, sgn) {
         if (err) return done(err);
 
@@ -288,7 +286,7 @@ var tests = function(web3) {
         var r = new Buffer(sgn.slice(0, 64), 'hex');
         var s = new Buffer(sgn.slice(64, 128), 'hex');
         var v = new Buffer((parseInt(sgn.slice(128, 130), 16) + 27).toString(16), 'hex');
-        var pub = utils.ecrecover(utils.toBuffer(msgHash), v, r, s);
+        var pub = utils.ecrecover(msgHash, v, r, s);
         var addr = utils.setLength(utils.fromSigned(utils.pubToAddress(pub)), 20);
         addr = utils.addHexPrefix(addr.toString('hex'));
         assert.deepEqual(addr, accounts[0]);
