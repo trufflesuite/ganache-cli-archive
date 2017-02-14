@@ -5,6 +5,10 @@ var TestRPC = {
     return Interface.server(options);
   },
 
+  webSocketServer: function(options) {
+    return Interface.webSocketServer(options);
+  },
+
   provider: function(options) {
     return Interface.provider(options);
   }
