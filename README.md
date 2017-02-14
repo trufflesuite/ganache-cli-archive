@@ -46,6 +46,7 @@ Options:
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
+* `-i` or `--networkId`: Set network version id (defaults to `new Date().getTime()`)
 * `--debug`: Output VM opcodes for debugging
 
 Special Options:
