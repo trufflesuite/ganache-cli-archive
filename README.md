@@ -160,6 +160,29 @@ There’s also special non-standard methods that aren’t included within the or
 * `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
 * `evm_mine` : Force a block to be mined. Takes no parameters. Mines a block independent of whether or not mining is started or stopped.
 
+# Docker
+
+The Simplest way to get stared with the Docker image:
+
+```Bash
+docker run -d -p 8545:8545 ethereumjs/testrpc:latest
+```
+
+To pass options to testrpc through Docker simply add the arguments to
+the run command:
+
+```Bash
+docker run -d -p 8545:8545 ethereumjs/testrpc:latest -a 10 --debug
+```
+
+To build the Docker container from source:
+
+```Bash
+git clone https://github.com/ethereumjs/testrpc.git && cd testrpc
+docker build -t etherumjs/testrpc .
+```
+
+
 # TESTING
 
 Run tests via:
