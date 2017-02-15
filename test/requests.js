@@ -370,7 +370,8 @@ var tests = function(web3) {
       web3.eth.sendTransaction({
         from: accounts[0],
         data: contract.binary,
-        gas: 3141592
+        gas: 3141592,
+        value: 1
       }, function(err, result) {
         if (err) return done(err);
 
@@ -405,6 +406,14 @@ var tests = function(web3) {
       web3.eth.getCode(contractAddress, function(err, result) {
         if (err) return done(err);
         assert.equal(result, contract.runtimeBinary);
+        done();
+      });
+    });
+
+    it("should have balance of 1 (eth_getBalance)", function(done) {
+      web3.eth.getBalance(contractAddress, function(err, result) {
+        if (err) return done(err);
+        assert.equal(result, 1);
         done();
       });
     });
