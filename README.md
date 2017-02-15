@@ -46,6 +46,7 @@ Options:
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
+* `-i` or `--networkId`: Specify the network id (defaults to the forked blockchain's version (if it exists) or current time)
 * `--debug`: Output VM opcodes for debugging
 
 Special Options:
@@ -101,6 +102,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
 * `"fork"`: `string` - Same as `--fork` option above.
+* `"network_id"`: `integer` - Same as `--networkId` option above.
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
 * `"locked"`: `boolean` - whether or not accounts are locked by default.
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
