@@ -46,7 +46,7 @@ Options:
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
-* `-i` or `--networkId`: Specify the network id (defaults to the forked blockchain's version (if it exists) or current time)
+* `-i` or `--network-id`: Specify the network id the TestRPC will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `--debug`: Output VM opcodes for debugging
 
 Special Options:
