@@ -231,6 +231,62 @@ var tests = function(web3) {
     });
   });
 
+  describe("eth_getBlockTransactionCountByNumber", function(){
+    it("should return the number of transactions given the block number (0 transactions)", function(done) {
+      //Block 0 should have 0 transactions as per test eth_getBlockByNumber
+      web3.eth.getBlock(0, true, function(err, block) {
+        if (err) return done(err);
+        web3.eth.getBlockTransactionCount(0, function(err, blockTransactionCount) {
+          assert.equal(block.transactions.length, blockTransactionCount,  "Block transaction count should be 0.");
+          assert.equal(0, blockTransactionCount,  "Block transaction count should be 0.");
+          done();
+        });
+      });
+    });
+
+    it("should return the number of transactions given the block number (1 transaction)", function(done) {
+      //Create a transaction and check
+      //Account 0 seems to be running out of gas before all tests are complete
+      var payingAccount = 2;
+
+      web3.eth.sendTransaction({
+        from: accounts[payingAccount],
+        data: contract.binary,
+        gas: 3141592
+      }, function(err, tx_hash) {
+        if (err) return done(err);
+        // Assume it was processed correctly.
+        assert.deepEqual(tx_hash.length, 66);
+
+        web3.eth.getBlock("latest", true, function(err, block) {
+          if (err) return done(err);
+          web3.eth.getBlockTransactionCount(block.number , function(err, blockTransactionCount) {
+            assert.equal(block.transactions.length, blockTransactionCount, "Block transaction count should be 1.");
+            assert.equal(1, blockTransactionCount, "Block transaction count should be 1.");
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  // Dependent upon validity of eth_getBlockTransactionCountByNumber
+  describe("eth_getBlockTransactionCountByHash", function(){
+    it("should return the number of transactions given the hash", function(done) {
+      web3.eth.getBlock(0, true, function(err, blockByNumber) {
+        if (err) return done(err);
+        web3.eth.getBlockTransactionCount(blockByNumber.number, true, function(err, txCountByHash) {
+          if (err) return done(err);
+            web3.eth.getBlockTransactionCount(blockByNumber.hash , function(err, txCountByNumber) {
+              if (err) return done(err);
+              assert.equal(txCountByHash, txCountByNumber, "Txn count for block retrieved by hash should equal count retrieved by number.");
+              done();
+            });
+        });
+      });
+    });
+  });
+
   describe("eth_sign", function() {
     var accounts;
     var web3;
