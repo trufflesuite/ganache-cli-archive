@@ -1,5 +1,12 @@
 <!--- Provide a general summary of the issue in the Title above -->
 
+<!--- DO NOT PASTE ONLY IMAGES OF TERMINAL OUTPUT AS AN ISSUE --->
+
+<!--- WINDOWS USERS: Please READ all of the error / debug output and make sure that the issue 
+      isn't due to you missing something before creating an issue. A large portion of Windows 
+      issues turn out to be easily self-fixable if you actually read the output before dumping
+      it in an issue here. Thanks! ---> 
+
 ## Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
 <!--- If you're suggesting a change/improvement, tell us how it should work -->
