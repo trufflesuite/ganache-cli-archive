@@ -1,18 +1,27 @@
+[![npm](https://img.shields.io/npm/v/ethereumjs-testrpc.svg)]()
+[![npm](https://img.shields.io/npm/dm/ethereumjs-testrpc.svg)]()
+[![Build Status](https://travis-ci.org/ethereumjs/testrpc.svg?branch=master)](https://travis-ci.org/ethereumjs/testrpc)
+
+*NOTE: As of version `3.0.2`, `testrpc` requires at least `Node 6.9.1` to run - this is because the `ethereumjs-vm@2.0.1` dependency is now shipping using ES2015 language features.*
+
 # Welcome to `testrpc`
 
 `testrpc` is a Node.js based Ethereum client for testing and development. It uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
 
 # INSTALL
 
-`testrpc` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js installed, and your environment is capable of installing and compiling `npm` modules.
+`testrpc` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js (>= v6.9.1) installed, and your environment is capable of installing and compiling `npm` modules.
+
+**macOS** Make sure you have the XCode Command Line Tools installed. These are needed in general to be able to compile most C based languages on your machine, as well as many npm modules.
+
+**Windows** See our [Windows install instructions](https://github.com/ethereumjs/testrpc/wiki/Installing-TestRPC-on-Windows).
+
+**Ubuntu/Linux** Follow the basic instructions for installing [Node.js](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) and make sure that you have `npm` installed, as well as the `build-essential` `apt` package (it supplies `make` which you will need to compile most things). Use the official Node.js packages, *do not use the package supplied by your distribution.*
+
 
 ```Bash
 npm install -g ethereumjs-testrpc
 ```
-
-**Using Windows?** See our [Windows install instructions](https://github.com/ethereumjs/testrpc/wiki/Installing-TestRPC-on-Windows).
-
-**Ubuntu User?** Follow the basic instructions for installing [Node.js](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) and make sure that you have `npm` installed, as well as the `build-essential` `apt` package (it supplies `make` which you will need to compile most things). Use the official Node.js packages, *do not use the package supplied by your distribution.*
 
 Having problems? Be sure to check out the [FAQ](https://github.com/ethereumjs/testrpc/wiki/FAQ) and if you're still having issues and you're sure its a problem with `testrpc` please open an issue.
 
@@ -36,9 +45,10 @@ Options:
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
 * `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
-* `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 1)
+* `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
 * `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
+* `-i` or `--network-id`: Specify the network id the TestRPC will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `--debug`: Output VM opcodes for debugging
 
 Special Options:
@@ -94,6 +104,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
 * `"fork"`: `string` - Same as `--fork` option above.
+* `"network_id"`: `integer` - Same as `--networkId` option above.
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
 * `"locked"`: `boolean` - whether or not accounts are locked by default.
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
@@ -113,6 +124,8 @@ The RPC methods currently implemented are:
 * `eth_getBalance`
 * `eth_getBlockByNumber`
 * `eth_getBlockByHash`
+* `eth_getBlockTransactionCountByHash`
+* `eth_getBlockTransactionCountByNumber`
 * `eth_getCode` (only supports block number “latest”)
 * `eth_getCompilers`
 * `eth_getFilterChanges`
@@ -148,6 +161,29 @@ There’s also special non-standard methods that aren’t included within the or
 * `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
 * `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
 * `evm_mine` : Force a block to be mined. Takes no parameters. Mines a block independent of whether or not mining is started or stopped.
+
+# Docker
+
+The Simplest way to get stared with the Docker image:
+
+```Bash
+docker run -d -p 8545:8545 ethereumjs/testrpc:latest
+```
+
+To pass options to testrpc through Docker simply add the arguments to
+the run command:
+
+```Bash
+docker run -d -p 8545:8545 ethereumjs/testrpc:latest -a 10 --debug
+```
+
+To build the Docker container from source:
+
+```Bash
+git clone https://github.com/ethereumjs/testrpc.git && cd testrpc
+docker build -t etherumjs/testrpc .
+```
+
 
 # TESTING
 
