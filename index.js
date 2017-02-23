@@ -5,6 +5,10 @@ var TestRPC = {
     return Interface.server(options);
   },
 
+  ipcServer: function(options) {
+    return Interface.ipcServer(options);
+  },
+
   provider: function(options) {
     return Interface.provider(options);
   }

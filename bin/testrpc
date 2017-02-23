@@ -54,6 +54,8 @@ var options = {
   blocktime: argv.b || argv.blocktime,
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
+  ipc: argv.ipc || false,
+  ipcPath: argv.ipcPath || "ethereum.ipc",
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
   fork: argv.f || argv.fork || false,
@@ -81,9 +83,17 @@ if (options.fork) {
   options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
-var server = TestRPC.server(options);
-
 console.log("EthereumJS TestRPC v" + pkg.version);
+
+var server;
+
+if (options.ipc !== false) {
+  console.log("IPC mode");
+  server = TestRPC.ipcServer(options)
+} else {
+  console.log("HTTP mode");
+  server = TestRPC.server(options);
+}
 
 server.listen(options.port, options.hostname, function(err, state) {
   if (err) {
