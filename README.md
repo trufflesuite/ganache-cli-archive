@@ -179,7 +179,7 @@ To build the Docker container from source:
 
 ```Bash
 git clone https://github.com/ethereumjs/testrpc.git && cd testrpc
-docker build -t etherumjs/testrpc .
+docker build -t ethereumjs/testrpc .
 ```
 
 
