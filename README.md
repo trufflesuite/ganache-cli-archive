@@ -152,6 +152,11 @@ The RPC methods currently implemented are:
 * `rpc_modules`
 * `web3_clientVersion`
 * `web3_sha3`
+* `bzz_store`
+* `bzz_retrieve`
+* `bzz_put`
+* `bzz_get`
+* `bzz_modify`
 
 There’s also special non-standard methods that aren’t included within the original RPC specification:
 
