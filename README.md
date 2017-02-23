@@ -149,6 +149,11 @@ The RPC methods currently implemented are:
 * `net_version`
 * `miner_start`
 * `miner_stop`
+* `personal_listAccounts`
+* `personal_lockAccount`
+* `personal_newAccount`
+* `personal_unlockAccount`
+* `personal_sendTransaction`
 * `rpc_modules`
 * `web3_clientVersion`
 * `web3_sha3`

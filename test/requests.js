@@ -52,13 +52,18 @@ var contract = {
 
 var tests = function(web3) {
   var accounts;
+  var personalAccount;
 
   before(function(done) {
     web3.eth.getAccounts(function(err, accs) {
       if (err) return done(err);
 
       accounts = accs;
-      done();
+
+      web3.personal.newAccount("password", function(err, result) {
+        personalAccount = result;
+        done();
+      });
     });
   });
 
@@ -901,6 +906,60 @@ var tests = function(web3) {
         if (err) return done(err);
 
         assert.equal(result.length, (new Date().getTime() + "").length, "net_version result doesn't appear to be similar in length the current time as an integer")
+        done();
+      });
+    });
+  });
+
+  describe("personal_newAccount", function() {
+    it("should return the new address", function(done) {
+      web3.personal.newAccount("password", function(err, result) {
+        if (err) return done(err);
+        assert.notEqual(result.match("0x[0-9a-f]{39}"), null, "Invalid address received");
+        done();
+      });
+    });
+  });
+
+  describe("personal_listAccounts", function() {
+    it("should return more than 0 accounts", function(done) {
+      web3.personal.getListAccounts(function(err, result) {
+        if (err) return done(err);
+        assert.equal(result.length, 2);
+        done();
+      });
+    });
+  });
+
+  describe("personal_unlockAccount", function() {
+    it("should unlock account", function(done) {
+      web3.personal.unlockAccount(personalAccount, "password", function(err, result) {
+        if (err) return done(err);
+        assert.equal(result, true);
+        done();
+      });
+    });
+  });
+
+  describe("personal_lockAccount", function() {
+    it("should lock account", function(done) {
+      web3.personal.lockAccount(personalAccount, function(err, result) {
+        if (err) return done(err);
+        assert.equal(result, true);
+        done();
+      });
+    });
+  });
+
+  describe("personal_sendTransaction", function() {
+    it("should send transaction", function(done) {
+      web3.personal.sendTransaction({
+        from: personalAccount,
+        to: personalAccount,
+        value: 1
+      }, "password", function(err, result) {
+        // NOTE: this is an Error class thrown by the state
+        assert.notEqual(err.message.match("sender doesn't have enough funds to send tx."), null);
         done();
       });
     });
