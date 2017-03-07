@@ -922,25 +922,25 @@ describe("Provider:", function() {
   tests(web3);
 });
 
-// describe("Server:", function(done) {
-//   var web3 = new Web3();
-//   var port = 12345;
-//   var server;
-//
-//   before("Initialize TestRPC server", function(done) {
-//     server = TestRPC.server({
-//       logger: logger,
-//       seed: "1337"
-//     });
-//     server.listen(port, function(err) {
-//       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
-//       done();
-//     });
-//   });
-//
-//   after("Shutdown server", function(done) {
-//     server.close(done);
-//   });
-//
-//   tests(web3);
-// });
+describe("Server:", function(done) {
+  var web3 = new Web3();
+  var port = 12345;
+  var server;
+
+  before("Initialize TestRPC server", function(done) {
+    server = TestRPC.server({
+      logger: logger,
+      seed: "1337"
+    });
+    server.listen(port, function(err) {
+      web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
+      done();
+    });
+  });
+
+  after("Shutdown server", function(done) {
+    server.close(done);
+  });
+
+  tests(web3);
+});
