@@ -60,6 +60,7 @@ var options = {
   network_id: argv.i || argv.networkId,
   verbose: argv.v || argv.verbose,
   secure: argv.n || argv.secure || false,
+  db_path: argv.db || null,
   logger: console
 }
 
@@ -149,4 +150,25 @@ server.listen(options.port, options.hostname, function(err, state) {
 
   console.log("");
   console.log("Listening on " + (options.hostname || "localhost") + ":" + options.port);
+});
+
+// See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
+if (process.platform === "win32") {
+  require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+  .on("SIGINT", function () {
+    process.emit("SIGINT");
+  });
+}
+
+process.on("SIGINT", function () {
+  // graceful shutdown
+  server.close(function(err) {
+    if (err) {
+      console.log(err.stack || err);
+    }
+    process.exit();
+  });
 });
