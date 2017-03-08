@@ -1,8 +1,9 @@
 var TestRPC = require("../");
 var async = require("async");
 var Web3 = require("web3");
+var assert = require("chai").assert;
 
-describe("performance", function() {
+describe("Performance", function() {
   var provider;
   var accounts;
   var web3 = new Web3();
@@ -21,9 +22,12 @@ describe("performance", function() {
   });
 
   it("doesn't significantly change in speed", function(done) {
-    this.timeout(10000);
+    this.timeout(20000);
 
-    var allowedDifference = 3000; // ms
+    console.log("    Running short performance test...");
+
+    var allowedDifference = 2000; // ms
+    var expectedTime = 10000;
     var times = 1000;
 
     var start = new Date();
@@ -40,8 +44,13 @@ describe("performance", function() {
       if (err) return done(err);
 
       var end = new Date();
+      var actualTime = end.getTime() - start.getTime();
+      var difference = expectedTime - actualTime;
 
-      console.log("It took " + ((end.getTime() - start.getTime()) / 1000) + " seconds");
+      console.log("    It took " + (actualTime / 1000) + " seconds");
+
+      assert.isBelow(difference, allowedDifference, "Performance decreased!");
+      assert.isAbove(difference, -allowedDifference, "Performance increased! Everything okay?");
       done();
     });
 

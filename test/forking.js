@@ -186,8 +186,7 @@ describe("Forking", function() {
   });
 
   after("Close down the forked TestRPC server", function(done){
-    forkedServer.close();
-    done();
+    forkedServer.close(done);
   });
 
   it("should fetch a contract from the forked provider via the main provider", function(done) {

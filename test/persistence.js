@@ -39,8 +39,9 @@ describe("Persistency", function() {
   var web3 = new Web3();
   var provider;
   var cleanup;
-  var accs;
+  var accounts;
   var db_path;
+  var tx_hash;
   var web3 = new Web3();
 
   // initialize a persistant provider
@@ -49,7 +50,7 @@ describe("Persistency", function() {
       db_path = dirPath;
       provider = TestRPC.provider({
         db_path: dirPath,
-        seed: "1337"
+        mnemonic: "debris electric learn dove warrior grow pistol carry either curve radio hidden"
       });
       web3.setProvider(provider);
       done();
@@ -59,17 +60,21 @@ describe("Persistency", function() {
   before("Gather accounts", function(done) {
     web3.eth.getAccounts(function(err, a) {
       if (err) return done(err);
-      accs = a;
+      accounts = a;
       done();
     });
   });
 
   before("send transaction", function (done) {
     web3.eth.sendTransaction({
-      from: accs[0],
+      from: accounts[0],
       gas: '0x2fefd8',
       data: contract.binary
-    }, done);
+    }, function(err, hash) {
+      if (err) return done(err);
+      tx_hash = hash;
+      done();
+    });
   });
 
   it("should have block height 1", function (done) {
@@ -79,7 +84,8 @@ describe("Persistency", function() {
 
       assert(res == 1);
 
-      // close the first provider now that we've gotten where we need to be.
+      // Close the first provider now that we've gotten where we need to be.
+      // Note: we specifically close the provider so we can read from the same db.
       provider.close(done);
     });
   });
@@ -87,7 +93,7 @@ describe("Persistency", function() {
   it("should reopen the provider", function (done) {
     provider = TestRPC.provider({
       db_path: db_path,
-      seed: "1337",
+      mnemonic: "debris electric learn dove warrior grow pistol carry either curve radio hidden"
       // logger: console,
       // verbose: true
     });
@@ -107,6 +113,23 @@ describe("Persistency", function() {
   it("should still have block data for first block", function (done) {
     web3.eth.getBlock(1, function(err, result) {
       if (err) return done(err);
+      done();
+    });
+  });
+
+  it("should have a receipt for the previous transaction", function(done) {
+    web3.eth.getTransactionReceipt(tx_hash, function(err, receipt) {
+      if (err) return done(err);
+      assert.notEqual(receipt, null, "Receipt shouldn't be null!");
+      assert.equal(receipt.transactionHash, tx_hash);
+      done();
+    })
+  });
+
+  it("should maintain the balance of the original accounts", function (done) {
+    web3.eth.getBalance(accounts[0], function(err, balance) {
+      if (err) return done(err);
+      assert(balance.toNumber() > 98);
       done();
     });
   });
