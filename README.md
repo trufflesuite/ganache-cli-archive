@@ -27,7 +27,7 @@ Having problems? Be sure to check out the [FAQ](https://github.com/ethereumjs/te
 
 # USAGE
 
-##### Command Line
+### Command Line
 
 ```Bash
 $ testrpc <options>
@@ -77,7 +77,7 @@ Special Options:
 
   This feature can also be used to impersonate accounts and unlock addresses you wouldn't otherwise have access to. When used with the `--fork` feature, you can use the TestRPC to make transactions as any address on the blockchain, which is very useful for testing and dynamic analysis.
 
-##### Library
+### Library
 
 As a Web3 provider:
 
@@ -113,7 +113,6 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 # IMPLEMENTED METHODS
 
 The RPC methods currently implemented are:
-
 
 * `eth_accounts`
 * `eth_blockNumber`
