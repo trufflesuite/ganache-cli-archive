@@ -932,7 +932,7 @@ describe("Server:", function(done) {
       logger: logger,
       seed: "1337"
     });
-    server.listen(port, function() {
+    server.listen(port, function(err) {
       web3.setProvider(new Web3.providers.HttpProvider("http://localhost:" + port));
       done();
     });
