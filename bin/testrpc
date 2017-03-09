@@ -44,6 +44,20 @@ if (typeof argv.unlock == "string") {
   argv.unlock = [argv.unlock];
 }
 
+var logger = console;
+
+// If the mem argument is passed, only show memory output,
+// not transaction history.
+if (argv.mem === true) {
+  logger = {
+    log: function() {}
+  };
+
+  setInterval(function() {
+    console.log(process.memoryUsage());
+  }, 1000);
+}
+
 var options = {
   port: argv.p || argv.port || "8545",
   hostname: argv.h || argv.hostname,
@@ -61,7 +75,7 @@ var options = {
   verbose: argv.v || argv.verbose,
   secure: argv.n || argv.secure || false,
   db_path: argv.db || null,
-  logger: console
+  logger: logger
 }
 
 var fork_address;
@@ -151,6 +165,8 @@ server.listen(options.port, options.hostname, function(err, state) {
   console.log("");
   console.log("Listening on " + (options.hostname || "localhost") + ":" + options.port);
 });
+
+
 
 // See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
 if (process.platform === "win32") {
