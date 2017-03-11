@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 var yargs = require('yargs');
-var TestRPC = require('..');
-var pkg = require("../package.json");
-var util = require("ethereumjs-util");
+var TestRPC = require('./build/node-lib');
+var pkg = require("./package.json");
 var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
