@@ -1,18 +1,20 @@
 #!/usr/bin/env node
-var yargs = require('yargs');
-var TestRPC = require('./build/node-lib');
+// `yargs/yargs` required to work with webpack, see here.
+// https://github.com/yargs/yargs/issues/781
+var yargs = require('yargs/yargs');
+var TestRPC = require('./index');
 var pkg = require("./package.json");
 var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
 
-yargs
+var parser = yargs()
 .option("unlock", {
   type: "string",
   alias: "u"
 });
 
-var argv = yargs.argv;
+var argv = parser.parse(process.argv);
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
