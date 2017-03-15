@@ -245,8 +245,8 @@ var tests = function(web3) {
     });
 
     it("should return the number of transactions given the block number (1 transaction)", function(done) {
-      //Create a transaction and check
-      //Account 0 seems to be running out of gas before all tests are complete
+      // Create a transaction and check
+      // Account 0 seems to be running out of gas before all tests are complete
       var payingAccount = 2;
 
       web3.eth.sendTransaction({

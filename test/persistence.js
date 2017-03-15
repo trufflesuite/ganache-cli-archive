@@ -35,7 +35,7 @@ var contract = {
   }
 };
 
-describe("Persistency", function() {
+describe("Persistence", function() {
   var web3 = new Web3();
   var provider;
   var cleanup;
@@ -120,6 +120,7 @@ describe("Persistency", function() {
   it("should have a receipt for the previous transaction", function(done) {
     web3.eth.getTransactionReceipt(tx_hash, function(err, receipt) {
       if (err) return done(err);
+
       assert.notEqual(receipt, null, "Receipt shouldn't be null!");
       assert.equal(receipt.transactionHash, tx_hash);
       done();
