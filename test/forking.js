@@ -136,9 +136,13 @@ describe("Forking", function() {
     var event = forkedExample.ValueSet([{}]);
 
     function cleanup(err) {
-      event.stopWatching();
-      clearInterval(interval);
-      done(err);
+      if (err) return done(err);
+
+      event.stopWatching(function(err) {
+        if (err) return done(err);
+        clearInterval(interval);
+        done(err);
+      });
     }
 
     forkedExample.setValue(7, {from: forkedAccounts[0]}, function(err, tx) {
@@ -175,7 +179,7 @@ describe("Forking", function() {
       fork: forkedTargetUrl,
       //logger: console, //logger,
       //verbose: true,
-      
+
       // Do not change seed. Determinism matters for these tests.
       seed: "a different seed"
     }));

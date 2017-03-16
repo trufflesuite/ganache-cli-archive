@@ -566,7 +566,7 @@ var tests = function(web3) {
 
         web3.eth.estimateGas(tx_data, function(err, result) {
           if (err) return done(err);
-          assert.equal(result, 27678);
+          assert.equal(result, 27684);
 
           web3.eth.getBlockNumber(function(err, result) {
             if (err) return done(err);
@@ -587,7 +587,7 @@ var tests = function(web3) {
 
       web3.eth.estimateGas(tx_data, function(err, result) {
         if (err) return done(err);
-        assert.equal(result, 27678);
+        assert.equal(result, 27684);
         done();
       });
     });
@@ -601,7 +601,7 @@ var tests = function(web3) {
 
       web3.eth.estimateGas(tx_data, function(err, result) {
         if (err) return done(err);
-        assert.equal(result, 27678);
+        assert.equal(result, 27684);
         done();
       });
     });
@@ -802,12 +802,12 @@ var tests = function(web3) {
     });
   });
 
-  describe("eth_compileSolidity", function() {
+  describe("eth_compileSolidity (not supported)", function() {
     this.timeout(5000);
     it("correctly compiles solidity code", function(done) {
       web3.eth.compile.solidity(source, function(err, result) {
-        if (err) return done(err);
-        assert.equal(result.code, contract.binary);
+        assert(err != null)
+        assert(err.message.indexOf("Method eth_compileSolidity not supported") >= 0);
         done();
       });
     });
