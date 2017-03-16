@@ -2,7 +2,7 @@
 // `yargs/yargs` required to work with webpack, see here.
 // https://github.com/yargs/yargs/issues/781
 var yargs = require('yargs/yargs');
-var TestRPC = require('./index');
+var TestRPCServer = require('./lib/server');
 var pkg = require("./package.json");
 var URL = require("url");
 var Web3 = require("web3");
@@ -97,7 +97,7 @@ if (options.fork) {
   options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
-var server = TestRPC.server(options);
+var server = TestRPCServer.create(options);
 
 console.log("EthereumJS TestRPC v" + pkg.version);
 
