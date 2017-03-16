@@ -45,7 +45,9 @@ var tests = function(web3, EventTest) {
     });
 
     before(function(done) {
-      EventTest.new({from: accounts[0], data: EventTest._data}, function(err, contract) {
+      EventTest.new({from: accounts[0], data: EventTest._data, gas: 3141592}, function(err, contract) {
+        if (err) return done(err);
+
         if (!contract.address) {
           return;
         }
@@ -60,8 +62,8 @@ var tests = function(web3, EventTest) {
       var event = instance.ExampleEvent({first: expected_value});
 
       var cleanup = function(err) {
-        event.stopWatching();
-        done(err);
+        if (err) return done(err);
+        event.stopWatching(done);
       };
 
       event.watch(function(err, result) {
@@ -74,7 +76,7 @@ var tests = function(web3, EventTest) {
         return cleanup(new Error("Received event that didn't have the correct value!"));
       });
 
-      instance.triggerEvent(5, 6, {from: accounts[0]}, function(err, result) {
+      instance.triggerEvent(5, 6, {from: accounts[0], gas: 3141592}, function(err, result) {
         if (err) return cleanup(err);
       });
     });
@@ -87,9 +89,13 @@ var tests = function(web3, EventTest) {
       var event = instance.ExampleEvent({first: expected_value});
 
       function cleanup(err) {
-        event.stopWatching();
-        clearInterval(interval);
-        done(err);
+        if (err) return done(err);
+
+        event.stopWatching(function(err) {
+          if (err) return done(err);
+          clearInterval(interval);
+          done(err);
+        });
       }
 
       instance.triggerEvent(5, 7, {from: accounts[0]}, function(err, result) {
@@ -117,34 +123,40 @@ var tests = function(web3, EventTest) {
       var event = instance.ExampleEvent({first: expected_value}, {fromBlock: 0});
 
       event.get(function(err, logs) {
-        event.stopWatching();
         if (err) return done(err);
-        assert(logs.length == 2);
-        done();
+
+        event.stopWatching(function(err) {
+          if (err) return done(err);
+          assert(logs.length == 2);
+          done();
+        });
       });
     });
 
     it("only returns logs for the expected address", function(done) {
       var expected_value = 5;
 
-      EventTest.new({from: accounts[0], data: EventTest._data}, function(err, newInstance) {
+      EventTest.new({from: accounts[0], data: EventTest._data, gas: 3141592}, function(err, newInstance) {
         if (err) return done(err);
 
         if (!newInstance.address) {
           return;
         }
 
-        newInstance.triggerEvent(expected_value, 20, {from: accounts[0]}, function(err, result) {
+        newInstance.triggerEvent(expected_value, 20, {from: accounts[0], gas: 3141592}, function(err, result) {
           if (err) return done(err);
 
           var event = newInstance.ExampleEvent({first: expected_value}, {fromBlock: 0});
 
           // Only one event should be triggered for this new instance.
           event.get(function(err, logs) {
-            event.stopWatching();
             if (err) return done(err);
-            assert(logs.length == 1);
-            done();
+
+            event.stopWatching(function(err) {
+              if (err) return done(err);
+              assert(logs.length == 1);
+              done();
+            });
           });
         });
       });
@@ -218,6 +230,7 @@ var tests = function(web3, EventTest) {
 
       // There should be no logs because we provided a different number.
       event.get(function(err, logs) {
+        if (err) return done(err);
         assert(logs.length == 0);
         done();
       });
@@ -229,6 +242,7 @@ var tests = function(web3, EventTest) {
 
       // There should be no logs because we provided a different number.
       event.get(function(err, logs) {
+        if (err) return done(err);
         assert(logs.length == 1);
         done();
       });
