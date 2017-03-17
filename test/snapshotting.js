@@ -3,7 +3,7 @@ var async = require("async");
 var Web3 = require("web3");
 var assert = require("assert");
 
-describe("checkpointing / reverting", function() {
+describe("Checkpointing / Reverting", function() {
   var provider;
   var accounts;
   var web3 = new Web3();
