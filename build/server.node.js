@@ -109917,7 +109917,7 @@ exports.XMLHttpRequest = function() {
 
 module.exports = {
 	"name": "truffle-testrpc",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"bin": {
 		"truffle-testrpc": "./build/cli.node.js"
 	},
