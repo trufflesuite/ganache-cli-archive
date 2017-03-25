@@ -1,6 +1,6 @@
 {
   "name": "truffle-testrpc",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "bin": {
     "truffle-testrpc": "./build/cli.node.js"
   },
