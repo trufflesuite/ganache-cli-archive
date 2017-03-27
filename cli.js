@@ -2,7 +2,7 @@
 // `yargs/yargs` required to work with webpack, see here.
 // https://github.com/yargs/yargs/issues/781
 var yargs = require('yargs/yargs');
-var TestRPCServer = require('./lib/server');
+var Ganache = require("ganache-core");
 var pkg = require("./package.json");
 var URL = require("url");
 var Web3 = require("web3");
@@ -38,7 +38,7 @@ function parseAccounts(accounts) {
 }
 
 if (argv.d || argv.deterministic) {
-  argv.s = "TestRPC is awesome!";
+  argv.s = "TestRPC is awesome!"; // Seed phrase; don't change to Ganache so we maintain original determinism
 }
 
 if (typeof argv.unlock == "string") {
@@ -97,9 +97,9 @@ if (options.fork) {
   options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
-var server = TestRPCServer.create(options);
+var server = Ganache.server(options);
 
-console.log("EthereumJS TestRPC v" + pkg.version);
+console.log("Ganache CLI v" + pkg.version);
 
 server.listen(options.port, options.hostname, function(err, state) {
   if (err) {

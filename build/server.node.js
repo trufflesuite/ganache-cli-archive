@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 148);
+/******/ 	return __webpack_require__(__webpack_require__.s = 240);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -856,7 +856,7 @@ try {
   if (typeof util.inherits !== 'function') throw '';
   module.exports = util.inherits;
 } catch (e) {
-  module.exports = __webpack_require__(260);
+  module.exports = __webpack_require__(261);
 }
 
 
@@ -6607,7 +6607,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 var BigNumber = __webpack_require__(45);
 var sha3 = __webpack_require__(49);
-var utf8 = __webpack_require__(338);
+var utf8 = __webpack_require__(339);
 
 var unitMap = {
     'noether':      '0',    
@@ -7170,46 +7170,6 @@ module.exports = {
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var utils = __webpack_require__(11);
-
-module.exports = {
-  // Note: Do not use to.hex() when you really mean utils.addHexPrefix().
-  hex: function(val) {
-    if (typeof val == "string") {
-      if (val.indexOf("0x") == 0) {
-        return val;
-      } else {
-        val = new utils.BN(val);
-      }
-    }
-
-    if (typeof val == "number") {
-      val = utils.intToHex(val);
-    }
-
-    // Support Buffer, BigInteger and BN library
-    // Hint: BN is used in ethereumjs
-    if (typeof val == "object") {
-      val = val.toString("hex");
-
-      if (val == "") {
-        val = "0";
-      }
-    }
-
-    return utils.addHexPrefix(val);
-  },
-
-  number: function(val) {
-    return utils.bufferToInt(utils.toBuffer(val));
-  }
-};
-
-
-/***/ }),
-/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const SHA3 = __webpack_require__(39)
@@ -7916,16 +7876,56 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var utils = __webpack_require__(11);
+
+module.exports = {
+  // Note: Do not use to.hex() when you really mean utils.addHexPrefix().
+  hex: function(val) {
+    if (typeof val == "string") {
+      if (val.indexOf("0x") == 0) {
+        return val;
+      } else {
+        val = new utils.BN(val);
+      }
+    }
+
+    if (typeof val == "number") {
+      val = utils.intToHex(val);
+    }
+
+    // Support Buffer, BigInteger and BN library
+    // Hint: BN is used in ethereumjs
+    if (typeof val == "object") {
+      val = val.toString("hex");
+
+      if (val == "") {
+        val = "0";
+      }
+    }
+
+    return utils.addHexPrefix(val);
+  },
+
+  number: function(val) {
+    return utils.bufferToInt(utils.toBuffer(val));
+  }
+};
+
+
+/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const createKeccakHash = __webpack_require__(268)
+const createKeccakHash = __webpack_require__(269)
 const secp256k1 = __webpack_require__(28)
 const assert = __webpack_require__(14)
 const rlp = __webpack_require__(20)
 const BN = __webpack_require__(6)
 const createHash = __webpack_require__(17)
-Object.assign(exports, __webpack_require__(248))
+Object.assign(exports, __webpack_require__(230))
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -8596,15 +8596,15 @@ exports.defineProperties = function (self, fields, data) {
 
 var elliptic = exports;
 
-elliptic.version = __webpack_require__(214).version;
-elliptic.utils = __webpack_require__(213);
-elliptic.rand = __webpack_require__(167);
+elliptic.version = __webpack_require__(196).version;
+elliptic.utils = __webpack_require__(195);
+elliptic.rand = __webpack_require__(149);
 elliptic.curve = __webpack_require__(53);
-elliptic.curves = __webpack_require__(205);
+elliptic.curves = __webpack_require__(187);
 
 // Protocols
-elliptic.ec = __webpack_require__(206);
-elliptic.eddsa = __webpack_require__(209);
+elliptic.ec = __webpack_require__(188);
+elliptic.eddsa = __webpack_require__(191);
 
 
 /***/ }),
@@ -9165,7 +9165,7 @@ function toBuffer (v) {
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const ethUtil = __webpack_require__(220)
+const ethUtil = __webpack_require__(202)
 const rlp = __webpack_require__(20)
 
 var Account = module.exports = function (data) {
@@ -9452,7 +9452,8 @@ function baseGetTag(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
   }
-  return (symToStringTag && symToStringTag in Object(value))
+  value = Object(value);
+  return (symToStringTag && symToStringTag in value)
     ? getRawTag(value)
     : objectToString(value);
 }
@@ -9891,7 +9892,7 @@ var freeProcess = moduleExports$1 && freeGlobal.process;
 /** Used to access faster Node.js helpers. */
 var nodeUtil = (function() {
   try {
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+    return freeProcess && freeProcess.binding('util');
   } catch (e) {}
 }());
 
@@ -10280,7 +10281,7 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
  *
  * If `map` is passed an Object, the results will be an Array.  The results
  * will roughly be in the order of the original Objects' keys (but this can
- * vary across JavaScript engines)
+ * vary across JavaScript engines).
  *
  * @name map
  * @static
@@ -11079,17 +11080,15 @@ function asciiToArray(string) {
 
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff';
-var rsComboMarksRange = '\\u0300-\\u036f';
-var reComboHalfMarksRange = '\\ufe20-\\ufe2f';
-var rsComboSymbolsRange = '\\u20d0-\\u20ff';
-var rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
+var rsComboMarksRange = '\\u0300-\\u036f\\ufe20-\\ufe23';
+var rsComboSymbolsRange = '\\u20d0-\\u20f0';
 var rsVarRange = '\\ufe0e\\ufe0f';
 
 /** Used to compose unicode capture groups. */
 var rsZWJ = '\\u200d';
 
 /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
+var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboMarksRange + rsComboSymbolsRange + rsVarRange + ']');
 
 /**
  * Checks if `string` contains Unicode symbols.
@@ -11104,15 +11103,13 @@ function hasUnicode(string) {
 
 /** Used to compose unicode character classes. */
 var rsAstralRange$1 = '\\ud800-\\udfff';
-var rsComboMarksRange$1 = '\\u0300-\\u036f';
-var reComboHalfMarksRange$1 = '\\ufe20-\\ufe2f';
-var rsComboSymbolsRange$1 = '\\u20d0-\\u20ff';
-var rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1;
+var rsComboMarksRange$1 = '\\u0300-\\u036f\\ufe20-\\ufe23';
+var rsComboSymbolsRange$1 = '\\u20d0-\\u20f0';
 var rsVarRange$1 = '\\ufe0e\\ufe0f';
 
 /** Used to compose unicode capture groups. */
 var rsAstral = '[' + rsAstralRange$1 + ']';
-var rsCombo = '[' + rsComboRange$1 + ']';
+var rsCombo = '[' + rsComboMarksRange$1 + rsComboSymbolsRange$1 + ']';
 var rsFitz = '\\ud83c[\\udffb-\\udfff]';
 var rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')';
 var rsNonAstral = '[^' + rsAstralRange$1 + ']';
@@ -12686,6 +12683,114 @@ function forever(fn, errback) {
 }
 
 /**
+ * The same as [`groupBy`]{@link module:Collections.groupBy} but runs a maximum of `limit` async operations at a time.
+ *
+ * @name groupByLimit
+ * @static
+ * @memberOf module:Collections
+ * @method
+ * @see [async.groupBy]{@link module:Collections.groupBy}
+ * @category Collection
+ * @param {Array|Iterable|Object} coll - A collection to iterate over.
+ * @param {number} limit - The maximum number of async operations at a time.
+ * @param {Function} iteratee - A function to apply to each item in `coll`.
+ * The iteratee is passed a `callback(err, key)` which must be called once it
+ * has completed with an error (which can be `null`) and the `key` to group the
+ * value under. Invoked with (value, callback).
+ * @param {Function} [callback] - A callback which is called when all `iteratee`
+ * functions have finished, or an error occurs. Result is an `Object` whoses
+ * properties are arrays of values which returned the corresponding key.
+ */
+var groupByLimit = function (coll, limit, iteratee, callback) {
+    callback = callback || noop;
+
+    mapLimit(coll, limit, function (val, callback) {
+        iteratee(val, function (err, key) {
+            if (err) return callback(err);
+            return callback(null, { key: key, val: val });
+        });
+    }, function (err, mapResults) {
+        var result = {};
+        // from MDN, handle object having an `hasOwnProperty` prop
+        var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+        for (var i = 0; i < mapResults.length; i++) {
+            if (mapResults[i]) {
+                var key = mapResults[i].key;
+                var val = mapResults[i].val;
+
+                if (hasOwnProperty.call(result, key)) {
+                    result[key].push(val);
+                } else {
+                    result[key] = [val];
+                }
+            }
+        }
+
+        return callback(err, result);
+    });
+};
+
+/**
+ * Returns a new object, where each value corresponds to an array of items, from
+ * `coll`, that returned the corresponding key. That is, the keys of the object
+ * correspond to the values passed to the `iteratee` callback.
+ *
+ * Note: Since this function applies the `iteratee` to each item in parallel,
+ * there is no guarantee that the `iteratee` functions will complete in order.
+ * However, the values for each key in the `result` will be in the same order as
+ * the original `coll`. For Objects, the values will roughly be in the order of
+ * the original Objects' keys (but this can vary across JavaScript engines).
+ *
+ * @name groupBy
+ * @static
+ * @memberOf module:Collections
+ * @method
+ * @category Collection
+ * @param {Array|Iterable|Object} coll - A collection to iterate over.
+ * @param {Function} iteratee - A function to apply to each item in `coll`.
+ * The iteratee is passed a `callback(err, key)` which must be called once it
+ * has completed with an error (which can be `null`) and the `key` to group the
+ * value under. Invoked with (value, callback).
+ * @param {Function} [callback] - A callback which is called when all `iteratee`
+ * functions have finished, or an error occurs. Result is an `Object` whoses
+ * properties are arrays of values which returned the corresponding key.
+ * @example
+ *
+ * async.groupBy(['userId1', 'userId2', 'userId3'], function(userId, callback) {
+ *     db.findById(userId, function(err, user) {
+ *         if (err) return callback(err);
+ *         return callback(null, user.age);
+ *     });
+ * }, function(err, result) {
+ *     // result is object containing the userIds grouped by age
+ *     // e.g. { 30: ['userId1', 'userId3'], 42: ['userId2']};
+ * });
+ */
+var groupBy = doLimit(groupByLimit, Infinity);
+
+/**
+ * The same as [`groupBy`]{@link module:Collections.groupBy} but runs only a single async operation at a time.
+ *
+ * @name groupBySeries
+ * @static
+ * @memberOf module:Collections
+ * @method
+ * @see [async.groupBy]{@link module:Collections.groupBy}
+ * @category Collection
+ * @param {Array|Iterable|Object} coll - A collection to iterate over.
+ * @param {number} limit - The maximum number of async operations at a time.
+ * @param {Function} iteratee - A function to apply to each item in `coll`.
+ * The iteratee is passed a `callback(err, key)` which must be called once it
+ * has completed with an error (which can be `null`) and the `key` to group the
+ * value under. Invoked with (value, callback).
+ * @param {Function} [callback] - A callback which is called when all `iteratee`
+ * functions have finished, or an error occurs. Result is an `Object` whoses
+ * properties are arrays of values which returned the corresponding key.
+ */
+var groupBySeries = doLimit(groupByLimit, 1);
+
+/**
  * Logs the result of an `async` function to the `console`. Only works in
  * Node.js or in browsers that support `console.log` and `console.error` (such
  * as FF and Chrome). If multiple arguments are returned from the async
@@ -12959,6 +13064,8 @@ function _parallel(eachfn, tasks, callback) {
  * any I/O, they will actually be executed in series.  Any synchronous setup
  * sections for each task will happen one after the other.  JavaScript remains
  * single-threaded.
+ * **Hint:** Use [`reflect`]{@link module:Utils.reflect} to continue the
+ * execution of other tasks when a task fails.
  *
  * It is also possible to use an object instead of an array. Each property will
  * be run as a function and the results will be passed to the final `callback`
@@ -14133,7 +14240,7 @@ var timesSeries = doLimit(timeLimit, 1);
  * })
  */
 function transform(coll, accumulator, iteratee, callback) {
-    if (arguments.length === 3) {
+    if (arguments.length <= 3) {
         callback = iteratee;
         iteratee = accumulator;
         accumulator = isArray(coll) ? [] : {};
@@ -14382,6 +14489,9 @@ var index = {
   filterLimit: filterLimit,
   filterSeries: filterSeries,
   forever: forever,
+  groupBy: groupBy,
+  groupByLimit: groupByLimit,
+  groupBySeries: groupBySeries,
   log: log,
   map: map,
   mapLimit: mapLimit,
@@ -14474,6 +14584,9 @@ exports.filter = filter;
 exports.filterLimit = filterLimit;
 exports.filterSeries = filterSeries;
 exports.forever = forever;
+exports.groupBy = groupBy;
+exports.groupByLimit = groupByLimit;
+exports.groupBySeries = groupBySeries;
 exports.log = log;
 exports.map = map;
 exports.mapLimit = mapLimit;
@@ -15122,14 +15235,14 @@ module.exports = require("crypto");
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const ethUtil = __webpack_require__(97)
-const Tx = __webpack_require__(98)
+const ethUtil = __webpack_require__(95)
+const Tx = __webpack_require__(96)
 const Trie = __webpack_require__(33)
 const BN = ethUtil.BN
 const rlp = ethUtil.rlp
 const async = __webpack_require__(5)
-const BlockHeader = __webpack_require__(221)
-const params = __webpack_require__(96)
+const BlockHeader = __webpack_require__(203)
+const params = __webpack_require__(94)
 
 /**
  * Creates a new block object
@@ -15448,9 +15561,9 @@ function arrayToString (array) {
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var params = __webpack_require__(244)
-params.genesisState = __webpack_require__(243)
-params.bootstrapNodes = __webpack_require__(242)
+var params = __webpack_require__(226)
+params.genesisState = __webpack_require__(225)
+params.bootstrapNodes = __webpack_require__(224)
 module.exports = params
 
 
@@ -15460,7 +15573,7 @@ module.exports = params
 
 "use strict";
 
-module.exports = __webpack_require__(325)(__webpack_require__(324))
+module.exports = __webpack_require__(326)(__webpack_require__(325))
 
 
 /***/ }),
@@ -15733,11 +15846,11 @@ exports.ERROR = {
 
 var hash = exports;
 
-hash.utils = __webpack_require__(255);
-hash.common = __webpack_require__(251);
-hash.sha = __webpack_require__(254);
-hash.ripemd = __webpack_require__(253);
-hash.hmac = __webpack_require__(252);
+hash.utils = __webpack_require__(256);
+hash.common = __webpack_require__(252);
+hash.sha = __webpack_require__(255);
+hash.ripemd = __webpack_require__(254);
+hash.hmac = __webpack_require__(253);
 
 // Proxy hash functions to the main object
 hash.sha1 = hash.sha.sha1;
@@ -15752,8 +15865,8 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const BaseTrie = __webpack_require__(304)
-const checkpointInterface = __webpack_require__(305)
+const BaseTrie = __webpack_require__(305)
+const checkpointInterface = __webpack_require__(306)
 const inherits = __webpack_require__(0).inherits
 
 module.exports = CheckpointTrie
@@ -16116,7 +16229,7 @@ module.exports = Method;
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(66), __webpack_require__(65));
+		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(62), __webpack_require__(61));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -16526,7 +16639,7 @@ module.exports = Method;
 try {
   module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"sha3\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())).SHA3Hash
 } catch (err) {
-  module.exports = __webpack_require__(274)
+  module.exports = __webpack_require__(275)
 }
 
 
@@ -19566,8 +19679,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/Mik
 /***/ (function(module, exports, __webpack_require__) {
 
 const inherits = __webpack_require__(0).inherits
-const Transaction = __webpack_require__(98)
-const ethUtil = __webpack_require__(99)
+const Transaction = __webpack_require__(96)
+const ethUtil = __webpack_require__(97)
 
 module.exports = FakeTransaction
 
@@ -19634,7 +19747,7 @@ function FakeTransaction (data) {
  * <https://github.com/rvagg/node-levelup/blob/master/LICENSE.md>
  */
 
-var createError   = __webpack_require__(95).create
+var createError   = __webpack_require__(93).create
   , LevelUPError  = createError('LevelUPError')
   , NotFoundError = createError('NotFoundError', LevelUPError)
 
@@ -19762,8 +19875,8 @@ function asyncFirstSeries (array, iterator, cb) {
  * @date 2015
  */
 
-var CryptoJS = __webpack_require__(178);
-var sha3 = __webpack_require__(89);
+var CryptoJS = __webpack_require__(160);
+var sha3 = __webpack_require__(87);
 
 module.exports = function (value, options) {
     if (options && options.encoding === 'hex') {
@@ -20150,17 +20263,17 @@ module.exports = require("path");
 
 var curve = exports;
 
-curve.base = __webpack_require__(201);
-curve.short = __webpack_require__(204);
-curve.mont = __webpack_require__(203);
-curve.edwards = __webpack_require__(202);
+curve.base = __webpack_require__(183);
+curve.short = __webpack_require__(186);
+curve.mont = __webpack_require__(185);
+curve.edwards = __webpack_require__(184);
 
 
 /***/ }),
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Web3 = __webpack_require__(363);
+var Web3 = __webpack_require__(364);
 
 // dont override global variable
 if (typeof window !== 'undefined' && typeof window.Web3 === 'undefined') {
@@ -20859,1019 +20972,6 @@ module.exports = require("http");
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0).inherits;
-var to = __webpack_require__(9);
-var Account = __webpack_require__(21);
-var Block = __webpack_require__(26);
-var Log = __webpack_require__(61);
-var Receipt = __webpack_require__(62);
-var VM = __webpack_require__(67);
-var RuntimeError = __webpack_require__(82);
-var Trie = __webpack_require__(33);
-var Web3 = __webpack_require__(54);
-var utils = __webpack_require__(11);
-var async = __webpack_require__(5);
-var Heap = __webpack_require__(257);
-var Database = __webpack_require__(140);
-var path = __webpack_require__(51);
-var async = __webpack_require__(5);
-
-function BlockchainDouble(options) {
-  var self = this;
-
-  options = options || {};
-
-  this.options = options;
-  this.logger = options.logger || console;
-
-  this.data = new Database(options);
-
-  if (options.trie != null && options.db_path != null) {
-    throw new Error("Can't initialize a TestRPC with a db and a custom trie.");
-  }
-
-  this.pending_transactions = [];
-
-  // Homestead block gas limit is 4712388 == 0x47E7C4
-  // Default transaction gas limit is 90000 == 0x15f90
-  this.blockGasLimit = options.gasLimit || "0x47E7C4";
-  this.defaultTransactionGasLimit = '0x15f90';
-  this.timeAdjustment = 0;
-};
-
-BlockchainDouble.prototype.initialize = function(accounts, callback) {
-  var self = this;
-
-  this.data.initialize(function(err) {
-    if (err) return callback(err);
-
-    self.latestBlock(function(err, block) {
-      if (err) return callback(err);
-
-      var options = self.options;
-
-      var root = null;
-
-      if (block) {
-        root = block.header.stateRoot;
-      }
-
-      // I haven't yet found a good way to do this. Getting the trie from the
-      // forked blockchain without going through the other setup is a little gross.
-      self.stateTrie = self.createStateTrie(self.data.trie_db, root);
-
-      self.vm = options.vm || new VM({
-        state: self.stateTrie,
-        blockchain: self,
-        enableHomestead: true,
-        activatePrecompiles: true
-      });
-
-      if (options.debug == true) {
-        self.vm.on('step', function(info){
-          self.logger.log(info.opcode.name)
-        });
-      }
-
-      if (options.time) {
-        self.setTime(options.time);
-      }
-
-      // If we already have a block, then that means there's an existing chain.
-      // Don't create a genesis block.
-      if (block) {
-        return callback();
-      }
-
-      self.createGenesisBlock(function(err, block) {
-        if (err) return callback(err);
-
-        accounts = accounts || [];
-
-        async.eachSeries(accounts, function(account_data, finished) {
-          self.putAccount(account_data.account, account_data.address, finished);
-        }, function(err) {
-          if (err) return callback(err);
-
-          // Create first block
-          self.putBlock(block, [], [], callback);
-        });
-      });
-    });
-
-  });
-};
-
-BlockchainDouble.prototype.createStateTrie = function(db, root) {
-  return new Trie(this.data.trie_db, root);
-};
-
-// Overrideable so other implementations (forking) can edit it.
-BlockchainDouble.prototype.createGenesisBlock = function(callback) {
-  this.createBlock(callback);
-};
-
-BlockchainDouble.prototype.latestBlock = function(callback) {
-  this.data.blocks.last(function(err, last) {
-    if (err) return callback(err);
-    callback(null, last);
-  });
-}
-
-// number accepts number (integer, hex) or tag (e.g., "latest")
-BlockchainDouble.prototype.getEffectiveBlockNumber = function(number, callback) {
-  if (typeof number != "string") {
-    number = to.hex(number);
-  }
-
-  // If we have a hex number
-  if (number.indexOf("0x") >= 0) {
-    return callback(null, to.number(number));
-  } else {
-    if (number == "latest" || number == "pending") {
-      return this.getHeight(callback);
-    } else if (number == "earliest") {
-      return callback(null, 0);
-    }
-  }
-};
-
-// number accepts number (integer, hex), tag (e.g., "latest") or block hash
-// This function is used by ethereumjs-vm
-BlockchainDouble.prototype.getBlock = function(number, callback) {
-  var self = this;
-
-  if (typeof number != "string") {
-    number = to.hex(number);
-  }
-
-  // If we have a hex number or a block hash
-  if (number.indexOf("0x") >= 0) {
-    var hash = number;
-
-    // block hash
-    if (hash.length > 40) {
-      this.data.blockHashes.get(to.hex(hash), function(err, blockIndex) {
-        if (err) return callback(err);
-        return self.data.blocks.get(blockIndex, callback);
-      });
-    } else {
-      // Block number
-      return this.data.blocks.get(to.number(hash), callback);
-    }
-  } else {
-    if (number == "latest" || number == "pending") {
-      return this.latestBlock(callback);
-    } else if (number == "earliest") {
-      return this.data.blocks.first(callback);
-    }
-  }
-};
-
-BlockchainDouble.prototype.putBlock = function(block, logs, receipts, callback) {
-  var self = this;
-
-  // Lock in the state root for this block.
-  block.header.stateRoot = this.stateTrie.root;
-
-  this.data.blocks.length(function(err, length) {
-    if (err) return callback(err);
-
-    var requests = [
-      self.data.blocks.push.bind(self.data.blocks, block),
-      self.data.blockLogs.push.bind(self.data.blockLogs, logs),
-      self.data.blockHashes.set.bind(self.data.blockHashes, to.hex(block.hash()), length),
-    ];
-
-    block.transactions.forEach(function(tx, index) {
-      var tx_hash = to.hex(tx.hash());
-
-      requests.push(
-        self.data.transactions.set.bind(self.data.transactions, tx_hash, tx),
-        self.data.transactionReceipts.set.bind(self.data.transactionReceipts, tx_hash, receipts[index])
-      );
-    });
-
-    async.parallel(requests, callback);
-  });
-};
-
-BlockchainDouble.prototype.popBlock = function(callback) {
-  var self = this;
-
-  this.data.blocks.last(function(err, block) {
-    if (err) return callback(err);
-    if (block == null) return callback(null, null);
-
-    var requests = [];
-    var blockHash = to.hex(block.hash());
-
-    block.transactions.forEach(function(tx, index) {
-      var tx_hash = to.hex(tx.hash());
-
-      requests.push(
-        self.data.transactions.del.bind(self.data.transactions, tx_hash),
-        self.data.transactionReceipts.del.bind(self.data.transactionReceipts, tx_hash)
-      );
-    });
-
-    requests.push(
-      self.data.blockLogs.pop.bind(self.data.blockLogs),
-      self.data.blockHashes.del.bind(self.data.blockHashes, blockHash),
-      self.data.blocks.pop.bind(self.data.blocks) // Do this one last in case anything relies on it.
-    );
-
-    async.series(requests, function(err) {
-      if (err) return callback(err);
-
-      // Set the root to the last available, which will "roll back" to the previous
-      // moment in time. Note that all the old data is still in the db, but it's now just junk data.
-      self.data.blocks.last(function(err, newLastBlock) {
-        if (err) return callback(err);
-        self.stateTrie.root = newLastBlock.header.stateRoot;
-        // Remember: Return block we popped off.
-        callback(null, block);
-      });
-    });
-  });
-};
-
-BlockchainDouble.prototype.clearPendingTransactions = function() {
-  this.pending_transactions = [];
-};
-
-BlockchainDouble.prototype.putAccount = function(account, address, callback) {
-  var self = this;
-
-  address = utils.toBuffer(address);
-
-  this.vm.stateManager._putAccount(address, account, function(err) {
-    if (err) return callback(err);
-
-    self.vm.stateManager.cache.flush(callback);
-  });
-};
-
-/**
- * createBlock
- *
- * Create a new block, where the parent's block is either the latest block
- * on the chain or the parent block passed in.
- *
- * @param  {Block}   parent   The block meant to be the parent block (optional)
- * @param  {Function} callback Callback function called after block is created
- * @return Block              The block created.
- */
-BlockchainDouble.prototype.createBlock = function(parent, callback) {
-  var self = this;
-
-  if (typeof parent == "function") {
-    callback = parent;
-    parent = null;
-  }
-
-  var block = new Block();
-
-  function getParent(callback) {
-    if (parent) {
-      return callback(null, parent);
-    } else {
-      self.latestBlock(callback);
-    }
-  };
-
-  getParent(function(err, parent) {
-    if (err) return callback(err);
-
-    var parentNumber = parent != null ? to.number(parent.header.number) : -1;
-
-    block.header.gasLimit = self.blockGasLimit;
-
-    // Ensure we have the right block number for the VM.
-    block.header.number = to.hex(parentNumber + 1);
-
-    // Set the timestamp before processing txs
-    block.header.timestamp = to.hex(self.currentTime());
-
-    if (parent != null) {
-      block.header.parentHash = to.hex(parent.hash());
-    }
-
-    callback(null, block);
-  });
-};
-
-BlockchainDouble.prototype.getQueuedNonce = function(address, callback) {
-  var nonce = null;
-
-  this.pending_transactions.forEach(function(tx) {
-    //tx.from and address are buffers, so cannot simply do
-    //tx.from==address
-    if (to.hex(tx.from) != to.hex(address)) return;
-
-    var pending_nonce = to.number(tx.nonce);
-    //If this is the first queued nonce for this address we found,
-    //or it's higher than the previous highest, note it.
-    if (nonce===null || pending_nonce > nonce) {
-      nonce = pending_nonce;
-    }
-  });
-
-  //If we found a queued transaction nonce, return one higher
-  //than the highest we found
-  if (nonce!=null) return callback(null, nonce+1);
-
-  this.stateTrie.get(address, function(err, val) {
-    if (err) return callback(err);
-
-    var account = new Account(val);
-    callback(null, account.nonce);
-  });
-};
-
-BlockchainDouble.prototype.queueTransaction = function(tx) {
-  this.pending_transactions.push(tx);
-};
-
-BlockchainDouble.prototype.sortByPriceAndNonce = function() {
-  // Sorts transactions like I believe geth does.
-  // See the description of 'SortByPriceAndNonce' at
-  // https://github.com/ethereum/go-ethereum/blob/290e851f57f5d27a1d5f0f7ad784c836e017c337/core/types/transaction.go
-  var self = this;
-  var sortedByNonce = {};
-  for (idx in self.pending_transactions){
-    var tx = self.pending_transactions[idx]
-    if (!sortedByNonce[to.hex(tx.from)]){
-      sortedByNonce[to.hex(tx.from)] = [tx];
-    } else {
-      Array.prototype.push.apply(sortedByNonce[to.hex(tx.from)], [tx]);
-    }
-  }
-  var priceSort = function(a,b){
-    return parseInt(to.hex(b.gasPrice),16)-parseInt(to.hex(a.gasPrice),16);
-  }
-  var nonceSort = function(a,b){
-    return parseInt(to.hex(a.nonce),16) - parseInt(to.hex(b.nonce),16)
-  }
-
-  // Now sort each address by nonce
-  for (address in sortedByNonce){
-    Array.prototype.sort.apply(sortedByNonce[address], [nonceSort])
-  }
-
-  // Initialise a heap, sorted by price, for the head transaction from each account.
-  var heap = new Heap(priceSort);
-  for (address in sortedByNonce){
-    heap.push(sortedByNonce[address][0]);
-    //Remove the transaction from sortedByNonce
-    sortedByNonce[address].splice(0,1);
-  }
-
-  // Now reorder our transactions. Compare the next transactions from each account, and choose
-  // the one with the highest gas price.
-  sorted_transactions = [];
-  while (heap.size()>0){
-    best = heap.pop();
-    if (sortedByNonce[to.hex(best.from)].length>0){
-      //Push on the next transaction from this account
-      heap.push(sortedByNonce[address][0]);
-      sortedByNonce[address].splice(0,1);
-    }
-    Array.prototype.push.apply(sorted_transactions, [best]);
-  }
-  self.pending_transactions = sorted_transactions;
-};
-
-/**
- * processBlock
- *
- * Process the passed in block and included transactions
- *
- * @param  {Block} block       block to process
- * @param  {Boolean} commit    Whether or not changes should be committed to the state trie and the block appended to the end of the chain.
- * @param  {Function} callback Callback function when transaction processing is completed.
- * @return [type]              [description]
- */
-BlockchainDouble.prototype.processBlock = function(block, commit, callback) {
-  var self = this;
-
-  if (typeof commit == "function") {
-    callback = commit;
-    commit = true;
-  }
-
-  var currentStateRoot = self.stateTrie.root;
-
-  // We checkpoint here for speed. We want all state trie reads/writes to happen in memory,
-  // and the final output be flushed to the database at the end of transaction processing.
-  self.vm.stateManager.checkpoint();
-
-  var cleanup = function(err) {
-    self.vm.stateManager.revert(function(e) {
-      callback(err || e);
-    });
-  };
-
-  self.vm.runBlock({
-    block: block,
-    generate: true,
-  }, function(vmerr, results) {
-    // This is a check that has been in there for awhile. I'm unsure if it's required, but it can't hurt.
-    if (vmerr && vmerr instanceof Error == false) {
-      vmerr = new Error("VM error: " + vmerr);
-    }
-
-    // If we're given an error back directly, it's worse than a runtime error. Expose it and get out.
-    if (vmerr) return cleanup(vmerr);
-
-    // If no error, check for a runtime error. This can return null if no runtime error.
-    vmerr = RuntimeError.fromResults(block.transactions, results);
-
-    // Note, even if we have an error, some transactions may still have succeeded.
-    // Process their logs if so, returning the error at the end.
-
-    var logs = [];
-    var receipts = [];
-
-    var totalBlockGasUsage = 0;
-
-    results.results.forEach(function(result) {
-      totalBlockGasUsage += to.number(result.gasUsed);
-    });
-
-    block.header.gasUsed = utils.toBuffer(to.hex(totalBlockGasUsage));
-
-    for (var v = 0; v < results.receipts.length; v++) {
-      var result = results.results[v];
-      var receipt = results.receipts[v];
-      var tx = block.transactions[v];
-      var tx_hash = tx.hash();
-      var tx_logs = [];
-
-      // Only process the transaction's logs if it didn't error.
-      if (result.vm.exception == 1) {
-        for (var i = 0; i < receipt.logs.length; i++) {
-          var log = receipt.logs[i];
-          var address = to.hex(log[0]);
-          var topics = []
-
-          for (var j = 0; j < log[1].length; j++) {
-            topics.push(to.hex(log[1][j]));
-          }
-
-          var data = to.hex(log[2]);
-
-          var log = new Log({
-            logIndex: to.hex(i),
-            transactionIndex: to.hex(v),
-            transactionHash: tx_hash,
-            block: block,
-            address: address,
-            data: data,
-            topics: topics,
-            type: "mined"
-          });
-
-          logs.push(log);
-          tx_logs.push(log);
-        }
-      }
-
-      receipts.push(new Receipt(tx, block, tx_logs, receipt.gasUsed, result.createdAddress));
-    }
-
-    function commmitIfNeeded(cb) {
-      if (commit === true) {
-        self.vm.stateManager.commit(function(e) {
-          if (e) return cleanup(e);
-
-          // Put that block on the end the chain
-          self.putBlock(block, logs, receipts, cb);
-        });
-      } else {
-        self.vm.stateManager.revert(cb);
-      }
-    }
-
-    commmitIfNeeded(function(e) {
-      if (e) return callback(e);
-      // Note we return the vm err here too, if it exists.
-      callback(vmerr, block.transactions, results);
-    });
-  });
-};
-
-/**
- * processNextBlock
- *
- * Process the next block like a normal blockchain, pulling from the list of
- * pending transactions.
- *
- * @param  {Function} callback Callback when transaction processing is finished.
- * @return [type]              [description]
- */
-BlockchainDouble.prototype.processNextBlock = function(callback) {
-  var self = this;
-
-  self.sortByPriceAndNonce();
-
-  var successfullyAddedTransactions = [];
-
-  // Grab only the transactions that can fit within the block
-  var currentTransactions = [];
-  var totalGasLimit = 0;
-  var maxGasLimit = to.number(self.blockGasLimit);
-
-  while (self.pending_transactions.length > 0) {
-    var tx = self.pending_transactions[0];
-    var gasLimit = to.number(tx.gasLimit);
-
-    if (totalGasLimit + gasLimit <= maxGasLimit) {
-      totalGasLimit += gasLimit;
-      self.pending_transactions.shift();
-      currentTransactions.push(tx);
-    } else {
-      // Next one won't fit. Break.
-      break;
-    }
-  }
-
-  // Remember, we ensured transactions had a valid gas limit when they were queued (in the state manager).
-  // If we run into a case where we can't process any because one is higher than the gas limit,
-  // then it's a serious issue. This should never happen, but let's check anyway.
-  if (currentTransactions.length == 0 && self.pending_transactions.length > 0) {
-    // Error like geth.
-    return callback("Unexpected error condition: next transaction exceeds block gas limit")
-  }
-
-  // Create a new block meant to be the end of the chain
-  this.createBlock(function(err, block) {
-    if (err) return callback(err);
-
-    // Add transactions to the block.
-    Array.prototype.push.apply(block.transactions, currentTransactions);
-
-    // Process the block, committing the block to the chain
-    self.processBlock(block, true, callback);
-  });
-};
-
-/**
- * processTransactionTrace
- *
- * Run a previously-run transaction in the same state in which it occurred at the time it was run.
- * This will return the vm-level trace output for debugging purposes.
- *
- * Strategy:
- *
- *  1. Find block where transaction occurred
- *  2. Set state root of that block
- *  3. Rerun every transaction in that block prior to and including the requested transaction
- *  4. Reset state root back to original
- *  5. Send trace results back.
- *
- * @param  {[type]}   tx       [description]
- * @param  {Function} callback [description]
- * @return [type]              [description]
- */
-BlockchainDouble.prototype.processTransactionTrace = function(hash, params, callback) {
-  var self = this;
-  var target_hash = to.hex(hash);
-  var tx_hash_currently_processing = "";
-  var tx_currently_processing = null;
-
-  var returnVal = {
-    gas: 0,
-    returnValue: "",
-    structLogs: []
-  };
-
-  function step_listener(event) {
-    // See these docs:
-    // https://github.com/ethereum/go-ethereum/wiki/Management-APIs
-
-    var gasLeft = to.number(event.gasLeft);
-    var totalGasUsedAfterThisStep = to.number(tx_currently_processing.gasLimit) - gasLeft;
-    var gasUsedThisStep = totalGasUsedAfterThisStep - returnVal.gas;
-    returnVal.gas += gasUsedThisStep;
-
-    var structLog = {
-      depth: event.depth,
-      error: "",
-      gas: gasLeft,
-      gasCost: gasUsedThisStep,
-      memory: null, // TODO: Figure out how ethereumjs-vm's memory matches up with debug_traceTransaction
-      op: event.opcode.name,
-      pc: event.pc,
-      stack: event.stack.map(function(item) {
-        return item.toString("hex"); // non-0x prefixed.
-      }),
-      storage: {} // TODO: Figure out storage
-    }
-
-    returnVal.structLogs.push(structLog);
-  }
-
-  function beforeTx_listener(tx) {
-    tx_currently_processing = tx;
-    tx_hash_currently_processing = to.hex(tx.hash());
-
-    if (tx_hash_currently_processing == target_hash) {
-      self.vm.on("step", step_listener);
-    }
-  }
-
-  // afterTx_listener cleans up everything.
-  function afterTx_listener() {
-    if (tx_hash_currently_processing == target_hash) {
-      self.vm.removeListener("step", step_listener);
-      self.vm.removeListener("beforeTx", beforeTx_listener);
-      self.vm.removeListener("afterTx", afterTx_listener);
-    }
-  }
-
-  // Listen to beforeTx and afterTx so we know when our target transaction
-  // is processing. These events will add the vent listener for getting the trace data.
-  self.vm.on("beforeTx", beforeTx_listener);
-  self.vm.on("afterTx", afterTx_listener);
-
-  // #1 - get block via transaction receipt
-  this.getTransactionReceipt(target_hash, function(err, receipt) {
-    if (err) return callback(err);
-
-    var targetBlock = receipt.block;
-
-    // Get the parent of the target block
-    self.getBlock(targetBlock.header.parentHash, function(err, parent) {
-      if (err) return callback(err);
-
-      var startingStateRoot = self.stateTrie.root;
-
-      // #2 - Set state root of original block
-      self.stateTrie.root = parent.header.stateRoot;
-
-      // Prepare the "next" block with necessary transactions
-      self.createBlock(parent, function(err, block) {
-        if (err) return callback(err);
-
-        for (var i = 0; i < targetBlock.transactions.length; i++) {
-          var tx = targetBlock.transactions[i];
-          block.transactions.push(tx)
-
-          // After including the target transaction, that's all we need to do.
-          if (to.hex(tx.hash()) == target_hash) {
-            break;
-          }
-        }
-
-        // #3 - Process the block without committing the data.
-        self.processBlock(block, false, function(err, transactions, results) {
-          // Do we ignore errors here? We want to ignore runtime errors.
-
-          // #4 - reset the state root.
-          self.stateTrie.root = startingStateRoot;
-
-          // Just to be safe
-          self.vm.on("beforeTx", beforeTx_listener);
-          self.vm.on("afterTx", afterTx_listener);
-          self.vm.on("step", step_listener);
-
-          // #5 - send state results back
-          callback(err, returnVal);
-        });
-      });
-    });
-  });
-};
-
-BlockchainDouble.prototype.getAccount = function(address, number, callback) {
-  var self = this;
-
-  this.getBlock(number, function(err, block) {
-    if (err) return callback(err);
-
-    var trie = self.stateTrie;
-
-    // Manipulate the state root in place to maintain checkpoints
-    var currentStateRoot = trie.root;
-    self.stateTrie.root = block.header.stateRoot;
-
-    trie.get(utils.toBuffer(address), function(err, data) {
-      // Finally, put the stateRoot back for good
-      trie.root = currentStateRoot;
-
-      if (err) return callback(err);
-
-      var account = new Account(data);
-
-      account.exists = !!data;
-
-      callback(null, account);
-    });
-  });
-};
-
-BlockchainDouble.prototype.getNonce = function(address, number, callback) {
-  this.getAccount(address, number, function(err, account) {
-    if (err) return callback(err);
-    callback(null, account.nonce);
-  });
-};
-
-BlockchainDouble.prototype.getBalance = function(address, number, callback) {
-  this.getAccount(address, number, function(err, account) {
-    if (err) return callback(err);
-
-    callback(null, account.balance);
-  });
-};
-
-// Note! Storage values are returned RLP encoded!
-BlockchainDouble.prototype.getStorage = function(address, position, number, callback) {
-  var self = this;
-
-  this.getBlock(number, function(err, block) {
-    if (err) return callback(err);
-
-    var trie = self.stateTrie;
-
-    // Manipulate the state root in place to maintain checkpoints
-    var currentStateRoot = trie.root;
-    self.stateTrie.root = block.header.stateRoot;
-
-    trie.get(utils.toBuffer(address), function(err, data) {
-      if (err != null) {
-        // Put the stateRoot back if there's an error
-        trie.root = currentStateRoot;
-        return callback(err);
-      }
-
-      var account = new Account(data);
-
-      trie.root = account.stateRoot;
-
-      trie.get(utils.setLengthLeft(utils.toBuffer(position), 32), function(err, value) {
-        // Finally, put the stateRoot back for good
-        trie.root = currentStateRoot;
-
-        if (err != null) {
-          return callback(err);
-        }
-
-        callback(null, value);
-      });
-
-    });
-  });
-}
-
-BlockchainDouble.prototype.getCode = function(address, number, callback) {
-  var self = this;
-
-  this.getBlock(number, function(err, block) {
-    if (err) return callback(err);
-
-    var trie = self.stateTrie;
-
-    // Manipulate the state root in place to maintain checkpoints
-    var currentStateRoot = trie.root;
-    self.stateTrie.root = block.header.stateRoot;
-
-    trie.get(utils.toBuffer(address), function(err, data) {
-      if (err != null) {
-        // Put the stateRoot back if there's an error
-        trie.root = currentStateRoot;
-        return callback(err);
-      }
-
-      var account = new Account(data);
-
-      account.getCode(trie, function(err, code) {
-        // Finally, put the stateRoot back for good
-        trie.root = currentStateRoot;
-
-        if (err) return callback(err);
-
-        callback(null, code);
-      });
-    });
-  });
-};
-
-BlockchainDouble.prototype.getTransaction = function(hash, callback) {
-  hash = to.hex(hash);
-
-  this.data.transactions.get(hash, function(err, tx) {
-    if (err) {
-      if (err.notFound) {
-        return callback(null, null);
-      } else {
-        return callback(err);
-      }
-    }
-    callback(null, tx);
-  });
-};
-
-BlockchainDouble.prototype.getTransactionReceipt = function(hash, callback) {
-  hash = to.hex(hash);
-
-  this.data.transactionReceipts.get(hash, function(err, receipt) {
-    if (err) {
-      if (err) {
-        if (err.notFound) {
-          return callback(null, null);
-        } else {
-          return callback(err);
-        }
-      }
-    }
-
-    callback(err, receipt);
-  });
-};
-
-BlockchainDouble.prototype.getBlockLogs = function(number, callback) {
-  var self = this;
-  this.getEffectiveBlockNumber(number, function(err, effective) {
-    if (err) return callback(err);
-    self.data.blockLogs.get(effective, callback);
-  });
-};
-
-BlockchainDouble.prototype.getHeight = function(callback) {
-  this.data.blocks.length(function(err, length) {
-    if (err) return callback(err);
-    callback(null, length - 1);
-  })
-};
-
-BlockchainDouble.prototype.currentTime = function() {
-  return (new Date().getTime() / 1000 | 0) + this.timeAdjustment;
-};
-
-BlockchainDouble.prototype.increaseTime = function(seconds) {
-  if (seconds < 0) seconds = 0;
-  this.timeAdjustment += seconds;
-  return this.timeAdjustment;
-};
-
-BlockchainDouble.prototype.setTime = function(date) {
-  var now = new Date().getTime() / 1000 | 0;
-  var start = date.getTime() / 1000 | 0;
-  this.timeAdjustment = start - now;
-};
-
-BlockchainDouble.prototype.close = function(callback) {
-  this.data.close(callback);
-};
-
-module.exports = BlockchainDouble;
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-
-// Expects:
-//
-// logIndex: ...
-// transactionIndex: ...
-// transactionHash: ...
-// block: ...
-// address: ...
-// data: ...
-// topics: ...
-// type: ...
-
-function Log(data) {
-  var self = this;
-  Object.keys(data).forEach(function(key) {
-    self[key] = data[key];
-  });
-}
-
-Log.prototype.toJSON = function() {
-  return {
-    logIndex: this.logIndex,
-    transactionIndex: to.hex(this.transactionIndex),
-    transactionHash: to.hex(this.transactionHash),
-    blockHash: to.hex(this.block.hash()),
-    blockNumber: to.hex(this.block.header.number),
-    address: to.hex(this.address),
-    data: to.hex(this.data),
-    topics: this.topics,
-    type: "mined"
-  };
-};
-
-module.exports = Log;
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-
-function Receipt(tx, block, logs, gasUsed, contractAddress) {
-  this.tx = tx;
-  this.block = block;
-  this.logs = logs;
-  this.gasUsed = gasUsed;
-  this.contractAddress = contractAddress;
-
-  this.transactionIndex = 0;
-
-  for (var i = 0; i < block.transactions.length; i++) {
-    var current = block.transactions[i];
-    if (current.hash().equals(tx.hash())) {
-      this.transactionIndex = i;
-      break;
-    }
-  }
-}
-
-Receipt.prototype.toJSON = function() {
-  if (this.data != null) return data;
-
-  return {
-    transactionHash: to.hex(this.tx.hash()),
-    transactionIndex: to.hex(this.transactionIndex),
-    blockHash: to.hex(this.block.hash()),
-    blockNumber: to.hex(this.block.header.number),
-    gasUsed: to.hex(this.gasUsed),
-    cumulativeGasUsed: to.hex(this.block.header.gasUsed),
-    contractAddress: this.contractAddress != null ? to.hex(this.contractAddress) : null,
-    logs: this.logs.map(function(log) {return log.toJSON()})
-  }
-};
-
-module.exports = Receipt;
-
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-var FakeTransaction = __webpack_require__(46);
-var utils = __webpack_require__(11);
-
-module.exports = {
-  toJSON: function(tx, block) {
-    var transactionIndex = 0
-    for (var i = 0; i < block.transactions.length; i++) {
-      var current = block.transactions[i];
-      if (current.hash().equals(tx.hash())) {
-        transactionIndex = i;
-        break;
-      }
-    }
-    return {
-      hash: to.hex(tx.hash()),
-      nonce: to.hex(tx.nonce),
-      blockHash: to.hex(block.hash()),
-      blockNumber: to.hex(block.header.number),
-      transactionIndex: to.hex(transactionIndex),
-      from: to.hex(tx.from),
-      to: to.hex(tx.to),
-      value: to.hex(tx.value),
-      gas: to.hex(tx.gasLimit),
-      gasPrice: to.hex(tx.gasPrice),
-      input: to.hex(tx.data),
-    };
-  },
-
-  fromJSON: function(json) {
-    var tx = new FakeTransaction({
-      nonce: utils.toBuffer(json.nonce),
-      from: utils.toBuffer(json.from),
-      value: utils.toBuffer("0x" + json.value.toString(16)),
-      gasLimit: utils.toBuffer(json.gas),
-      gasPrice: utils.toBuffer("0x" + json.gasPrice.toString(16)),
-      data: utils.toBuffer(json.input)
-    });
-
-    if (json.to) {
-      // Remove all padding and make it easily comparible.
-      var buf = utils.toBuffer(json.to);
-      if (!buf.equals(utils.toBuffer('0x0'))) {
-        tx.to = utils.setLengthLeft(buf, 20);
-      }
-    }
-
-    return tx;
-  }
-};
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
@@ -21984,7 +21084,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 
 
 /***/ }),
-/* 65 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -22132,7 +21232,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }));
 
 /***/ }),
-/* 66 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -22287,14 +21387,14 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }));
 
 /***/ }),
-/* 67 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(101)
+module.exports = __webpack_require__(99)
 
 
 /***/ }),
-/* 68 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23296,6 +22396,1019 @@ function createRBTree(compare) {
 }
 
 /***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var inherits = __webpack_require__(0).inherits;
+var to = __webpack_require__(10);
+var Account = __webpack_require__(21);
+var Block = __webpack_require__(26);
+var Log = __webpack_require__(66);
+var Receipt = __webpack_require__(67);
+var VM = __webpack_require__(63);
+var RuntimeError = __webpack_require__(101);
+var Trie = __webpack_require__(33);
+var Web3 = __webpack_require__(54);
+var utils = __webpack_require__(11);
+var async = __webpack_require__(5);
+var Heap = __webpack_require__(258);
+var Database = __webpack_require__(232);
+var path = __webpack_require__(51);
+var async = __webpack_require__(5);
+
+function BlockchainDouble(options) {
+  var self = this;
+
+  options = options || {};
+
+  this.options = options;
+  this.logger = options.logger || console;
+
+  this.data = new Database(options);
+
+  if (options.trie != null && options.db_path != null) {
+    throw new Error("Can't initialize a TestRPC with a db and a custom trie.");
+  }
+
+  this.pending_transactions = [];
+
+  // Homestead block gas limit is 4712388 == 0x47E7C4
+  // Default transaction gas limit is 90000 == 0x15f90
+  this.blockGasLimit = options.gasLimit || "0x47E7C4";
+  this.defaultTransactionGasLimit = '0x15f90';
+  this.timeAdjustment = 0;
+};
+
+BlockchainDouble.prototype.initialize = function(accounts, callback) {
+  var self = this;
+
+  this.data.initialize(function(err) {
+    if (err) return callback(err);
+
+    self.latestBlock(function(err, block) {
+      if (err) return callback(err);
+
+      var options = self.options;
+
+      var root = null;
+
+      if (block) {
+        root = block.header.stateRoot;
+      }
+
+      // I haven't yet found a good way to do this. Getting the trie from the
+      // forked blockchain without going through the other setup is a little gross.
+      self.stateTrie = self.createStateTrie(self.data.trie_db, root);
+
+      self.vm = options.vm || new VM({
+        state: self.stateTrie,
+        blockchain: self,
+        enableHomestead: true,
+        activatePrecompiles: true
+      });
+
+      if (options.debug == true) {
+        self.vm.on('step', function(info){
+          self.logger.log(info.opcode.name)
+        });
+      }
+
+      if (options.time) {
+        self.setTime(options.time);
+      }
+
+      // If we already have a block, then that means there's an existing chain.
+      // Don't create a genesis block.
+      if (block) {
+        return callback();
+      }
+
+      self.createGenesisBlock(function(err, block) {
+        if (err) return callback(err);
+
+        accounts = accounts || [];
+
+        async.eachSeries(accounts, function(account_data, finished) {
+          self.putAccount(account_data.account, account_data.address, finished);
+        }, function(err) {
+          if (err) return callback(err);
+
+          // Create first block
+          self.putBlock(block, [], [], callback);
+        });
+      });
+    });
+
+  });
+};
+
+BlockchainDouble.prototype.createStateTrie = function(db, root) {
+  return new Trie(this.data.trie_db, root);
+};
+
+// Overrideable so other implementations (forking) can edit it.
+BlockchainDouble.prototype.createGenesisBlock = function(callback) {
+  this.createBlock(callback);
+};
+
+BlockchainDouble.prototype.latestBlock = function(callback) {
+  this.data.blocks.last(function(err, last) {
+    if (err) return callback(err);
+    callback(null, last);
+  });
+}
+
+// number accepts number (integer, hex) or tag (e.g., "latest")
+BlockchainDouble.prototype.getEffectiveBlockNumber = function(number, callback) {
+  if (typeof number != "string") {
+    number = to.hex(number);
+  }
+
+  // If we have a hex number
+  if (number.indexOf("0x") >= 0) {
+    return callback(null, to.number(number));
+  } else {
+    if (number == "latest" || number == "pending") {
+      return this.getHeight(callback);
+    } else if (number == "earliest") {
+      return callback(null, 0);
+    }
+  }
+};
+
+// number accepts number (integer, hex), tag (e.g., "latest") or block hash
+// This function is used by ethereumjs-vm
+BlockchainDouble.prototype.getBlock = function(number, callback) {
+  var self = this;
+
+  if (typeof number != "string") {
+    number = to.hex(number);
+  }
+
+  // If we have a hex number or a block hash
+  if (number.indexOf("0x") >= 0) {
+    var hash = number;
+
+    // block hash
+    if (hash.length > 40) {
+      this.data.blockHashes.get(to.hex(hash), function(err, blockIndex) {
+        if (err) return callback(err);
+        return self.data.blocks.get(blockIndex, callback);
+      });
+    } else {
+      // Block number
+      return this.data.blocks.get(to.number(hash), callback);
+    }
+  } else {
+    if (number == "latest" || number == "pending") {
+      return this.latestBlock(callback);
+    } else if (number == "earliest") {
+      return this.data.blocks.first(callback);
+    }
+  }
+};
+
+BlockchainDouble.prototype.putBlock = function(block, logs, receipts, callback) {
+  var self = this;
+
+  // Lock in the state root for this block.
+  block.header.stateRoot = this.stateTrie.root;
+
+  this.data.blocks.length(function(err, length) {
+    if (err) return callback(err);
+
+    var requests = [
+      self.data.blocks.push.bind(self.data.blocks, block),
+      self.data.blockLogs.push.bind(self.data.blockLogs, logs),
+      self.data.blockHashes.set.bind(self.data.blockHashes, to.hex(block.hash()), length),
+    ];
+
+    block.transactions.forEach(function(tx, index) {
+      var tx_hash = to.hex(tx.hash());
+
+      requests.push(
+        self.data.transactions.set.bind(self.data.transactions, tx_hash, tx),
+        self.data.transactionReceipts.set.bind(self.data.transactionReceipts, tx_hash, receipts[index])
+      );
+    });
+
+    async.parallel(requests, callback);
+  });
+};
+
+BlockchainDouble.prototype.popBlock = function(callback) {
+  var self = this;
+
+  this.data.blocks.last(function(err, block) {
+    if (err) return callback(err);
+    if (block == null) return callback(null, null);
+
+    var requests = [];
+    var blockHash = to.hex(block.hash());
+
+    block.transactions.forEach(function(tx, index) {
+      var tx_hash = to.hex(tx.hash());
+
+      requests.push(
+        self.data.transactions.del.bind(self.data.transactions, tx_hash),
+        self.data.transactionReceipts.del.bind(self.data.transactionReceipts, tx_hash)
+      );
+    });
+
+    requests.push(
+      self.data.blockLogs.pop.bind(self.data.blockLogs),
+      self.data.blockHashes.del.bind(self.data.blockHashes, blockHash),
+      self.data.blocks.pop.bind(self.data.blocks) // Do this one last in case anything relies on it.
+    );
+
+    async.series(requests, function(err) {
+      if (err) return callback(err);
+
+      // Set the root to the last available, which will "roll back" to the previous
+      // moment in time. Note that all the old data is still in the db, but it's now just junk data.
+      self.data.blocks.last(function(err, newLastBlock) {
+        if (err) return callback(err);
+        self.stateTrie.root = newLastBlock.header.stateRoot;
+        // Remember: Return block we popped off.
+        callback(null, block);
+      });
+    });
+  });
+};
+
+BlockchainDouble.prototype.clearPendingTransactions = function() {
+  this.pending_transactions = [];
+};
+
+BlockchainDouble.prototype.putAccount = function(account, address, callback) {
+  var self = this;
+
+  address = utils.toBuffer(address);
+
+  this.vm.stateManager._putAccount(address, account, function(err) {
+    if (err) return callback(err);
+
+    self.vm.stateManager.cache.flush(callback);
+  });
+};
+
+/**
+ * createBlock
+ *
+ * Create a new block, where the parent's block is either the latest block
+ * on the chain or the parent block passed in.
+ *
+ * @param  {Block}   parent   The block meant to be the parent block (optional)
+ * @param  {Function} callback Callback function called after block is created
+ * @return Block              The block created.
+ */
+BlockchainDouble.prototype.createBlock = function(parent, callback) {
+  var self = this;
+
+  if (typeof parent == "function") {
+    callback = parent;
+    parent = null;
+  }
+
+  var block = new Block();
+
+  function getParent(callback) {
+    if (parent) {
+      return callback(null, parent);
+    } else {
+      self.latestBlock(callback);
+    }
+  };
+
+  getParent(function(err, parent) {
+    if (err) return callback(err);
+
+    var parentNumber = parent != null ? to.number(parent.header.number) : -1;
+
+    block.header.gasLimit = self.blockGasLimit;
+
+    // Ensure we have the right block number for the VM.
+    block.header.number = to.hex(parentNumber + 1);
+
+    // Set the timestamp before processing txs
+    block.header.timestamp = to.hex(self.currentTime());
+
+    if (parent != null) {
+      block.header.parentHash = to.hex(parent.hash());
+    }
+
+    callback(null, block);
+  });
+};
+
+BlockchainDouble.prototype.getQueuedNonce = function(address, callback) {
+  var nonce = null;
+
+  this.pending_transactions.forEach(function(tx) {
+    //tx.from and address are buffers, so cannot simply do
+    //tx.from==address
+    if (to.hex(tx.from) != to.hex(address)) return;
+
+    var pending_nonce = to.number(tx.nonce);
+    //If this is the first queued nonce for this address we found,
+    //or it's higher than the previous highest, note it.
+    if (nonce===null || pending_nonce > nonce) {
+      nonce = pending_nonce;
+    }
+  });
+
+  //If we found a queued transaction nonce, return one higher
+  //than the highest we found
+  if (nonce!=null) return callback(null, nonce+1);
+
+  this.stateTrie.get(address, function(err, val) {
+    if (err) return callback(err);
+
+    var account = new Account(val);
+    callback(null, account.nonce);
+  });
+};
+
+BlockchainDouble.prototype.queueTransaction = function(tx) {
+  this.pending_transactions.push(tx);
+};
+
+BlockchainDouble.prototype.sortByPriceAndNonce = function() {
+  // Sorts transactions like I believe geth does.
+  // See the description of 'SortByPriceAndNonce' at
+  // https://github.com/ethereum/go-ethereum/blob/290e851f57f5d27a1d5f0f7ad784c836e017c337/core/types/transaction.go
+  var self = this;
+  var sortedByNonce = {};
+  for (idx in self.pending_transactions){
+    var tx = self.pending_transactions[idx]
+    if (!sortedByNonce[to.hex(tx.from)]){
+      sortedByNonce[to.hex(tx.from)] = [tx];
+    } else {
+      Array.prototype.push.apply(sortedByNonce[to.hex(tx.from)], [tx]);
+    }
+  }
+  var priceSort = function(a,b){
+    return parseInt(to.hex(b.gasPrice),16)-parseInt(to.hex(a.gasPrice),16);
+  }
+  var nonceSort = function(a,b){
+    return parseInt(to.hex(a.nonce),16) - parseInt(to.hex(b.nonce),16)
+  }
+
+  // Now sort each address by nonce
+  for (address in sortedByNonce){
+    Array.prototype.sort.apply(sortedByNonce[address], [nonceSort])
+  }
+
+  // Initialise a heap, sorted by price, for the head transaction from each account.
+  var heap = new Heap(priceSort);
+  for (address in sortedByNonce){
+    heap.push(sortedByNonce[address][0]);
+    //Remove the transaction from sortedByNonce
+    sortedByNonce[address].splice(0,1);
+  }
+
+  // Now reorder our transactions. Compare the next transactions from each account, and choose
+  // the one with the highest gas price.
+  sorted_transactions = [];
+  while (heap.size()>0){
+    best = heap.pop();
+    if (sortedByNonce[to.hex(best.from)].length>0){
+      //Push on the next transaction from this account
+      heap.push(sortedByNonce[address][0]);
+      sortedByNonce[address].splice(0,1);
+    }
+    Array.prototype.push.apply(sorted_transactions, [best]);
+  }
+  self.pending_transactions = sorted_transactions;
+};
+
+/**
+ * processBlock
+ *
+ * Process the passed in block and included transactions
+ *
+ * @param  {Block} block       block to process
+ * @param  {Boolean} commit    Whether or not changes should be committed to the state trie and the block appended to the end of the chain.
+ * @param  {Function} callback Callback function when transaction processing is completed.
+ * @return [type]              [description]
+ */
+BlockchainDouble.prototype.processBlock = function(block, commit, callback) {
+  var self = this;
+
+  if (typeof commit == "function") {
+    callback = commit;
+    commit = true;
+  }
+
+  var currentStateRoot = self.stateTrie.root;
+
+  // We checkpoint here for speed. We want all state trie reads/writes to happen in memory,
+  // and the final output be flushed to the database at the end of transaction processing.
+  self.vm.stateManager.checkpoint();
+
+  var cleanup = function(err) {
+    self.vm.stateManager.revert(function(e) {
+      callback(err || e);
+    });
+  };
+
+  self.vm.runBlock({
+    block: block,
+    generate: true,
+  }, function(vmerr, results) {
+    // This is a check that has been in there for awhile. I'm unsure if it's required, but it can't hurt.
+    if (vmerr && vmerr instanceof Error == false) {
+      vmerr = new Error("VM error: " + vmerr);
+    }
+
+    // If we're given an error back directly, it's worse than a runtime error. Expose it and get out.
+    if (vmerr) return cleanup(vmerr);
+
+    // If no error, check for a runtime error. This can return null if no runtime error.
+    vmerr = RuntimeError.fromResults(block.transactions, results);
+
+    // Note, even if we have an error, some transactions may still have succeeded.
+    // Process their logs if so, returning the error at the end.
+
+    var logs = [];
+    var receipts = [];
+
+    var totalBlockGasUsage = 0;
+
+    results.results.forEach(function(result) {
+      totalBlockGasUsage += to.number(result.gasUsed);
+    });
+
+    block.header.gasUsed = utils.toBuffer(to.hex(totalBlockGasUsage));
+
+    for (var v = 0; v < results.receipts.length; v++) {
+      var result = results.results[v];
+      var receipt = results.receipts[v];
+      var tx = block.transactions[v];
+      var tx_hash = tx.hash();
+      var tx_logs = [];
+
+      // Only process the transaction's logs if it didn't error.
+      if (result.vm.exception == 1) {
+        for (var i = 0; i < receipt.logs.length; i++) {
+          var log = receipt.logs[i];
+          var address = to.hex(log[0]);
+          var topics = []
+
+          for (var j = 0; j < log[1].length; j++) {
+            topics.push(to.hex(log[1][j]));
+          }
+
+          var data = to.hex(log[2]);
+
+          var log = new Log({
+            logIndex: to.hex(i),
+            transactionIndex: to.hex(v),
+            transactionHash: tx_hash,
+            block: block,
+            address: address,
+            data: data,
+            topics: topics,
+            type: "mined"
+          });
+
+          logs.push(log);
+          tx_logs.push(log);
+        }
+      }
+
+      receipts.push(new Receipt(tx, block, tx_logs, receipt.gasUsed, result.createdAddress));
+    }
+
+    function commmitIfNeeded(cb) {
+      if (commit === true) {
+        self.vm.stateManager.commit(function(e) {
+          if (e) return cleanup(e);
+
+          // Put that block on the end the chain
+          self.putBlock(block, logs, receipts, cb);
+        });
+      } else {
+        self.vm.stateManager.revert(cb);
+      }
+    }
+
+    commmitIfNeeded(function(e) {
+      if (e) return callback(e);
+      // Note we return the vm err here too, if it exists.
+      callback(vmerr, block.transactions, results);
+    });
+  });
+};
+
+/**
+ * processNextBlock
+ *
+ * Process the next block like a normal blockchain, pulling from the list of
+ * pending transactions.
+ *
+ * @param  {Function} callback Callback when transaction processing is finished.
+ * @return [type]              [description]
+ */
+BlockchainDouble.prototype.processNextBlock = function(callback) {
+  var self = this;
+
+  self.sortByPriceAndNonce();
+
+  var successfullyAddedTransactions = [];
+
+  // Grab only the transactions that can fit within the block
+  var currentTransactions = [];
+  var totalGasLimit = 0;
+  var maxGasLimit = to.number(self.blockGasLimit);
+
+  while (self.pending_transactions.length > 0) {
+    var tx = self.pending_transactions[0];
+    var gasLimit = to.number(tx.gasLimit);
+
+    if (totalGasLimit + gasLimit <= maxGasLimit) {
+      totalGasLimit += gasLimit;
+      self.pending_transactions.shift();
+      currentTransactions.push(tx);
+    } else {
+      // Next one won't fit. Break.
+      break;
+    }
+  }
+
+  // Remember, we ensured transactions had a valid gas limit when they were queued (in the state manager).
+  // If we run into a case where we can't process any because one is higher than the gas limit,
+  // then it's a serious issue. This should never happen, but let's check anyway.
+  if (currentTransactions.length == 0 && self.pending_transactions.length > 0) {
+    // Error like geth.
+    return callback("Unexpected error condition: next transaction exceeds block gas limit")
+  }
+
+  // Create a new block meant to be the end of the chain
+  this.createBlock(function(err, block) {
+    if (err) return callback(err);
+
+    // Add transactions to the block.
+    Array.prototype.push.apply(block.transactions, currentTransactions);
+
+    // Process the block, committing the block to the chain
+    self.processBlock(block, true, callback);
+  });
+};
+
+/**
+ * processTransactionTrace
+ *
+ * Run a previously-run transaction in the same state in which it occurred at the time it was run.
+ * This will return the vm-level trace output for debugging purposes.
+ *
+ * Strategy:
+ *
+ *  1. Find block where transaction occurred
+ *  2. Set state root of that block
+ *  3. Rerun every transaction in that block prior to and including the requested transaction
+ *  4. Reset state root back to original
+ *  5. Send trace results back.
+ *
+ * @param  {[type]}   tx       [description]
+ * @param  {Function} callback [description]
+ * @return [type]              [description]
+ */
+BlockchainDouble.prototype.processTransactionTrace = function(hash, params, callback) {
+  var self = this;
+  var target_hash = to.hex(hash);
+  var tx_hash_currently_processing = "";
+  var tx_currently_processing = null;
+
+  var returnVal = {
+    gas: 0,
+    returnValue: "",
+    structLogs: []
+  };
+
+  function step_listener(event) {
+    // See these docs:
+    // https://github.com/ethereum/go-ethereum/wiki/Management-APIs
+
+    var gasLeft = to.number(event.gasLeft);
+    var totalGasUsedAfterThisStep = to.number(tx_currently_processing.gasLimit) - gasLeft;
+    var gasUsedThisStep = totalGasUsedAfterThisStep - returnVal.gas;
+    returnVal.gas += gasUsedThisStep;
+
+    var structLog = {
+      depth: event.depth,
+      error: "",
+      gas: gasLeft,
+      gasCost: gasUsedThisStep,
+      memory: null, // TODO: Figure out how ethereumjs-vm's memory matches up with debug_traceTransaction
+      op: event.opcode.name,
+      pc: event.pc,
+      stack: event.stack.map(function(item) {
+        return item.toString("hex"); // non-0x prefixed.
+      }),
+      storage: {} // TODO: Figure out storage
+    }
+
+    returnVal.structLogs.push(structLog);
+  }
+
+  function beforeTx_listener(tx) {
+    tx_currently_processing = tx;
+    tx_hash_currently_processing = to.hex(tx.hash());
+
+    if (tx_hash_currently_processing == target_hash) {
+      self.vm.on("step", step_listener);
+    }
+  }
+
+  // afterTx_listener cleans up everything.
+  function afterTx_listener() {
+    if (tx_hash_currently_processing == target_hash) {
+      self.vm.removeListener("step", step_listener);
+      self.vm.removeListener("beforeTx", beforeTx_listener);
+      self.vm.removeListener("afterTx", afterTx_listener);
+    }
+  }
+
+  // Listen to beforeTx and afterTx so we know when our target transaction
+  // is processing. These events will add the vent listener for getting the trace data.
+  self.vm.on("beforeTx", beforeTx_listener);
+  self.vm.on("afterTx", afterTx_listener);
+
+  // #1 - get block via transaction receipt
+  this.getTransactionReceipt(target_hash, function(err, receipt) {
+    if (err) return callback(err);
+
+    var targetBlock = receipt.block;
+
+    // Get the parent of the target block
+    self.getBlock(targetBlock.header.parentHash, function(err, parent) {
+      if (err) return callback(err);
+
+      var startingStateRoot = self.stateTrie.root;
+
+      // #2 - Set state root of original block
+      self.stateTrie.root = parent.header.stateRoot;
+
+      // Prepare the "next" block with necessary transactions
+      self.createBlock(parent, function(err, block) {
+        if (err) return callback(err);
+
+        for (var i = 0; i < targetBlock.transactions.length; i++) {
+          var tx = targetBlock.transactions[i];
+          block.transactions.push(tx)
+
+          // After including the target transaction, that's all we need to do.
+          if (to.hex(tx.hash()) == target_hash) {
+            break;
+          }
+        }
+
+        // #3 - Process the block without committing the data.
+        self.processBlock(block, false, function(err, transactions, results) {
+          // Do we ignore errors here? We want to ignore runtime errors.
+
+          // #4 - reset the state root.
+          self.stateTrie.root = startingStateRoot;
+
+          // Just to be safe
+          self.vm.on("beforeTx", beforeTx_listener);
+          self.vm.on("afterTx", afterTx_listener);
+          self.vm.on("step", step_listener);
+
+          // #5 - send state results back
+          callback(err, returnVal);
+        });
+      });
+    });
+  });
+};
+
+BlockchainDouble.prototype.getAccount = function(address, number, callback) {
+  var self = this;
+
+  this.getBlock(number, function(err, block) {
+    if (err) return callback(err);
+
+    var trie = self.stateTrie;
+
+    // Manipulate the state root in place to maintain checkpoints
+    var currentStateRoot = trie.root;
+    self.stateTrie.root = block.header.stateRoot;
+
+    trie.get(utils.toBuffer(address), function(err, data) {
+      // Finally, put the stateRoot back for good
+      trie.root = currentStateRoot;
+
+      if (err) return callback(err);
+
+      var account = new Account(data);
+
+      account.exists = !!data;
+
+      callback(null, account);
+    });
+  });
+};
+
+BlockchainDouble.prototype.getNonce = function(address, number, callback) {
+  this.getAccount(address, number, function(err, account) {
+    if (err) return callback(err);
+    callback(null, account.nonce);
+  });
+};
+
+BlockchainDouble.prototype.getBalance = function(address, number, callback) {
+  this.getAccount(address, number, function(err, account) {
+    if (err) return callback(err);
+
+    callback(null, account.balance);
+  });
+};
+
+// Note! Storage values are returned RLP encoded!
+BlockchainDouble.prototype.getStorage = function(address, position, number, callback) {
+  var self = this;
+
+  this.getBlock(number, function(err, block) {
+    if (err) return callback(err);
+
+    var trie = self.stateTrie;
+
+    // Manipulate the state root in place to maintain checkpoints
+    var currentStateRoot = trie.root;
+    self.stateTrie.root = block.header.stateRoot;
+
+    trie.get(utils.toBuffer(address), function(err, data) {
+      if (err != null) {
+        // Put the stateRoot back if there's an error
+        trie.root = currentStateRoot;
+        return callback(err);
+      }
+
+      var account = new Account(data);
+
+      trie.root = account.stateRoot;
+
+      trie.get(utils.setLengthLeft(utils.toBuffer(position), 32), function(err, value) {
+        // Finally, put the stateRoot back for good
+        trie.root = currentStateRoot;
+
+        if (err != null) {
+          return callback(err);
+        }
+
+        callback(null, value);
+      });
+
+    });
+  });
+}
+
+BlockchainDouble.prototype.getCode = function(address, number, callback) {
+  var self = this;
+
+  this.getBlock(number, function(err, block) {
+    if (err) return callback(err);
+
+    var trie = self.stateTrie;
+
+    // Manipulate the state root in place to maintain checkpoints
+    var currentStateRoot = trie.root;
+    self.stateTrie.root = block.header.stateRoot;
+
+    trie.get(utils.toBuffer(address), function(err, data) {
+      if (err != null) {
+        // Put the stateRoot back if there's an error
+        trie.root = currentStateRoot;
+        return callback(err);
+      }
+
+      var account = new Account(data);
+
+      account.getCode(trie, function(err, code) {
+        // Finally, put the stateRoot back for good
+        trie.root = currentStateRoot;
+
+        if (err) return callback(err);
+
+        callback(null, code);
+      });
+    });
+  });
+};
+
+BlockchainDouble.prototype.getTransaction = function(hash, callback) {
+  hash = to.hex(hash);
+
+  this.data.transactions.get(hash, function(err, tx) {
+    if (err) {
+      if (err.notFound) {
+        return callback(null, null);
+      } else {
+        return callback(err);
+      }
+    }
+    callback(null, tx);
+  });
+};
+
+BlockchainDouble.prototype.getTransactionReceipt = function(hash, callback) {
+  hash = to.hex(hash);
+
+  this.data.transactionReceipts.get(hash, function(err, receipt) {
+    if (err) {
+      if (err) {
+        if (err.notFound) {
+          return callback(null, null);
+        } else {
+          return callback(err);
+        }
+      }
+    }
+
+    callback(err, receipt);
+  });
+};
+
+BlockchainDouble.prototype.getBlockLogs = function(number, callback) {
+  var self = this;
+  this.getEffectiveBlockNumber(number, function(err, effective) {
+    if (err) return callback(err);
+    self.data.blockLogs.get(effective, callback);
+  });
+};
+
+BlockchainDouble.prototype.getHeight = function(callback) {
+  this.data.blocks.length(function(err, length) {
+    if (err) return callback(err);
+    callback(null, length - 1);
+  })
+};
+
+BlockchainDouble.prototype.currentTime = function() {
+  return (new Date().getTime() / 1000 | 0) + this.timeAdjustment;
+};
+
+BlockchainDouble.prototype.increaseTime = function(seconds) {
+  if (seconds < 0) seconds = 0;
+  this.timeAdjustment += seconds;
+  return this.timeAdjustment;
+};
+
+BlockchainDouble.prototype.setTime = function(date) {
+  var now = new Date().getTime() / 1000 | 0;
+  var start = date.getTime() / 1000 | 0;
+  this.timeAdjustment = start - now;
+};
+
+BlockchainDouble.prototype.close = function(callback) {
+  this.data.close(callback);
+};
+
+module.exports = BlockchainDouble;
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+
+// Expects:
+//
+// logIndex: ...
+// transactionIndex: ...
+// transactionHash: ...
+// block: ...
+// address: ...
+// data: ...
+// topics: ...
+// type: ...
+
+function Log(data) {
+  var self = this;
+  Object.keys(data).forEach(function(key) {
+    self[key] = data[key];
+  });
+}
+
+Log.prototype.toJSON = function() {
+  return {
+    logIndex: this.logIndex,
+    transactionIndex: to.hex(this.transactionIndex),
+    transactionHash: to.hex(this.transactionHash),
+    blockHash: to.hex(this.block.hash()),
+    blockNumber: to.hex(this.block.header.number),
+    address: to.hex(this.address),
+    data: to.hex(this.data),
+    topics: this.topics,
+    type: "mined"
+  };
+};
+
+module.exports = Log;
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+
+function Receipt(tx, block, logs, gasUsed, contractAddress) {
+  this.tx = tx;
+  this.block = block;
+  this.logs = logs;
+  this.gasUsed = gasUsed;
+  this.contractAddress = contractAddress;
+
+  this.transactionIndex = 0;
+
+  for (var i = 0; i < block.transactions.length; i++) {
+    var current = block.transactions[i];
+    if (current.hash().equals(tx.hash())) {
+      this.transactionIndex = i;
+      break;
+    }
+  }
+}
+
+Receipt.prototype.toJSON = function() {
+  if (this.data != null) return data;
+
+  return {
+    transactionHash: to.hex(this.tx.hash()),
+    transactionIndex: to.hex(this.transactionIndex),
+    blockHash: to.hex(this.block.hash()),
+    blockNumber: to.hex(this.block.header.number),
+    gasUsed: to.hex(this.gasUsed),
+    cumulativeGasUsed: to.hex(this.block.header.gasUsed),
+    contractAddress: this.contractAddress != null ? to.hex(this.contractAddress) : null,
+    logs: this.logs.map(function(log) {return log.toJSON()})
+  }
+};
+
+module.exports = Receipt;
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+var FakeTransaction = __webpack_require__(46);
+var utils = __webpack_require__(11);
+
+module.exports = {
+  toJSON: function(tx, block) {
+    var transactionIndex = 0
+    for (var i = 0; i < block.transactions.length; i++) {
+      var current = block.transactions[i];
+      if (current.hash().equals(tx.hash())) {
+        transactionIndex = i;
+        break;
+      }
+    }
+    return {
+      hash: to.hex(tx.hash()),
+      nonce: to.hex(tx.nonce),
+      blockHash: to.hex(block.hash()),
+      blockNumber: to.hex(block.header.number),
+      transactionIndex: to.hex(transactionIndex),
+      from: to.hex(tx.from),
+      to: to.hex(tx.to),
+      value: to.hex(tx.value),
+      gas: to.hex(tx.gasLimit),
+      gasPrice: to.hex(tx.gasPrice),
+      input: to.hex(tx.data),
+    };
+  },
+
+  fromJSON: function(json) {
+    var tx = new FakeTransaction({
+      nonce: utils.toBuffer(json.nonce),
+      from: utils.toBuffer(json.from),
+      value: utils.toBuffer("0x" + json.value.toString(16)),
+      gasLimit: utils.toBuffer(json.gas),
+      gasPrice: utils.toBuffer("0x" + json.gasPrice.toString(16)),
+      data: utils.toBuffer(json.input)
+    });
+
+    if (json.to) {
+      // Remove all padding and make it easily comparible.
+      var buf = utils.toBuffer(json.to);
+      if (!buf.equals(utils.toBuffer('0x0'))) {
+        tx.to = utils.setLengthLeft(buf, 20);
+      }
+    }
+
+    return tx;
+  }
+};
+
+
+/***/ }),
 /* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23303,13 +23416,13 @@ function createRBTree(compare) {
 
 
 
-var nut   = __webpack_require__(290)
-var shell = __webpack_require__(292) //the shell surrounds the nut
-var precodec = __webpack_require__(281)
-var codec = __webpack_require__(284)
+var nut   = __webpack_require__(291)
+var shell = __webpack_require__(293) //the shell surrounds the nut
+var precodec = __webpack_require__(282)
+var codec = __webpack_require__(285)
 var merge = __webpack_require__(30)
 
-var ReadStream = __webpack_require__(285)
+var ReadStream = __webpack_require__(286)
 
 var sublevel = function (db, opts) {
   opts = merge(db.options, opts)
@@ -23332,7 +23445,7 @@ module.exports = function (db, opts) {
  * <https://github.com/rvagg/node-levelup/blob/master/LICENSE.md>
  */
 
-var createError   = __webpack_require__(95).create
+var createError   = __webpack_require__(93).create
   , LevelUPError  = createError('LevelUPError')
   , NotFoundError = createError('NotFoundError', LevelUPError)
 
@@ -23554,9 +23667,9 @@ var EventEmitter        = __webpack_require__(16).EventEmitter
   , inherits            = __webpack_require__(0).inherits
   , deprecate           = __webpack_require__(0).deprecate
   , extend              = __webpack_require__(30)
-  , prr                 = __webpack_require__(315)
-  , DeferredLevelDOWN   = __webpack_require__(199)
-  , IteratorStream      = __webpack_require__(277)
+  , prr                 = __webpack_require__(316)
+  , DeferredLevelDOWN   = __webpack_require__(181)
+  , IteratorStream      = __webpack_require__(278)
 
   , errors              = __webpack_require__(47)
   , WriteError          = errors.WriteError
@@ -23567,8 +23680,8 @@ var EventEmitter        = __webpack_require__(16).EventEmitter
   , InitializationError = errors.InitializationError
 
   , util                = __webpack_require__(117)
-  , Batch               = __webpack_require__(299)
-  , Codec               = __webpack_require__(275)
+  , Batch               = __webpack_require__(300)
+  , Codec               = __webpack_require__(276)
 
   , getOptions          = util.getOptions
   , defaultOptions      = util.defaultOptions
@@ -25065,7 +25178,8 @@ function baseGetTag(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
   }
-  return (symToStringTag && symToStringTag in Object(value))
+  value = Object(value);
+  return (symToStringTag && symToStringTag in value)
     ? getRawTag(value)
     : objectToString(value);
 }
@@ -25504,7 +25618,7 @@ var freeProcess = moduleExports$1 && freeGlobal.process;
 /** Used to access faster Node.js helpers. */
 var nodeUtil = (function() {
   try {
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+    return freeProcess && freeProcess.binding('util');
   } catch (e) {}
 }());
 
@@ -25893,7 +26007,7 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
  *
  * If `map` is passed an Object, the results will be an Array.  The results
  * will roughly be in the order of the original Objects' keys (but this can
- * vary across JavaScript engines)
+ * vary across JavaScript engines).
  *
  * @name map
  * @static
@@ -26692,17 +26806,15 @@ function asciiToArray(string) {
 
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff';
-var rsComboMarksRange = '\\u0300-\\u036f';
-var reComboHalfMarksRange = '\\ufe20-\\ufe2f';
-var rsComboSymbolsRange = '\\u20d0-\\u20ff';
-var rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
+var rsComboMarksRange = '\\u0300-\\u036f\\ufe20-\\ufe23';
+var rsComboSymbolsRange = '\\u20d0-\\u20f0';
 var rsVarRange = '\\ufe0e\\ufe0f';
 
 /** Used to compose unicode capture groups. */
 var rsZWJ = '\\u200d';
 
 /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
+var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboMarksRange + rsComboSymbolsRange + rsVarRange + ']');
 
 /**
  * Checks if `string` contains Unicode symbols.
@@ -26717,15 +26829,13 @@ function hasUnicode(string) {
 
 /** Used to compose unicode character classes. */
 var rsAstralRange$1 = '\\ud800-\\udfff';
-var rsComboMarksRange$1 = '\\u0300-\\u036f';
-var reComboHalfMarksRange$1 = '\\ufe20-\\ufe2f';
-var rsComboSymbolsRange$1 = '\\u20d0-\\u20ff';
-var rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1;
+var rsComboMarksRange$1 = '\\u0300-\\u036f\\ufe20-\\ufe23';
+var rsComboSymbolsRange$1 = '\\u20d0-\\u20f0';
 var rsVarRange$1 = '\\ufe0e\\ufe0f';
 
 /** Used to compose unicode capture groups. */
 var rsAstral = '[' + rsAstralRange$1 + ']';
-var rsCombo = '[' + rsComboRange$1 + ']';
+var rsCombo = '[' + rsComboMarksRange$1 + rsComboSymbolsRange$1 + ']';
 var rsFitz = '\\ud83c[\\udffb-\\udfff]';
 var rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')';
 var rsNonAstral = '[^' + rsAstralRange$1 + ']';
@@ -28299,6 +28409,114 @@ function forever(fn, errback) {
 }
 
 /**
+ * The same as [`groupBy`]{@link module:Collections.groupBy} but runs a maximum of `limit` async operations at a time.
+ *
+ * @name groupByLimit
+ * @static
+ * @memberOf module:Collections
+ * @method
+ * @see [async.groupBy]{@link module:Collections.groupBy}
+ * @category Collection
+ * @param {Array|Iterable|Object} coll - A collection to iterate over.
+ * @param {number} limit - The maximum number of async operations at a time.
+ * @param {Function} iteratee - A function to apply to each item in `coll`.
+ * The iteratee is passed a `callback(err, key)` which must be called once it
+ * has completed with an error (which can be `null`) and the `key` to group the
+ * value under. Invoked with (value, callback).
+ * @param {Function} [callback] - A callback which is called when all `iteratee`
+ * functions have finished, or an error occurs. Result is an `Object` whoses
+ * properties are arrays of values which returned the corresponding key.
+ */
+var groupByLimit = function (coll, limit, iteratee, callback) {
+    callback = callback || noop;
+
+    mapLimit(coll, limit, function (val, callback) {
+        iteratee(val, function (err, key) {
+            if (err) return callback(err);
+            return callback(null, { key: key, val: val });
+        });
+    }, function (err, mapResults) {
+        var result = {};
+        // from MDN, handle object having an `hasOwnProperty` prop
+        var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+        for (var i = 0; i < mapResults.length; i++) {
+            if (mapResults[i]) {
+                var key = mapResults[i].key;
+                var val = mapResults[i].val;
+
+                if (hasOwnProperty.call(result, key)) {
+                    result[key].push(val);
+                } else {
+                    result[key] = [val];
+                }
+            }
+        }
+
+        return callback(err, result);
+    });
+};
+
+/**
+ * Returns a new object, where each value corresponds to an array of items, from
+ * `coll`, that returned the corresponding key. That is, the keys of the object
+ * correspond to the values passed to the `iteratee` callback.
+ *
+ * Note: Since this function applies the `iteratee` to each item in parallel,
+ * there is no guarantee that the `iteratee` functions will complete in order.
+ * However, the values for each key in the `result` will be in the same order as
+ * the original `coll`. For Objects, the values will roughly be in the order of
+ * the original Objects' keys (but this can vary across JavaScript engines).
+ *
+ * @name groupBy
+ * @static
+ * @memberOf module:Collections
+ * @method
+ * @category Collection
+ * @param {Array|Iterable|Object} coll - A collection to iterate over.
+ * @param {Function} iteratee - A function to apply to each item in `coll`.
+ * The iteratee is passed a `callback(err, key)` which must be called once it
+ * has completed with an error (which can be `null`) and the `key` to group the
+ * value under. Invoked with (value, callback).
+ * @param {Function} [callback] - A callback which is called when all `iteratee`
+ * functions have finished, or an error occurs. Result is an `Object` whoses
+ * properties are arrays of values which returned the corresponding key.
+ * @example
+ *
+ * async.groupBy(['userId1', 'userId2', 'userId3'], function(userId, callback) {
+ *     db.findById(userId, function(err, user) {
+ *         if (err) return callback(err);
+ *         return callback(null, user.age);
+ *     });
+ * }, function(err, result) {
+ *     // result is object containing the userIds grouped by age
+ *     // e.g. { 30: ['userId1', 'userId3'], 42: ['userId2']};
+ * });
+ */
+var groupBy = doLimit(groupByLimit, Infinity);
+
+/**
+ * The same as [`groupBy`]{@link module:Collections.groupBy} but runs only a single async operation at a time.
+ *
+ * @name groupBySeries
+ * @static
+ * @memberOf module:Collections
+ * @method
+ * @see [async.groupBy]{@link module:Collections.groupBy}
+ * @category Collection
+ * @param {Array|Iterable|Object} coll - A collection to iterate over.
+ * @param {number} limit - The maximum number of async operations at a time.
+ * @param {Function} iteratee - A function to apply to each item in `coll`.
+ * The iteratee is passed a `callback(err, key)` which must be called once it
+ * has completed with an error (which can be `null`) and the `key` to group the
+ * value under. Invoked with (value, callback).
+ * @param {Function} [callback] - A callback which is called when all `iteratee`
+ * functions have finished, or an error occurs. Result is an `Object` whoses
+ * properties are arrays of values which returned the corresponding key.
+ */
+var groupBySeries = doLimit(groupByLimit, 1);
+
+/**
  * Logs the result of an `async` function to the `console`. Only works in
  * Node.js or in browsers that support `console.log` and `console.error` (such
  * as FF and Chrome). If multiple arguments are returned from the async
@@ -28572,6 +28790,8 @@ function _parallel(eachfn, tasks, callback) {
  * any I/O, they will actually be executed in series.  Any synchronous setup
  * sections for each task will happen one after the other.  JavaScript remains
  * single-threaded.
+ * **Hint:** Use [`reflect`]{@link module:Utils.reflect} to continue the
+ * execution of other tasks when a task fails.
  *
  * It is also possible to use an object instead of an array. Each property will
  * be run as a function and the results will be passed to the final `callback`
@@ -29746,7 +29966,7 @@ var timesSeries = doLimit(timeLimit, 1);
  * })
  */
 function transform(coll, accumulator, iteratee, callback) {
-    if (arguments.length === 3) {
+    if (arguments.length <= 3) {
         callback = iteratee;
         iteratee = accumulator;
         accumulator = isArray(coll) ? [] : {};
@@ -29995,6 +30215,9 @@ var index = {
   filterLimit: filterLimit,
   filterSeries: filterSeries,
   forever: forever,
+  groupBy: groupBy,
+  groupByLimit: groupByLimit,
+  groupBySeries: groupBySeries,
   log: log,
   map: map,
   mapLimit: mapLimit,
@@ -30087,6 +30310,9 @@ exports.filter = filter;
 exports.filterLimit = filterLimit;
 exports.filterSeries = filterSeries;
 exports.forever = forever;
+exports.groupBy = groupBy;
+exports.groupByLimit = groupByLimit;
+exports.groupBySeries = groupBySeries;
 exports.log = log;
 exports.map = map;
 exports.mapLimit = mapLimit;
@@ -30159,7 +30385,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const getRandomId = __webpack_require__(348)
+const getRandomId = __webpack_require__(349)
 const extend = __webpack_require__(30)
 
 module.exports = createPayload
@@ -30243,15 +30469,15 @@ Stoplight.prototype.await = function(fn){
 
 var f = __webpack_require__(18);
 
-var SolidityTypeAddress = __webpack_require__(353);
-var SolidityTypeBool = __webpack_require__(354);
-var SolidityTypeInt = __webpack_require__(357);
-var SolidityTypeUInt = __webpack_require__(360);
-var SolidityTypeDynamicBytes = __webpack_require__(356);
-var SolidityTypeString = __webpack_require__(359);
-var SolidityTypeReal = __webpack_require__(358);
-var SolidityTypeUReal = __webpack_require__(361);
-var SolidityTypeBytes = __webpack_require__(355);
+var SolidityTypeAddress = __webpack_require__(354);
+var SolidityTypeBool = __webpack_require__(355);
+var SolidityTypeInt = __webpack_require__(358);
+var SolidityTypeUInt = __webpack_require__(361);
+var SolidityTypeDynamicBytes = __webpack_require__(357);
+var SolidityTypeString = __webpack_require__(360);
+var SolidityTypeReal = __webpack_require__(359);
+var SolidityTypeUReal = __webpack_require__(362);
+var SolidityTypeBytes = __webpack_require__(356);
 
 var isDynamic = function (solidityType, type) {
    return solidityType.isDynamicType(type) ||
@@ -30486,133 +30712,6 @@ module.exports = coder;
 
 /***/ }),
 /* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-var utils = __webpack_require__(11);
-var FakeTransaction = __webpack_require__(46)
-
-module.exports = {
-  encode: function(tx, done) {
-    var encoded = tx.toJSON(true);
-
-    encoded.from = to.hex(tx.from);
-    encoded.hash = to.hex(tx.hash());
-
-    done(null, encoded);
-  },
-  decode: function(json, done) {
-    // TODO: We can't use txhelper here because there are two
-    // JSON serialization types: ethereumjs-tx, and web3.
-    // Here we deserialize from ethereumjs-tx because it's
-    // closer to the metal, so to speak.
-    var tx = new FakeTransaction({
-      nonce: utils.toBuffer(json.nonce),
-      value: utils.toBuffer(json.value),
-      to: utils.toBuffer(json.to),
-      from: utils.toBuffer(json.from),
-      gasLimit: utils.toBuffer(json.gasLimit),
-      gasPrice: utils.toBuffer(json.gasPrice),
-      data: utils.toBuffer(json.data),
-      v: utils.toBuffer(json.v),
-      r: utils.toBuffer(json.r),
-      s: utils.toBuffer(json.s)
-    });
-
-    // if (to.hex(tx.hash()) != json.hash) {
-    //   return done(new Error("DB consistency check: Decoded transaction hash didn't match encoded hash. Expected: " + json.hash + "; actual: " + to.hex(tx.hash())));
-    // }
-
-    done(null, tx);
-  }
-}
-
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var inherits = __webpack_require__(0).inherits;
-var to = __webpack_require__(9);
-
-inherits(RuntimeError, Error);
-
-// Note: ethereumjs-vm will return an object that has a "results" and "receipts" keys.
-// You should pass in the whole object.
-function RuntimeError(transactions, vm_output) {
-  Error.call(this);
-  this.results = {};
-  this.hashes = [];
-  this.combine(transactions, vm_output);
-};
-
-RuntimeError.prototype.combine = function(transactions, vm_output) {
-  // Can be combined with vm_output or another RuntimeError.
-  if (transactions instanceof RuntimeError) {
-    var err = transactions;
-    var keys = Object.keys(err.results);
-
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
-      this.results[key] = err.results[key];
-      Array.prototype.push.apply(this.hashes, err.hashes);
-    }
-  } else {
-    var results = vm_output.results;
-    var receipts = vm_output.receipts;
-
-    for (var i = 0; i < transactions.length; i++) {
-      var tx = transactions[i];
-      var result = results[i];
-      var receipt = receipts[i];
-
-      // 1 means no error, oddly.
-      if (result.vm.exception != 1) {
-        var hash = to.hex(tx.hash());
-
-        this.hashes.push(hash);
-
-        this.results[hash] = {
-          error: result.vm.exceptionError,
-          program_counter: result.vm.runState.programCounter
-        };
-      }
-    }
-  }
-
-  // Once combined, set the message
-  if (this.hashes.length == 1) {
-    this.message = "VM Exception while processing transaction: " + this.results[this.hashes[0]].error;
-  } else {
-    this.message = "Multiple VM Exceptions while processing transactions: \n\n";
-
-    for (var i = 0; i < this.hashes.length; i++) {
-      var hash = this.hashes[i];
-
-      this.message += hash + ": " + this.results[hash].error + "\n";
-    }
-  }
-};
-
-RuntimeError.prototype.count = function() {
-  return Object.keys(this.results).length;
-};
-
-RuntimeError.fromResults = function(transactions, vm_output) {
-  var err = new RuntimeError(transactions, vm_output);
-
-  if (err.count() == 0) {
-    return null;
-  }
-
-  return err;
-};
-
-module.exports = RuntimeError;
-
-
-/***/ }),
-/* 83 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -30706,7 +30805,7 @@ module.exports = AbstractChainedBatch
 
 
 /***/ }),
-/* 84 */
+/* 82 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -30761,14 +30860,14 @@ module.exports = AbstractIterator
 
 
 /***/ }),
-/* 85 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
 
 var xtend                = __webpack_require__(30)
-  , AbstractIterator     = __webpack_require__(84)
-  , AbstractChainedBatch = __webpack_require__(83)
+  , AbstractIterator     = __webpack_require__(82)
+  , AbstractChainedBatch = __webpack_require__(81)
 
 function AbstractLevelDOWN (location) {
   if (!arguments.length || location === undefined)
@@ -31039,17 +31138,17 @@ module.exports = AbstractLevelDOWN
 
 
 /***/ }),
-/* 86 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.AbstractLevelDOWN    = __webpack_require__(85)
-exports.AbstractIterator     = __webpack_require__(84)
-exports.AbstractChainedBatch = __webpack_require__(83)
-exports.isLevelDOWN          = __webpack_require__(158)
+exports.AbstractLevelDOWN    = __webpack_require__(83)
+exports.AbstractIterator     = __webpack_require__(82)
+exports.AbstractChainedBatch = __webpack_require__(81)
+exports.isLevelDOWN          = __webpack_require__(140)
 
 
 /***/ }),
-/* 87 */
+/* 85 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -31058,10 +31157,10 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 87;
+webpackEmptyContext.id = 85;
 
 /***/ }),
-/* 88 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -31265,7 +31364,7 @@ webpackEmptyContext.id = 87;
 }));
 
 /***/ }),
-/* 89 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -31593,7 +31692,7 @@ webpackEmptyContext.id = 87;
 }));
 
 /***/ }),
-/* 90 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -31921,7 +32020,7 @@ webpackEmptyContext.id = 87;
 }));
 
 /***/ }),
-/* 91 */
+/* 89 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -32006,7 +32105,7 @@ AbstractChainedBatch.prototype.write = function (options, callback) {
 module.exports = AbstractChainedBatch
 
 /***/ }),
-/* 92 */
+/* 90 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -32061,14 +32160,14 @@ module.exports = AbstractIterator
 
 
 /***/ }),
-/* 93 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
 
 var xtend                = __webpack_require__(30)
-  , AbstractIterator     = __webpack_require__(92)
-  , AbstractChainedBatch = __webpack_require__(91)
+  , AbstractIterator     = __webpack_require__(90)
+  , AbstractChainedBatch = __webpack_require__(89)
 
 function AbstractLevelDOWN (location) {
   if (!arguments.length || location === undefined)
@@ -32339,17 +32438,17 @@ module.exports = AbstractLevelDOWN
 
 
 /***/ }),
-/* 94 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.AbstractLevelDOWN    = __webpack_require__(93)
-exports.AbstractIterator     = __webpack_require__(92)
-exports.AbstractChainedBatch = __webpack_require__(91)
-exports.isLevelDOWN          = __webpack_require__(200)
+exports.AbstractLevelDOWN    = __webpack_require__(91)
+exports.AbstractIterator     = __webpack_require__(90)
+exports.AbstractChainedBatch = __webpack_require__(89)
+exports.isLevelDOWN          = __webpack_require__(182)
 
 
 /***/ }),
-/* 95 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var all = module.exports.all = [
@@ -32663,18 +32762,985 @@ all.forEach(function (error) {
   module.exports.code[error.code] = error
 })
 
-module.exports.custom = __webpack_require__(215)(module.exports)
+module.exports.custom = __webpack_require__(197)(module.exports)
 module.exports.create = module.exports.custom.createError
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var params = __webpack_require__(201)
+params.genesisState = __webpack_require__(200)
+params.bootstrapNodes = __webpack_require__(199)
+module.exports = params
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const SHA3 = __webpack_require__(39)
+const secp256k1 = __webpack_require__(28)
+const assert = __webpack_require__(14)
+const rlp = __webpack_require__(20)
+const BN = __webpack_require__(6)
+const createHash = __webpack_require__(17)
+
+/**
+ * the max integer that this VM can handle (a ```BN```)
+ * @var {BN} MAX_INTEGER
+ */
+exports.MAX_INTEGER = new BN('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16)
+
+/**
+ * 2^256 (a ```BN```)
+ * @var {BN} TWO_POW256
+ */
+exports.TWO_POW256 = new BN('10000000000000000000000000000000000000000000000000000000000000000', 16)
+
+/**
+ * SHA3-256 hash of null (a ```String```)
+ * @var {String} SHA3_NULL_S
+ */
+exports.SHA3_NULL_S = 'c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+
+/**
+ * SHA3-256 hash of null (a ```Buffer```)
+ * @var {Buffer} SHA3_NULL
+ */
+exports.SHA3_NULL = new Buffer(exports.SHA3_NULL_S, 'hex')
+
+/**
+ * SHA3-256 of an RLP of an empty array (a ```String```)
+ * @var {String} SHA3_RLP_ARRAY_S
+ */
+exports.SHA3_RLP_ARRAY_S = '1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
+
+/**
+ * SHA3-256 of an RLP of an empty array (a ```Buffer```)
+ * @var {Buffer} SHA3_RLP_ARRAY
+ */
+exports.SHA3_RLP_ARRAY = new Buffer(exports.SHA3_RLP_ARRAY_S, 'hex')
+
+/**
+ * SHA3-256 hash of the RLP of null  (a ```String```)
+ * @var {String} SHA3_RLP_S
+ */
+exports.SHA3_RLP_S = '56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+
+/**
+ * SHA3-256 hash of the RLP of null (a ```Buffer```)
+ * @var {Buffer} SHA3_RLP
+ */
+exports.SHA3_RLP = new Buffer(exports.SHA3_RLP_S, 'hex')
+
+/**
+ * [`BN`](https://github.com/indutny/bn.js)
+ * @var {Function}
+ */
+exports.BN = BN
+
+/**
+ * [`rlp`](https://github.com/ethereumjs/rlp)
+ * @var {Function}
+ */
+exports.rlp = rlp
+
+/**
+ * [`secp256k1`](https://github.com/cryptocoinjs/secp256k1-node/)
+ * @var {Object}
+ */
+exports.secp256k1 = secp256k1
+
+/**
+ * Returns a buffer filled with 0s
+ * @method zeros
+ * @param {Number} bytes  the number of bytes the buffer should be
+ * @return {Buffer}
+ */
+exports.zeros = function (bytes) {
+  var buf = new Buffer(bytes)
+  buf.fill(0)
+  return buf
+}
+
+/**
+ * Left Pads an `Array` or `Buffer` with leading zeros till it has `length` bytes.
+ * Or it truncates the beginning if it exceeds.
+ * @method lsetLength
+ * @param {Buffer|Array} msg the value to pad
+ * @param {Number} length the number of bytes the output should be
+ * @param {Boolean} [right=false] whether to start padding form the left or right
+ * @return {Buffer|Array}
+ */
+exports.setLengthLeft = exports.setLength = function (msg, length, right) {
+  var buf = exports.zeros(length)
+  msg = exports.toBuffer(msg)
+  if (right) {
+    if (msg.length < length) {
+      msg.copy(buf)
+      return buf
+    }
+    return msg.slice(0, length)
+  } else {
+    if (msg.length < length) {
+      msg.copy(buf, length - msg.length)
+      return buf
+    }
+    return msg.slice(-length)
+  }
+}
+
+/**
+ * Right Pads an `Array` or `Buffer` with leading zeros till it has `length` bytes.
+ * Or it truncates the beginning if it exceeds.
+ * @method lsetLength
+ * @param {Buffer|Array} msg the value to pad
+ * @param {Number} length the number of bytes the output should be
+ * @return {Buffer|Array}
+ */
+exports.setLengthRight = function (msg, length) {
+  return exports.setLength(msg, length, true)
+}
+
+/**
+ * Trims leading zeros from a `Buffer` or an `Array`
+ * @method unpad
+ * @param {Buffer|Array|String} a
+ * @return {Buffer|Array|String}
+ */
+exports.unpad = exports.stripZeros = function (a) {
+  a = exports.stripHexPrefix(a)
+  var first = a[0]
+  while (a.length > 0 && first.toString() === '0') {
+    a = a.slice(1)
+    first = a[0]
+  }
+  return a
+}
+/**
+ * Attempts to turn a value into a `Buffer`. As input it supports `Buffer`, `String`, `Number`, null/undefined, `BN` and other objects with a `toArray()` method.
+ * @method toBuffer
+ * @param {*} v the value
+ */
+exports.toBuffer = function (v) {
+  if (!Buffer.isBuffer(v)) {
+    if (Array.isArray(v)) {
+      v = new Buffer(v)
+    } else if (typeof v === 'string') {
+      if (exports.isHexPrefixed(v)) {
+        v = new Buffer(exports.padToEven(exports.stripHexPrefix(v)), 'hex')
+      } else {
+        v = new Buffer(v)
+      }
+    } else if (typeof v === 'number') {
+      v = exports.intToBuffer(v)
+    } else if (v === null || v === undefined) {
+      v = new Buffer([])
+    } else if (v.toArray) {
+      // converts a BN to a Buffer
+      v = new Buffer(v.toArray())
+    } else {
+      throw new Error('invalid type')
+    }
+  }
+  return v
+}
+
+/**
+ * Converts a `Number` into a hex `String`
+ * @method intToHex
+ * @param {Number} i
+ * @return {String}
+ */
+exports.intToHex = function (i) {
+  assert(i % 1 === 0, 'number is not a integer')
+  assert(i >= 0, 'number must be positive')
+  var hex = i.toString(16)
+  if (hex.length % 2) {
+    hex = '0' + hex
+  }
+
+  return '0x' + hex
+}
+
+/**
+ * Converts an `Number` to a `Buffer`
+ * @method intToBuffer
+ * @param {Number} i
+ * @return {Buffer}
+ */
+exports.intToBuffer = function (i) {
+  var hex = exports.intToHex(i)
+  return new Buffer(hex.slice(2), 'hex')
+}
+
+/**
+ * Converts a `Buffer` to a `Number`
+ * @method bufferToInt
+ * @param {Buffer} buf
+ * @return {Number}
+ */
+exports.bufferToInt = function (buf) {
+  return parseInt(exports.bufferToHex(buf), 16)
+}
+
+/**
+ * Converts a `Buffer` into a hex `String`
+ * @method bufferToHex
+ * @param {Buffer} buf
+ * @return {String}
+ */
+exports.bufferToHex = function (buf) {
+  buf = exports.toBuffer(buf)
+  if (buf.length === 0) {
+    return 0
+  }
+
+  return '0x' + buf.toString('hex')
+}
+
+/**
+ * Interprets a `Buffer` as a signed integer and returns a `BN`. Assumes 256-bit numbers.
+ * @method fromSigned
+ * @param {Buffer} num
+ * @return {BN}
+ */
+exports.fromSigned = function (num) {
+  return new BN(num).fromTwos(256)
+}
+
+/**
+ * Converts a `BN` to an unsigned integer and returns it as a `Buffer`. Assumes 256-bit numbers.
+ * @method toUnsigned
+ * @param {BN} num
+ * @return {Buffer}
+ */
+exports.toUnsigned = function (num) {
+  return new Buffer(num.toTwos(256).toArray())
+}
+
+/**
+ * Creates SHA-3 hash of the input
+ * @method sha3
+ * @param {Buffer|Array|String|Number} a the input data
+ * @param {Number} [bytes=256] the SHA width
+ * @return {Buffer}
+ */
+exports.sha3 = function (a, bytes) {
+  a = exports.toBuffer(a)
+  if (!bytes) bytes = 256
+
+  var h = new SHA3(bytes)
+  if (a) {
+    h.update(a)
+  }
+  return new Buffer(h.digest('hex'), 'hex')
+}
+
+/**
+ * Creates SHA256 hash of the input
+ * @method sha256
+ * @param {Buffer|Array|String|Number} a the input data
+ * @return {Buffer}
+ */
+exports.sha256 = function (a) {
+  a = exports.toBuffer(a)
+  return createHash('sha256').update(a).digest()
+}
+
+/**
+ * Creates RIPEMD160 hash of the input
+ * @method ripemd160
+ * @param {Buffer|Array|String|Number} a the input data
+ * @param {Boolean} padded whether it should be padded to 256 bits or not
+ * @return {Buffer}
+ */
+exports.ripemd160 = function (a, padded) {
+  a = exports.toBuffer(a)
+  var hash = createHash('rmd160').update(a).digest()
+  if (padded === true) {
+    return exports.setLength(hash, 32)
+  } else {
+    return hash
+  }
+}
+
+/**
+ * Creates SHA-3 hash of the RLP encoded version of the input
+ * @method rlphash
+ * @param {Buffer|Array|String|Number} a the input data
+ * @return {Buffer}
+ */
+exports.rlphash = function (a) {
+  return exports.sha3(rlp.encode(a))
+}
+
+/**
+ * Checks if the private key satisfies the rules of the curve secp256k1.
+ * @method isValidPrivate
+ * @param {Buffer} privateKey
+ * @return {Boolean}
+ */
+exports.isValidPrivate = function (privateKey) {
+  return secp256k1.privateKeyVerify(privateKey)
+}
+
+/**
+ * Checks if the public key satisfies the rules of the curve secp256k1
+ * and the requirements of Ethereum.
+ * @method isValidPublic
+ * @param {Buffer} publicKey The two points of an uncompressed key, unless sanitize is enabled
+ * @param {Boolean} [sanitize=false] Accept public keys in other formats
+ * @return {Boolean}
+ */
+exports.isValidPublic = function (publicKey, sanitize) {
+  if (publicKey.length === 64) {
+    // Convert to SEC1 for secp256k1
+    return secp256k1.publicKeyVerify(Buffer.concat([ new Buffer([4]), publicKey ]))
+  }
+
+  if (!sanitize) {
+    return false
+  }
+
+  return secp256k1.publicKeyVerify(publicKey)
+}
+
+/**
+ * Returns the ethereum address of a given public key.
+ * Accepts "Ethereum public keys" and SEC1 encoded keys.
+ * @method publicToAddress
+ * @param {Buffer} pubKey The two points of an uncompressed key, unless sanitize is enabled
+ * @param {Boolean} [sanitize=false] Accept public keys in other formats
+ * @return {Buffer}
+ */
+exports.pubToAddress = exports.publicToAddress = function (pubKey, sanitize) {
+  pubKey = exports.toBuffer(pubKey)
+  if (sanitize && (pubKey.length !== 64)) {
+    pubKey = secp256k1.publicKeyConvert(pubKey, false).slice(1)
+  }
+  assert(pubKey.length === 64)
+  // Only take the lower 160bits of the hash
+  return exports.sha3(pubKey).slice(-20)
+}
+
+/**
+ * Returns the ethereum public key of a given private key
+ * @method privateToPublic
+ * @param {Buffer} privateKey A private key must be 256 bits wide
+ * @return {Buffer}
+ */
+var privateToPublic = exports.privateToPublic = function (privateKey) {
+  privateKey = exports.toBuffer(privateKey)
+  // skip the type flag and use the X, Y points
+  return secp256k1.publicKeyCreate(privateKey, false).slice(1)
+}
+
+/**
+ * Converts a public key to the Ethereum format.
+ * @method importPublic
+ * @param {Buffer} publicKey
+ * @return {Buffer}
+ */
+exports.importPublic = function (publicKey) {
+  publicKey = exports.toBuffer(publicKey)
+  if (publicKey.length !== 64) {
+    publicKey = secp256k1.publicKeyConvert(publicKey, false).slice(1)
+  }
+  return publicKey
+}
+
+/**
+ * ECDSA sign
+ * @method ecsign
+ * @param {Buffer} msgHash
+ * @param {Buffer} privateKey
+ * @return {Object}
+ */
+exports.ecsign = function (msgHash, privateKey) {
+  var sig = secp256k1.sign(msgHash, privateKey)
+
+  var ret = {}
+  ret.r = sig.signature.slice(0, 32)
+  ret.s = sig.signature.slice(32, 64)
+  ret.v = sig.recovery + 27
+  return ret
+}
+
+/**
+ * ECDSA public key recovery from signature
+ * @method ecrecover
+ * @param {Buffer} msgHash
+ * @param {Buffer} v
+ * @param {Buffer} r
+ * @param {Buffer} s
+ * @return {Buffer} publicKey
+ */
+exports.ecrecover = function (msgHash, v, r, s) {
+  var signature = Buffer.concat([exports.setLength(r, 32), exports.setLength(s, 32)], 64)
+  var recovery = exports.bufferToInt(v) - 27
+  if (recovery !== 0 && recovery !== 1) {
+    throw new Error('Invalid signature v value')
+  }
+  var senderPubKey = secp256k1.recover(msgHash, signature, recovery)
+  return secp256k1.publicKeyConvert(senderPubKey, false).slice(1)
+}
+
+/**
+ * Convert signature parameters into the format of `eth_sign` RPC method
+ * @method toRpcSig
+ * @param {Number} v
+ * @param {Buffer} r
+ * @param {Buffer} s
+ * @return {String} sig
+ */
+exports.toRpcSig = function (v, r, s) {
+  // geth (and the RPC eth_sign method) uses the 65 byte format used by Bitcoin
+  // FIXME: this might change in the future - https://github.com/ethereum/go-ethereum/issues/2053
+  return exports.bufferToHex(Buffer.concat([ r, s, exports.toBuffer(v - 27) ]))
+}
+
+/**
+ * Convert signature format of the `eth_sign` RPC method to signature parameters
+ * @method fromRpcSig
+ * @param {String} sig
+ * @return {Object}
+ */
+exports.fromRpcSig = function (sig) {
+  sig = exports.toBuffer(sig)
+
+  var v = sig[64]
+  // support both versions of `eth_sign` responses
+  if (v < 27) {
+    v += 27
+  }
+
+  return {
+    v: v,
+    r: sig.slice(0, 32),
+    s: sig.slice(32, 64)
+  }
+}
+
+/**
+ * Returns the ethereum address of a given private key
+ * @method privateToAddress
+ * @param {Buffer} privateKey A private key must be 256 bits wide
+ * @return {Buffer}
+ */
+exports.privateToAddress = function (privateKey) {
+  return exports.publicToAddress(privateToPublic(privateKey))
+}
+
+/**
+ * Checks if the address is a valid. Accepts checksummed addresses too
+ * @method isValidAddress
+ * @param {String} address
+ * @return {Boolean}
+ */
+exports.isValidAddress = function (address) {
+  return /^0x[0-9a-fA-F]{40}$/i.test(address)
+}
+
+/**
+ * Returns a checksummed address
+ * @method toChecksumAddress
+ * @param {String} address
+ * @return {String}
+ */
+exports.toChecksumAddress = function (address) {
+  address = exports.stripHexPrefix(address).toLowerCase()
+  var hash = exports.sha3(address).toString('hex')
+  var ret = '0x'
+
+  for (var i = 0; i < address.length; i++) {
+    if (parseInt(hash[i], 16) >= 8) {
+      ret += address[i].toUpperCase()
+    } else {
+      ret += address[i]
+    }
+  }
+
+  return ret
+}
+
+/**
+ * Checks if the address is a valid checksummed address
+ * @method isValidChecksumAddress
+ * @param {Buffer} address
+ * @return {Boolean}
+ */
+exports.isValidChecksumAddress = function (address) {
+  return exports.isValidAddress(address) && (exports.toChecksumAddress(address) === address)
+}
+
+/**
+ * Generates an address of a newly created contract
+ * @method generateAddress
+ * @param {Buffer} from the address which is creating this new address
+ * @param {Buffer} nonce the nonce of the from account
+ * @return {Buffer}
+ */
+exports.generateAddress = function (from, nonce) {
+  from = exports.toBuffer(from)
+  nonce = new BN(nonce)
+
+  if (nonce.isZero()) {
+    // in RLP we want to encode null in the case of zero nonce
+    // read the RLP documentation for an answer if you dare
+    nonce = null
+  } else {
+    nonce = new Buffer(nonce.toArray())
+  }
+
+  // Only take the lower 160bits of the hash
+  return exports.rlphash([from, nonce]).slice(-20)
+}
+
+/**
+ * Returns true if the supplied address belongs to a precompiled account
+ * @method isPrecompiled
+ * @param {Buffer|String} address
+ * @return {Boolean}
+ */
+exports.isPrecompiled = function (address) {
+  var a = exports.unpad(address)
+  return a.length === 1 && a[0] > 0 && a[0] < 5
+}
+
+/**
+ * Returns a `Boolean` on whether or not the a `String` starts with "0x"
+ * @method isHexPrefixed
+ * @param {String} str
+ * @return {Boolean}
+ */
+exports.isHexPrefixed = function (str) {
+  return str.slice(0, 2) === '0x'
+}
+
+/**
+ * Removes "0x" from a given `String`
+ * @method stripHexPrefix
+ * @param {String} str
+ * @return {String}
+ */
+exports.stripHexPrefix = function (str) {
+  if (typeof str !== 'string') {
+    return str
+  }
+  return exports.isHexPrefixed(str) ? str.slice(2) : str
+}
+
+/**
+ * Adds "0x" to a given `String` if it does not already start with "0x"
+ * @method addHexPrefix
+ * @param {String} str
+ * @return {String}
+ */
+exports.addHexPrefix = function (str) {
+  if (typeof str !== 'string') {
+    return str
+  }
+
+  return exports.isHexPrefixed(str) ? str : '0x' + str
+}
+
+/**
+ * Pads a `String` to have an even length
+ * @method padToEven
+ * @param {String} a
+ * @return {String}
+ */
+exports.padToEven = function (a) {
+  if (a.length % 2) a = '0' + a
+  return a
+}
+
+/**
+ * Converts a `Buffer` or `Array` to JSON
+ * @method BAToJSON
+ * @param {Buffer|Array} ba
+ * @return {Array|String|null}
+ */
+exports.baToJSON = function (ba) {
+  if (Buffer.isBuffer(ba)) {
+    return '0x' + ba.toString('hex')
+  } else if (ba instanceof Array) {
+    var array = []
+    for (var i = 0; i < ba.length; i++) {
+      array.push(exports.baToJSON(ba[i]))
+    }
+    return array
+  }
+}
+
+/**
+ * Defines properties on a `Object`. It make the assumption that underlying data is binary.
+ * @method defineProperties
+ * @param {Object} self the `Object` to define properties on
+ * @param {Array} fields an array fields to define. Fields can contain:
+ * * `name` - the name of the properties
+ * * `length` - the number of bytes the field can have
+ * * `allowLess` - if the field can be less than the length
+ * * `allowEmpty`
+ * @param {*} data data to be validated against the definitions
+ */
+exports.defineProperties = function (self, fields, data) {
+  self.raw = []
+  self._fields = []
+
+  // attach the `toJSON`
+  self.toJSON = function (label) {
+    if (label) {
+      var obj = {}
+      self._fields.forEach(function (field) {
+        obj[field] = '0x' + self[field].toString('hex')
+      })
+      return obj
+    }
+    return exports.baToJSON(this.raw)
+  }
+
+  self.serialize = function serialize () {
+    return rlp.encode(self.raw)
+  }
+
+  fields.forEach(function (field, i) {
+    self._fields.push(field.name)
+    function getter () {
+      return self.raw[i]
+    }
+    function setter (v) {
+      v = exports.toBuffer(v)
+
+      if (v.toString('hex') === '00' && !field.allowZero) {
+        v = new Buffer([])
+      }
+
+      if (field.allowLess && field.length) {
+        v = exports.stripZeros(v)
+        assert(field.length >= v.length, 'The field ' + field.name + ' must not have more ' + field.length + ' bytes')
+      } else if (!(field.allowZero && v.length === 0) && field.length) {
+        assert(field.length === v.length, 'The field ' + field.name + ' must have byte length of ' + field.length)
+      }
+
+      self.raw[i] = v
+    }
+
+    Object.defineProperty(self, field.name, {
+      enumerable: true,
+      configurable: true,
+      get: getter,
+      set: setter
+    })
+
+    if (field.default) {
+      self[field.name] = field.default
+    }
+
+    // attach alias
+    if (field.alias) {
+      Object.defineProperty(self, field.alias, {
+        enumerable: false,
+        configurable: true,
+        set: setter,
+        get: getter
+      })
+    }
+  })
+
+  // if the constuctor is passed data
+  if (data) {
+    if (typeof data === 'string') {
+      data = new Buffer(exports.stripHexPrefix(data), 'hex')
+    }
+
+    if (Buffer.isBuffer(data)) {
+      data = rlp.decode(data)
+    }
+
+    if (Array.isArray(data)) {
+      if (data.length > self._fields.length) {
+        throw (new Error('wrong number of fields in data'))
+      }
+
+      // make sure all the items are buffers
+      data.forEach(function (d, i) {
+        self[self._fields[i]] = exports.toBuffer(d)
+      })
+    } else if (typeof data === 'object') {
+      for (var prop in data) {
+        if (self._fields.indexOf(prop) !== -1) {
+          self[prop] = data[prop]
+        }
+      }
+    } else {
+      throw new Error('invalid data')
+    }
+  }
+}
 
 
 /***/ }),
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var params = __webpack_require__(219)
-params.genesisState = __webpack_require__(218)
-params.bootstrapNodes = __webpack_require__(217)
-module.exports = params
+"use strict";
+
+const ethUtil = __webpack_require__(97)
+const fees = __webpack_require__(204)
+const BN = ethUtil.BN
+
+// secp256k1n/2
+const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
+
+/**
+ * Creates a new transaction object
+ * @constructor
+ * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
+ *
+ * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
+ * @example
+ * var rawTx = {
+ *   nonce: '00',
+ *   gasPrice: '09184e72a000',
+ *   gasLimit: '2710',
+ *   to: '0000000000000000000000000000000000000000',
+ *   value: '00',
+ *   data: '7f7465737432000000000000000000000000000000000000000000000000000000600057',
+ *   v: '1c',
+ *   r: '5e1d3a76fbf824220eafc8c79ad578ad2b67d01b0c2425eb1f1347e8f50882ab',
+ *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
+ * };
+ * var tx = new Transaction(rawTx);
+ * @prop {Buffer} raw The raw rlp decoded transaction
+ * @prop {Buffer} nonce
+ * @prop {Buffer} to the to address
+ * @prop {Buffer} value the amount of ether sent
+ * @prop {Buffer} data this will contain the data of the message or the init of a contract
+ * @prop {Buffer} v EC signature parameter
+ * @prop {Buffer} r EC signature parameter
+ * @prop {Buffer} s EC recovery ID
+ */
+const Transaction = module.exports = function (data) {
+  // Define Properties
+  const fields = [{
+    name: 'nonce',
+    length: 32,
+    allowLess: true,
+    default: new Buffer([])
+  }, {
+    name: 'gasPrice',
+    length: 32,
+    allowLess: true,
+    default: new Buffer([])
+  }, {
+    name: 'gasLimit',
+    alias: 'gas',
+    length: 32,
+    allowLess: true,
+    default: new Buffer([])
+  }, {
+    name: 'to',
+    allowZero: true,
+    length: 20,
+    default: new Buffer([])
+  }, {
+    name: 'value',
+    length: 32,
+    allowLess: true,
+    default: new Buffer([])
+  }, {
+    name: 'data',
+    alias: 'input',
+    allowZero: true,
+    default: new Buffer([])
+  }, {
+    name: 'v',
+    length: 1,
+    default: new Buffer([0x1c])
+  }, {
+    name: 'r',
+    length: 32,
+    allowLess: true,
+    default: new Buffer([])
+  }, {
+    name: 's',
+    length: 32,
+    allowLess: true,
+    default: new Buffer([])
+  }]
+
+  /**
+   * Returns the rlp encoding of the transaction
+   * @method serialize
+   * @return {Buffer}
+   */
+  // attached serialize
+  ethUtil.defineProperties(this, fields, data)
+
+  /**
+   * @prop {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
+   */
+  Object.defineProperty(this, 'from', {
+    enumerable: true,
+    configurable: true,
+    get: this.getSenderAddress.bind(this)
+  })
+
+  this._homestead = true
+}
+
+/**
+ * If the tx's `to` is to the creation address
+ * @method toCreationAddress
+ * @return {Boolean}
+ */
+Transaction.prototype.toCreationAddress = function () {
+  return this.to.toString('hex') === ''
+}
+
+/**
+ * Computes a sha3-256 hash of the serialized tx
+ * @method hash
+ * @param {Boolean} [signature=true] whether or not to inculde the signature
+ * @return {Buffer}
+ */
+Transaction.prototype.hash = function (signature) {
+  let toHash
+
+  if (typeof signature === 'undefined') {
+    signature = true
+  }
+
+  toHash = signature ? this.raw : this.raw.slice(0, 6)
+
+  // create hash
+  return ethUtil.rlphash(toHash)
+}
+
+/**
+ * returns the sender's address
+ * @method getSenderAddress
+ * @return {Buffer}
+ */
+Transaction.prototype.getSenderAddress = function () {
+  if (this._from) {
+    return this._from
+  }
+  const pubkey = this.getSenderPublicKey()
+  this._from = ethUtil.publicToAddress(pubkey)
+  return this._from
+}
+
+/**
+ * returns the public key of the sender
+ * @method getSenderPublicKey
+ * @return {Buffer}
+ */
+Transaction.prototype.getSenderPublicKey = function () {
+  if (!this._senderPubKey || !this._senderPubKey.length) {
+    this.verifySignature()
+  }
+
+  return this._senderPubKey
+}
+
+/**
+ * Determines if the signature is valid
+ * @method verifySignature
+ * @return {Boolean}
+ */
+Transaction.prototype.verifySignature = function () {
+  const msgHash = this.hash(false)
+
+  // All transaction signatures whose s-value is greater than secp256k1n/2 are considered invalid.
+  if (this._homestead && new BN(this.s).cmp(N_DIV_2) === 1) {
+    return false
+  }
+
+  try {
+    this._senderPubKey = ethUtil.ecrecover(msgHash, this.v, this.r, this.s)
+  } catch (e) {
+    return false
+  }
+
+  return !!this._senderPubKey
+}
+
+/**
+ * sign a transaction with a given a private key
+ * @method sign
+ * @param {Buffer} privateKey
+ */
+Transaction.prototype.sign = function (privateKey) {
+  const msgHash = this.hash(false)
+  const sig = ethUtil.ecsign(msgHash, privateKey)
+  Object.assign(this, sig)
+}
+
+/**
+ * The amount of gas paid for the data in this tx
+ * @method getDataFee
+ * @return {BN}
+ */
+Transaction.prototype.getDataFee = function () {
+  const data = this.raw[5]
+  const cost = new BN(0)
+  for (var i = 0; i < data.length; i++) {
+    data[i] === 0 ? cost.iaddn(fees.txDataZeroGas.v) : cost.iaddn(fees.txDataNonZeroGas.v)
+  }
+  return cost
+}
+
+/**
+ * the minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
+ * @method getBaseFee
+ * @return {BN}
+ */
+Transaction.prototype.getBaseFee = function () {
+  const fee = this.getDataFee().iaddn(fees.txGas.v)
+  if (this._homestead && this.toCreationAddress()) {
+    fee.iaddn(fees.txCreation.v)
+  }
+  return fee
+}
+
+/**
+ * the up front amount that an account must have for this transaction to be valid
+ * @method getUpfrontCost
+ * @return {BN}
+ */
+Transaction.prototype.getUpfrontCost = function () {
+  return new BN(this.gasLimit)
+    .imul(new BN(this.gasPrice))
+    .iadd(new BN(this.value))
+}
+
+/**
+ * validates the signature and checks to see if it has enough gas
+ * @method validate
+ * @param {Boolean} [stringError=false] whether to return a string with a dscription of why the validation failed or return a Bloolean
+ * @return {Boolean|String}
+ */
+Transaction.prototype.validate = function (stringError) {
+  const errors = []
+  if (!this.verifySignature()) {
+    errors.push('Invalid Signature')
+  }
+
+  if (this.getBaseFee().cmp(new BN(this.gasLimit)) > 0) {
+    errors.push([`gas limit is to low. Need at least ${this.getBaseFee()}`])
+  }
+
+  if (stringError === undefined || stringError === false) {
+    return errors.length === 0
+  } else {
+    return errors.join(' ')
+  }
+}
 
 
 /***/ }),
@@ -33388,975 +34454,8 @@ exports.defineProperties = function (self, fields, data) {
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-const ethUtil = __webpack_require__(99)
-const fees = __webpack_require__(222)
-const BN = ethUtil.BN
-
-// secp256k1n/2
-const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
-
-/**
- * Creates a new transaction object
- * @constructor
- * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
- *
- * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
- * @example
- * var rawTx = {
- *   nonce: '00',
- *   gasPrice: '09184e72a000',
- *   gasLimit: '2710',
- *   to: '0000000000000000000000000000000000000000',
- *   value: '00',
- *   data: '7f7465737432000000000000000000000000000000000000000000000000000000600057',
- *   v: '1c',
- *   r: '5e1d3a76fbf824220eafc8c79ad578ad2b67d01b0c2425eb1f1347e8f50882ab',
- *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
- * };
- * var tx = new Transaction(rawTx);
- * @prop {Buffer} raw The raw rlp decoded transaction
- * @prop {Buffer} nonce
- * @prop {Buffer} to the to address
- * @prop {Buffer} value the amount of ether sent
- * @prop {Buffer} data this will contain the data of the message or the init of a contract
- * @prop {Buffer} v EC signature parameter
- * @prop {Buffer} r EC signature parameter
- * @prop {Buffer} s EC recovery ID
- */
-const Transaction = module.exports = function (data) {
-  // Define Properties
-  const fields = [{
-    name: 'nonce',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'gasPrice',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'gasLimit',
-    alias: 'gas',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'to',
-    allowZero: true,
-    length: 20,
-    default: new Buffer([])
-  }, {
-    name: 'value',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'data',
-    alias: 'input',
-    allowZero: true,
-    default: new Buffer([])
-  }, {
-    name: 'v',
-    length: 1,
-    default: new Buffer([0x1c])
-  }, {
-    name: 'r',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 's',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }]
-
-  /**
-   * Returns the rlp encoding of the transaction
-   * @method serialize
-   * @return {Buffer}
-   */
-  // attached serialize
-  ethUtil.defineProperties(this, fields, data)
-
-  /**
-   * @prop {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
-   */
-  Object.defineProperty(this, 'from', {
-    enumerable: true,
-    configurable: true,
-    get: this.getSenderAddress.bind(this)
-  })
-
-  this._homestead = true
-}
-
-/**
- * If the tx's `to` is to the creation address
- * @method toCreationAddress
- * @return {Boolean}
- */
-Transaction.prototype.toCreationAddress = function () {
-  return this.to.toString('hex') === ''
-}
-
-/**
- * Computes a sha3-256 hash of the serialized tx
- * @method hash
- * @param {Boolean} [signature=true] whether or not to inculde the signature
- * @return {Buffer}
- */
-Transaction.prototype.hash = function (signature) {
-  let toHash
-
-  if (typeof signature === 'undefined') {
-    signature = true
-  }
-
-  toHash = signature ? this.raw : this.raw.slice(0, 6)
-
-  // create hash
-  return ethUtil.rlphash(toHash)
-}
-
-/**
- * returns the sender's address
- * @method getSenderAddress
- * @return {Buffer}
- */
-Transaction.prototype.getSenderAddress = function () {
-  if (this._from) {
-    return this._from
-  }
-  const pubkey = this.getSenderPublicKey()
-  this._from = ethUtil.publicToAddress(pubkey)
-  return this._from
-}
-
-/**
- * returns the public key of the sender
- * @method getSenderPublicKey
- * @return {Buffer}
- */
-Transaction.prototype.getSenderPublicKey = function () {
-  if (!this._senderPubKey || !this._senderPubKey.length) {
-    this.verifySignature()
-  }
-
-  return this._senderPubKey
-}
-
-/**
- * Determines if the signature is valid
- * @method verifySignature
- * @return {Boolean}
- */
-Transaction.prototype.verifySignature = function () {
-  const msgHash = this.hash(false)
-
-  // All transaction signatures whose s-value is greater than secp256k1n/2 are considered invalid.
-  if (this._homestead && new BN(this.s).cmp(N_DIV_2) === 1) {
-    return false
-  }
-
-  try {
-    this._senderPubKey = ethUtil.ecrecover(msgHash, this.v, this.r, this.s)
-  } catch (e) {
-    return false
-  }
-
-  return !!this._senderPubKey
-}
-
-/**
- * sign a transaction with a given a private key
- * @method sign
- * @param {Buffer} privateKey
- */
-Transaction.prototype.sign = function (privateKey) {
-  const msgHash = this.hash(false)
-  const sig = ethUtil.ecsign(msgHash, privateKey)
-  Object.assign(this, sig)
-}
-
-/**
- * The amount of gas paid for the data in this tx
- * @method getDataFee
- * @return {BN}
- */
-Transaction.prototype.getDataFee = function () {
-  const data = this.raw[5]
-  const cost = new BN(0)
-  for (var i = 0; i < data.length; i++) {
-    data[i] === 0 ? cost.iaddn(fees.txDataZeroGas.v) : cost.iaddn(fees.txDataNonZeroGas.v)
-  }
-  return cost
-}
-
-/**
- * the minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
- * @method getBaseFee
- * @return {BN}
- */
-Transaction.prototype.getBaseFee = function () {
-  const fee = this.getDataFee().iaddn(fees.txGas.v)
-  if (this._homestead && this.toCreationAddress()) {
-    fee.iaddn(fees.txCreation.v)
-  }
-  return fee
-}
-
-/**
- * the up front amount that an account must have for this transaction to be valid
- * @method getUpfrontCost
- * @return {BN}
- */
-Transaction.prototype.getUpfrontCost = function () {
-  return new BN(this.gasLimit)
-    .imul(new BN(this.gasPrice))
-    .iadd(new BN(this.value))
-}
-
-/**
- * validates the signature and checks to see if it has enough gas
- * @method validate
- * @param {Boolean} [stringError=false] whether to return a string with a dscription of why the validation failed or return a Bloolean
- * @return {Boolean|String}
- */
-Transaction.prototype.validate = function (stringError) {
-  const errors = []
-  if (!this.verifySignature()) {
-    errors.push('Invalid Signature')
-  }
-
-  if (this.getBaseFee().cmp(new BN(this.gasLimit)) > 0) {
-    errors.push([`gas limit is to low. Need at least ${this.getBaseFee()}`])
-  }
-
-  if (stringError === undefined || stringError === false) {
-    return errors.length === 0
-  } else {
-    return errors.join(' ')
-  }
-}
-
-
-/***/ }),
-/* 99 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
 const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
-
-/**
- * the max integer that this VM can handle (a ```BN```)
- * @var {BN} MAX_INTEGER
- */
-exports.MAX_INTEGER = new BN('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16)
-
-/**
- * 2^256 (a ```BN```)
- * @var {BN} TWO_POW256
- */
-exports.TWO_POW256 = new BN('10000000000000000000000000000000000000000000000000000000000000000', 16)
-
-/**
- * SHA3-256 hash of null (a ```String```)
- * @var {String} SHA3_NULL_S
- */
-exports.SHA3_NULL_S = 'c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-
-/**
- * SHA3-256 hash of null (a ```Buffer```)
- * @var {Buffer} SHA3_NULL
- */
-exports.SHA3_NULL = new Buffer(exports.SHA3_NULL_S, 'hex')
-
-/**
- * SHA3-256 of an RLP of an empty array (a ```String```)
- * @var {String} SHA3_RLP_ARRAY_S
- */
-exports.SHA3_RLP_ARRAY_S = '1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
-
-/**
- * SHA3-256 of an RLP of an empty array (a ```Buffer```)
- * @var {Buffer} SHA3_RLP_ARRAY
- */
-exports.SHA3_RLP_ARRAY = new Buffer(exports.SHA3_RLP_ARRAY_S, 'hex')
-
-/**
- * SHA3-256 hash of the RLP of null  (a ```String```)
- * @var {String} SHA3_RLP_S
- */
-exports.SHA3_RLP_S = '56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-
-/**
- * SHA3-256 hash of the RLP of null (a ```Buffer```)
- * @var {Buffer} SHA3_RLP
- */
-exports.SHA3_RLP = new Buffer(exports.SHA3_RLP_S, 'hex')
-
-/**
- * [`BN`](https://github.com/indutny/bn.js)
- * @var {Function}
- */
-exports.BN = BN
-
-/**
- * [`rlp`](https://github.com/ethereumjs/rlp)
- * @var {Function}
- */
-exports.rlp = rlp
-
-/**
- * [`secp256k1`](https://github.com/cryptocoinjs/secp256k1-node/)
- * @var {Object}
- */
-exports.secp256k1 = secp256k1
-
-/**
- * Returns a buffer filled with 0s
- * @method zeros
- * @param {Number} bytes  the number of bytes the buffer should be
- * @return {Buffer}
- */
-exports.zeros = function (bytes) {
-  var buf = new Buffer(bytes)
-  buf.fill(0)
-  return buf
-}
-
-/**
- * Left Pads an `Array` or `Buffer` with leading zeros till it has `length` bytes.
- * Or it truncates the beginning if it exceeds.
- * @method lsetLength
- * @param {Buffer|Array} msg the value to pad
- * @param {Number} length the number of bytes the output should be
- * @param {Boolean} [right=false] whether to start padding form the left or right
- * @return {Buffer|Array}
- */
-exports.setLengthLeft = exports.setLength = function (msg, length, right) {
-  var buf = exports.zeros(length)
-  msg = exports.toBuffer(msg)
-  if (right) {
-    if (msg.length < length) {
-      msg.copy(buf)
-      return buf
-    }
-    return msg.slice(0, length)
-  } else {
-    if (msg.length < length) {
-      msg.copy(buf, length - msg.length)
-      return buf
-    }
-    return msg.slice(-length)
-  }
-}
-
-/**
- * Right Pads an `Array` or `Buffer` with leading zeros till it has `length` bytes.
- * Or it truncates the beginning if it exceeds.
- * @method lsetLength
- * @param {Buffer|Array} msg the value to pad
- * @param {Number} length the number of bytes the output should be
- * @return {Buffer|Array}
- */
-exports.setLengthRight = function (msg, length) {
-  return exports.setLength(msg, length, true)
-}
-
-/**
- * Trims leading zeros from a `Buffer` or an `Array`
- * @method unpad
- * @param {Buffer|Array|String} a
- * @return {Buffer|Array|String}
- */
-exports.unpad = exports.stripZeros = function (a) {
-  a = exports.stripHexPrefix(a)
-  var first = a[0]
-  while (a.length > 0 && first.toString() === '0') {
-    a = a.slice(1)
-    first = a[0]
-  }
-  return a
-}
-/**
- * Attempts to turn a value into a `Buffer`. As input it supports `Buffer`, `String`, `Number`, null/undefined, `BN` and other objects with a `toArray()` method.
- * @method toBuffer
- * @param {*} v the value
- */
-exports.toBuffer = function (v) {
-  if (!Buffer.isBuffer(v)) {
-    if (Array.isArray(v)) {
-      v = new Buffer(v)
-    } else if (typeof v === 'string') {
-      if (exports.isHexPrefixed(v)) {
-        v = new Buffer(exports.padToEven(exports.stripHexPrefix(v)), 'hex')
-      } else {
-        v = new Buffer(v)
-      }
-    } else if (typeof v === 'number') {
-      v = exports.intToBuffer(v)
-    } else if (v === null || v === undefined) {
-      v = new Buffer([])
-    } else if (v.toArray) {
-      // converts a BN to a Buffer
-      v = new Buffer(v.toArray())
-    } else {
-      throw new Error('invalid type')
-    }
-  }
-  return v
-}
-
-/**
- * Converts a `Number` into a hex `String`
- * @method intToHex
- * @param {Number} i
- * @return {String}
- */
-exports.intToHex = function (i) {
-  assert(i % 1 === 0, 'number is not a integer')
-  assert(i >= 0, 'number must be positive')
-  var hex = i.toString(16)
-  if (hex.length % 2) {
-    hex = '0' + hex
-  }
-
-  return '0x' + hex
-}
-
-/**
- * Converts an `Number` to a `Buffer`
- * @method intToBuffer
- * @param {Number} i
- * @return {Buffer}
- */
-exports.intToBuffer = function (i) {
-  var hex = exports.intToHex(i)
-  return new Buffer(hex.slice(2), 'hex')
-}
-
-/**
- * Converts a `Buffer` to a `Number`
- * @method bufferToInt
- * @param {Buffer} buf
- * @return {Number}
- */
-exports.bufferToInt = function (buf) {
-  return parseInt(exports.bufferToHex(buf), 16)
-}
-
-/**
- * Converts a `Buffer` into a hex `String`
- * @method bufferToHex
- * @param {Buffer} buf
- * @return {String}
- */
-exports.bufferToHex = function (buf) {
-  buf = exports.toBuffer(buf)
-  if (buf.length === 0) {
-    return 0
-  }
-
-  return '0x' + buf.toString('hex')
-}
-
-/**
- * Interprets a `Buffer` as a signed integer and returns a `BN`. Assumes 256-bit numbers.
- * @method fromSigned
- * @param {Buffer} num
- * @return {BN}
- */
-exports.fromSigned = function (num) {
-  return new BN(num).fromTwos(256)
-}
-
-/**
- * Converts a `BN` to an unsigned integer and returns it as a `Buffer`. Assumes 256-bit numbers.
- * @method toUnsigned
- * @param {BN} num
- * @return {Buffer}
- */
-exports.toUnsigned = function (num) {
-  return new Buffer(num.toTwos(256).toArray())
-}
-
-/**
- * Creates SHA-3 hash of the input
- * @method sha3
- * @param {Buffer|Array|String|Number} a the input data
- * @param {Number} [bytes=256] the SHA width
- * @return {Buffer}
- */
-exports.sha3 = function (a, bytes) {
-  a = exports.toBuffer(a)
-  if (!bytes) bytes = 256
-
-  var h = new SHA3(bytes)
-  if (a) {
-    h.update(a)
-  }
-  return new Buffer(h.digest('hex'), 'hex')
-}
-
-/**
- * Creates SHA256 hash of the input
- * @method sha256
- * @param {Buffer|Array|String|Number} a the input data
- * @return {Buffer}
- */
-exports.sha256 = function (a) {
-  a = exports.toBuffer(a)
-  return createHash('sha256').update(a).digest()
-}
-
-/**
- * Creates RIPEMD160 hash of the input
- * @method ripemd160
- * @param {Buffer|Array|String|Number} a the input data
- * @param {Boolean} padded whether it should be padded to 256 bits or not
- * @return {Buffer}
- */
-exports.ripemd160 = function (a, padded) {
-  a = exports.toBuffer(a)
-  var hash = createHash('rmd160').update(a).digest()
-  if (padded === true) {
-    return exports.setLength(hash, 32)
-  } else {
-    return hash
-  }
-}
-
-/**
- * Creates SHA-3 hash of the RLP encoded version of the input
- * @method rlphash
- * @param {Buffer|Array|String|Number} a the input data
- * @return {Buffer}
- */
-exports.rlphash = function (a) {
-  return exports.sha3(rlp.encode(a))
-}
-
-/**
- * Checks if the private key satisfies the rules of the curve secp256k1.
- * @method isValidPrivate
- * @param {Buffer} privateKey
- * @return {Boolean}
- */
-exports.isValidPrivate = function (privateKey) {
-  return secp256k1.privateKeyVerify(privateKey)
-}
-
-/**
- * Checks if the public key satisfies the rules of the curve secp256k1
- * and the requirements of Ethereum.
- * @method isValidPublic
- * @param {Buffer} publicKey The two points of an uncompressed key, unless sanitize is enabled
- * @param {Boolean} [sanitize=false] Accept public keys in other formats
- * @return {Boolean}
- */
-exports.isValidPublic = function (publicKey, sanitize) {
-  if (publicKey.length === 64) {
-    // Convert to SEC1 for secp256k1
-    return secp256k1.publicKeyVerify(Buffer.concat([ new Buffer([4]), publicKey ]))
-  }
-
-  if (!sanitize) {
-    return false
-  }
-
-  return secp256k1.publicKeyVerify(publicKey)
-}
-
-/**
- * Returns the ethereum address of a given public key.
- * Accepts "Ethereum public keys" and SEC1 encoded keys.
- * @method publicToAddress
- * @param {Buffer} pubKey The two points of an uncompressed key, unless sanitize is enabled
- * @param {Boolean} [sanitize=false] Accept public keys in other formats
- * @return {Buffer}
- */
-exports.pubToAddress = exports.publicToAddress = function (pubKey, sanitize) {
-  pubKey = exports.toBuffer(pubKey)
-  if (sanitize && (pubKey.length !== 64)) {
-    pubKey = secp256k1.publicKeyConvert(pubKey, false).slice(1)
-  }
-  assert(pubKey.length === 64)
-  // Only take the lower 160bits of the hash
-  return exports.sha3(pubKey).slice(-20)
-}
-
-/**
- * Returns the ethereum public key of a given private key
- * @method privateToPublic
- * @param {Buffer} privateKey A private key must be 256 bits wide
- * @return {Buffer}
- */
-var privateToPublic = exports.privateToPublic = function (privateKey) {
-  privateKey = exports.toBuffer(privateKey)
-  // skip the type flag and use the X, Y points
-  return secp256k1.publicKeyCreate(privateKey, false).slice(1)
-}
-
-/**
- * Converts a public key to the Ethereum format.
- * @method importPublic
- * @param {Buffer} publicKey
- * @return {Buffer}
- */
-exports.importPublic = function (publicKey) {
-  publicKey = exports.toBuffer(publicKey)
-  if (publicKey.length !== 64) {
-    publicKey = secp256k1.publicKeyConvert(publicKey, false).slice(1)
-  }
-  return publicKey
-}
-
-/**
- * ECDSA sign
- * @method ecsign
- * @param {Buffer} msgHash
- * @param {Buffer} privateKey
- * @return {Object}
- */
-exports.ecsign = function (msgHash, privateKey) {
-  var sig = secp256k1.sign(msgHash, privateKey)
-
-  var ret = {}
-  ret.r = sig.signature.slice(0, 32)
-  ret.s = sig.signature.slice(32, 64)
-  ret.v = sig.recovery + 27
-  return ret
-}
-
-/**
- * ECDSA public key recovery from signature
- * @method ecrecover
- * @param {Buffer} msgHash
- * @param {Buffer} v
- * @param {Buffer} r
- * @param {Buffer} s
- * @return {Buffer} publicKey
- */
-exports.ecrecover = function (msgHash, v, r, s) {
-  var signature = Buffer.concat([exports.setLength(r, 32), exports.setLength(s, 32)], 64)
-  var recovery = exports.bufferToInt(v) - 27
-  if (recovery !== 0 && recovery !== 1) {
-    throw new Error('Invalid signature v value')
-  }
-  var senderPubKey = secp256k1.recover(msgHash, signature, recovery)
-  return secp256k1.publicKeyConvert(senderPubKey, false).slice(1)
-}
-
-/**
- * Convert signature parameters into the format of `eth_sign` RPC method
- * @method toRpcSig
- * @param {Number} v
- * @param {Buffer} r
- * @param {Buffer} s
- * @return {String} sig
- */
-exports.toRpcSig = function (v, r, s) {
-  // geth (and the RPC eth_sign method) uses the 65 byte format used by Bitcoin
-  // FIXME: this might change in the future - https://github.com/ethereum/go-ethereum/issues/2053
-  return exports.bufferToHex(Buffer.concat([ r, s, exports.toBuffer(v - 27) ]))
-}
-
-/**
- * Convert signature format of the `eth_sign` RPC method to signature parameters
- * @method fromRpcSig
- * @param {String} sig
- * @return {Object}
- */
-exports.fromRpcSig = function (sig) {
-  sig = exports.toBuffer(sig)
-
-  var v = sig[64]
-  // support both versions of `eth_sign` responses
-  if (v < 27) {
-    v += 27
-  }
-
-  return {
-    v: v,
-    r: sig.slice(0, 32),
-    s: sig.slice(32, 64)
-  }
-}
-
-/**
- * Returns the ethereum address of a given private key
- * @method privateToAddress
- * @param {Buffer} privateKey A private key must be 256 bits wide
- * @return {Buffer}
- */
-exports.privateToAddress = function (privateKey) {
-  return exports.publicToAddress(privateToPublic(privateKey))
-}
-
-/**
- * Checks if the address is a valid. Accepts checksummed addresses too
- * @method isValidAddress
- * @param {String} address
- * @return {Boolean}
- */
-exports.isValidAddress = function (address) {
-  return /^0x[0-9a-fA-F]{40}$/i.test(address)
-}
-
-/**
- * Returns a checksummed address
- * @method toChecksumAddress
- * @param {String} address
- * @return {String}
- */
-exports.toChecksumAddress = function (address) {
-  address = exports.stripHexPrefix(address).toLowerCase()
-  var hash = exports.sha3(address).toString('hex')
-  var ret = '0x'
-
-  for (var i = 0; i < address.length; i++) {
-    if (parseInt(hash[i], 16) >= 8) {
-      ret += address[i].toUpperCase()
-    } else {
-      ret += address[i]
-    }
-  }
-
-  return ret
-}
-
-/**
- * Checks if the address is a valid checksummed address
- * @method isValidChecksumAddress
- * @param {Buffer} address
- * @return {Boolean}
- */
-exports.isValidChecksumAddress = function (address) {
-  return exports.isValidAddress(address) && (exports.toChecksumAddress(address) === address)
-}
-
-/**
- * Generates an address of a newly created contract
- * @method generateAddress
- * @param {Buffer} from the address which is creating this new address
- * @param {Buffer} nonce the nonce of the from account
- * @return {Buffer}
- */
-exports.generateAddress = function (from, nonce) {
-  from = exports.toBuffer(from)
-  nonce = new BN(nonce)
-
-  if (nonce.isZero()) {
-    // in RLP we want to encode null in the case of zero nonce
-    // read the RLP documentation for an answer if you dare
-    nonce = null
-  } else {
-    nonce = new Buffer(nonce.toArray())
-  }
-
-  // Only take the lower 160bits of the hash
-  return exports.rlphash([from, nonce]).slice(-20)
-}
-
-/**
- * Returns true if the supplied address belongs to a precompiled account
- * @method isPrecompiled
- * @param {Buffer|String} address
- * @return {Boolean}
- */
-exports.isPrecompiled = function (address) {
-  var a = exports.unpad(address)
-  return a.length === 1 && a[0] > 0 && a[0] < 5
-}
-
-/**
- * Returns a `Boolean` on whether or not the a `String` starts with "0x"
- * @method isHexPrefixed
- * @param {String} str
- * @return {Boolean}
- */
-exports.isHexPrefixed = function (str) {
-  return str.slice(0, 2) === '0x'
-}
-
-/**
- * Removes "0x" from a given `String`
- * @method stripHexPrefix
- * @param {String} str
- * @return {String}
- */
-exports.stripHexPrefix = function (str) {
-  if (typeof str !== 'string') {
-    return str
-  }
-  return exports.isHexPrefixed(str) ? str.slice(2) : str
-}
-
-/**
- * Adds "0x" to a given `String` if it does not already start with "0x"
- * @method addHexPrefix
- * @param {String} str
- * @return {String}
- */
-exports.addHexPrefix = function (str) {
-  if (typeof str !== 'string') {
-    return str
-  }
-
-  return exports.isHexPrefixed(str) ? str : '0x' + str
-}
-
-/**
- * Pads a `String` to have an even length
- * @method padToEven
- * @param {String} a
- * @return {String}
- */
-exports.padToEven = function (a) {
-  if (a.length % 2) a = '0' + a
-  return a
-}
-
-/**
- * Converts a `Buffer` or `Array` to JSON
- * @method BAToJSON
- * @param {Buffer|Array} ba
- * @return {Array|String|null}
- */
-exports.baToJSON = function (ba) {
-  if (Buffer.isBuffer(ba)) {
-    return '0x' + ba.toString('hex')
-  } else if (ba instanceof Array) {
-    var array = []
-    for (var i = 0; i < ba.length; i++) {
-      array.push(exports.baToJSON(ba[i]))
-    }
-    return array
-  }
-}
-
-/**
- * Defines properties on a `Object`. It make the assumption that underlying data is binary.
- * @method defineProperties
- * @param {Object} self the `Object` to define properties on
- * @param {Array} fields an array fields to define. Fields can contain:
- * * `name` - the name of the properties
- * * `length` - the number of bytes the field can have
- * * `allowLess` - if the field can be less than the length
- * * `allowEmpty`
- * @param {*} data data to be validated against the definitions
- */
-exports.defineProperties = function (self, fields, data) {
-  self.raw = []
-  self._fields = []
-
-  // attach the `toJSON`
-  self.toJSON = function (label) {
-    if (label) {
-      var obj = {}
-      self._fields.forEach(function (field) {
-        obj[field] = '0x' + self[field].toString('hex')
-      })
-      return obj
-    }
-    return exports.baToJSON(this.raw)
-  }
-
-  self.serialize = function serialize () {
-    return rlp.encode(self.raw)
-  }
-
-  fields.forEach(function (field, i) {
-    self._fields.push(field.name)
-    function getter () {
-      return self.raw[i]
-    }
-    function setter (v) {
-      v = exports.toBuffer(v)
-
-      if (v.toString('hex') === '00' && !field.allowZero) {
-        v = new Buffer([])
-      }
-
-      if (field.allowLess && field.length) {
-        v = exports.stripZeros(v)
-        assert(field.length >= v.length, 'The field ' + field.name + ' must not have more ' + field.length + ' bytes')
-      } else if (!(field.allowZero && v.length === 0) && field.length) {
-        assert(field.length === v.length, 'The field ' + field.name + ' must have byte length of ' + field.length)
-      }
-
-      self.raw[i] = v
-    }
-
-    Object.defineProperty(self, field.name, {
-      enumerable: true,
-      configurable: true,
-      get: getter,
-      set: setter
-    })
-
-    if (field.default) {
-      self[field.name] = field.default
-    }
-
-    // attach alias
-    if (field.alias) {
-      Object.defineProperty(self, field.alias, {
-        enumerable: false,
-        configurable: true,
-        set: setter,
-        get: getter
-      })
-    }
-  })
-
-  // if the constuctor is passed data
-  if (data) {
-    if (typeof data === 'string') {
-      data = new Buffer(exports.stripHexPrefix(data), 'hex')
-    }
-
-    if (Buffer.isBuffer(data)) {
-      data = rlp.decode(data)
-    }
-
-    if (Array.isArray(data)) {
-      if (data.length > self._fields.length) {
-        throw (new Error('wrong number of fields in data'))
-      }
-
-      // make sure all the items are buffers
-      data.forEach(function (d, i) {
-        self[self._fields[i]] = exports.toBuffer(d)
-      })
-    } else if (typeof data === 'object') {
-      for (var prop in data) {
-        if (self._fields.indexOf(prop) !== -1) {
-          self[prop] = data[prop]
-        }
-      }
-    } else {
-      throw new Error('invalid data')
-    }
-  }
-}
-
-
-/***/ }),
-/* 100 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const assert = __webpack_require__(14)
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const byteSize = 256
 
 /**
@@ -34446,27 +34545,27 @@ Bloom.prototype.or = function (bloom) {
 
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const util = __webpack_require__(0)
-const StateManager = __webpack_require__(241)
+const StateManager = __webpack_require__(223)
 const Account = __webpack_require__(21)
-const AsyncEventEmitter = __webpack_require__(159)
+const AsyncEventEmitter = __webpack_require__(141)
 
 // require the percomiled contracts
-const num01 = __webpack_require__(231)
-const num02 = __webpack_require__(232)
-const num03 = __webpack_require__(233)
-const num04 = __webpack_require__(234)
+const num01 = __webpack_require__(213)
+const num02 = __webpack_require__(214)
+const num03 = __webpack_require__(215)
+const num04 = __webpack_require__(216)
 
 module.exports = VM
 
 VM.deps = {
-  ethUtil: __webpack_require__(10),
+  ethUtil: __webpack_require__(9),
   Account: __webpack_require__(21),
   Trie: __webpack_require__(33),
-  rlp: __webpack_require__(10).rlp
+  rlp: __webpack_require__(9).rlp
 }
 
 /**
@@ -34507,12 +34606,12 @@ function VM (opts = {}) {
 
 util.inherits(VM, AsyncEventEmitter)
 
-VM.prototype.runCode = __webpack_require__(238)
-VM.prototype.runJIT = __webpack_require__(239)
-VM.prototype.runBlock = __webpack_require__(235)
-VM.prototype.runTx = __webpack_require__(240)
-VM.prototype.runCall = __webpack_require__(237)
-VM.prototype.runBlockchain = __webpack_require__(236)
+VM.prototype.runCode = __webpack_require__(220)
+VM.prototype.runJIT = __webpack_require__(221)
+VM.prototype.runBlock = __webpack_require__(217)
+VM.prototype.runTx = __webpack_require__(222)
+VM.prototype.runCall = __webpack_require__(219)
+VM.prototype.runBlockchain = __webpack_require__(218)
 
 VM.prototype.copy = function () {
   var trie = this.trie.copy()
@@ -34529,6 +34628,133 @@ VM.prototype.loadCompiled = function (address, src, cb) {
 VM.prototype.populateCache = function (addresses, cb) {
   this.stateManager.warmCache(addresses, cb)
 }
+
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+var utils = __webpack_require__(11);
+var FakeTransaction = __webpack_require__(46)
+
+module.exports = {
+  encode: function(tx, done) {
+    var encoded = tx.toJSON(true);
+
+    encoded.from = to.hex(tx.from);
+    encoded.hash = to.hex(tx.hash());
+
+    done(null, encoded);
+  },
+  decode: function(json, done) {
+    // TODO: We can't use txhelper here because there are two
+    // JSON serialization types: ethereumjs-tx, and web3.
+    // Here we deserialize from ethereumjs-tx because it's
+    // closer to the metal, so to speak.
+    var tx = new FakeTransaction({
+      nonce: utils.toBuffer(json.nonce),
+      value: utils.toBuffer(json.value),
+      to: utils.toBuffer(json.to),
+      from: utils.toBuffer(json.from),
+      gasLimit: utils.toBuffer(json.gasLimit),
+      gasPrice: utils.toBuffer(json.gasPrice),
+      data: utils.toBuffer(json.data),
+      v: utils.toBuffer(json.v),
+      r: utils.toBuffer(json.r),
+      s: utils.toBuffer(json.s)
+    });
+
+    // if (to.hex(tx.hash()) != json.hash) {
+    //   return done(new Error("DB consistency check: Decoded transaction hash didn't match encoded hash. Expected: " + json.hash + "; actual: " + to.hex(tx.hash())));
+    // }
+
+    done(null, tx);
+  }
+}
+
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var inherits = __webpack_require__(0).inherits;
+var to = __webpack_require__(10);
+
+inherits(RuntimeError, Error);
+
+// Note: ethereumjs-vm will return an object that has a "results" and "receipts" keys.
+// You should pass in the whole object.
+function RuntimeError(transactions, vm_output) {
+  Error.call(this);
+  this.results = {};
+  this.hashes = [];
+  this.combine(transactions, vm_output);
+};
+
+RuntimeError.prototype.combine = function(transactions, vm_output) {
+  // Can be combined with vm_output or another RuntimeError.
+  if (transactions instanceof RuntimeError) {
+    var err = transactions;
+    var keys = Object.keys(err.results);
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      this.results[key] = err.results[key];
+      Array.prototype.push.apply(this.hashes, err.hashes);
+    }
+  } else {
+    var results = vm_output.results;
+    var receipts = vm_output.receipts;
+
+    for (var i = 0; i < transactions.length; i++) {
+      var tx = transactions[i];
+      var result = results[i];
+      var receipt = receipts[i];
+
+      // 1 means no error, oddly.
+      if (result.vm.exception != 1) {
+        var hash = to.hex(tx.hash());
+
+        this.hashes.push(hash);
+
+        this.results[hash] = {
+          error: result.vm.exceptionError,
+          program_counter: result.vm.runState.programCounter
+        };
+      }
+    }
+  }
+
+  // Once combined, set the message
+  if (this.hashes.length == 1) {
+    this.message = "VM Exception while processing transaction: " + this.results[this.hashes[0]].error;
+  } else {
+    this.message = "Multiple VM Exceptions while processing transactions: \n\n";
+
+    for (var i = 0; i < this.hashes.length; i++) {
+      var hash = this.hashes[i];
+
+      this.message += hash + ": " + this.results[hash].error + "\n";
+    }
+  }
+};
+
+RuntimeError.prototype.count = function() {
+  return Object.keys(this.results).length;
+};
+
+RuntimeError.fromResults = function(transactions, vm_output) {
+  var err = new RuntimeError(transactions, vm_output);
+
+  if (err.count() == 0) {
+    return null;
+  }
+
+  return err;
+};
+
+module.exports = RuntimeError;
 
 
 /***/ }),
@@ -34636,8 +34862,8 @@ function checkLength(input) {
 
 "use strict";
 
-var createKeccak = __webpack_require__(270)
-var createShake = __webpack_require__(271)
+var createKeccak = __webpack_require__(271)
+var createShake = __webpack_require__(272)
 
 module.exports = function (KeccakState) {
   var Keccak = createKeccak(KeccakState)
@@ -34693,7 +34919,7 @@ module.exports = function (KeccakState) {
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(278);
+var isArray = __webpack_require__(279);
 /*</replacement>*/
 
 
@@ -36449,7 +36675,7 @@ function extend() {
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(283);
+var isArray = __webpack_require__(284);
 /*</replacement>*/
 
 
@@ -38132,7 +38358,7 @@ exports.addPrefix = addPrefix
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(294);
+var isArray = __webpack_require__(295);
 /*</replacement>*/
 
 
@@ -39735,7 +39961,7 @@ function getLevelDOWN () {
   if (leveldown)
     return leveldown
 
-  var requiredVersion  = __webpack_require__(300).devDependencies.leveldown
+  var requiredVersion  = __webpack_require__(301).devDependencies.leveldown
     , leveldownVersion
 
   try {
@@ -39791,12 +40017,12 @@ var inherits          = __webpack_require__(2)
   , AbstractLevelDOWN = __webpack_require__(122).AbstractLevelDOWN
   , AbstractIterator  = __webpack_require__(122).AbstractIterator
   , ltgt              = __webpack_require__(74)
-  , createRBT = __webpack_require__(68)
+  , createRBT = __webpack_require__(64)
   , globalStore       = {}
 
 // In Node, use global.setImmediate. In the browser, use a consistent
 // microtask library to give consistent microtask experience to all browsers
-var setImmediate = __webpack_require__(302)
+var setImmediate = __webpack_require__(303)
 
 function gt(value) {
   return ltgt.compare(value, this._end) > 0
@@ -40442,7 +40668,7 @@ module.exports = AbstractLevelDOWN
 exports.AbstractLevelDOWN    = __webpack_require__(121)
 exports.AbstractIterator     = __webpack_require__(120)
 exports.AbstractChainedBatch = __webpack_require__(119)
-exports.isLevelDOWN          = __webpack_require__(303)
+exports.isLevelDOWN          = __webpack_require__(304)
 
 
 /***/ }),
@@ -40802,7 +41028,7 @@ var processNextTick = __webpack_require__(76);
 /*</replacement>*/
 
 /*<replacement>*/
-var isArray = __webpack_require__(261);
+var isArray = __webpack_require__(262);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -40832,7 +41058,7 @@ var Stream;
 
 var Buffer = __webpack_require__(15).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(64);
+var bufferShim = __webpack_require__(60);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -40850,7 +41076,7 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(320);
+var BufferList = __webpack_require__(321);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -41957,7 +42183,7 @@ util.inherits = __webpack_require__(2);
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(339)
+  deprecate: __webpack_require__(340)
 };
 /*</replacement>*/
 
@@ -41974,7 +42200,7 @@ var Stream;
 
 var Buffer = __webpack_require__(15).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(64);
+var bufferShim = __webpack_require__(60);
 /*</replacement>*/
 
 util.inherits(Writable, Stream);
@@ -42495,7 +42721,7 @@ exports.Readable = exports;
 exports.Writable = __webpack_require__(128);
 exports.Duplex = __webpack_require__(41);
 exports.Transform = __webpack_require__(127);
-exports.PassThrough = __webpack_require__(319);
+exports.PassThrough = __webpack_require__(320);
 
 if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
   module.exports = Stream;
@@ -44228,18 +44454,18 @@ module.exports = require("url");
 /* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ProviderEngine = __webpack_require__(342);
-var FilterSubprovider = __webpack_require__(346);
-var VmSubprovider = __webpack_require__(347);
+var ProviderEngine = __webpack_require__(343);
+var FilterSubprovider = __webpack_require__(347);
+var VmSubprovider = __webpack_require__(348);
 //var SolcSubprovider = require('web3-provider-engine/subproviders/solc.js')
 
-var BlockchainDouble = __webpack_require__(60);
+var BlockchainDouble = __webpack_require__(65);
 
-var RequestFunnel = __webpack_require__(154);
-var DelayedBlockFilter = __webpack_require__(150);
-var ReactiveBlockTracker = __webpack_require__(153);
-var GethDefaults = __webpack_require__(152);
-var GethApiDouble = __webpack_require__(151);
+var RequestFunnel = __webpack_require__(246);
+var DelayedBlockFilter = __webpack_require__(242);
+var ReactiveBlockTracker = __webpack_require__(245);
+var GethDefaults = __webpack_require__(244);
+var GethApiDouble = __webpack_require__(243);
 
 function Provider(options) {
   var self = this;
@@ -44328,2713 +44554,7 @@ module.exports = Provider;
 /* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var LevelUpArrayAdapter = __webpack_require__(145);
-var LevelUpObjectAdapter = __webpack_require__(146);
-var levelup = __webpack_require__(73);
-var filedown = __webpack_require__(144);
-var cachedown = __webpack_require__(171);
-var Sublevel = __webpack_require__(69);
-var Block = __webpack_require__(26);
-var txserializer = __webpack_require__(81);
-var blockserializer = __webpack_require__(142);
-var bufferserializer = __webpack_require__(143);
-var BlockLogsSerializer = __webpack_require__(141);
-var ReceiptSerializer = __webpack_require__(147);
-var to = __webpack_require__(9);
-var utils = __webpack_require__(11);
-var FakeTransaction = __webpack_require__(46);
-var tmp = __webpack_require__(336);
-
-function Database(options) {
-  this.options = options;
-};
-
-Database.prototype.initialize = function(callback) {
-  var self = this;
-
-  function getDir(cb) {
-    if (self.options.db_path) {
-      cb(null, self.options.db_path);
-    } else {
-      tmp.dir(cb);
-    }
-  }
-
-  getDir(function(err, directory) {
-    if (err) return callback(err);
-
-    levelup(directory, {
-      valueEncoding: "json",
-      db: function (location) {
-        // This cache size was chosen from a plethora of hand testing.
-        // It seems a not-too-large cache (100) size is the right amount.
-        // When higher (say 10000), it seems the benefits wear off.
-        // See /perf/transactions.js for a benchmark.
-        return cachedown(location, filedown).maxSize(100);
-      }
-    }, finishInitializing)
-  });
-
-  function finishInitializing(err, db) {
-    if (err) return callback(err);
-
-    self.db = db;
-
-    // Blocks, keyed by array index (not necessarily by block number) (0-based)
-    self.blocks = new LevelUpArrayAdapter("blocks", self.db, blockserializer);
-
-    // Logs triggered in each block, keyed by block id (ids in the blocks array; not necessarily block number) (0-based)
-    self.blockLogs = new LevelUpArrayAdapter("blockLogs", self.db, new BlockLogsSerializer(self));
-
-    // Block hashes -> block ids (ids in the blocks array; not necessarily block number) for quick lookup
-    self.blockHashes = new LevelUpObjectAdapter("blockHashes", self.db);
-
-    // Transaction hash -> transaction objects
-    self.transactions = new LevelUpObjectAdapter("transactions", self.db, txserializer);
-
-    // Transaction hash -> transaction receipts
-    self.transactionReceipts = new LevelUpObjectAdapter("transactionReceipts", self.db, new ReceiptSerializer(self));
-
-    self.trie_db = new LevelUpObjectAdapter("trie_db", self.db, bufferserializer, bufferserializer);
-
-    callback();
-  };
-};
-
-Database.prototype.close = function(callback) {
-  callback();
-};
-
-module.exports = Database;
-
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-var Log = __webpack_require__(61);
-var async = __webpack_require__(5);
-
-function BlockLogsSerializer(database) {
-  this.database = database;
-};
-
-BlockLogsSerializer.prototype.encode = function(logs, done) {
-  logs = logs.map(function(log) {
-    return log.toJSON();
-  });
-
-  done(null, logs);
-};
-
-BlockLogsSerializer.prototype.decode = function(json, done) {
-  var self = this;
-
-  if (json.length == 0) {
-    return done(null, []);
-  }
-
-  this.database.blockHashes.get(json[0].blockHash, function(err, blockIndex) {
-    if (err) return done(err);
-
-    self.database.blocks.get(blockIndex, function(err, block) {
-      if (err) return done(err);
-
-      async.map(json, function(log, finished) {
-        finished(null, new Log({
-          block: block,
-          logIndex: log.logIndex,
-          transactionIndex: log.transactionIndex,
-          transactionHash: log.transactionHash,
-          address: log.address,
-          data: log.data,
-          topics: log.topics,
-          type: log.type
-        }));
-      }, function(err, logs) {
-        if (err) return done(err);
-        done(null, logs)
-      });
-    });
-  });
-};
-
-module.exports = BlockLogsSerializer;
-
-
-/***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-var txserializer = __webpack_require__(81);
-var async = __webpack_require__(5);
-var Block = __webpack_require__(26);
-
-module.exports = {
-  encode: function(block, done) {
-    var encoded = block.toJSON(true);
-
-    async.map(block.transactions, function(tx, finished) {
-      txserializer.encode(tx, finished);
-    }, function(err, transactions) {
-      if (err) return done(err);
-      encoded.transactions = transactions;
-      done(null, encoded);
-    });
-  },
-  decode: function(json, done) {
-    var transactions = json.transactions;
-    json.transactions = [];
-
-    var block = new Block(json);
-
-    async.eachSeries(transactions, function(tx_json, finished) {
-      txserializer.decode(tx_json, function(err, tx) {
-        if (err) return finished(err);
-        block.transactions.push(tx);
-        finished();
-      });
-    }, function(err) {
-      if (err) return done(err);
-
-      done(null, block);
-    });
-  }
-}
-
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var utils = __webpack_require__(11);
-var to = __webpack_require__(9);
-
-module.exports = {
-  encode: function(val, cb) {
-    var hex = to.hex(val);
-    cb(null, hex);
-  },
-  decode: function(json, cb) {
-    cb(null, utils.toBuffer(json))
-  }
-};
-
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var util = __webpack_require__(0);
-var AbstractLevelDOWN = __webpack_require__(86).AbstractLevelDOWN;
-var async = __webpack_require__(5);
-var fs = __webpack_require__(44);
-var path = __webpack_require__(51);
-
-util.inherits(FileDown, AbstractLevelDOWN)
-
-function FileDown (location) {
-  this.location = location;
-  AbstractLevelDOWN.call(this, location)
-}
-
-FileDown.prototype._open = function (options, callback) {
-  var self = this;
-  callback(null, self);
-}
-
-FileDown.prototype._put = function (key, value, options, callback) {
-  var self = this;
-  fs.writeFile(path.join(this.location, key), value, "utf8", callback);
-}
-
-FileDown.prototype._get = function (key, options, callback) {
-  fs.readFile(path.join(this.location, key), "utf8", function(err, data) {
-    if (err) {
-      return callback(new Error("NotFound"));
-    }
-    callback(null, data);
-  });
-}
-
-FileDown.prototype._del = function (key, options, callback) {
-  fs.unlink(path.join(this.location, key), function(err) {
-    // Ignore when we try to delete a file that doesn't exist.
-    // I'm not sure why this happens. Worth looking into.
-    if (err) {
-      if (err.message.indexOf("ENOENT") >= 0) {
-        return callback();
-      } else {
-        return callback(err);
-      }
-    }
-    callback();
-  });
-}
-
-FileDown.prototype._batch = function(array, options, callback) {
-  var self = this;
-  async.each(array, function(item, finished) {
-    if (item.type == "put") {
-      self.put(item.key, item.value, options, finished);
-    } else if (item.type == "del") {
-      self.del(item.key, options, finished);
-    } else {
-      finished(new Error("Unknown batch type", item.type));
-    }
-  }, function(err) {
-    if (err) return callback(err);
-    callback();
-  });
-}
-
-module.exports = function(location) {
-  return new FileDown(location);
-};
-
-
-/***/ }),
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Sublevel = __webpack_require__(69);
-
-// Level up adapter that looks like an array. Doesn't support inserts.
-
-function LevelUpArrayAdapter(name, db, serializer) {
-  this.db = Sublevel(db);
-  this.db = this.db.sublevel(name);
-  this.name = name;
-  this.serializer = serializer || {
-    encode: function(val, callback) { callback(null, val); },
-    decode: function(val, callback) { callback(null, val); }
-  };
-};
-
-LevelUpArrayAdapter.prototype.length = function(callback) {
-  this.db.get("length", function(err, result) {
-    if (err) {
-      if (err.notFound) {
-        return callback(null, 0);
-      } else {
-        return callback(err);
-      }
-    }
-
-    callback(null, result);
-  });
-};
-
-LevelUpArrayAdapter.prototype._get = function(key, callback) {
-  var self = this;
-  this.db.get(key, function(err, val) {
-    if (err) return callback(err);
-    self.serializer.decode(val, callback);
-  });
-};
-
-LevelUpArrayAdapter.prototype._put = function(key, value, callback) {
-  var self = this;
-  this.serializer.encode(value, function(err, encoded) {
-    if (err) return callback(err);
-    self.db.put(key, encoded, callback);
-  });
-};
-
-LevelUpArrayAdapter.prototype.get = function(index, callback) {
-  var self = this;
-
-  this.length(function(err, length) {
-    if (err) return callback(err);
-    if (index >= length) {
-      return callback(new Error("LevelUpArrayAdapter named '" + self.name + "' index out of range: index " + index + "; length: " + length));
-    }
-    self._get(index, callback);
-  });
-};
-
-LevelUpArrayAdapter.prototype.push = function(val, callback) {
-  var self = this;
-  this.length(function(err, length) {
-    if (err) return callback(err);
-
-    // TODO: Do this in atomic batch.
-    self._put(length + "", val, function(err) {
-      if (err) return callback(err);
-      self.db.put("length", length + 1, callback);
-    });
-  });
-};
-
-LevelUpArrayAdapter.prototype.pop = function(callback) {
-  var self = this;
-
-  this.length(function(err, length) {
-    if (err) return callback(err);
-
-    var newLength = length - 1;
-
-    // TODO: Do this in atomic batch.
-    self._get(newLength + "", function(err, val) {
-      if (err) return callback(err);
-      self.db.del(newLength + "", function(err) {
-        if (err) return callback(err);
-        self.db.put("length", newLength, function(err) {
-          if (err) return callback(err);
-
-          callback(null, val);
-        });
-      });
-    });
-  });
-};
-
-LevelUpArrayAdapter.prototype.last = function(callback) {
-  var self = this;
-  this.length(function(err, length) {
-    if (err) return callback(err);
-
-    if (length == 0) return callback(null, null);
-
-    self._get((length - 1) + "", callback);
-  });
-};
-
-LevelUpArrayAdapter.prototype.first = function(callback) {
-  this._get("0", callback);
-};
-
-module.exports = LevelUpArrayAdapter;
-
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Sublevel = __webpack_require__(69);
-var async = __webpack_require__(5);
-
-function LevelUpObjectAdapter(name, db, valueserializer, keyserializer, options) {
-  this.db = Sublevel(db, options);
-  this.db = this.db.sublevel(name);
-  this.name = name;
-  this.valueserializer = valueserializer || {
-    encode: function(val, callback) { callback(null, val); },
-    decode: function(val, callback) { callback(null, val); }
-  };
-  this.keyserializer = keyserializer || {
-    encode: function(val, callback) { callback(null, val); },
-    decode: function(val, callback) { callback(null, val); }
-  };
-};
-
-LevelUpObjectAdapter.prototype.get = function(key, options, callback) {
-  var self = this;
-
-  if (typeof options == "function") {
-    callback = options;
-    options = {};
-  }
-
-  this.keyserializer.encode(key, function(err, encodedKey) {
-    if (err) return callback(err);
-
-    self.db.get(encodedKey, function(err, val) {
-      if (err) return callback(err);
-
-      self.valueserializer.decode(val, function(err, decodedValue) {
-        if (err) return callback(err);
-
-        callback(null, decodedValue);
-      });
-    });
-  });
-};
-
-LevelUpObjectAdapter.prototype.put = function(key, value, options, callback) {
-  var self = this;
-
-  if (typeof options == "function") {
-    callback = options;
-    options = {};
-  }
-
-  this.keyserializer.encode(key, function(err, encodedKey) {
-    if (err) return callback(err);
-
-    self.valueserializer.encode(value, function(err, encoded) {
-      if (err) return callback(err);
-
-      self.db.put(encodedKey, encoded, callback);
-    });
-  });
-};
-
-LevelUpObjectAdapter.prototype.set = LevelUpObjectAdapter.prototype.put;
-
-LevelUpObjectAdapter.prototype.del = function(key, callback) {
-  var self = this;
-
-  this.keyserializer.encode(key, function(err, encodedKey) {
-    if (err) return callback(err);
-
-    self.db.del(encodedKey, callback);
-  });
-}
-
-LevelUpObjectAdapter.prototype.batch = function(array, options, callback) {
-  var self = this;
-
-  async.each(array, function(item, finished) {
-    if (item.type == "put") {
-      self.put(item.key, item.value, options, finished);
-    } else if (item.type == "del") {
-      self.del(item.key, finished);
-    } else {
-      finished(new Error("Unknown batch type", item.type));
-    }
-  }, function(err) {
-    if (err) return callback(err);
-    callback();
-  });
-};
-
-LevelUpObjectAdapter.prototype.isOpen = function() {
-  return true;
-}
-
-module.exports = LevelUpObjectAdapter;
-
-
-/***/ }),
-/* 147 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var to = __webpack_require__(9);
-var Receipt = __webpack_require__(62);
-var async = __webpack_require__(5);
-
-function ReceiptSerializer(database) {
-  this.database = database;
-};
-
-ReceiptSerializer.prototype.encode = function(receipt, done) {
-  done(null, receipt.toJSON());
-};
-
-ReceiptSerializer.prototype.decode = function(json, done) {
-  var self = this;
-
-  this.database.transactions.get(json.transactionHash, function(err, tx) {
-    if (err) return done(err);
-
-    self.database.blockHashes.get(json.blockHash, function(err, blockIndex) {
-      if (err) return done(err);
-
-      async.parallel({
-        block: self.database.blocks.get.bind(self.database.blocks, blockIndex),
-        logs: self.database.blockLogs.get.bind(self.database.blockLogs, blockIndex)
-      }, function(err, result) {
-        if (err) return done(err);
-
-        done(null, new Receipt(tx, result.block, result.logs, json.gasUsed, json.contractAddress));
-      });
-    });
-  });
-};
-
-module.exports = ReceiptSerializer;
-
-
-/***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var http = __webpack_require__(59);
-var Provider = __webpack_require__(139);
-
-module.exports = {
-  create: function(options) {
-    if (options == null) {
-      options = {};
-    }
-
-    if (options.logger == null) {
-      options.logger = {
-        log: function() {}
-      };
-    }
-
-    var logger = options.logger;
-    var provider = new Provider(options);
-    var server = http.createServer(function(request, response) {
-
-      var headers = request.headers;
-      var method = request.method;
-      var url = request.url;
-      var body = [];
-
-      request.on('error', function(err) {
-        // console.error(err);
-      }).on('data', function(chunk) {
-        body.push(chunk);
-      }).on('end', function() {
-        body = Buffer.concat(body).toString();
-        // At this point, we have the headers, method, url and body, and can now
-        // do whatever we need to in order to respond to this request.
-
-        var headers = {
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "*"
-        };
-
-        switch (method) {
-          case "OPTIONS":
-            headers["Content-Type"] = "text/plain"
-            response.writeHead(200, headers);
-            response.end("");
-            break;
-          case "POST":
-            //console.log("Request coming in:", body);
-
-            var payload;
-            try {
-              payload = JSON.parse(body);
-            } catch(e) {
-              headers["Content-Type"] = "text/plain";
-              response.writeHead(400, headers);
-              response.end("400 Bad Request");
-              return;
-            }
-
-            // Log messages that come into the TestRPC via http
-            if (payload instanceof Array) {
-              // Batch request
-              for (var i = 0; i < payload.length; i++) {
-                var item = payload[i];
-                logger.log(item.method);
-              }
-            } else {
-              logger.log(payload.method);
-            }
-
-            provider.sendAsync(payload, function(err, result) {
-              headers["Content-Type"] = "application/json";
-              response.writeHead(200, headers);
-              response.end(JSON.stringify(result));
-            });
-
-            break;
-          default:
-            response.writeHead(400, {
-              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "*",
-              "Content-Type": "text/plain"
-            });
-            response.end("400 Bad Request");
-            break;
-        }
-      });
-    });
-
-    var oldListen = server.listen;
-
-    server.listen = function() {
-      var args = Array.prototype.slice.call(arguments);
-      var callback = function() {};
-      if (args.length > 0) {
-        var last = args[args.length - 1];
-        if (typeof last == "function") {
-          callback = args.pop();
-        }
-      }
-
-      var intermediary = function(err) {
-        if (err) return callback(err);
-        server.provider.manager.waitForInitialization(function(err, accounts) {
-          callback(err, accounts);
-        });
-      };
-
-      args.push(intermediary);
-
-      oldListen.apply(server, args);
-    }
-
-    server.provider = provider;
-
-    var oldClose = server.close;
-
-    server.close = function(callback) {
-      var args = Array.prototype.slice.call(arguments);
-      server.provider.close(function(err) {
-        if (err) return callback(err);
-        oldClose.apply(server, args);
-      });
-    };
-
-    return server;
-  }
-};
-
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Account = __webpack_require__(21);
-var Block = __webpack_require__(26);
-var VM = __webpack_require__(67);
-var RuntimeError = __webpack_require__(82);
-var Trie = __webpack_require__(33);
-var FakeTransaction = __webpack_require__(46);
-var utils = __webpack_require__(11);
-var seedrandom = __webpack_require__(326);
-var bip39 = __webpack_require__(164);
-var hdkey = __webpack_require__(245);
-var async = __webpack_require__(5);
-var BlockchainDouble = __webpack_require__(60);
-var ForkedBlockchain = __webpack_require__(155);
-var Web3 = __webpack_require__(54);
-var async = __webpack_require__(5);
-
-var to = __webpack_require__(9);
-var random = __webpack_require__(157);
-var txhelper = __webpack_require__(63);
-
-StateManager = function(options) {
-  var self = this;
-
-  if (options == null) {
-    options = {};
-  }
-
-  if (options.fork) {
-    this.blockchain = new ForkedBlockchain(options);
-  } else {
-    this.blockchain = new BlockchainDouble(options);
-  }
-
-  this.vm = this.blockchain.vm;
-  this.stateTrie = this.blockchain.stateTrie;
-
-  this.accounts = {};
-  this.secure = !!options.secure;
-  this.total_accounts = options.total_accounts || 10;
-  this.coinbase = null;
-
-  this.latest_filter_id = 1;
-
-  // This queue manages actions that shouldn't be run in parallel.
-  // The action_processing flag ensures new actions are queued instead of
-  // run immediately.
-  this.action_queue = [];
-  this.action_processing == false;
-
-  this.snapshots = [];
-  this.logger = options.logger || console;
-  this.net_version = options.network_id;
-  this.rng = seedrandom(options.seed);
-  this.mnemonic = options.mnemonic || bip39.entropyToMnemonic(random.randomBytes(16, this.rng));
-  this.wallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(this.mnemonic));
-  this.wallet_hdpath = "m/44'/60'/0'/0/";
-
-  this.gasPriceVal = '0x4A817C800'; // 0.02 szabo
-
-  if (options.gasPrice) {
-    this.gasPriceVal = utils.stripHexPrefix(utils.intToHex(options.gasPrice));
-  }
-
-  this.is_mining = true;
-  this.blocktime = options.blocktime;
-  this.is_mining_on_interval = !!options.blocktime;
-  this.mining_interval_timeout = null;
-}
-
-StateManager.prototype.initialize = function(options, callback) {
-  var self = this;
-
-  var accounts = [];
-
-  if (options.accounts) {
-    accounts = options.accounts.map(this.createAccount.bind(this));
-  } else {
-    for (var i = 0; i < this.total_accounts; i++) {
-      accounts.push(self.createAccount({
-        index: i
-      }));
-    }
-  }
-
-  this.coinbase = to.hex(accounts[0].address);
-  this.accounts = {};
-
-  accounts.forEach(function(data) {
-    self.accounts[data.address] = data;
-  });
-
-  // Turn array into object, mostly for speed purposes.
-  // No need for caller to specify private keys.
-  this.unlocked_accounts = (options.unlocked_accounts || []).reduce(function(obj, address) {
-    // If it doesn't have a hex prefix, must be a number (either a string or number type).
-    if ((address + "").indexOf("0x") != 0) {
-      address = accounts[parseInt(address)].address;
-    }
-
-    obj[address.toLowerCase()] = true; // can be any value
-    return obj;
-  }, {});
-
-  if (!this.secure) {
-    accounts.forEach(function(data) {
-      self.unlocked_accounts[data.address] = data;
-    });
-  }
-
-  this.blockchain.initialize(accounts, function(err) {
-    if (err) return callback(err);
-
-    // If the user didn't pass a specific version id in, then use the
-    // forked blockchain's version (if it exists) or create our own.
-    if (!self.net_version) {
-      self.net_version = self.blockchain.fork_version || new Date().getTime();
-    }
-
-    if (self.is_mining_on_interval) {
-      self.mineOnInterval();
-    }
-
-    callback();
-  });
-};
-
-StateManager.prototype.mineOnInterval = function() {
-  var self = this;
-
-  // For good measure.
-  clearTimeout(this.mining_interval_timeout);
-  this.mining_interval_timeout = null;
-
-  this.mining_interval_timeout = setTimeout(function() {
-    // Only process one block.
-    self.processBlocks(1, function(err) {
-      // Note: Errors are ignored as they're printed to the log
-      // After processing this block, queue up processing the next block.
-      self.mineOnInterval();
-    });
-  }, this.blocktime * 1000);
-
-  // Ensure this won't keep a node process open.
-  if (this.mining_interval_timeout.unref) {
-    this.mining_interval_timeout.unref();
-  }
-};
-
-StateManager.prototype.createAccount = function(opts) {
-  var secretKey;
-  var balance;
-
-  if (opts.secretKey) {
-    secretKey = utils.toBuffer(to.hex(opts.secretKey));
-  } else {
-    var acct = this.wallet.derivePath(this.wallet_hdpath + opts.index) // index is a number
-    secretKey = acct.getWallet().getPrivateKey() // Buffer
-  }
-
-  var publicKey = utils.privateToPublic(secretKey);
-  var address = utils.publicToAddress(publicKey);
-
-  var account = new Account();
-
-  if (opts.balance) {
-    account.balance = to.hex(opts.balance)
-  } else {
-    account.balance = "0x0000000000000056bc75e2d63100000";
-  }
-
-  var data = {
-    secretKey: secretKey,
-    publicKey: publicKey,
-    address: to.hex(address),
-    account: account
-  };
-
-  return data;
-};
-
-StateManager.prototype.blockNumber = function(callback) {
-  return this.blockchain.getHeight(callback);
-};
-
-StateManager.prototype.gasPrice = function() {
-  return this.gasPriceVal;
-}
-
-StateManager.prototype.getBalance = function(address, number, callback) {
-  this.blockchain.getBalance(address, number, function(err, balance) {
-    if (balance) {
-      balance = to.hex(balance);
-    }
-    callback(err, balance);
-  });
-}
-
-StateManager.prototype.getTransactionCount = function(address, number, callback) {
-  this.blockchain.getNonce(address, number, function(err, nonce) {
-    if (nonce) {
-      nonce = to.hex(nonce);
-    }
-    callback(err, nonce);
-  });
-}
-
-StateManager.prototype.getCode = function(address, number, callback) {
-  this.blockchain.getCode(address, number, function(err, code) {
-    if (code) {
-      code = to.hex(code);
-    }
-    callback(err, code);
-  });
-}
-
-StateManager.prototype.queueRawTransaction = function(rawTx, callback) {
-  var data = new Buffer(utils.stripHexPrefix(rawTx), 'hex');
-
-  var tx = new FakeTransaction(data);
-  var txParams = {
-    from:     tx.from.toString('hex'),
-    to:       tx.to.toString('hex'),
-    gas:      tx.gasLimit.toString('hex'),
-    gasPrice: tx.gasPrice.toString('hex'),
-    value:    tx.value.toString('hex'),
-    data:     tx.data.toString('hex'),
-    nonce:    tx.nonce.toString('hex'),
-  }
-
-  this.queueTransaction("eth_sendRawTransaction", txParams, callback);
-};
-
-StateManager.prototype.queueStorage = function(address, position, block, callback) {
-  this.action_queue.push({
-    method: "eth_getStorageAt",
-    address: utils.addHexPrefix(address),
-    position: utils.addHexPrefix(position),
-    block: block,
-    callback: callback
-  });
-
-  // We know there's work, so get started.
-  this.processNextAction();
-}
-
-StateManager.prototype.queueTransaction = function(method, tx_params, callback) {
-  if (tx_params.from == null) {
-    callback(new Error("from not found; is required"));
-    return;
-  }
-
-  // use toLowerCase() to properly handle from addresses meant to be validated.
-  tx_params.from = utils.addHexPrefix(tx_params.from).toLowerCase();
-
-  if (method == "eth_sendTransaction" && this.unlocked_accounts[tx_params.from] == null) {
-    return callback(new Error("could not unlock signer account"));
-  }
-
-  var rawTx = {
-      gasPrice: "0x1",
-      gasLimit: this.blockchain.defaultTransactionGasLimit,
-      value: '0x0',
-      data: ''
-  };
-
-  if (tx_params.gas != null) {
-    rawTx.gasLimit = utils.addHexPrefix(tx_params.gas);
-  }
-
-  if (tx_params.gasPrice != null) {
-    rawTx.gasPrice = utils.addHexPrefix(tx_params.gasPrice);
-  }
-
-  if (tx_params.to != null) {
-    rawTx.to = utils.addHexPrefix(tx_params.to);
-  }
-
-  if (tx_params.value != null) {
-    rawTx.value = utils.addHexPrefix(tx_params.value);
-  }
-
-  if (tx_params.data != null) {
-    rawTx.data = utils.addHexPrefix(tx_params.data);
-  }
-
-  if (tx_params.nonce != null) {
-    rawTx.nonce = utils.addHexPrefix(tx_params.nonce);
-  }
-
-  // Error checks
-  if (rawTx.to && typeof rawTx.to != "string") {
-    return callback(new Error("Invalid to address"));
-  }
-
-  // If the transaction has a higher gas limit than the block gas limit, error.
-  if (to.number(rawTx.gasLimit) > to.number(this.blockchain.blockGasLimit)) {
-    return callback(new Error("Exceeds block gas limit"));
-  }
-
-  // Get the nonce for this address, taking account any transactions already queued.
-  var self = this;
-  var address = utils.toBuffer(tx_params.from);
-  this.blockchain.getQueuedNonce(address, function(err, nonce) {
-    // If the user specified a nonce, use that instead.
-    if (rawTx.nonce == null) {
-      rawTx.nonce = to.hex(nonce);
-    }
-
-    // Edit: Why is this here?
-    if (rawTx.to == '0x0') {
-      delete rawTx.to
-    }
-
-    var tx = new FakeTransaction(rawTx);
-    tx.from = address;
-
-    self.action_queue.push({
-      method: method,
-      from: tx_params.from,
-      tx: tx,
-      callback: callback
-    });
-
-    // We know there's work, so get started.
-    self.processNextAction();
-  });
-};
-
-StateManager.prototype.queueTransactionTrace = function(tx_hash, params, callback) {
-  this.action_queue.push({
-    method: "debug_traceTransaction",
-    hash: to.hex(tx_hash),
-    params: params,
-    callback: callback
-  });
-
-  // We know there's work, so get started.
-  this.processNextAction();
-};
-
-StateManager.prototype.processNextAction = function(override) {
-  var self = this;
-
-  if (override != true) {
-    if (this.action_processing == true || this.action_queue.length == 0) {
-      return;
-    }
-  }
-
-  var queued = this.action_queue.shift();
-
-  // Set the flag that we're currently processing something.
-  this.action_processing = true;
-
-  var intermediary = function(err, result) {
-    queued.callback(err, result);
-
-    if (self.action_queue.length > 0) {
-      self.processNextAction(true);
-    } else {
-      self.action_processing = false;
-    }
-  };
-
-  if (queued.method == "eth_getStorageAt") {
-    this.blockchain.getStorage(queued.address, queued.position, queued.block, function(err, result) {
-      if (err) return intermediary(err);
-
-      if (result) {
-        result = utils.rlp.decode(result);
-      }
-
-      result = to.hex(result || 0);
-      intermediary(null, result);
-    });
-  } else if (queued.method == "debug_traceTransaction") {
-    this.blockchain.processTransactionTrace(queued.hash, queued.params, intermediary);
-  } else if (queued.method == "eth_sendTransaction" || queued.method == "eth_sendRawTransaction") {
-    this.processTransaction(queued.from, queued.tx, intermediary);
-  }
-};
-
-StateManager.prototype.sign = function(address, dataToSign) {
-  var account = this.accounts[to.hex(address)];
-
-  if (!account) {
-    throw new Error("cannot sign data; no private key");
-  }
-
-  var secretKey = account.secretKey;
-  var msg = new Buffer(dataToSign.replace('0x',''), 'hex');
-  var msgHash = utils.hashPersonalMessage(msg);
-  var sgn = utils.ecsign(msgHash, new Buffer(secretKey));
-  return utils.toRpcSig(sgn.v, sgn.r, sgn.s);
-};
-
-StateManager.prototype.printTransactionReceipt = function(tx_hash, error, callback){
-  var self = this;
-
-  self.blockchain.getTransactionReceipt(tx_hash, function(err, receipt) {
-    if (err) return callback(err);
-
-    self.blockchain.latestBlock(function(err, block) {
-      if (err) return callback(err);
-
-      receipt = receipt.toJSON();
-
-      self.logger.log("");
-      self.logger.log("  Transaction: " + tx_hash);
-
-      if (receipt.contractAddress != null) {
-        self.logger.log("  Contract created: " + receipt.contractAddress);
-      }
-
-      self.logger.log("  Gas usage: " + receipt.gasUsed);
-      self.logger.log("  Block Number: " + receipt.blockNumber);
-      self.logger.log("  Block Time: " + new Date(to.number(block.header.timestamp) * 1000).toString());
-
-      if (error) {
-        self.logger.log("  Runtime Error: " + error.error);
-      }
-
-      self.logger.log("");
-
-      callback(null, tx_hash);
-    });
-  });
-}
-
-StateManager.prototype.processBlocks = function(total_blocks, callback) {
-  var self = this;
-
-  if (typeof total_blocks == "function") {
-    callback = total_blocks;
-    total_blocks = null;
-  }
-
-  // Note: VM errors (errors that the VM directly returns) trump all runtime errors.
-  var runtime_error = null;
-  var amount_processed = 0;
-
-  async.whilst(function() {
-    var shouldContinue;
-
-    if (total_blocks == null) {
-      shouldContinue = self.blockchain.pending_transactions.length > 0;
-    } else {
-      shouldContinue = amount_processed < total_blocks;
-    }
-
-    return shouldContinue;
-  }, function(done) {
-    self.blockchain.processNextBlock(function(err, transactions, vm_output) {
-      amount_processed += 1;
-
-      if (err) {
-        if (err instanceof RuntimeError == false) {
-          // This is bad. Get out.
-          return done(err);
-        }
-
-        // We must have a RuntimeError. Merge results if we've found
-        // other runtime errors during this execution.
-        if (runtime_error == null) {
-          runtime_error = err;
-        } else {
-          runtime_error.combine(err);
-        }
-      }
-
-      // Note we don't quit on runtime errors. We keep processing transactions.
-      // Print the transaction receipts then move onto the next one.
-
-      // TODO: Can we refactor printTransactionReceipt so it's synchronous?
-      // We technically have the raw vm receipts (though they're not full receipts here...).
-      var receipts = vm_output.receipts;
-      async.eachSeries(transactions, function(tx, finished_printing) {
-        var hash = to.hex(tx.hash());
-        var error = runtime_error == null ? {results: {}} : runtime_error;
-        self.printTransactionReceipt(hash, error.results[hash], finished_printing);
-      }, done);
-    });
-  }, function(err) {
-    // Remember: vm errors trump runtime errors
-    callback(err || runtime_error);
-  });
-};
-
-StateManager.prototype.processTransaction = function(from, tx, callback) {
-  var self = this;
-
-  self.blockchain.queueTransaction(tx);
-
-  var tx_hash = to.hex(tx.hash());
-
-  // If we're not currently mining or we're mining on an interval,
-  // only queue the transaction, don't process it.
-  if (self.is_mining == false || self.is_mining_on_interval){
-    return callback(null, tx_hash);
-  }
-
-  self.processBlocks(function(err) {
-    if (err) return callback(err);
-    callback(null, tx_hash);
-  });
-};
-
-StateManager.prototype.getTransactionReceipt = function(hash, callback) {
-  this.blockchain.getTransactionReceipt(hash, function(err, receipt) {
-    if (err && err.notFound) {
-      // Return null if the receipt's not found.
-      return callback(null, null);
-    }
-    callback(err, receipt);
-  });
-};
-
-StateManager.prototype.getBlock = function(hash_or_number, callback) {
-  this.blockchain.getBlock(hash_or_number, callback);
-};
-
-StateManager.prototype.getLogs = function(filter, callback) {
-  var self = this;
-
-  var expectedAddress = filter.address;
-  var expectedTopics = filter.topics || [];
-
-  async.parallel({
-    fromBlock: this.blockchain.getEffectiveBlockNumber.bind(this.blockchain, filter.fromBlock || "latest"),
-    toBlock: this.blockchain.getEffectiveBlockNumber.bind(this.blockchain, filter.toBlock || "latest")
-  }, function(err, results) {
-    var fromBlock = results.fromBlock;
-    var toBlock = results.toBlock;
-
-    var logs = [];
-    var current = fromBlock;
-
-    async.whilst(function() {
-      return current <= toBlock;
-    }, function(finished) {
-      self.blockchain.getBlockLogs(current, function(err, blockLogs) {
-        if (err) return finished(err);
-
-        // Filter logs that match the address
-        var filtered = blockLogs.filter(function(log) {
-          return (expectedAddress == null || log.address == expectedAddress);
-        });
-
-        // Now filter based on topics.
-        filtered = filtered.filter(function(log) {
-          var keep = true;
-          for (var i = 0; i < expectedTopics.length; i++) {
-            if (expectedTopics[i] == null) continue;
-            if (i >= log.topics.length || expectedTopics[i] != log.topics[i]) {
-              keep = false;
-              break;
-            }
-          }
-          return keep;
-        });
-
-        logs.push.apply(logs, filtered);
-
-        current += 1;
-        finished();
-      });
-    }, function(err) {
-      if (err) return callback(err);
-
-      logs = logs.map(function(log) {
-        return log.toJSON();
-      });
-
-      callback(err, logs);
-    });
-
-  });
-};
-
-// Note: Snapshots have 1-based ids.
-StateManager.prototype.snapshot = function(callback) {
-  var self = this;
-
-  this.blockchain.getHeight(function(err, blockNumber) {
-    if (err) return callback(err);
-
-    self.snapshots.push({
-      blockNumber: blockNumber
-    });
-
-    self.logger.log("Saved snapshot #" + self.snapshots.length);
-
-    callback(null, to.hex(self.snapshots.length));
-  });
-};
-
-StateManager.prototype.revert = function(snapshot_id, callback) {
-  var self = this;
-
-  // Convert from hex.
-  snapshot_id = utils.bufferToInt(snapshot_id);
-
-  this.logger.log("Reverting to snapshot #" + snapshot_id);
-
-  if (snapshot_id > this.snapshots.length) {
-    return false;
-  }
-
-  // Convert to zero based.
-  snapshot_id = snapshot_id - 1;
-
-  // Loop through each snapshot with a higher id than the current one.
-  async.whilst(function() {
-    return self.snapshots.length > snapshot_id
-  }, function(nextSnapshot) {
-    var snapshot = self.snapshots.pop();
-
-    // For each snapshot, asynchronously pop off the blocks it represents.
-    async.during(function(doneWithTest) {
-      self.blockchain.getHeight(function(err, blockNumber) {
-        if (err) return doneWithTest(err);
-
-        doneWithTest(null, blockNumber > snapshot.blockNumber)
-      });
-    }, function(nextBlock) {
-      self.blockchain.popBlock(function(err) {
-        if (err) return nextBlock(err);
-        nextBlock();
-      });
-    }, nextSnapshot);
-
-
-  }, function(err) {
-    if (err) return callback(err);
-
-    // Pending transactions are removed when you revert.
-    self.blockchain.clearPendingTransactions();
-
-    callback(null, true);
-  });
-};
-
-StateManager.prototype.hasContractCode = function(address, callback) {
-  this.vm.stateManager.getContractCode( address, function( err, result ) {
-    if( err != null ) {
-      callback( err, false );
-    } else {
-      callback( null, true );
-    }
-  });
-}
-
-StateManager.prototype.startMining = function(callback) {
-  this.is_mining = true;
-
-  if (this.is_mining_on_interval) {
-    this.mineOnInterval();
-    callback();
-  } else {
-    this.processBlocks(callback);
-  }
-};
-
-StateManager.prototype.stopMining = function(callback) {
-  this.is_mining = false;
-  clearTimeout(this.mining_interval_timeout);
-  this.mining_interval_timeout = null;
-  callback();
-};
-
-StateManager.prototype.isUnlocked = function(address) {
-  return this.unlocked_accounts[address.toLowerCase()] != null;
-};
-
-module.exports = StateManager;
-
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// It's unforutnate we have to have this subprovider, but it's because
-// we instamine, and web3 isn't written in a way that supports instamining
-// (i.e., it sets up the filter after the transaction has been processed).
-// This block filter will ensure that each block filter will always see
-// the change from the last block to the current block.
-//
-// Note: An added benefit of this is that it shaves off a signifcant
-// amount of time from tests that use web3 and block filters.
-
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
-var async = __webpack_require__(5);
-var to = __webpack_require__(9);
-
-inherits(DelayedBlockFilter, Subprovider);
-
-module.exports = DelayedBlockFilter;
-
-function DelayedBlockFilter() {
-  this.watching = {};
-};
-
-DelayedBlockFilter.prototype.handleRequest = function(payload, next, end) {
-  if (payload.method == "eth_newBlockFilter") return this.handleNewBlockFilter(payload, next, end);
-  if (payload.method == "eth_getFilterChanges") return this.handleGetFilterChanges(payload, next, end);
-
-  next();
-};
-
-DelayedBlockFilter.prototype.handleNewBlockFilter = function(payload, next, end) {
-  var self = this;
-
-  // Let this filter process and add it to our watch list.
-  next(function(err, result, cb) {
-    if (err) return cb();
-    self.watching[result] = true;
-    cb();
-  });
-}
-
-DelayedBlockFilter.prototype.handleGetFilterChanges = function(payload, next, end) {
-  var self = this;
-  var filter_id = payload.params[0];
-
-  if (!this.watching[filter_id]) return next();
-
-  // Get the changes, and then alter the result.
-  next(function(err, result, cb) {
-    if (err) return cb();
-
-    var currentBlockHash;
-    var previousBlockHash;
-    var blockNumber;
-
-    async.series([
-      function(c) {
-        // If we have a result, use it.
-        if (result.length != 0) {
-          currentBlockHash = result[0];
-          c();
-        } else {
-          // Otherwise, get the current block number.
-          self.emitPayload({
-            method: "eth_blockNumber"
-          }, function(err, res) {
-            if (err) return c(err);
-            blockNumber = to.number(res.result);
-            c();
-          });
-        }
-      },
-      function(c) {
-        // If we got a block number above, meaning, we didn't get a block hash,
-        // skip this step.
-        if (blockNumber) return c();
-
-        // If not skipped, then we got a block hash, and we need to get a block number from it.
-        self.emitPayload({
-          method: "eth_getBlockByHash",
-          params: [currentBlockHash, false]
-        }, function(err, res) {
-          if (err) return c(err);
-          blockNumber = to.number(res.result.number);
-          c();
-        })
-      },
-      function(c) {
-        // If we're at block 0, return no changes. See final function below.
-        if (blockNumber == 0) {
-          previousBlockHash = undefined;
-          return c();
-        }
-
-        // If at this point, we do have a block number, so let's subtract one
-        // from it and get the block hash of the block before it.
-        blockNumber = blockNumber - 1;
-        self.emitPayload({
-          method: "eth_getBlockByNumber",
-          params: [blockNumber, false]
-        }, function(err, res) {
-          if (err) return c(err);
-          previousBlockHash = res.result.hash;
-          c();
-        });
-      }
-    ], function(err) {
-      if (err) {
-        // Unfortunately the subprovider code doesn't let us return an error
-        // through the callback cb(). So we'll just ignore it.... (famous last words).
-      }
-
-      // If we got the previous block, use it. Otherwise do nothing.
-      // Then stop watching because we only want on getFilterChanges to react this way.
-      if (previousBlockHash) {
-        result[0] = previousBlockHash;
-      }
-
-      delete self.watching[filter_id];
-      cb();
-    })
-  });
-
-};
-
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var utils = __webpack_require__(11);
-var fs = __webpack_require__(44);
-var async = __webpack_require__(5);
-var inherits = __webpack_require__(0).inherits;
-var StateManager = __webpack_require__(149);
-var to = __webpack_require__(9);
-var txhelper = __webpack_require__(63);
-var pkg = __webpack_require__(384);
-
-var Subprovider = __webpack_require__(34);
-
-inherits(GethApiDouble, Subprovider)
-
-function GethApiDouble(options) {
-  var self = this;
-
-  this.state = options.state || new StateManager(options);
-  this.options = options;
-  this.initialized = false;
-
-  this.initialization_error = null;
-
-  this.state.initialize(this.options, function(err) {
-    if (err) {
-      self.initialization_error = err;
-    }
-    self.initialized = true;
-  });
-}
-
-GethApiDouble.prototype.waitForInitialization = function(callback) {
-  var self = this;
-  if (this.initialized == false) {
-    setTimeout(function() {
-      self.waitForInitialization(callback);
-    }, 100);
-  } else {
-    callback(this.initialization_error, this.state);
-  }
-}
-
-// Function to not pass methods through until initialization is finished
-GethApiDouble.prototype.handleRequest = function(payload, next, end) {
-  var self = this;
-
-  if (this.initialization_error != null) {
-    return end(this.initialization_error);
-  }
-
-  if (this.initialized == false) {
-    setTimeout(this.getDelayedHandler(payload, next, end), 100);
-    return;
-  }
-
-  var method = this[payload.method];
-
-  if (method == null) {
-    return end(new Error("Method " + payload.method + " not supported."));
-  }
-
-  var params = payload.params;
-  var args = [];
-  Array.prototype.push.apply(args, params);
-
-  if (this.requiresDefaultBlockParameter(payload.method) && args.length < method.length - 1) {
-    args.push("latest");
-  }
-
-  args.push(end);
-  method.apply(this, args);
-};
-
-GethApiDouble.prototype.getDelayedHandler = function(payload, next, end) {
-  var self = this;
-  return function() {
-    self.handleRequest(payload, next, end);
-  }
-}
-
-GethApiDouble.prototype.requiresDefaultBlockParameter = function(method) {
-  // object for O(1) lookup.
-  var methods = {
-    "eth_getBalance": true,
-    "eth_getCode": true,
-    "eth_getTransactionCount": true,
-    "eth_getStorageAt": true,
-    "eth_call": true
-  };
-
-  return methods[method] === true;
-};
-
-// Handle individual requests.
-
-GethApiDouble.prototype.eth_accounts = function(callback) {
-  callback(null, Object.keys(this.state.accounts));
-};
-
-GethApiDouble.prototype.eth_blockNumber = function(callback) {
-  this.state.blockNumber(function(err, result) {
-    if (err) return callback(err);
-    callback(null, to.hex(result));
-  });
-};
-
-GethApiDouble.prototype.eth_coinbase = function(callback) {
-  callback(null, this.state.coinbase);
-};
-
-GethApiDouble.prototype.eth_mining = function(callback) {
-  callback(null, this.state.is_mining);
-};
-
-GethApiDouble.prototype.eth_hashrate = function(callback) {
-  callback(null, '0x0');
-};
-
-GethApiDouble.prototype.eth_gasPrice = function(callback) {
-  callback(null, utils.addHexPrefix(this.state.gasPrice()));
-};
-
-GethApiDouble.prototype.eth_getBalance = function(address, block_number, callback) {
-  this.state.getBalance(address, block_number, callback);
-};
-
-GethApiDouble.prototype.eth_getCode = function(address, block_number, callback) {
-  this.state.getCode(address, block_number, callback);
-};
-
-GethApiDouble.prototype.eth_getBlockByNumber = function(block_number, include_full_transactions, callback) {
-  this.state.blockchain.getBlock(block_number, function(err, block) {
-    if (err) return callback(err);
-
-    callback(null, {
-      number: to.hex(block.header.number),
-      hash: to.hex(block.hash()),
-      parentHash: to.hex(block.header.parentHash),
-      nonce: to.hex(block.header.nonce),
-      sha3Uncles: to.hex(block.header.uncleHash),
-      logsBloom: to.hex(block.header.bloom),
-      transactionsRoot: to.hex(block.header.transactionsTrie),
-      stateRoot: to.hex(block.header.stateRoot),
-      receiptRoot: to.hex(block.header.receiptTrie),
-      miner: to.hex(block.header.coinbase),
-      difficulty: to.hex(block.header.difficulty),
-      totalDifficulty: to.hex(block.header.difficulty), // TODO: Figure out what to do here.
-      extraData: to.hex(block.header.extraData),
-      size: to.hex(1000), // TODO: Do something better here
-      gasLimit: to.hex(block.header.gasLimit),
-      gasUsed: to.hex(block.header.gasUsed),
-      timestamp: to.hex(block.header.timestamp),
-      transactions: block.transactions.map(function(tx) {
-        if (include_full_transactions) {
-          return txhelper.toJSON(tx, block);
-        } else {
-          return to.hex(tx.hash());
-        }
-      }),
-      uncles: []//block.uncleHeaders.map(function(uncleHash) {return to.hex(uncleHash)})
-    });
-  });
-};
-
-GethApiDouble.prototype.eth_getBlockByHash = function(tx_hash, include_full_transactions, callback) {
-  this.eth_getBlockByNumber.apply(this, arguments);
-};
-
-GethApiDouble.prototype.eth_getBlockTransactionCountByNumber = function(block_number, callback) {
-  this.state.blockchain.getBlock(block_number, function(err, block) {
-    callback(null, block.transactions.length);
-  });
-}
-
-GethApiDouble.prototype.eth_getBlockTransactionCountByHash = function(block_hash, callback) {
-  this.eth_getBlockTransactionCountByNumber.apply(this, arguments);
-}
-
-GethApiDouble.prototype.eth_getTransactionReceipt = function(hash, callback) {
-  this.state.getTransactionReceipt(hash, function(err, receipt) {
-    if (err) return callback(err);
-
-    var result = null;
-
-    if (receipt){
-      result = receipt.toJSON();
-    }
-    callback(null, result);
-  });
-};
-
-GethApiDouble.prototype.eth_getTransactionByHash = function(hash, callback) {
-  this.state.getTransactionReceipt(hash, function(err, receipt) {
-    if (err) return callback(err);
-
-    var result = null;
-
-    if (receipt) {
-      result = txhelper.toJSON(receipt.tx, receipt.block)
-    }
-
-    callback(null, result);
-  });
-}
-
-GethApiDouble.prototype.eth_getTransactionByBlockHashAndIndex = function(hash_or_number, index, callback) {
-  var self = this;
-
-  index = to.number(index);
-
-  this.state.getBlock(hash_or_number, function(err, block) {
-    if (err) return callback(err);
-
-    if (index >= block.transactions.length) {
-      return callback(new Error("Transaction at index " + to.hex(index) + " does not exist in block."));
-    }
-
-    var tx = block.transactions[index];
-    var result = txhelper.toJSON(tx, block);
-
-    callback(null, result);
-  });
-};
-
-GethApiDouble.prototype.eth_getTransactionByBlockNumberAndIndex = function(hash_or_number, index, callback) {
-  this.eth_getTransactionByBlockHashAndIndex(hash_or_number, index, callback);
-};
-
-
-
-GethApiDouble.prototype.eth_getTransactionCount = function(address, block_number, callback) {
-  this.state.getTransactionCount(address, block_number, callback);
-}
-
-GethApiDouble.prototype.eth_sign = function(address, dataToSign, callback) {
-  var result;
-  var error;
-
-  try {
-    result = this.state.sign(address, dataToSign);
-  } catch (e) {
-    error = e;
-  }
-
-  callback(error, result);
-};
-
-GethApiDouble.prototype.eth_sendTransaction = function(tx_data, callback) {
-  this.state.queueTransaction("eth_sendTransaction", tx_data, callback);
-};
-
-GethApiDouble.prototype.eth_sendRawTransaction = function(rawTx, callback) {
-  this.state.queueRawTransaction(rawTx, callback);
-};
-
-GethApiDouble.prototype.eth_getStorageAt = function(address, position, block_number, callback) {
-  this.state.queueStorage(address, position, block_number, callback);
-}
-
-GethApiDouble.prototype.eth_newBlockFilter = function(callback) {
-  var filter_id = utils.addHexPrefix(utils.intToHex(this.state.latest_filter_id));
-  this.state.latest_filter_id += 1;
-  callback(null, filter_id);
-};
-
-GethApiDouble.prototype.eth_getFilterChanges = function(filter_id, callback) {
-  var blockHash = this.state.latestBlock().hash().toString("hex");
-  // Mine a block after each request to getFilterChanges so block filters work.
-  this.state.mine();
-  callback(null, [blockHash]);
-};
-
-GethApiDouble.prototype.eth_getLogs = function(filter, callback) {
-  this.state.getLogs(filter, callback);
-};
-
-GethApiDouble.prototype.eth_uninstallFilter = function(filter_id, callback) {
-  callback(null, true);
-};
-
-GethApiDouble.prototype.eth_getCompilers = function(callback) {
-  callback(null, ["solidity"]);
-}
-
-GethApiDouble.prototype.eth_syncing = function(callback) {
-  callback(null, false);
-};
-
-GethApiDouble.prototype.net_listening = function(callback) {
-  callback(null, true);
-};
-
-GethApiDouble.prototype.net_peerCount = function(callback) {
-  callback(null, 0);
-};
-
-GethApiDouble.prototype.web3_clientVersion = function(callback) {
-  callback(null, "EthereumJS TestRPC/v" + pkg.version + "/ethereum-js")
-};
-
-GethApiDouble.prototype.web3_sha3 = function(string, callback) {
-  callback(null, to.hex(utils.sha3(string)));
-};
-
-GethApiDouble.prototype.net_version = function(callback) {
-  // net_version returns a string containing a base 10 integer.
-  callback(null, this.state.net_version + "");
-};
-
-GethApiDouble.prototype.miner_start = function(threads, callback) {
-  this.state.startMining(function(err) {
-    callback(err, true);
-  });
-};
-
-GethApiDouble.prototype.miner_stop = function(callback) {
-  this.state.stopMining(function(err) {
-    callback(err, true);
-  });
-};
-
-GethApiDouble.prototype.rpc_modules = function(callback) {
-  // returns the availible api modules and versions
-  callback(null, {"eth":"1.0","net":"1.0","rpc":"1.0","web3":"1.0","evm":"1.0"});
-};
-
-/* Functions for testing purposes only. */
-
-GethApiDouble.prototype.evm_snapshot = function(callback) {
-  this.state.snapshot(callback)
-};
-
-GethApiDouble.prototype.evm_revert = function(snapshot_id, callback) {
-  this.state.revert(snapshot_id, callback);
-};
-
-GethApiDouble.prototype.evm_increaseTime = function(seconds, callback) {
-  callback(null, this.state.blockchain.increaseTime(seconds));
-};
-
-GethApiDouble.prototype.evm_mine = function(callback) {
-  this.state.blockchain.processNextBlock(function(err) {
-    // Remove the VM result objects from the return value.
-    callback(err);
-  });
-};
-
-GethApiDouble.prototype.debug_traceTransaction = function(tx_hash, params, callback) {
-  this.state.queueTransactionTrace(tx_hash, params, callback);
-};
-
-
-
-module.exports = GethApiDouble;
-
-
-/***/ }),
-/* 152 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
-
-inherits(GethDefaults, Subprovider);
-
-module.exports = GethDefaults;
-
-function GethDefaults() {};
-
-// Massage eth_estimateGas requests, setting default data (e.g., from) if
-// not specified. This is here specifically to make the testrpc
-// react like Geth.
-GethDefaults.prototype.handleRequest = function(payload, next, end) {
-  var self = this;
-
-  if (payload.method != "eth_estimateGas" && payload.method != "eth_call") {
-    return next();
-  }
-
-  var params = payload.params[0];
-
-  if (params.from == null) {
-    this.emitPayload({
-      method: "eth_coinbase"
-    }, function(err, result) {
-      if (err) return end(err);
-
-      var coinbase = result.result;
-
-      params.from = coinbase;
-      next();
-    });
-  } else {
-    next();
-  }
-};
-
-
-/***/ }),
-/* 153 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
-
-inherits(ReactiveBlockTracker, Subprovider);
-
-module.exports = ReactiveBlockTracker;
-
-function ReactiveBlockTracker() {
-  this.methods = {
-    "eth_call": "before",
-    "eth_getStorageAt": "before",
-    "eth_getLogs": "before"
-  };
-};
-
-// Fetch the block before certain requests to make sure we're completely updated
-// before those methods are processed. Also, fetch the block after certain requests
-// to speed things up.
-ReactiveBlockTracker.prototype.handleRequest = function(payload, next, end) {
-  var self = this;
-
-  var when = this.methods[payload.method];
-
-  if (when == null) {
-    return next();
-  }
-
-  function fetchBlock(cb) {
-    self.engine._fetchBlock("latest", function(err, block) {
-      if (err) return end(err);
-      if (!self.engine.currentBlock || 0 !== self.engine.currentBlock.hash.compare(block.hash)) {
-        self.engine._setCurrentBlock(block);
-      }
-      cb();
-    });
-  }
-
-  if (when == "before") {
-    fetchBlock(function() {
-      next();
-    });
-  } else {
-    next(function(error, result, cb) {
-      fetchBlock(cb);
-    });
-  }
-};
-
-
-/***/ }),
-/* 154 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
-
-inherits(RequestFunnel, Subprovider);
-
-module.exports = RequestFunnel;
-
-// See if any payloads for the specified methods are marked as external.
-// If they are external, and match the method list, process them one at
-// a time.
-function RequestFunnel() {
-  // We use an object here for O(1) lookups (speed).
-  this.methods = {
-    "eth_call": true,
-    "eth_getStorageAt": true,
-    "eth_sendTransaction": true,
-    "eth_sendRawTransaction": true,
-
-    // Ensure block filter and filter changes are process one at a time
-    // as well so filter requests that come in after a transaction get
-    // processed once that transaction has finished processing.
-    "eth_newBlockFilter": true,
-    "eth_getFilterChanges": true,
-    "eth_getFilterLogs": true
-  };
-  this.queue = [];
-  this.isWorking = false;
-};
-
-RequestFunnel.prototype.handleRequest = function(payload, next, end) {
-  if (payload.external != true || this.methods[payload.method] != true) {
-    return next();
-  }
-
-  this.queue.push([payload, next]);
-
-  if (this.isWorking == false) {
-    this.processNext();
-  }
-};
-
-RequestFunnel.prototype.processNext = function() {
-  var self = this;
-
-  if (this.queue.length == 0) {
-    this.isWorking = false;
-    return;
-  }
-
-  this.isWorking = true;
-
-  var item = this.queue.shift();
-  var payload = item[0];
-  var next = item[1];
-
-  next(function(error, request, cb) {
-    cb();
-    self.processNext();
-  });
-};
-
-
-/***/ }),
-/* 155 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var BlockchainDouble = __webpack_require__(60);
-var VM = __webpack_require__(67);
-var Account = __webpack_require__(21);
-var Block = __webpack_require__(26);
-var Log = __webpack_require__(61);
-var Receipt = __webpack_require__(62);
-var utils = __webpack_require__(11);
-var ForkedStorageTrie = __webpack_require__(156);
-var FakeTransaction = __webpack_require__(46);
-var Web3 = __webpack_require__(54);
-var to = __webpack_require__(9);
-var async = __webpack_require__(5);
-var txhelper = __webpack_require__(63)
-
-var inherits = __webpack_require__(0).inherits;
-
-inherits(ForkedBlockchain, BlockchainDouble);
-
-function ForkedBlockchain(options) {
-  var self = this;
-
-  options = options || {};
-
-  if (options.fork == null) {
-    throw new Error("ForkedBlockchain must be passed a fork parameter.");
-  }
-
-  this.fork = options.fork;
-  this.fork_block_number = options.fork_block_number;
-  this.fork_version = null;
-
-  if (typeof this.fork == "string") {
-    if (this.fork.indexOf("@") >= 0) {
-      var split = this.fork.split("@");
-      this.fork = split[0];
-      this.fork_block_number = parseInt(split[1]);
-    }
-
-    this.fork = new Web3.providers.HttpProvider(this.fork);
-  }
-
-  this.time = options.time;
-  this.storageTrieCache = {};
-
-  BlockchainDouble.call(this, options);
-
-  this.web3 = new Web3(this.fork);
-};
-
-ForkedBlockchain.prototype.initialize = function(accounts, callback) {
-  var self = this;
-
-  this.web3.version.getNetwork(function(err, version) {
-    if (err) return callback(err);
-
-    self.fork_version = version;
-
-    BlockchainDouble.prototype.initialize.call(self, accounts, function(err) {
-      if (err) return callback(err);
-
-      // Unfortunately forking requires a bit of monkey patching, but it gets the job done.
-      self.vm.stateManager._lookupStorageTrie = self.lookupStorageTrie.bind(self);
-      self.vm.stateManager.cache._lookupAccount = self.getAccount.bind(self);
-      self.vm.stateManager.getContractCode = self.getCode.bind(self);
-      self.vm.stateManager.putContractCode = self.putCode.bind(self);
-
-      callback();
-    });
-  });
-};
-
-ForkedBlockchain.prototype.createStateTrie = function(db, root) {
-  return new ForkedStorageTrie(db, root, {
-    fork: this.fork,
-    fork_block_number: this.fork_block_number,
-    blockchain: this
-  });
-};
-
-ForkedBlockchain.prototype.createGenesisBlock = function(callback) {
-  var self = this;
-  var blockNumber = this.fork_block_number || "latest";
-
-  self.web3.eth.getBlock(blockNumber, function(err, json) {
-    if (err) return callback(err);
-
-    // If no start time was passed, set the time to where we forked from.
-    // We only want to do this if a block was explicitly passed. If a block
-    // number wasn't passed, then we're using the last block and the current time.
-    if (!self.time && self.fork_block_number) {
-      self.time = new Date(to.number(json.timestamp) * 1000);
-      self.setTime(self.time);
-    }
-
-    blockNumber = to.hex(json.number);
-
-    // Update the relevant block numbers
-    self.fork_block_number = blockNumber;
-    self.stateTrie.fork_block_number = blockNumber;
-
-    self.createBlock(function(err, block) {
-      if (err) return callback(err);
-
-      block.header.number = utils.toBuffer(to.number(json.number) + 1);
-      block.header.parentHash = utils.toBuffer(json.hash);
-
-      callback(null, block);
-    });
-  });
-};
-
-ForkedBlockchain.prototype.createForkedStorageTrie = function(address) {
-  address = to.hex(address);
-
-  var trie = new ForkedStorageTrie(this.data.trie_db, null, {
-    address: address,
-    stateTrie: this.stateTrie,
-    blockchain: this,
-    fork: this.fork,
-    fork_block_number: this.fork_block_number
-  });
-
-  this.storageTrieCache[address] = trie;
-
-  return trie;
-};
-
-ForkedBlockchain.prototype.lookupStorageTrie = function(address, callback) {
-  var self = this
-
-  address = to.hex(address);
-
-  if (this.storageTrieCache[address] != null) {
-    return callback(null, this.storageTrieCache[address]);
-  }
-
-  callback(null, this.createForkedStorageTrie(address));
-};
-
-ForkedBlockchain.prototype.isFallbackBlock = function(value, callback) {
-  var self = this;
-
-  self.getEffectiveBlockNumber(value, function(err, number) {
-    if (err) return callback(err);
-
-    callback(null, number <= to.number(self.fork_block_number));
-  });
-};
-
-ForkedBlockchain.prototype.isBlockHash = function(value) {
-  return typeof value == "string" && value.indexOf("0x") == 0 && value.length > 42;
-}
-
-ForkedBlockchain.prototype.isFallbackBlockHash = function(value, callback) {
-  var self = this;
-
-  if (!this.isBlockHash(value)) {
-    return callback(null, false);
-  }
-
-  self.data.blockHashes.get(value, function(err, blockIndex) {
-    if (err) {
-      if (err.notFound) {
-        // If the block isn't found in our database, then it must be a fallback block.
-        return callback(null, true);
-      } else {
-        return callback(err);
-      }
-    }
-    callback(null, false);
-  });
-}
-
-ForkedBlockchain.prototype.getFallbackBlock = function(number_or_hash, cb) {
-  var self = this;
-  self.web3.eth.getBlock(number_or_hash, true, function(err, json) {
-    if (err) return cb(err);
-
-    if (json == null) return cb();
-
-    var block = new Block();
-
-    block.header.parentHash = utils.toBuffer(json.parentHash);
-    block.header.uncleHash = utils.toBuffer(json.sha3Uncles);
-    block.header.coinbase = utils.toBuffer(json.miner);
-    block.header.stateRoot = utils.toBuffer(json.stateRoot); // Should we include the following three?
-    block.header.transactionTrie = utils.toBuffer(json.transactionsRoot);
-    block.header.receiptTrie = utils.toBuffer(json.receiptRoot);
-    block.header.bloom = utils.toBuffer(json.logsBloom);
-    block.header.difficulty = utils.toBuffer("0x" + json.totalDifficulty.toString(16)); // BigNumber
-    block.header.number = utils.toBuffer(json.number);
-    block.header.gasLimit = utils.toBuffer(json.gasLimit);
-    block.header.gasUsed = utils.toBuffer(json.gasUsed);
-    block.header.timestamp = utils.toBuffer(json.timestamp);
-    block.header.extraData = utils.toBuffer(json.extraData);
-
-    (json.transactions || []).forEach(function(tx_json, index) {
-      block.transactions.push(txhelper.fromJSON(tx_json));
-    });
-
-    // Fake block. Let's do the worst.
-    // TODO: Attempt to fill out all block data so as to produce the same hash! (can we?)
-    block.hash = function() {
-      return utils.toBuffer(json.hash);
-    }
-
-    cb(null, block);
-  });
-}
-
-
-ForkedBlockchain.prototype.getBlock = function(number, callback) {
-  var self = this;
-
-  this.isFallbackBlockHash(number, function(err, isFallbackBlockHash) {
-    if (err) return callback(err);
-    if (isFallbackBlockHash) {
-      return self.getFallbackBlock(number, callback);
-    }
-
-    self.isFallbackBlock(number, function(err, isFallbackBlock) {
-      if (err) return callback(err);
-
-      if (isFallbackBlock) {
-        return self.getFallbackBlock(number, callback);
-      }
-
-      // If we don't have string-based a block hash, turn what we do have into a number
-      // before sending it to getBlock.
-      function getBlockReference(value, callback) {
-        if (!self.isBlockHash(value)) {
-          self.getRelativeBlockNumber(value, callback);
-        } else {
-          callback(null, value);
-        }
-      }
-
-      getBlockReference(number, function(err, blockReference) {
-        if (err) return callback(err);
-
-        BlockchainDouble.prototype.getBlock.call(self, blockReference, callback);
-      });
-    });
-  });
-};
-
-ForkedBlockchain.prototype.getStorage = function(address, key, number, callback) {
-  this.lookupStorageTrie(address, function(err, trie) {
-    if (err) return callback(err);
-    trie.get(key, callback);
-  });
-};
-
-ForkedBlockchain.prototype.getCode = function(address, number, callback) {
-  var self = this;
-
-  if (typeof number == "function") {
-    callback = number;
-    number = "latest";
-  }
-
-  if (!number) {
-    number = "latest";
-  }
-
-  this.getEffectiveBlockNumber(number, function(err, effective) {
-    number = effective;
-
-    self.stateTrie.keyExists(address, function(err, exists) {
-      // If we've stored the value and we're looking at one of our stored blocks,
-      // get it from our stored data.
-      if (exists && number > to.number(self.fork_block_number)) {
-        BlockchainDouble.prototype.getCode.call(self, address, number, callback);
-      } else {
-
-        // Else, we need to fetch it from web3. If our number is greater than
-        // the fork, let's just use "latest".
-        if (number > to.number(self.fork_block_number)) {
-          number = "latest";
-        }
-
-        self.fetchCodeFromFallback(address, number, function(err, code) {
-          if (code) {
-            code = utils.toBuffer(code);
-          }
-          callback(err, code);
-        });
-      }
-    });
-  });
-};
-
-ForkedBlockchain.prototype.putCode = function(address, value, callback) {
-  // This is a bit of a hack. We need to bypass the vm's
-  // _lookupAccount call that vm.stateManager.putContractCode() uses.
-  // This means we have to do some things ourself. The last call
-  // to self.stateTrie.put() at the bottom is important because
-  // we can't just be satisfied putting it in the cache.
-
-  var self = this;
-  address = utils.toBuffer(address);
-  this.stateTrie.get(address, function(err, data) {
-    if (err) return callback(err);
-
-    var account = new Account(data);
-    account.setCode(self.stateTrie, value, function(err, result) {
-      if (err) return callback(err);
-
-      self.stateTrie.put(address, account.serialize(), function(err) {
-        if (err) return callback(err);
-
-        // Ensure the cache updates as well.
-        self.vm.stateManager._putAccount(address, account, callback);
-      });
-    });
-  })
-};
-
-ForkedBlockchain.prototype.getAccount = function(address, number, callback) {
-  var self = this;
-
-  if (typeof number == "function") {
-    callback = number;
-    number = "latest";
-  }
-
-  this.getEffectiveBlockNumber(number, function(err, effective) {
-    if (err) return callback(err);
-    number = effective;
-
-    // If the account doesn't exist in our state trie, get it off the wire.
-    self.stateTrie.keyExists(address, function(err, exists) {
-      if (err) return callback(err);
-
-      if (exists && number > to.number(self.fork_block_number)) {
-        BlockchainDouble.prototype.getAccount.call(self, address, number, function(err, acc) {
-          if (err) return callback(err);
-          callback(null, acc);
-        });
-      } else {
-        self.fetchAccountFromFallback(address, number, callback);
-      }
-    });
-  });
-};
-
-ForkedBlockchain.prototype.getTransaction = function(hash, callback) {
-  var self = this;
-  BlockchainDouble.prototype.getTransaction.call(this, hash, function(err, tx) {
-    if (err) return callback(err);
-    if (tx != null) return callback(null, tx);
-
-    self.web3.eth.getTransaction(hash, function(err, result) {
-      if (err) return callback(err);
-
-      if (result) {
-        result = txhelper.fromJSON(result);
-      }
-
-      callback(null, result);
-    });
-  });
-};
-
-ForkedBlockchain.prototype.getTransactionReceipt = function(hash, callback) {
-  var self = this;
-  BlockchainDouble.prototype.getTransactionReceipt.call(this, hash, function(err, receipt) {
-    if (err) return callback(err);
-    if (receipt) return callback(null, receipt);
-
-    self.web3.eth.getTransactionReceipt(hash, function(err, receipt_json) {
-      if (err) return callback(err);
-      if (!receipt_json) return callback();
-
-      async.parallel({
-        tx: self.getTransaction.bind(self, hash),
-        block: self.getBlock.bind(self, receipt_json.blockNumber)
-      }, function(err, result) {
-        if (err) return callback(err);
-
-        var logs = receipt_json.logs.map(function(log) {
-          return new Log(log);
-        });
-
-        var receipt = new Receipt(result.tx, result.block, logs, receipt_json.cumulativeGasUsed, receipt_json.contractAddress);
-
-        callback(null, receipt);
-      });
-    });
-  });
-};
-
-ForkedBlockchain.prototype.fetchAccountFromFallback = function(address, block_number, callback) {
-  var self = this;
-  address = to.hex(address);
-
-  async.parallel({
-    code: this.fetchCodeFromFallback.bind(this, address, block_number),
-    balance: this.fetchBalanceFromFallback.bind(this, address, block_number),
-    nonce: this.fetchNonceFromFallback.bind(this, address, block_number)
-  }, function(err, results) {
-    if (err) return callback(err);
-
-    var code = results.code;
-    var balance = results.balance;
-    var nonce = results.nonce;
-
-    var account = new Account({
-      nonce: nonce,
-      balance: balance
-    });
-
-    account.exists = code != "0x0" || balance != "0x0" || nonce != "0x0";
-
-    // This puts the code on the trie, keyed by the hash of the code.
-    // It does not actually link an account to code in the trie.
-    account.setCode(self.stateTrie, utils.toBuffer(code), function(err) {
-      if (err) return callback(err);
-      callback(null, account);
-    });
-  });
-};
-
-ForkedBlockchain.prototype.fetchCodeFromFallback = function(address, block_number, callback) {
-  var self = this;
-  address = to.hex(address);
-
-  // Allow an optional block_number
-  if (typeof block_number == "function") {
-    callback = block_number;
-    block_number = this.fork_block_number;
-  }
-
-  this.getSafeFallbackBlockNumber(block_number, function(err, safe_block_number) {
-    if (err) return callback(err);
-
-    self.web3.eth.getCode(address, safe_block_number, function(err, code) {
-      if (err) return callback(err);
-
-      code = "0x" + utils.toBuffer(code).toString("hex");
-      callback(null, code);
-    });
-  });
-}
-
-ForkedBlockchain.prototype.fetchBalanceFromFallback = function(address, block_number, callback) {
-  var self = this;
-  address = to.hex(address);
-
-  // Allow an optional block_number
-  if (typeof block_number == "function") {
-    callback = block_number;
-    block_number = this.fork_block_number;
-  }
-
-  this.getSafeFallbackBlockNumber(block_number, function(err, safe_block_number) {
-    if (err) return callback(err);
-
-    self.web3.eth.getBalance(address, safe_block_number, function(err, balance) {
-      if (err) return callback(err);
-
-      balance = "0x" + balance.toString(16); // BigNumber
-      callback(null, balance);
-    });
-  });
-}
-
-ForkedBlockchain.prototype.fetchNonceFromFallback = function(address, block_number, callback) {
-  var self = this;
-  address = to.hex(address);
-
-  // Allow an optional block_number
-  if (typeof block_number == "function") {
-    callback = block_number;
-    block_number = this.fork_block_number;
-  }
-
-  this.getSafeFallbackBlockNumber(block_number, function(err, safe_block_number) {
-    if (err) return callback(err);
-
-    self.web3.eth.getTransactionCount(address, safe_block_number, function(err, nonce) {
-      if (err) return callback(err);
-
-      nonce = "0x" + self.web3.toBigNumber(nonce).toString(16);
-      callback(null, nonce);
-    });
-  });
-}
-
-ForkedBlockchain.prototype.getHeight = function(callback) {
-  var self = this;
-  this.latestBlock(function(err, block) {
-    if (err) return callback(err);
-    callback(null, to.number(block.header.number));
-  });
-};
-
-ForkedBlockchain.prototype.getRelativeBlockNumber = function(number, callback) {
-  var self = this;
-  this.getEffectiveBlockNumber(number, function(err, effective) {
-    if (err) return callback(err);
-    callback(null, effective - to.number(self.fork_block_number) - 1)
-  });
-};
-
-ForkedBlockchain.prototype.getSafeFallbackBlockNumber = function(block_number, callback) {
-  var fork_block_number = to.number(this.fork_block_number);
-
-  if (block_number == null) {
-    return callback(null, fork_block_number);
-  };
-
-  this.getEffectiveBlockNumber(block_number, function(err, effective) {
-    if (effective > fork_block_number) {
-      effective = fork_block_number
-    }
-
-    callback(null, effective);
-  });
-};
-
-ForkedBlockchain.prototype.getBlockLogs = function(number, callback) {
-  var self = this;
-
-  this.getEffectiveBlockNumber(number, function(err, effective) {
-    if (err) return callback(err);
-
-    self.getRelativeBlockNumber(effective, function(err, relative) {
-      if (err) return callback(err);
-
-      if (relative < 0) {
-        self.getBlock(number, function(err, block) {
-          if (err) return callback(err);
-
-          self.web3.currentProvider.sendAsync({
-            jsonrpc: "2.0",
-            method: "eth_getLogs",
-            params: [{
-              fromBlock: to.hex(number),
-              toBlock: to.hex(number)
-            }],
-            id: new Date().getTime()
-          }, function(err, res) {
-            if (err) return callback(err);
-
-            var logs = res.result.map(function(log) {
-              // To make this result masquerade as the right information.
-              log.block = block;
-              return new Log(log);
-            });
-
-            callback(null, logs);
-          });
-        });
-      } else {
-        BlockchainDouble.prototype.getBlockLogs.call(self, relative, callback);
-      }
-    });
-  });
-};
-
-ForkedBlockchain.prototype._checkpointTrie = function() {
-  var self = this;
-
-  BlockchainDouble.prototype._checkpointTrie.call(this);
-
-  Object.keys(this.storageTrieCache).forEach(function(address) {
-    var trie = self.storageTrieCache[address];
-    trie.customCheckpoint();
-  });
-};
-
-ForkedBlockchain.prototype._revertTrie = function() {
-  var self = this;
-
-  BlockchainDouble.prototype._revertTrie.call(this);
-
-  Object.keys(this.storageTrieCache).forEach(function(address) {
-    var trie = self.storageTrieCache[address];
-
-    // We're trying to revert to a point before this trie was created.
-    // Let's just remove the trie.
-    if (trie.checkpoints.length == 0) {
-      delete self.storageTrieCache[address];
-    } else {
-      trie.customRevert();
-    }
-  });
-};
-
-module.exports = ForkedBlockchain;
-
-
-/***/ }),
-/* 156 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var MerklePatriciaTree = __webpack_require__(33);
-var Account = __webpack_require__(21);
-var utils = __webpack_require__(11)
-var inherits = __webpack_require__(0).inherits;
-var Web3 = __webpack_require__(54);
-var to = __webpack_require__(9);
-var async = __webpack_require__(5);
-
-inherits(ForkedStorageTrie, MerklePatriciaTree)
-
-function ForkedStorageTrie(db, root, options) {
-  MerklePatriciaTree.call(this, db, root);
-
-  this.address = options.address;
-
-  this.fork = options.fork;
-  this.fork_block_number = options.fork_block_number;
-
-  this.blockchain = options.blockchain;
-
-  this.web3 = new Web3();
-  this.web3.setProvider(this.fork);
-
-  this.checkpoints = [];
-}
-
-ForkedStorageTrie.prototype.keyExists = function(key, callback) {
-  key = utils.toBuffer(key);
-
-  this._findPath(key, function (err, node, remainder, stack) {
-    var exists = false;
-    if (node && remainder.length === 0) {
-      exists = true;
-    }
-    callback(err, exists)
-  })
-};
-
-// Note: This overrides a standard method whereas the other methods do not.
-ForkedStorageTrie.prototype.get = function(key, block_number, callback) {
-  var self = this;
-
-  // Allow an optional block_number
-  if (typeof block_number == "function") {
-    callback = block_number;
-    block_number = self.fork_block_number;
-  }
-
-  key = utils.toBuffer(key);
-
-  // If the account doesn't exist in our state trie, get it off the wire.
-  this.keyExists(key, function(err, exists) {
-    if (err) return callback(err);
-
-    if (exists) {
-      MerklePatriciaTree.prototype.get.call(self, key, function(err, r) {
-        callback(err, r);
-      });
-    } else {
-      // If this is the main trie, get the whole account.
-      if (self.address == null) {
-        self.blockchain.fetchAccountFromFallback(key, block_number, function(err, account) {
-          if (err) return callback(err);
-
-          callback(null, account.serialize());
-        });
-      } else {
-        self.web3.eth.getStorageAt(to.hex(self.address), to.hex(key), block_number, function(err, value) {
-          if (err) return callback(err);
-
-          value = utils.toBuffer(value);
-          value = utils.rlp.encode(value);
-
-          callback(null, value);
-        });
-      }
-    }
-  });
-};
-
-// I don't want checkpoints to be removed by commits.
-// Note: For some reason, naming this function checkpoint()
-// -- overriding the default function -- prevents it from
-// being called.
-ForkedStorageTrie.prototype.customCheckpoint = function() {
-  this.checkpoints.push(this.root);
-};
-
-ForkedStorageTrie.prototype.customRevert = function() {
-  this.root = this.checkpoints.pop();
-};
-
-module.exports = ForkedStorageTrie;
-
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports) {
-
-module.exports = {
-  // Mimics crypto.random bytes, but takes in a random number generator
-  // as its second parameter. rng is expected to be a function that takes
-  // no parameters and returns a result like Math.random().
-  // This is important because it allows for a seeded random number generator.
-  // Since this is a mock RPC library, the rng doesn't need to be cryptographically secure.
-  randomBytes: function(length, rng) {
-    var buf = [];
-
-    for (var i = 0; i < length; i++) {
-      buf.push(rng()*255);
-    }
-
-    return new Buffer(buf);
-  }
-}
-
-
-/***/ }),
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var AbstractLevelDOWN = __webpack_require__(85)
+var AbstractLevelDOWN = __webpack_require__(83)
 
 function isLevelDOWN (db) {
   if (!db || typeof db !== 'object')
@@ -47051,17 +44571,17 @@ module.exports = isLevelDOWN
 
 
 /***/ }),
-/* 159 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(160);
+module.exports = __webpack_require__(142);
 
 
 /***/ }),
-/* 160 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47069,7 +44589,7 @@ module.exports = __webpack_require__(160);
 
 var EventEmitter = __webpack_require__(16).EventEmitter,
     util = __webpack_require__(0),
-    async = __webpack_require__(161),
+    async = __webpack_require__(143),
     AsyncEventEmitter;
 
 
@@ -47246,7 +44766,7 @@ AsyncEventEmitter.prototype._beforeOrAfter = function(event, target, listener, b
 
 
 /***/ }),
-/* 161 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global setImmediate: false, setTimeout: false, console: false */
@@ -48211,7 +45731,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global setImme
 
 
 /***/ }),
-/* 162 */
+/* 144 */
 /***/ (function(module, exports) {
 
 // base-x encoding
@@ -48303,7 +45823,7 @@ module.exports = function base (ALPHABET) {
 
 
 /***/ }),
-/* 163 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__filename) {
@@ -48476,16 +45996,16 @@ exports.getRoot = function getRoot (file) {
 /* WEBPACK VAR INJECTION */}.call(exports, "/index.js"))
 
 /***/ }),
-/* 164 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assert = __webpack_require__(14)
 var createHash = __webpack_require__(17)
-var pbkdf2 = __webpack_require__(314).pbkdf2Sync
-var randomBytes = __webpack_require__(318)
-var unorm = __webpack_require__(337)
+var pbkdf2 = __webpack_require__(315).pbkdf2Sync
+var randomBytes = __webpack_require__(319)
+var unorm = __webpack_require__(338)
 
-var DEFAULT_WORDLIST = __webpack_require__(165)
+var DEFAULT_WORDLIST = __webpack_require__(147)
 
 function mnemonicToSeed(mnemonic, password) {
   var mnemonicBuffer = new Buffer(mnemonic, 'utf8')
@@ -48611,7 +46131,7 @@ module.exports = {
 
 
 /***/ }),
-/* 165 */
+/* 147 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -50666,7 +48186,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 166 */
+/* 148 */
 /***/ (function(module, exports) {
 
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
@@ -50783,7 +48303,7 @@ module.exports = {
 
 
 /***/ }),
-/* 167 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var r;
@@ -50854,10 +48374,10 @@ if (typeof self === 'object') {
 
 
 /***/ }),
-/* 168 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Sha3 = __webpack_require__(266)
+const Sha3 = __webpack_require__(267)
 
 const hashLengths = [ 224, 256, 384, 512 ]
 
@@ -50894,23 +48414,23 @@ module.exports = {
 
 
 /***/ }),
-/* 169 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var basex = __webpack_require__(162)
+var basex = __webpack_require__(144)
 var ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
 module.exports = basex(ALPHABET)
 
 
 /***/ }),
-/* 170 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var base58 = __webpack_require__(169)
+var base58 = __webpack_require__(151)
 var createHash = __webpack_require__(17)
 
 // SHA256(SHA256(buffer))
@@ -50970,14 +48490,14 @@ module.exports = {
 
 
 /***/ }),
-/* 171 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var AbstractLevelDOWN = __webpack_require__(86).AbstractLevelDOWN
+var AbstractLevelDOWN = __webpack_require__(84).AbstractLevelDOWN
 var inherits          = __webpack_require__(0).inherits
 var EventEmitter      = __webpack_require__(16).EventEmitter
-var Cache             = __webpack_require__(301)
+var Cache             = __webpack_require__(302)
 var defaultLeveldown
 
 function CacheDOWN (location, leveldown) {
@@ -51103,10 +48623,10 @@ module.exports.factory             = function factory () {
 
 
 /***/ }),
-/* 172 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Tree = __webpack_require__(68)
+const Tree = __webpack_require__(64)
 
 module.exports = CheckpointStore
 
@@ -51185,10 +48705,10 @@ CheckpointStore.prototype.toJSON = function() {
 }
 
 /***/ }),
-/* 173 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var base58 = __webpack_require__(174)
+var base58 = __webpack_require__(156)
 var createHash = __webpack_require__(17)
 
 function encode (payload, version) {
@@ -51284,7 +48804,7 @@ module.exports = {
 
 
 /***/ }),
-/* 174 */
+/* 156 */
 /***/ (function(module, exports) {
 
 // Base58 encoding/decoding
@@ -51375,7 +48895,7 @@ module.exports = {
 
 
 /***/ }),
-/* 175 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -51612,7 +49132,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 176 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -51766,7 +49286,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 177 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -51837,13 +49357,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 178 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52), __webpack_require__(179), __webpack_require__(176), __webpack_require__(36), __webpack_require__(38), __webpack_require__(66), __webpack_require__(88), __webpack_require__(195), __webpack_require__(90), __webpack_require__(196), __webpack_require__(89), __webpack_require__(194), __webpack_require__(65), __webpack_require__(190), __webpack_require__(37), __webpack_require__(7), __webpack_require__(180), __webpack_require__(182), __webpack_require__(181), __webpack_require__(184), __webpack_require__(183), __webpack_require__(185), __webpack_require__(186), __webpack_require__(187), __webpack_require__(189), __webpack_require__(188), __webpack_require__(177), __webpack_require__(175), __webpack_require__(197), __webpack_require__(193), __webpack_require__(192), __webpack_require__(191));
+		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52), __webpack_require__(161), __webpack_require__(158), __webpack_require__(36), __webpack_require__(38), __webpack_require__(62), __webpack_require__(86), __webpack_require__(177), __webpack_require__(88), __webpack_require__(178), __webpack_require__(87), __webpack_require__(176), __webpack_require__(61), __webpack_require__(172), __webpack_require__(37), __webpack_require__(7), __webpack_require__(162), __webpack_require__(164), __webpack_require__(163), __webpack_require__(166), __webpack_require__(165), __webpack_require__(167), __webpack_require__(168), __webpack_require__(169), __webpack_require__(171), __webpack_require__(170), __webpack_require__(159), __webpack_require__(157), __webpack_require__(179), __webpack_require__(175), __webpack_require__(174), __webpack_require__(173));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -51860,7 +49380,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 179 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -51941,7 +49461,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 180 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52024,7 +49544,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 181 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52145,7 +49665,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 182 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52208,7 +49728,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 183 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52253,7 +49773,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 184 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52312,7 +49832,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 185 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52366,7 +49886,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 186 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52415,7 +49935,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 187 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52460,7 +49980,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 188 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52495,7 +50015,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 189 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52545,13 +50065,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 190 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(66), __webpack_require__(65));
+		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(62), __webpack_require__(61));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -52695,7 +50215,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 191 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -52890,7 +50410,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 192 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -53087,7 +50607,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 193 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -53231,7 +50751,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 194 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -53503,13 +51023,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 195 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(88));
+		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(86));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -53588,13 +51108,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 196 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52), __webpack_require__(90));
+		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52), __webpack_require__(88));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -53676,7 +51196,7 @@ module.exports = {
 }));
 
 /***/ }),
-/* 197 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
@@ -54451,11 +51971,11 @@ module.exports = {
 }));
 
 /***/ }),
-/* 198 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var util = __webpack_require__(0)
-  , AbstractIterator = __webpack_require__(94).AbstractIterator
+  , AbstractIterator = __webpack_require__(92).AbstractIterator
 
 
 function DeferredIterator (options) {
@@ -54491,12 +52011,12 @@ module.exports = DeferredIterator;
 
 
 /***/ }),
-/* 199 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var util              = __webpack_require__(0)
-  , AbstractLevelDOWN = __webpack_require__(94).AbstractLevelDOWN
-  , DeferredIterator  = __webpack_require__(198)
+  , AbstractLevelDOWN = __webpack_require__(92).AbstractLevelDOWN
+  , DeferredIterator  = __webpack_require__(180)
 
 function DeferredLevelDOWN (location) {
   AbstractLevelDOWN.call(this, typeof location == 'string' ? location : '') // optional location, who cares?
@@ -54553,10 +52073,10 @@ module.exports.DeferredIterator = DeferredIterator
 
 
 /***/ }),
-/* 200 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var AbstractLevelDOWN = __webpack_require__(93)
+var AbstractLevelDOWN = __webpack_require__(91)
 
 function isLevelDOWN (db) {
   if (!db || typeof db !== 'object')
@@ -54573,7 +52093,7 @@ module.exports = isLevelDOWN
 
 
 /***/ }),
-/* 201 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54955,7 +52475,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 
 
 /***/ }),
-/* 202 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55395,7 +52915,7 @@ Point.prototype.mixedAdd = Point.prototype.add;
 
 
 /***/ }),
-/* 203 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55582,7 +53102,7 @@ Point.prototype.getX = function getX() {
 
 
 /***/ }),
-/* 204 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56527,7 +54047,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 
 /***/ }),
-/* 205 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56700,7 +54220,7 @@ defineCurve('ed25519', {
 
 var pre;
 try {
-  pre = __webpack_require__(212);
+  pre = __webpack_require__(194);
 } catch (e) {
   pre = undefined;
 }
@@ -56739,20 +54259,20 @@ defineCurve('secp256k1', {
 
 
 /***/ }),
-/* 206 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var BN = __webpack_require__(6);
-var HmacDRBG = __webpack_require__(259);
+var HmacDRBG = __webpack_require__(260);
 var elliptic = __webpack_require__(12);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
-var KeyPair = __webpack_require__(207);
-var Signature = __webpack_require__(208);
+var KeyPair = __webpack_require__(189);
+var Signature = __webpack_require__(190);
 
 function EC(options) {
   if (!(this instanceof EC))
@@ -56986,7 +54506,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 /***/ }),
-/* 207 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57112,7 +54632,7 @@ KeyPair.prototype.inspect = function inspect() {
 
 
 /***/ }),
-/* 208 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57254,7 +54774,7 @@ Signature.prototype.toDER = function toDER(enc) {
 
 
 /***/ }),
-/* 209 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57265,8 +54785,8 @@ var elliptic = __webpack_require__(12);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
-var KeyPair = __webpack_require__(210);
-var Signature = __webpack_require__(211);
+var KeyPair = __webpack_require__(192);
+var Signature = __webpack_require__(193);
 
 function EDDSA(curve) {
   assert(curve === 'ed25519', 'only tested with ed25519 so far');
@@ -57379,7 +54899,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
 
 
 /***/ }),
-/* 210 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57482,7 +55002,7 @@ module.exports = KeyPair;
 
 
 /***/ }),
-/* 211 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57555,7 +55075,7 @@ module.exports = Signature;
 
 
 /***/ }),
-/* 212 */
+/* 194 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -58341,7 +55861,7 @@ module.exports = {
 
 
 /***/ }),
-/* 213 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58468,7 +55988,7 @@ utils.intFromLE = intFromLE;
 
 
 /***/ }),
-/* 214 */
+/* 196 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -58596,10 +56116,10 @@ module.exports = {
 };
 
 /***/ }),
-/* 215 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var prr = __webpack_require__(216)
+var prr = __webpack_require__(198)
 
 function init (type, message, cause) {
   prr(this, {
@@ -58657,7 +56177,7 @@ module.exports = function (errno) {
 
 
 /***/ }),
-/* 216 */
+/* 198 */
 /***/ (function(module, exports) {
 
 /*!
@@ -58725,7 +56245,7 @@ module.exports = function (errno) {
 })
 
 /***/ }),
-/* 217 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -58752,7 +56272,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 218 */
+/* 200 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -67652,7 +65172,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 219 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -67886,7 +65406,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 220 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const SHA3 = __webpack_require__(39)
@@ -68593,11 +66113,11 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
-/* 221 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(97)
-const params = __webpack_require__(96)
+const utils = __webpack_require__(95)
+const params = __webpack_require__(94)
 const BN = utils.BN
   /**
    * An object that repersents the block header
@@ -68840,14 +66360,14 @@ BlockHeader.prototype.isHomestead = function () {
 
 
 /***/ }),
-/* 222 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(223)
+module.exports = __webpack_require__(205)
 
 
 /***/ }),
-/* 223 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -69081,7 +66601,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 224 */
+/* 206 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -69090,13 +66610,13 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 224;
+webpackEmptyContext.id = 206;
 
 /***/ }),
-/* 225 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Tree = __webpack_require__(68)
+const Tree = __webpack_require__(64)
 const Account = __webpack_require__(21)
 const async = __webpack_require__(22)
 
@@ -69250,10 +66770,10 @@ Cache.prototype._update = function (key, val, modified, exists) {
 
 
 /***/ }),
-/* 226 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var utils = __webpack_require__(10)
+var utils = __webpack_require__(9)
 
 module.exports = {
   getBlock: function (n, cb) {
@@ -69271,15 +66791,15 @@ module.exports = {
 
 
 /***/ }),
-/* 227 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const inherits = __webpack_require__(0).inherits
 const async = __webpack_require__(22)
-const ethUtil = __webpack_require__(10)
+const ethUtil = __webpack_require__(9)
 const Account = __webpack_require__(21)
-const FakeMerklePatriciaTree = __webpack_require__(249)
-const VM = __webpack_require__(101)
+const FakeMerklePatriciaTree = __webpack_require__(231)
+const VM = __webpack_require__(99)
 const ZERO_BUFFER = new Buffer('0000000000000000000000000000000000000000000000000000000000000000', 'hex')
 
 module.exports = createHookedVm
@@ -69457,10 +66977,10 @@ FallbackAsyncStore.prototype.set = function (address, code, cb) {
 
 
 /***/ }),
-/* 228 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const pow32 = new BN('010000000000000000000000000000000000000000000000000000000000000000', 16)
 const pow31 = new BN('0100000000000000000000000000000000000000000000000000000000000000', 16)
@@ -69567,15 +67087,15 @@ module.exports = function (a) {
 
 
 /***/ }),
-/* 229 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(22)
 const fees = __webpack_require__(27)
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const constants = __webpack_require__(31)
-const logTable = __webpack_require__(228)
+const logTable = __webpack_require__(210)
 const ERROR = constants.ERROR
 const MAX_INT = 9007199254740991
 
@@ -70452,7 +67972,7 @@ function makeCall (runState, callOptions, localOpts, cb) {
 
 
 /***/ }),
-/* 230 */
+/* 212 */
 /***/ (function(module, exports) {
 
 const codes = {
@@ -70636,10 +68156,10 @@ module.exports = function (op, full) {
 
 
 /***/ }),
-/* 231 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const error = __webpack_require__(31).ERROR
 const fees = __webpack_require__(27)
@@ -70678,10 +68198,10 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 232 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const error = __webpack_require__(31).ERROR
 const fees = __webpack_require__(27)
@@ -70708,10 +68228,10 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 233 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const error = __webpack_require__(31).ERROR
 const fees = __webpack_require__(27)
@@ -70738,10 +68258,10 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 234 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const fees = __webpack_require__(27)
 const error = __webpack_require__(31).ERROR
@@ -70768,12 +68288,12 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 235 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(22)
-const ethUtil = __webpack_require__(10)
-const Bloom = __webpack_require__(100)
+const ethUtil = __webpack_require__(9)
+const Bloom = __webpack_require__(98)
 const common = __webpack_require__(27)
 const rlp = ethUtil.rlp
 const Trie = __webpack_require__(33)
@@ -70983,7 +68503,7 @@ module.exports = function (opts, cb) {
 
 
 /***/ }),
-/* 236 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(22)
@@ -71053,11 +68573,11 @@ module.exports = function (blockchain, cb) {
 
 
 /***/ }),
-/* 237 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(22)
-const ethUtil = __webpack_require__(10)
+const ethUtil = __webpack_require__(9)
 const BN = ethUtil.BN
 const fees = __webpack_require__(27)
 const constants = __webpack_require__(31)
@@ -71250,7 +68770,7 @@ module.exports = function (opts, cb) {
 
 
 /***/ }),
-/* 238 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -71267,10 +68787,10 @@ not all stack items are 32 bytes, so if the operation realies on the stack
 item length then you must use utils.pad(<item>, 32) first.
 */
 const async = __webpack_require__(22)
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const Block = __webpack_require__(26)
-const lookupOpInfo = __webpack_require__(230)
-const opFns = __webpack_require__(229)
+const lookupOpInfo = __webpack_require__(212)
+const opFns = __webpack_require__(211)
 const constants = __webpack_require__(31)
 const setImmediate = __webpack_require__(385).setImmediate
 const BN = utils.BN
@@ -71520,7 +69040,7 @@ function preprocessValidJumps (runState) {
 
 
 /***/ }),
-/* 239 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function (opts, cb) {
@@ -71543,13 +69063,13 @@ module.exports = function (opts, cb) {
 
 
 /***/ }),
-/* 240 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(22)
-const utils = __webpack_require__(10)
+const utils = __webpack_require__(9)
 const BN = utils.BN
-const Bloom = __webpack_require__(100)
+const Bloom = __webpack_require__(98)
 const Block = __webpack_require__(26)
 
 /**
@@ -71759,16 +69279,16 @@ function txLogsBloom (logs) {
 
 
 /***/ }),
-/* 241 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Trie = __webpack_require__(308)
+const Trie = __webpack_require__(309)
 const common = __webpack_require__(27)
 const async = __webpack_require__(22)
 const Account = __webpack_require__(21)
-const fakeBlockchain = __webpack_require__(226)
-const Cache = __webpack_require__(225)
-const utils = __webpack_require__(10)
+const fakeBlockchain = __webpack_require__(208)
+const Cache = __webpack_require__(207)
+const utils = __webpack_require__(9)
 const BN = utils.BN
 const rlp = utils.rlp
 
@@ -72071,7 +69591,7 @@ proto.generateGenesis = function (initState, cb) {
 
 
 /***/ }),
-/* 242 */
+/* 224 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -72098,7 +69618,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 243 */
+/* 225 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -80998,7 +78518,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 244 */
+/* 226 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -81236,11 +78756,11 @@ module.exports = {
 };
 
 /***/ }),
-/* 245 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const HDKey = __webpack_require__(256)
-const Wallet = __webpack_require__(246)
+const HDKey = __webpack_require__(257)
+const Wallet = __webpack_require__(228)
 
 function EthereumHDKey () {
 }
@@ -81294,14 +78814,14 @@ module.exports = EthereumHDKey
 
 
 /***/ }),
-/* 246 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ethUtil = __webpack_require__(247)
+var ethUtil = __webpack_require__(229)
 var crypto = __webpack_require__(25)
-var scryptsy = __webpack_require__(321)
-var uuid = __webpack_require__(341)
-var bs58check = __webpack_require__(170)
+var scryptsy = __webpack_require__(322)
+var uuid = __webpack_require__(342)
+var bs58check = __webpack_require__(152)
 
 function assert (val, msg) {
   if (!val) {
@@ -81593,7 +79113,7 @@ module.exports = Wallet
 
 
 /***/ }),
-/* 247 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const SHA3 = __webpack_require__(39)
@@ -82300,14 +79820,14 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
-/* 248 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var isHexPrefixed = __webpack_require__(102);
-var stripHexPrefix = __webpack_require__(335);
+var stripHexPrefix = __webpack_require__(336);
 
 /**
  * Pads a `String` to have an even length
@@ -82526,10 +80046,10 @@ module.exports = {
 };
 
 /***/ }),
-/* 249 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const CheckpointStore = __webpack_require__(172)
+const CheckpointStore = __webpack_require__(154)
 const ZERO_ROOT = '0000000000000000000000000000000000000000000000000000000000000000'
 
 module.exports = FakeTree
@@ -82627,7 +80147,2830 @@ function callAsync(fn, a, b){
 }
 
 /***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var LevelUpArrayAdapter = __webpack_require__(237);
+var LevelUpObjectAdapter = __webpack_require__(238);
+var levelup = __webpack_require__(73);
+var filedown = __webpack_require__(236);
+var cachedown = __webpack_require__(153);
+var Sublevel = __webpack_require__(69);
+var Block = __webpack_require__(26);
+var txserializer = __webpack_require__(100);
+var blockserializer = __webpack_require__(234);
+var bufferserializer = __webpack_require__(235);
+var BlockLogsSerializer = __webpack_require__(233);
+var ReceiptSerializer = __webpack_require__(239);
+var to = __webpack_require__(10);
+var utils = __webpack_require__(11);
+var FakeTransaction = __webpack_require__(46);
+var tmp = __webpack_require__(337);
+
+function Database(options) {
+  this.options = options;
+};
+
+Database.prototype.initialize = function(callback) {
+  var self = this;
+
+  function getDir(cb) {
+    if (self.options.db_path) {
+      cb(null, self.options.db_path);
+    } else {
+      tmp.dir(cb);
+    }
+  }
+
+  getDir(function(err, directory) {
+    if (err) return callback(err);
+
+    levelup(directory, {
+      valueEncoding: "json",
+      db: function (location) {
+        // This cache size was chosen from a plethora of hand testing.
+        // It seems a not-too-large cache (100) size is the right amount.
+        // When higher (say 10000), it seems the benefits wear off.
+        // See /perf/transactions.js for a benchmark.
+        return cachedown(location, filedown).maxSize(100);
+      }
+    }, finishInitializing)
+  });
+
+  function finishInitializing(err, db) {
+    if (err) return callback(err);
+
+    self.db = db;
+
+    // Blocks, keyed by array index (not necessarily by block number) (0-based)
+    self.blocks = new LevelUpArrayAdapter("blocks", self.db, blockserializer);
+
+    // Logs triggered in each block, keyed by block id (ids in the blocks array; not necessarily block number) (0-based)
+    self.blockLogs = new LevelUpArrayAdapter("blockLogs", self.db, new BlockLogsSerializer(self));
+
+    // Block hashes -> block ids (ids in the blocks array; not necessarily block number) for quick lookup
+    self.blockHashes = new LevelUpObjectAdapter("blockHashes", self.db);
+
+    // Transaction hash -> transaction objects
+    self.transactions = new LevelUpObjectAdapter("transactions", self.db, txserializer);
+
+    // Transaction hash -> transaction receipts
+    self.transactionReceipts = new LevelUpObjectAdapter("transactionReceipts", self.db, new ReceiptSerializer(self));
+
+    self.trie_db = new LevelUpObjectAdapter("trie_db", self.db, bufferserializer, bufferserializer);
+
+    callback();
+  };
+};
+
+Database.prototype.close = function(callback) {
+  callback();
+};
+
+module.exports = Database;
+
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+var Log = __webpack_require__(66);
+var async = __webpack_require__(5);
+
+function BlockLogsSerializer(database) {
+  this.database = database;
+};
+
+BlockLogsSerializer.prototype.encode = function(logs, done) {
+  logs = logs.map(function(log) {
+    return log.toJSON();
+  });
+
+  done(null, logs);
+};
+
+BlockLogsSerializer.prototype.decode = function(json, done) {
+  var self = this;
+
+  if (json.length == 0) {
+    return done(null, []);
+  }
+
+  this.database.blockHashes.get(json[0].blockHash, function(err, blockIndex) {
+    if (err) return done(err);
+
+    self.database.blocks.get(blockIndex, function(err, block) {
+      if (err) return done(err);
+
+      async.map(json, function(log, finished) {
+        finished(null, new Log({
+          block: block,
+          logIndex: log.logIndex,
+          transactionIndex: log.transactionIndex,
+          transactionHash: log.transactionHash,
+          address: log.address,
+          data: log.data,
+          topics: log.topics,
+          type: log.type
+        }));
+      }, function(err, logs) {
+        if (err) return done(err);
+        done(null, logs)
+      });
+    });
+  });
+};
+
+module.exports = BlockLogsSerializer;
+
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+var txserializer = __webpack_require__(100);
+var async = __webpack_require__(5);
+var Block = __webpack_require__(26);
+
+module.exports = {
+  encode: function(block, done) {
+    var encoded = block.toJSON(true);
+
+    async.map(block.transactions, function(tx, finished) {
+      txserializer.encode(tx, finished);
+    }, function(err, transactions) {
+      if (err) return done(err);
+      encoded.transactions = transactions;
+      done(null, encoded);
+    });
+  },
+  decode: function(json, done) {
+    var transactions = json.transactions;
+    json.transactions = [];
+
+    var block = new Block(json);
+
+    async.eachSeries(transactions, function(tx_json, finished) {
+      txserializer.decode(tx_json, function(err, tx) {
+        if (err) return finished(err);
+        block.transactions.push(tx);
+        finished();
+      });
+    }, function(err) {
+      if (err) return done(err);
+
+      done(null, block);
+    });
+  }
+}
+
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var utils = __webpack_require__(11);
+var to = __webpack_require__(10);
+
+module.exports = {
+  encode: function(val, cb) {
+    var hex = to.hex(val);
+    cb(null, hex);
+  },
+  decode: function(json, cb) {
+    cb(null, utils.toBuffer(json))
+  }
+};
+
+
+/***/ }),
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var util = __webpack_require__(0);
+var AbstractLevelDOWN = __webpack_require__(84).AbstractLevelDOWN;
+var async = __webpack_require__(5);
+var fs = __webpack_require__(44);
+var path = __webpack_require__(51);
+
+util.inherits(FileDown, AbstractLevelDOWN)
+
+function FileDown (location) {
+  this.location = location;
+  AbstractLevelDOWN.call(this, location)
+}
+
+FileDown.prototype._open = function (options, callback) {
+  var self = this;
+  callback(null, self);
+}
+
+FileDown.prototype._put = function (key, value, options, callback) {
+  var self = this;
+  fs.writeFile(path.join(this.location, key), value, "utf8", callback);
+}
+
+FileDown.prototype._get = function (key, options, callback) {
+  fs.readFile(path.join(this.location, key), "utf8", function(err, data) {
+    if (err) {
+      return callback(new Error("NotFound"));
+    }
+    callback(null, data);
+  });
+}
+
+FileDown.prototype._del = function (key, options, callback) {
+  fs.unlink(path.join(this.location, key), function(err) {
+    // Ignore when we try to delete a file that doesn't exist.
+    // I'm not sure why this happens. Worth looking into.
+    if (err) {
+      if (err.message.indexOf("ENOENT") >= 0) {
+        return callback();
+      } else {
+        return callback(err);
+      }
+    }
+    callback();
+  });
+}
+
+FileDown.prototype._batch = function(array, options, callback) {
+  var self = this;
+  async.each(array, function(item, finished) {
+    if (item.type == "put") {
+      self.put(item.key, item.value, options, finished);
+    } else if (item.type == "del") {
+      self.del(item.key, options, finished);
+    } else {
+      finished(new Error("Unknown batch type", item.type));
+    }
+  }, function(err) {
+    if (err) return callback(err);
+    callback();
+  });
+}
+
+module.exports = function(location) {
+  return new FileDown(location);
+};
+
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Sublevel = __webpack_require__(69);
+
+// Level up adapter that looks like an array. Doesn't support inserts.
+
+function LevelUpArrayAdapter(name, db, serializer) {
+  this.db = Sublevel(db);
+  this.db = this.db.sublevel(name);
+  this.name = name;
+  this.serializer = serializer || {
+    encode: function(val, callback) { callback(null, val); },
+    decode: function(val, callback) { callback(null, val); }
+  };
+};
+
+LevelUpArrayAdapter.prototype.length = function(callback) {
+  this.db.get("length", function(err, result) {
+    if (err) {
+      if (err.notFound) {
+        return callback(null, 0);
+      } else {
+        return callback(err);
+      }
+    }
+
+    callback(null, result);
+  });
+};
+
+LevelUpArrayAdapter.prototype._get = function(key, callback) {
+  var self = this;
+  this.db.get(key, function(err, val) {
+    if (err) return callback(err);
+    self.serializer.decode(val, callback);
+  });
+};
+
+LevelUpArrayAdapter.prototype._put = function(key, value, callback) {
+  var self = this;
+  this.serializer.encode(value, function(err, encoded) {
+    if (err) return callback(err);
+    self.db.put(key, encoded, callback);
+  });
+};
+
+LevelUpArrayAdapter.prototype.get = function(index, callback) {
+  var self = this;
+
+  this.length(function(err, length) {
+    if (err) return callback(err);
+    if (index >= length) {
+      return callback(new Error("LevelUpArrayAdapter named '" + self.name + "' index out of range: index " + index + "; length: " + length));
+    }
+    self._get(index, callback);
+  });
+};
+
+LevelUpArrayAdapter.prototype.push = function(val, callback) {
+  var self = this;
+  this.length(function(err, length) {
+    if (err) return callback(err);
+
+    // TODO: Do this in atomic batch.
+    self._put(length + "", val, function(err) {
+      if (err) return callback(err);
+      self.db.put("length", length + 1, callback);
+    });
+  });
+};
+
+LevelUpArrayAdapter.prototype.pop = function(callback) {
+  var self = this;
+
+  this.length(function(err, length) {
+    if (err) return callback(err);
+
+    var newLength = length - 1;
+
+    // TODO: Do this in atomic batch.
+    self._get(newLength + "", function(err, val) {
+      if (err) return callback(err);
+      self.db.del(newLength + "", function(err) {
+        if (err) return callback(err);
+        self.db.put("length", newLength, function(err) {
+          if (err) return callback(err);
+
+          callback(null, val);
+        });
+      });
+    });
+  });
+};
+
+LevelUpArrayAdapter.prototype.last = function(callback) {
+  var self = this;
+  this.length(function(err, length) {
+    if (err) return callback(err);
+
+    if (length == 0) return callback(null, null);
+
+    self._get((length - 1) + "", callback);
+  });
+};
+
+LevelUpArrayAdapter.prototype.first = function(callback) {
+  this._get("0", callback);
+};
+
+module.exports = LevelUpArrayAdapter;
+
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Sublevel = __webpack_require__(69);
+var async = __webpack_require__(5);
+
+function LevelUpObjectAdapter(name, db, valueserializer, keyserializer, options) {
+  this.db = Sublevel(db, options);
+  this.db = this.db.sublevel(name);
+  this.name = name;
+  this.valueserializer = valueserializer || {
+    encode: function(val, callback) { callback(null, val); },
+    decode: function(val, callback) { callback(null, val); }
+  };
+  this.keyserializer = keyserializer || {
+    encode: function(val, callback) { callback(null, val); },
+    decode: function(val, callback) { callback(null, val); }
+  };
+};
+
+LevelUpObjectAdapter.prototype.get = function(key, options, callback) {
+  var self = this;
+
+  if (typeof options == "function") {
+    callback = options;
+    options = {};
+  }
+
+  this.keyserializer.encode(key, function(err, encodedKey) {
+    if (err) return callback(err);
+
+    self.db.get(encodedKey, function(err, val) {
+      if (err) return callback(err);
+
+      self.valueserializer.decode(val, function(err, decodedValue) {
+        if (err) return callback(err);
+
+        callback(null, decodedValue);
+      });
+    });
+  });
+};
+
+LevelUpObjectAdapter.prototype.put = function(key, value, options, callback) {
+  var self = this;
+
+  if (typeof options == "function") {
+    callback = options;
+    options = {};
+  }
+
+  this.keyserializer.encode(key, function(err, encodedKey) {
+    if (err) return callback(err);
+
+    self.valueserializer.encode(value, function(err, encoded) {
+      if (err) return callback(err);
+
+      self.db.put(encodedKey, encoded, callback);
+    });
+  });
+};
+
+LevelUpObjectAdapter.prototype.set = LevelUpObjectAdapter.prototype.put;
+
+LevelUpObjectAdapter.prototype.del = function(key, callback) {
+  var self = this;
+
+  this.keyserializer.encode(key, function(err, encodedKey) {
+    if (err) return callback(err);
+
+    self.db.del(encodedKey, callback);
+  });
+}
+
+LevelUpObjectAdapter.prototype.batch = function(array, options, callback) {
+  var self = this;
+
+  async.each(array, function(item, finished) {
+    if (item.type == "put") {
+      self.put(item.key, item.value, options, finished);
+    } else if (item.type == "del") {
+      self.del(item.key, finished);
+    } else {
+      finished(new Error("Unknown batch type", item.type));
+    }
+  }, function(err) {
+    if (err) return callback(err);
+    callback();
+  });
+};
+
+LevelUpObjectAdapter.prototype.isOpen = function() {
+  return true;
+}
+
+module.exports = LevelUpObjectAdapter;
+
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var to = __webpack_require__(10);
+var Receipt = __webpack_require__(67);
+var async = __webpack_require__(5);
+
+function ReceiptSerializer(database) {
+  this.database = database;
+};
+
+ReceiptSerializer.prototype.encode = function(receipt, done) {
+  done(null, receipt.toJSON());
+};
+
+ReceiptSerializer.prototype.decode = function(json, done) {
+  var self = this;
+
+  this.database.transactions.get(json.transactionHash, function(err, tx) {
+    if (err) return done(err);
+
+    self.database.blockHashes.get(json.blockHash, function(err, blockIndex) {
+      if (err) return done(err);
+
+      async.parallel({
+        block: self.database.blocks.get.bind(self.database.blocks, blockIndex),
+        logs: self.database.blockLogs.get.bind(self.database.blockLogs, blockIndex)
+      }, function(err, result) {
+        if (err) return done(err);
+
+        done(null, new Receipt(tx, result.block, result.logs, json.gasUsed, json.contractAddress));
+      });
+    });
+  });
+};
+
+module.exports = ReceiptSerializer;
+
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var http = __webpack_require__(59);
+var Provider = __webpack_require__(139);
+
+module.exports = {
+  create: function(options) {
+    if (options == null) {
+      options = {};
+    }
+
+    if (options.logger == null) {
+      options.logger = {
+        log: function() {}
+      };
+    }
+
+    var logger = options.logger;
+    var provider = new Provider(options);
+    var server = http.createServer(function(request, response) {
+
+      var headers = request.headers;
+      var method = request.method;
+      var url = request.url;
+      var body = [];
+
+      request.on('error', function(err) {
+        // console.error(err);
+      }).on('data', function(chunk) {
+        body.push(chunk);
+      }).on('end', function() {
+        body = Buffer.concat(body).toString();
+        // At this point, we have the headers, method, url and body, and can now
+        // do whatever we need to in order to respond to this request.
+
+        var headers = {
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "*"
+        };
+
+        switch (method) {
+          case "OPTIONS":
+            headers["Content-Type"] = "text/plain"
+            response.writeHead(200, headers);
+            response.end("");
+            break;
+          case "POST":
+            //console.log("Request coming in:", body);
+
+            var payload;
+            try {
+              payload = JSON.parse(body);
+            } catch(e) {
+              headers["Content-Type"] = "text/plain";
+              response.writeHead(400, headers);
+              response.end("400 Bad Request");
+              return;
+            }
+
+            // Log messages that come into the TestRPC via http
+            if (payload instanceof Array) {
+              // Batch request
+              for (var i = 0; i < payload.length; i++) {
+                var item = payload[i];
+                logger.log(item.method);
+              }
+            } else {
+              logger.log(payload.method);
+            }
+
+            provider.sendAsync(payload, function(err, result) {
+              headers["Content-Type"] = "application/json";
+              response.writeHead(200, headers);
+              response.end(JSON.stringify(result));
+            });
+
+            break;
+          default:
+            response.writeHead(400, {
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "*",
+              "Content-Type": "text/plain"
+            });
+            response.end("400 Bad Request");
+            break;
+        }
+      });
+    });
+
+    var oldListen = server.listen;
+
+    server.listen = function() {
+      var args = Array.prototype.slice.call(arguments);
+      var callback = function() {};
+      if (args.length > 0) {
+        var last = args[args.length - 1];
+        if (typeof last == "function") {
+          callback = args.pop();
+        }
+      }
+
+      var intermediary = function(err) {
+        if (err) return callback(err);
+        server.provider.manager.waitForInitialization(function(err, accounts) {
+          callback(err, accounts);
+        });
+      };
+
+      args.push(intermediary);
+
+      oldListen.apply(server, args);
+    }
+
+    server.provider = provider;
+
+    var oldClose = server.close;
+
+    server.close = function(callback) {
+      var args = Array.prototype.slice.call(arguments);
+      server.provider.close(function(err) {
+        if (err) return callback(err);
+        oldClose.apply(server, args);
+      });
+    };
+
+    return server;
+  }
+};
+
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Account = __webpack_require__(21);
+var Block = __webpack_require__(26);
+var VM = __webpack_require__(63);
+var RuntimeError = __webpack_require__(101);
+var Trie = __webpack_require__(33);
+var FakeTransaction = __webpack_require__(46);
+var utils = __webpack_require__(11);
+var seedrandom = __webpack_require__(327);
+var bip39 = __webpack_require__(146);
+var hdkey = __webpack_require__(227);
+var async = __webpack_require__(5);
+var BlockchainDouble = __webpack_require__(65);
+var ForkedBlockchain = __webpack_require__(247);
+var Web3 = __webpack_require__(54);
+var async = __webpack_require__(5);
+
+var to = __webpack_require__(10);
+var random = __webpack_require__(249);
+var txhelper = __webpack_require__(68);
+
+StateManager = function(options) {
+  var self = this;
+
+  if (options == null) {
+    options = {};
+  }
+
+  if (options.fork) {
+    this.blockchain = new ForkedBlockchain(options);
+  } else {
+    this.blockchain = new BlockchainDouble(options);
+  }
+
+  this.vm = this.blockchain.vm;
+  this.stateTrie = this.blockchain.stateTrie;
+
+  this.accounts = {};
+  this.secure = !!options.secure;
+  this.total_accounts = options.total_accounts || 10;
+  this.coinbase = null;
+
+  this.latest_filter_id = 1;
+
+  // This queue manages actions that shouldn't be run in parallel.
+  // The action_processing flag ensures new actions are queued instead of
+  // run immediately.
+  this.action_queue = [];
+  this.action_processing == false;
+
+  this.snapshots = [];
+  this.logger = options.logger || console;
+  this.net_version = options.network_id;
+  this.rng = seedrandom(options.seed);
+  this.mnemonic = options.mnemonic || bip39.entropyToMnemonic(random.randomBytes(16, this.rng));
+  this.wallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(this.mnemonic));
+  this.wallet_hdpath = "m/44'/60'/0'/0/";
+
+  this.gasPriceVal = '0x4A817C800'; // 0.02 szabo
+
+  if (options.gasPrice) {
+    this.gasPriceVal = utils.stripHexPrefix(utils.intToHex(options.gasPrice));
+  }
+
+  this.is_mining = true;
+  this.blocktime = options.blocktime;
+  this.is_mining_on_interval = !!options.blocktime;
+  this.mining_interval_timeout = null;
+}
+
+StateManager.prototype.initialize = function(options, callback) {
+  var self = this;
+
+  var accounts = [];
+
+  if (options.accounts) {
+    accounts = options.accounts.map(this.createAccount.bind(this));
+  } else {
+    for (var i = 0; i < this.total_accounts; i++) {
+      accounts.push(self.createAccount({
+        index: i
+      }));
+    }
+  }
+
+  this.coinbase = to.hex(accounts[0].address);
+  this.accounts = {};
+
+  accounts.forEach(function(data) {
+    self.accounts[data.address] = data;
+  });
+
+  // Turn array into object, mostly for speed purposes.
+  // No need for caller to specify private keys.
+  this.unlocked_accounts = (options.unlocked_accounts || []).reduce(function(obj, address) {
+    // If it doesn't have a hex prefix, must be a number (either a string or number type).
+    if ((address + "").indexOf("0x") != 0) {
+      address = accounts[parseInt(address)].address;
+    }
+
+    obj[address.toLowerCase()] = true; // can be any value
+    return obj;
+  }, {});
+
+  if (!this.secure) {
+    accounts.forEach(function(data) {
+      self.unlocked_accounts[data.address] = data;
+    });
+  }
+
+  this.blockchain.initialize(accounts, function(err) {
+    if (err) return callback(err);
+
+    // If the user didn't pass a specific version id in, then use the
+    // forked blockchain's version (if it exists) or create our own.
+    if (!self.net_version) {
+      self.net_version = self.blockchain.fork_version || new Date().getTime();
+    }
+
+    if (self.is_mining_on_interval) {
+      self.mineOnInterval();
+    }
+
+    callback();
+  });
+};
+
+StateManager.prototype.mineOnInterval = function() {
+  var self = this;
+
+  // For good measure.
+  clearTimeout(this.mining_interval_timeout);
+  this.mining_interval_timeout = null;
+
+  this.mining_interval_timeout = setTimeout(function() {
+    // Only process one block.
+    self.processBlocks(1, function(err) {
+      // Note: Errors are ignored as they're printed to the log
+      // After processing this block, queue up processing the next block.
+      self.mineOnInterval();
+    });
+  }, this.blocktime * 1000);
+
+  // Ensure this won't keep a node process open.
+  if (this.mining_interval_timeout.unref) {
+    this.mining_interval_timeout.unref();
+  }
+};
+
+StateManager.prototype.createAccount = function(opts) {
+  var secretKey;
+  var balance;
+
+  if (opts.secretKey) {
+    secretKey = utils.toBuffer(to.hex(opts.secretKey));
+  } else {
+    var acct = this.wallet.derivePath(this.wallet_hdpath + opts.index) // index is a number
+    secretKey = acct.getWallet().getPrivateKey() // Buffer
+  }
+
+  var publicKey = utils.privateToPublic(secretKey);
+  var address = utils.publicToAddress(publicKey);
+
+  var account = new Account();
+
+  if (opts.balance) {
+    account.balance = to.hex(opts.balance)
+  } else {
+    account.balance = "0x0000000000000056bc75e2d63100000";
+  }
+
+  var data = {
+    secretKey: secretKey,
+    publicKey: publicKey,
+    address: to.hex(address),
+    account: account
+  };
+
+  return data;
+};
+
+StateManager.prototype.blockNumber = function(callback) {
+  return this.blockchain.getHeight(callback);
+};
+
+StateManager.prototype.gasPrice = function() {
+  return this.gasPriceVal;
+}
+
+StateManager.prototype.getBalance = function(address, number, callback) {
+  this.blockchain.getBalance(address, number, function(err, balance) {
+    if (balance) {
+      balance = to.hex(balance);
+    }
+    callback(err, balance);
+  });
+}
+
+StateManager.prototype.getTransactionCount = function(address, number, callback) {
+  this.blockchain.getNonce(address, number, function(err, nonce) {
+    if (nonce) {
+      nonce = to.hex(nonce);
+    }
+    callback(err, nonce);
+  });
+}
+
+StateManager.prototype.getCode = function(address, number, callback) {
+  this.blockchain.getCode(address, number, function(err, code) {
+    if (code) {
+      code = to.hex(code);
+    }
+    callback(err, code);
+  });
+}
+
+StateManager.prototype.queueRawTransaction = function(rawTx, callback) {
+  var data = new Buffer(utils.stripHexPrefix(rawTx), 'hex');
+
+  var tx = new FakeTransaction(data);
+  var txParams = {
+    from:     tx.from.toString('hex'),
+    to:       tx.to.toString('hex'),
+    gas:      tx.gasLimit.toString('hex'),
+    gasPrice: tx.gasPrice.toString('hex'),
+    value:    tx.value.toString('hex'),
+    data:     tx.data.toString('hex'),
+    nonce:    tx.nonce.toString('hex'),
+  }
+
+  this.queueTransaction("eth_sendRawTransaction", txParams, callback);
+};
+
+StateManager.prototype.queueStorage = function(address, position, block, callback) {
+  this.action_queue.push({
+    method: "eth_getStorageAt",
+    address: utils.addHexPrefix(address),
+    position: utils.addHexPrefix(position),
+    block: block,
+    callback: callback
+  });
+
+  // We know there's work, so get started.
+  this.processNextAction();
+}
+
+StateManager.prototype.queueTransaction = function(method, tx_params, callback) {
+  if (tx_params.from == null) {
+    callback(new Error("from not found; is required"));
+    return;
+  }
+
+  // use toLowerCase() to properly handle from addresses meant to be validated.
+  tx_params.from = utils.addHexPrefix(tx_params.from).toLowerCase();
+
+  if (method == "eth_sendTransaction" && this.unlocked_accounts[tx_params.from] == null) {
+    return callback(new Error("could not unlock signer account"));
+  }
+
+  var rawTx = {
+      gasPrice: "0x1",
+      gasLimit: this.blockchain.defaultTransactionGasLimit,
+      value: '0x0',
+      data: ''
+  };
+
+  if (tx_params.gas != null) {
+    rawTx.gasLimit = utils.addHexPrefix(tx_params.gas);
+  }
+
+  if (tx_params.gasPrice != null) {
+    rawTx.gasPrice = utils.addHexPrefix(tx_params.gasPrice);
+  }
+
+  if (tx_params.to != null) {
+    rawTx.to = utils.addHexPrefix(tx_params.to);
+  }
+
+  if (tx_params.value != null) {
+    rawTx.value = utils.addHexPrefix(tx_params.value);
+  }
+
+  if (tx_params.data != null) {
+    rawTx.data = utils.addHexPrefix(tx_params.data);
+  }
+
+  if (tx_params.nonce != null) {
+    rawTx.nonce = utils.addHexPrefix(tx_params.nonce);
+  }
+
+  // Error checks
+  if (rawTx.to && typeof rawTx.to != "string") {
+    return callback(new Error("Invalid to address"));
+  }
+
+  // If the transaction has a higher gas limit than the block gas limit, error.
+  if (to.number(rawTx.gasLimit) > to.number(this.blockchain.blockGasLimit)) {
+    return callback(new Error("Exceeds block gas limit"));
+  }
+
+  // Get the nonce for this address, taking account any transactions already queued.
+  var self = this;
+  var address = utils.toBuffer(tx_params.from);
+  this.blockchain.getQueuedNonce(address, function(err, nonce) {
+    // If the user specified a nonce, use that instead.
+    if (rawTx.nonce == null) {
+      rawTx.nonce = to.hex(nonce);
+    }
+
+    // Edit: Why is this here?
+    if (rawTx.to == '0x0') {
+      delete rawTx.to
+    }
+
+    var tx = new FakeTransaction(rawTx);
+    tx.from = address;
+
+    self.action_queue.push({
+      method: method,
+      from: tx_params.from,
+      tx: tx,
+      callback: callback
+    });
+
+    // We know there's work, so get started.
+    self.processNextAction();
+  });
+};
+
+StateManager.prototype.queueTransactionTrace = function(tx_hash, params, callback) {
+  this.action_queue.push({
+    method: "debug_traceTransaction",
+    hash: to.hex(tx_hash),
+    params: params,
+    callback: callback
+  });
+
+  // We know there's work, so get started.
+  this.processNextAction();
+};
+
+StateManager.prototype.processNextAction = function(override) {
+  var self = this;
+
+  if (override != true) {
+    if (this.action_processing == true || this.action_queue.length == 0) {
+      return;
+    }
+  }
+
+  var queued = this.action_queue.shift();
+
+  // Set the flag that we're currently processing something.
+  this.action_processing = true;
+
+  var intermediary = function(err, result) {
+    queued.callback(err, result);
+
+    if (self.action_queue.length > 0) {
+      self.processNextAction(true);
+    } else {
+      self.action_processing = false;
+    }
+  };
+
+  if (queued.method == "eth_getStorageAt") {
+    this.blockchain.getStorage(queued.address, queued.position, queued.block, function(err, result) {
+      if (err) return intermediary(err);
+
+      if (result) {
+        result = utils.rlp.decode(result);
+      }
+
+      result = to.hex(result || 0);
+      intermediary(null, result);
+    });
+  } else if (queued.method == "debug_traceTransaction") {
+    this.blockchain.processTransactionTrace(queued.hash, queued.params, intermediary);
+  } else if (queued.method == "eth_sendTransaction" || queued.method == "eth_sendRawTransaction") {
+    this.processTransaction(queued.from, queued.tx, intermediary);
+  }
+};
+
+StateManager.prototype.sign = function(address, dataToSign) {
+  var account = this.accounts[to.hex(address)];
+
+  if (!account) {
+    throw new Error("cannot sign data; no private key");
+  }
+
+  var secretKey = account.secretKey;
+  var msg = new Buffer(dataToSign.replace('0x',''), 'hex');
+  var msgHash = utils.hashPersonalMessage(msg);
+  var sgn = utils.ecsign(msgHash, new Buffer(secretKey));
+  return utils.toRpcSig(sgn.v, sgn.r, sgn.s);
+};
+
+StateManager.prototype.printTransactionReceipt = function(tx_hash, error, callback){
+  var self = this;
+
+  self.blockchain.getTransactionReceipt(tx_hash, function(err, receipt) {
+    if (err) return callback(err);
+
+    self.blockchain.latestBlock(function(err, block) {
+      if (err) return callback(err);
+
+      receipt = receipt.toJSON();
+
+      self.logger.log("");
+      self.logger.log("  Transaction: " + tx_hash);
+
+      if (receipt.contractAddress != null) {
+        self.logger.log("  Contract created: " + receipt.contractAddress);
+      }
+
+      self.logger.log("  Gas usage: " + receipt.gasUsed);
+      self.logger.log("  Block Number: " + receipt.blockNumber);
+      self.logger.log("  Block Time: " + new Date(to.number(block.header.timestamp) * 1000).toString());
+
+      if (error) {
+        self.logger.log("  Runtime Error: " + error.error);
+      }
+
+      self.logger.log("");
+
+      callback(null, tx_hash);
+    });
+  });
+}
+
+StateManager.prototype.processBlocks = function(total_blocks, callback) {
+  var self = this;
+
+  if (typeof total_blocks == "function") {
+    callback = total_blocks;
+    total_blocks = null;
+  }
+
+  // Note: VM errors (errors that the VM directly returns) trump all runtime errors.
+  var runtime_error = null;
+  var amount_processed = 0;
+
+  async.whilst(function() {
+    var shouldContinue;
+
+    if (total_blocks == null) {
+      shouldContinue = self.blockchain.pending_transactions.length > 0;
+    } else {
+      shouldContinue = amount_processed < total_blocks;
+    }
+
+    return shouldContinue;
+  }, function(done) {
+    self.blockchain.processNextBlock(function(err, transactions, vm_output) {
+      amount_processed += 1;
+
+      if (err) {
+        if (err instanceof RuntimeError == false) {
+          // This is bad. Get out.
+          return done(err);
+        }
+
+        // We must have a RuntimeError. Merge results if we've found
+        // other runtime errors during this execution.
+        if (runtime_error == null) {
+          runtime_error = err;
+        } else {
+          runtime_error.combine(err);
+        }
+      }
+
+      // Note we don't quit on runtime errors. We keep processing transactions.
+      // Print the transaction receipts then move onto the next one.
+
+      // TODO: Can we refactor printTransactionReceipt so it's synchronous?
+      // We technically have the raw vm receipts (though they're not full receipts here...).
+      var receipts = vm_output.receipts;
+      async.eachSeries(transactions, function(tx, finished_printing) {
+        var hash = to.hex(tx.hash());
+        var error = runtime_error == null ? {results: {}} : runtime_error;
+        self.printTransactionReceipt(hash, error.results[hash], finished_printing);
+      }, done);
+    });
+  }, function(err) {
+    // Remember: vm errors trump runtime errors
+    callback(err || runtime_error);
+  });
+};
+
+StateManager.prototype.processTransaction = function(from, tx, callback) {
+  var self = this;
+
+  self.blockchain.queueTransaction(tx);
+
+  var tx_hash = to.hex(tx.hash());
+
+  // If we're not currently mining or we're mining on an interval,
+  // only queue the transaction, don't process it.
+  if (self.is_mining == false || self.is_mining_on_interval){
+    return callback(null, tx_hash);
+  }
+
+  self.processBlocks(function(err) {
+    if (err) return callback(err);
+    callback(null, tx_hash);
+  });
+};
+
+StateManager.prototype.getTransactionReceipt = function(hash, callback) {
+  this.blockchain.getTransactionReceipt(hash, function(err, receipt) {
+    if (err && err.notFound) {
+      // Return null if the receipt's not found.
+      return callback(null, null);
+    }
+    callback(err, receipt);
+  });
+};
+
+StateManager.prototype.getBlock = function(hash_or_number, callback) {
+  this.blockchain.getBlock(hash_or_number, callback);
+};
+
+StateManager.prototype.getLogs = function(filter, callback) {
+  var self = this;
+
+  var expectedAddress = filter.address;
+  var expectedTopics = filter.topics || [];
+
+  async.parallel({
+    fromBlock: this.blockchain.getEffectiveBlockNumber.bind(this.blockchain, filter.fromBlock || "latest"),
+    toBlock: this.blockchain.getEffectiveBlockNumber.bind(this.blockchain, filter.toBlock || "latest")
+  }, function(err, results) {
+    var fromBlock = results.fromBlock;
+    var toBlock = results.toBlock;
+
+    var logs = [];
+    var current = fromBlock;
+
+    async.whilst(function() {
+      return current <= toBlock;
+    }, function(finished) {
+      self.blockchain.getBlockLogs(current, function(err, blockLogs) {
+        if (err) return finished(err);
+
+        // Filter logs that match the address
+        var filtered = blockLogs.filter(function(log) {
+          return (expectedAddress == null || log.address == expectedAddress);
+        });
+
+        // Now filter based on topics.
+        filtered = filtered.filter(function(log) {
+          var keep = true;
+          for (var i = 0; i < expectedTopics.length; i++) {
+            if (expectedTopics[i] == null) continue;
+            if (i >= log.topics.length || expectedTopics[i] != log.topics[i]) {
+              keep = false;
+              break;
+            }
+          }
+          return keep;
+        });
+
+        logs.push.apply(logs, filtered);
+
+        current += 1;
+        finished();
+      });
+    }, function(err) {
+      if (err) return callback(err);
+
+      logs = logs.map(function(log) {
+        return log.toJSON();
+      });
+
+      callback(err, logs);
+    });
+
+  });
+};
+
+// Note: Snapshots have 1-based ids.
+StateManager.prototype.snapshot = function(callback) {
+  var self = this;
+
+  this.blockchain.getHeight(function(err, blockNumber) {
+    if (err) return callback(err);
+
+    self.snapshots.push({
+      blockNumber: blockNumber
+    });
+
+    self.logger.log("Saved snapshot #" + self.snapshots.length);
+
+    callback(null, to.hex(self.snapshots.length));
+  });
+};
+
+StateManager.prototype.revert = function(snapshot_id, callback) {
+  var self = this;
+
+  // Convert from hex.
+  snapshot_id = utils.bufferToInt(snapshot_id);
+
+  this.logger.log("Reverting to snapshot #" + snapshot_id);
+
+  if (snapshot_id > this.snapshots.length) {
+    return false;
+  }
+
+  // Convert to zero based.
+  snapshot_id = snapshot_id - 1;
+
+  // Loop through each snapshot with a higher id than the current one.
+  async.whilst(function() {
+    return self.snapshots.length > snapshot_id
+  }, function(nextSnapshot) {
+    var snapshot = self.snapshots.pop();
+
+    // For each snapshot, asynchronously pop off the blocks it represents.
+    async.during(function(doneWithTest) {
+      self.blockchain.getHeight(function(err, blockNumber) {
+        if (err) return doneWithTest(err);
+
+        doneWithTest(null, blockNumber > snapshot.blockNumber)
+      });
+    }, function(nextBlock) {
+      self.blockchain.popBlock(function(err) {
+        if (err) return nextBlock(err);
+        nextBlock();
+      });
+    }, nextSnapshot);
+
+
+  }, function(err) {
+    if (err) return callback(err);
+
+    // Pending transactions are removed when you revert.
+    self.blockchain.clearPendingTransactions();
+
+    callback(null, true);
+  });
+};
+
+StateManager.prototype.hasContractCode = function(address, callback) {
+  this.vm.stateManager.getContractCode( address, function( err, result ) {
+    if( err != null ) {
+      callback( err, false );
+    } else {
+      callback( null, true );
+    }
+  });
+}
+
+StateManager.prototype.startMining = function(callback) {
+  this.is_mining = true;
+
+  if (this.is_mining_on_interval) {
+    this.mineOnInterval();
+    callback();
+  } else {
+    this.processBlocks(callback);
+  }
+};
+
+StateManager.prototype.stopMining = function(callback) {
+  this.is_mining = false;
+  clearTimeout(this.mining_interval_timeout);
+  this.mining_interval_timeout = null;
+  callback();
+};
+
+StateManager.prototype.isUnlocked = function(address) {
+  return this.unlocked_accounts[address.toLowerCase()] != null;
+};
+
+module.exports = StateManager;
+
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// It's unforutnate we have to have this subprovider, but it's because
+// we instamine, and web3 isn't written in a way that supports instamining
+// (i.e., it sets up the filter after the transaction has been processed).
+// This block filter will ensure that each block filter will always see
+// the change from the last block to the current block.
+//
+// Note: An added benefit of this is that it shaves off a signifcant
+// amount of time from tests that use web3 and block filters.
+
+var Subprovider = __webpack_require__(34);
+var inherits = __webpack_require__(0).inherits;
+var async = __webpack_require__(5);
+var to = __webpack_require__(10);
+
+inherits(DelayedBlockFilter, Subprovider);
+
+module.exports = DelayedBlockFilter;
+
+function DelayedBlockFilter() {
+  this.watching = {};
+};
+
+DelayedBlockFilter.prototype.handleRequest = function(payload, next, end) {
+  if (payload.method == "eth_newBlockFilter") return this.handleNewBlockFilter(payload, next, end);
+  if (payload.method == "eth_getFilterChanges") return this.handleGetFilterChanges(payload, next, end);
+
+  next();
+};
+
+DelayedBlockFilter.prototype.handleNewBlockFilter = function(payload, next, end) {
+  var self = this;
+
+  // Let this filter process and add it to our watch list.
+  next(function(err, result, cb) {
+    if (err) return cb();
+    self.watching[result] = true;
+    cb();
+  });
+}
+
+DelayedBlockFilter.prototype.handleGetFilterChanges = function(payload, next, end) {
+  var self = this;
+  var filter_id = payload.params[0];
+
+  if (!this.watching[filter_id]) return next();
+
+  // Get the changes, and then alter the result.
+  next(function(err, result, cb) {
+    if (err) return cb();
+
+    var currentBlockHash;
+    var previousBlockHash;
+    var blockNumber;
+
+    async.series([
+      function(c) {
+        // If we have a result, use it.
+        if (result.length != 0) {
+          currentBlockHash = result[0];
+          c();
+        } else {
+          // Otherwise, get the current block number.
+          self.emitPayload({
+            method: "eth_blockNumber"
+          }, function(err, res) {
+            if (err) return c(err);
+            blockNumber = to.number(res.result);
+            c();
+          });
+        }
+      },
+      function(c) {
+        // If we got a block number above, meaning, we didn't get a block hash,
+        // skip this step.
+        if (blockNumber) return c();
+
+        // If not skipped, then we got a block hash, and we need to get a block number from it.
+        self.emitPayload({
+          method: "eth_getBlockByHash",
+          params: [currentBlockHash, false]
+        }, function(err, res) {
+          if (err) return c(err);
+          blockNumber = to.number(res.result.number);
+          c();
+        })
+      },
+      function(c) {
+        // If we're at block 0, return no changes. See final function below.
+        if (blockNumber == 0) {
+          previousBlockHash = undefined;
+          return c();
+        }
+
+        // If at this point, we do have a block number, so let's subtract one
+        // from it and get the block hash of the block before it.
+        blockNumber = blockNumber - 1;
+        self.emitPayload({
+          method: "eth_getBlockByNumber",
+          params: [blockNumber, false]
+        }, function(err, res) {
+          if (err) return c(err);
+          previousBlockHash = res.result.hash;
+          c();
+        });
+      }
+    ], function(err) {
+      if (err) {
+        // Unfortunately the subprovider code doesn't let us return an error
+        // through the callback cb(). So we'll just ignore it.... (famous last words).
+      }
+
+      // If we got the previous block, use it. Otherwise do nothing.
+      // Then stop watching because we only want on getFilterChanges to react this way.
+      if (previousBlockHash) {
+        result[0] = previousBlockHash;
+      }
+
+      delete self.watching[filter_id];
+      cb();
+    })
+  });
+
+};
+
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var utils = __webpack_require__(11);
+var fs = __webpack_require__(44);
+var async = __webpack_require__(5);
+var inherits = __webpack_require__(0).inherits;
+var StateManager = __webpack_require__(241);
+var to = __webpack_require__(10);
+var txhelper = __webpack_require__(68);
+var pkg = __webpack_require__(250);
+
+var Subprovider = __webpack_require__(34);
+
+inherits(GethApiDouble, Subprovider)
+
+function GethApiDouble(options) {
+  var self = this;
+
+  this.state = options.state || new StateManager(options);
+  this.options = options;
+  this.initialized = false;
+
+  this.initialization_error = null;
+
+  this.state.initialize(this.options, function(err) {
+    if (err) {
+      self.initialization_error = err;
+    }
+    self.initialized = true;
+  });
+}
+
+GethApiDouble.prototype.waitForInitialization = function(callback) {
+  var self = this;
+  if (this.initialized == false) {
+    setTimeout(function() {
+      self.waitForInitialization(callback);
+    }, 100);
+  } else {
+    callback(this.initialization_error, this.state);
+  }
+}
+
+// Function to not pass methods through until initialization is finished
+GethApiDouble.prototype.handleRequest = function(payload, next, end) {
+  var self = this;
+
+  if (this.initialization_error != null) {
+    return end(this.initialization_error);
+  }
+
+  if (this.initialized == false) {
+    setTimeout(this.getDelayedHandler(payload, next, end), 100);
+    return;
+  }
+
+  var method = this[payload.method];
+
+  if (method == null) {
+    return end(new Error("Method " + payload.method + " not supported."));
+  }
+
+  var params = payload.params;
+  var args = [];
+  Array.prototype.push.apply(args, params);
+
+  if (this.requiresDefaultBlockParameter(payload.method) && args.length < method.length - 1) {
+    args.push("latest");
+  }
+
+  args.push(end);
+  method.apply(this, args);
+};
+
+GethApiDouble.prototype.getDelayedHandler = function(payload, next, end) {
+  var self = this;
+  return function() {
+    self.handleRequest(payload, next, end);
+  }
+}
+
+GethApiDouble.prototype.requiresDefaultBlockParameter = function(method) {
+  // object for O(1) lookup.
+  var methods = {
+    "eth_getBalance": true,
+    "eth_getCode": true,
+    "eth_getTransactionCount": true,
+    "eth_getStorageAt": true,
+    "eth_call": true
+  };
+
+  return methods[method] === true;
+};
+
+// Handle individual requests.
+
+GethApiDouble.prototype.eth_accounts = function(callback) {
+  callback(null, Object.keys(this.state.accounts));
+};
+
+GethApiDouble.prototype.eth_blockNumber = function(callback) {
+  this.state.blockNumber(function(err, result) {
+    if (err) return callback(err);
+    callback(null, to.hex(result));
+  });
+};
+
+GethApiDouble.prototype.eth_coinbase = function(callback) {
+  callback(null, this.state.coinbase);
+};
+
+GethApiDouble.prototype.eth_mining = function(callback) {
+  callback(null, this.state.is_mining);
+};
+
+GethApiDouble.prototype.eth_hashrate = function(callback) {
+  callback(null, '0x0');
+};
+
+GethApiDouble.prototype.eth_gasPrice = function(callback) {
+  callback(null, utils.addHexPrefix(this.state.gasPrice()));
+};
+
+GethApiDouble.prototype.eth_getBalance = function(address, block_number, callback) {
+  this.state.getBalance(address, block_number, callback);
+};
+
+GethApiDouble.prototype.eth_getCode = function(address, block_number, callback) {
+  this.state.getCode(address, block_number, callback);
+};
+
+GethApiDouble.prototype.eth_getBlockByNumber = function(block_number, include_full_transactions, callback) {
+  this.state.blockchain.getBlock(block_number, function(err, block) {
+    if (err) return callback(err);
+
+    callback(null, {
+      number: to.hex(block.header.number),
+      hash: to.hex(block.hash()),
+      parentHash: to.hex(block.header.parentHash),
+      nonce: to.hex(block.header.nonce),
+      sha3Uncles: to.hex(block.header.uncleHash),
+      logsBloom: to.hex(block.header.bloom),
+      transactionsRoot: to.hex(block.header.transactionsTrie),
+      stateRoot: to.hex(block.header.stateRoot),
+      receiptRoot: to.hex(block.header.receiptTrie),
+      miner: to.hex(block.header.coinbase),
+      difficulty: to.hex(block.header.difficulty),
+      totalDifficulty: to.hex(block.header.difficulty), // TODO: Figure out what to do here.
+      extraData: to.hex(block.header.extraData),
+      size: to.hex(1000), // TODO: Do something better here
+      gasLimit: to.hex(block.header.gasLimit),
+      gasUsed: to.hex(block.header.gasUsed),
+      timestamp: to.hex(block.header.timestamp),
+      transactions: block.transactions.map(function(tx) {
+        if (include_full_transactions) {
+          return txhelper.toJSON(tx, block);
+        } else {
+          return to.hex(tx.hash());
+        }
+      }),
+      uncles: []//block.uncleHeaders.map(function(uncleHash) {return to.hex(uncleHash)})
+    });
+  });
+};
+
+GethApiDouble.prototype.eth_getBlockByHash = function(tx_hash, include_full_transactions, callback) {
+  this.eth_getBlockByNumber.apply(this, arguments);
+};
+
+GethApiDouble.prototype.eth_getBlockTransactionCountByNumber = function(block_number, callback) {
+  this.state.blockchain.getBlock(block_number, function(err, block) {
+    callback(null, block.transactions.length);
+  });
+}
+
+GethApiDouble.prototype.eth_getBlockTransactionCountByHash = function(block_hash, callback) {
+  this.eth_getBlockTransactionCountByNumber.apply(this, arguments);
+}
+
+GethApiDouble.prototype.eth_getTransactionReceipt = function(hash, callback) {
+  this.state.getTransactionReceipt(hash, function(err, receipt) {
+    if (err) return callback(err);
+
+    var result = null;
+
+    if (receipt){
+      result = receipt.toJSON();
+    }
+    callback(null, result);
+  });
+};
+
+GethApiDouble.prototype.eth_getTransactionByHash = function(hash, callback) {
+  this.state.getTransactionReceipt(hash, function(err, receipt) {
+    if (err) return callback(err);
+
+    var result = null;
+
+    if (receipt) {
+      result = txhelper.toJSON(receipt.tx, receipt.block)
+    }
+
+    callback(null, result);
+  });
+}
+
+GethApiDouble.prototype.eth_getTransactionByBlockHashAndIndex = function(hash_or_number, index, callback) {
+  var self = this;
+
+  index = to.number(index);
+
+  this.state.getBlock(hash_or_number, function(err, block) {
+    if (err) return callback(err);
+
+    if (index >= block.transactions.length) {
+      return callback(new Error("Transaction at index " + to.hex(index) + " does not exist in block."));
+    }
+
+    var tx = block.transactions[index];
+    var result = txhelper.toJSON(tx, block);
+
+    callback(null, result);
+  });
+};
+
+GethApiDouble.prototype.eth_getTransactionByBlockNumberAndIndex = function(hash_or_number, index, callback) {
+  this.eth_getTransactionByBlockHashAndIndex(hash_or_number, index, callback);
+};
+
+
+
+GethApiDouble.prototype.eth_getTransactionCount = function(address, block_number, callback) {
+  this.state.getTransactionCount(address, block_number, callback);
+}
+
+GethApiDouble.prototype.eth_sign = function(address, dataToSign, callback) {
+  var result;
+  var error;
+
+  try {
+    result = this.state.sign(address, dataToSign);
+  } catch (e) {
+    error = e;
+  }
+
+  callback(error, result);
+};
+
+GethApiDouble.prototype.eth_sendTransaction = function(tx_data, callback) {
+  this.state.queueTransaction("eth_sendTransaction", tx_data, callback);
+};
+
+GethApiDouble.prototype.eth_sendRawTransaction = function(rawTx, callback) {
+  this.state.queueRawTransaction(rawTx, callback);
+};
+
+GethApiDouble.prototype.eth_getStorageAt = function(address, position, block_number, callback) {
+  this.state.queueStorage(address, position, block_number, callback);
+}
+
+GethApiDouble.prototype.eth_newBlockFilter = function(callback) {
+  var filter_id = utils.addHexPrefix(utils.intToHex(this.state.latest_filter_id));
+  this.state.latest_filter_id += 1;
+  callback(null, filter_id);
+};
+
+GethApiDouble.prototype.eth_getFilterChanges = function(filter_id, callback) {
+  var blockHash = this.state.latestBlock().hash().toString("hex");
+  // Mine a block after each request to getFilterChanges so block filters work.
+  this.state.mine();
+  callback(null, [blockHash]);
+};
+
+GethApiDouble.prototype.eth_getLogs = function(filter, callback) {
+  this.state.getLogs(filter, callback);
+};
+
+GethApiDouble.prototype.eth_uninstallFilter = function(filter_id, callback) {
+  callback(null, true);
+};
+
+GethApiDouble.prototype.eth_getCompilers = function(callback) {
+  callback(null, ["solidity"]);
+}
+
+GethApiDouble.prototype.eth_syncing = function(callback) {
+  callback(null, false);
+};
+
+GethApiDouble.prototype.net_listening = function(callback) {
+  callback(null, true);
+};
+
+GethApiDouble.prototype.net_peerCount = function(callback) {
+  callback(null, 0);
+};
+
+GethApiDouble.prototype.web3_clientVersion = function(callback) {
+  callback(null, "EthereumJS TestRPC/v" + pkg.version + "/ethereum-js")
+};
+
+GethApiDouble.prototype.web3_sha3 = function(string, callback) {
+  callback(null, to.hex(utils.sha3(string)));
+};
+
+GethApiDouble.prototype.net_version = function(callback) {
+  // net_version returns a string containing a base 10 integer.
+  callback(null, this.state.net_version + "");
+};
+
+GethApiDouble.prototype.miner_start = function(threads, callback) {
+  this.state.startMining(function(err) {
+    callback(err, true);
+  });
+};
+
+GethApiDouble.prototype.miner_stop = function(callback) {
+  this.state.stopMining(function(err) {
+    callback(err, true);
+  });
+};
+
+GethApiDouble.prototype.rpc_modules = function(callback) {
+  // returns the availible api modules and versions
+  callback(null, {"eth":"1.0","net":"1.0","rpc":"1.0","web3":"1.0","evm":"1.0"});
+};
+
+/* Functions for testing purposes only. */
+
+GethApiDouble.prototype.evm_snapshot = function(callback) {
+  this.state.snapshot(callback)
+};
+
+GethApiDouble.prototype.evm_revert = function(snapshot_id, callback) {
+  this.state.revert(snapshot_id, callback);
+};
+
+GethApiDouble.prototype.evm_increaseTime = function(seconds, callback) {
+  callback(null, this.state.blockchain.increaseTime(seconds));
+};
+
+GethApiDouble.prototype.evm_mine = function(callback) {
+  this.state.blockchain.processNextBlock(function(err) {
+    // Remove the VM result objects from the return value.
+    callback(err);
+  });
+};
+
+GethApiDouble.prototype.debug_traceTransaction = function(tx_hash, params, callback) {
+  this.state.queueTransactionTrace(tx_hash, params, callback);
+};
+
+
+
+module.exports = GethApiDouble;
+
+
+/***/ }),
+/* 244 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Subprovider = __webpack_require__(34);
+var inherits = __webpack_require__(0).inherits;
+
+inherits(GethDefaults, Subprovider);
+
+module.exports = GethDefaults;
+
+function GethDefaults() {};
+
+// Massage eth_estimateGas requests, setting default data (e.g., from) if
+// not specified. This is here specifically to make the testrpc
+// react like Geth.
+GethDefaults.prototype.handleRequest = function(payload, next, end) {
+  var self = this;
+
+  if (payload.method != "eth_estimateGas" && payload.method != "eth_call") {
+    return next();
+  }
+
+  var params = payload.params[0];
+
+  if (params.from == null) {
+    this.emitPayload({
+      method: "eth_coinbase"
+    }, function(err, result) {
+      if (err) return end(err);
+
+      var coinbase = result.result;
+
+      params.from = coinbase;
+      next();
+    });
+  } else {
+    next();
+  }
+};
+
+
+/***/ }),
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Subprovider = __webpack_require__(34);
+var inherits = __webpack_require__(0).inherits;
+
+inherits(ReactiveBlockTracker, Subprovider);
+
+module.exports = ReactiveBlockTracker;
+
+function ReactiveBlockTracker() {
+  this.methods = {
+    "eth_call": "before",
+    "eth_getStorageAt": "before",
+    "eth_getLogs": "before"
+  };
+};
+
+// Fetch the block before certain requests to make sure we're completely updated
+// before those methods are processed. Also, fetch the block after certain requests
+// to speed things up.
+ReactiveBlockTracker.prototype.handleRequest = function(payload, next, end) {
+  var self = this;
+
+  var when = this.methods[payload.method];
+
+  if (when == null) {
+    return next();
+  }
+
+  function fetchBlock(cb) {
+    self.engine._fetchBlock("latest", function(err, block) {
+      if (err) return end(err);
+      if (!self.engine.currentBlock || 0 !== self.engine.currentBlock.hash.compare(block.hash)) {
+        self.engine._setCurrentBlock(block);
+      }
+      cb();
+    });
+  }
+
+  if (when == "before") {
+    fetchBlock(function() {
+      next();
+    });
+  } else {
+    next(function(error, result, cb) {
+      fetchBlock(cb);
+    });
+  }
+};
+
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Subprovider = __webpack_require__(34);
+var inherits = __webpack_require__(0).inherits;
+
+inherits(RequestFunnel, Subprovider);
+
+module.exports = RequestFunnel;
+
+// See if any payloads for the specified methods are marked as external.
+// If they are external, and match the method list, process them one at
+// a time.
+function RequestFunnel() {
+  // We use an object here for O(1) lookups (speed).
+  this.methods = {
+    "eth_call": true,
+    "eth_getStorageAt": true,
+    "eth_sendTransaction": true,
+    "eth_sendRawTransaction": true,
+
+    // Ensure block filter and filter changes are process one at a time
+    // as well so filter requests that come in after a transaction get
+    // processed once that transaction has finished processing.
+    "eth_newBlockFilter": true,
+    "eth_getFilterChanges": true,
+    "eth_getFilterLogs": true
+  };
+  this.queue = [];
+  this.isWorking = false;
+};
+
+RequestFunnel.prototype.handleRequest = function(payload, next, end) {
+  if (payload.external != true || this.methods[payload.method] != true) {
+    return next();
+  }
+
+  this.queue.push([payload, next]);
+
+  if (this.isWorking == false) {
+    this.processNext();
+  }
+};
+
+RequestFunnel.prototype.processNext = function() {
+  var self = this;
+
+  if (this.queue.length == 0) {
+    this.isWorking = false;
+    return;
+  }
+
+  this.isWorking = true;
+
+  var item = this.queue.shift();
+  var payload = item[0];
+  var next = item[1];
+
+  next(function(error, request, cb) {
+    cb();
+    self.processNext();
+  });
+};
+
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var BlockchainDouble = __webpack_require__(65);
+var VM = __webpack_require__(63);
+var Account = __webpack_require__(21);
+var Block = __webpack_require__(26);
+var Log = __webpack_require__(66);
+var Receipt = __webpack_require__(67);
+var utils = __webpack_require__(11);
+var ForkedStorageTrie = __webpack_require__(248);
+var FakeTransaction = __webpack_require__(46);
+var Web3 = __webpack_require__(54);
+var to = __webpack_require__(10);
+var async = __webpack_require__(5);
+var txhelper = __webpack_require__(68)
+
+var inherits = __webpack_require__(0).inherits;
+
+inherits(ForkedBlockchain, BlockchainDouble);
+
+function ForkedBlockchain(options) {
+  var self = this;
+
+  options = options || {};
+
+  if (options.fork == null) {
+    throw new Error("ForkedBlockchain must be passed a fork parameter.");
+  }
+
+  this.fork = options.fork;
+  this.fork_block_number = options.fork_block_number;
+  this.fork_version = null;
+
+  if (typeof this.fork == "string") {
+    if (this.fork.indexOf("@") >= 0) {
+      var split = this.fork.split("@");
+      this.fork = split[0];
+      this.fork_block_number = parseInt(split[1]);
+    }
+
+    this.fork = new Web3.providers.HttpProvider(this.fork);
+  }
+
+  this.time = options.time;
+  this.storageTrieCache = {};
+
+  BlockchainDouble.call(this, options);
+
+  this.web3 = new Web3(this.fork);
+};
+
+ForkedBlockchain.prototype.initialize = function(accounts, callback) {
+  var self = this;
+
+  this.web3.version.getNetwork(function(err, version) {
+    if (err) return callback(err);
+
+    self.fork_version = version;
+
+    BlockchainDouble.prototype.initialize.call(self, accounts, function(err) {
+      if (err) return callback(err);
+
+      // Unfortunately forking requires a bit of monkey patching, but it gets the job done.
+      self.vm.stateManager._lookupStorageTrie = self.lookupStorageTrie.bind(self);
+      self.vm.stateManager.cache._lookupAccount = self.getAccount.bind(self);
+      self.vm.stateManager.getContractCode = self.getCode.bind(self);
+      self.vm.stateManager.putContractCode = self.putCode.bind(self);
+
+      callback();
+    });
+  });
+};
+
+ForkedBlockchain.prototype.createStateTrie = function(db, root) {
+  return new ForkedStorageTrie(db, root, {
+    fork: this.fork,
+    fork_block_number: this.fork_block_number,
+    blockchain: this
+  });
+};
+
+ForkedBlockchain.prototype.createGenesisBlock = function(callback) {
+  var self = this;
+  var blockNumber = this.fork_block_number || "latest";
+
+  self.web3.eth.getBlock(blockNumber, function(err, json) {
+    if (err) return callback(err);
+
+    // If no start time was passed, set the time to where we forked from.
+    // We only want to do this if a block was explicitly passed. If a block
+    // number wasn't passed, then we're using the last block and the current time.
+    if (!self.time && self.fork_block_number) {
+      self.time = new Date(to.number(json.timestamp) * 1000);
+      self.setTime(self.time);
+    }
+
+    blockNumber = to.hex(json.number);
+
+    // Update the relevant block numbers
+    self.fork_block_number = blockNumber;
+    self.stateTrie.fork_block_number = blockNumber;
+
+    self.createBlock(function(err, block) {
+      if (err) return callback(err);
+
+      block.header.number = utils.toBuffer(to.number(json.number) + 1);
+      block.header.parentHash = utils.toBuffer(json.hash);
+
+      callback(null, block);
+    });
+  });
+};
+
+ForkedBlockchain.prototype.createForkedStorageTrie = function(address) {
+  address = to.hex(address);
+
+  var trie = new ForkedStorageTrie(this.data.trie_db, null, {
+    address: address,
+    stateTrie: this.stateTrie,
+    blockchain: this,
+    fork: this.fork,
+    fork_block_number: this.fork_block_number
+  });
+
+  this.storageTrieCache[address] = trie;
+
+  return trie;
+};
+
+ForkedBlockchain.prototype.lookupStorageTrie = function(address, callback) {
+  var self = this
+
+  address = to.hex(address);
+
+  if (this.storageTrieCache[address] != null) {
+    return callback(null, this.storageTrieCache[address]);
+  }
+
+  callback(null, this.createForkedStorageTrie(address));
+};
+
+ForkedBlockchain.prototype.isFallbackBlock = function(value, callback) {
+  var self = this;
+
+  self.getEffectiveBlockNumber(value, function(err, number) {
+    if (err) return callback(err);
+
+    callback(null, number <= to.number(self.fork_block_number));
+  });
+};
+
+ForkedBlockchain.prototype.isBlockHash = function(value) {
+  return typeof value == "string" && value.indexOf("0x") == 0 && value.length > 42;
+}
+
+ForkedBlockchain.prototype.isFallbackBlockHash = function(value, callback) {
+  var self = this;
+
+  if (!this.isBlockHash(value)) {
+    return callback(null, false);
+  }
+
+  self.data.blockHashes.get(value, function(err, blockIndex) {
+    if (err) {
+      if (err.notFound) {
+        // If the block isn't found in our database, then it must be a fallback block.
+        return callback(null, true);
+      } else {
+        return callback(err);
+      }
+    }
+    callback(null, false);
+  });
+}
+
+ForkedBlockchain.prototype.getFallbackBlock = function(number_or_hash, cb) {
+  var self = this;
+  self.web3.eth.getBlock(number_or_hash, true, function(err, json) {
+    if (err) return cb(err);
+
+    if (json == null) return cb();
+
+    var block = new Block();
+
+    block.header.parentHash = utils.toBuffer(json.parentHash);
+    block.header.uncleHash = utils.toBuffer(json.sha3Uncles);
+    block.header.coinbase = utils.toBuffer(json.miner);
+    block.header.stateRoot = utils.toBuffer(json.stateRoot); // Should we include the following three?
+    block.header.transactionTrie = utils.toBuffer(json.transactionsRoot);
+    block.header.receiptTrie = utils.toBuffer(json.receiptRoot);
+    block.header.bloom = utils.toBuffer(json.logsBloom);
+    block.header.difficulty = utils.toBuffer("0x" + json.totalDifficulty.toString(16)); // BigNumber
+    block.header.number = utils.toBuffer(json.number);
+    block.header.gasLimit = utils.toBuffer(json.gasLimit);
+    block.header.gasUsed = utils.toBuffer(json.gasUsed);
+    block.header.timestamp = utils.toBuffer(json.timestamp);
+    block.header.extraData = utils.toBuffer(json.extraData);
+
+    (json.transactions || []).forEach(function(tx_json, index) {
+      block.transactions.push(txhelper.fromJSON(tx_json));
+    });
+
+    // Fake block. Let's do the worst.
+    // TODO: Attempt to fill out all block data so as to produce the same hash! (can we?)
+    block.hash = function() {
+      return utils.toBuffer(json.hash);
+    }
+
+    cb(null, block);
+  });
+}
+
+
+ForkedBlockchain.prototype.getBlock = function(number, callback) {
+  var self = this;
+
+  this.isFallbackBlockHash(number, function(err, isFallbackBlockHash) {
+    if (err) return callback(err);
+    if (isFallbackBlockHash) {
+      return self.getFallbackBlock(number, callback);
+    }
+
+    self.isFallbackBlock(number, function(err, isFallbackBlock) {
+      if (err) return callback(err);
+
+      if (isFallbackBlock) {
+        return self.getFallbackBlock(number, callback);
+      }
+
+      // If we don't have string-based a block hash, turn what we do have into a number
+      // before sending it to getBlock.
+      function getBlockReference(value, callback) {
+        if (!self.isBlockHash(value)) {
+          self.getRelativeBlockNumber(value, callback);
+        } else {
+          callback(null, value);
+        }
+      }
+
+      getBlockReference(number, function(err, blockReference) {
+        if (err) return callback(err);
+
+        BlockchainDouble.prototype.getBlock.call(self, blockReference, callback);
+      });
+    });
+  });
+};
+
+ForkedBlockchain.prototype.getStorage = function(address, key, number, callback) {
+  this.lookupStorageTrie(address, function(err, trie) {
+    if (err) return callback(err);
+    trie.get(key, callback);
+  });
+};
+
+ForkedBlockchain.prototype.getCode = function(address, number, callback) {
+  var self = this;
+
+  if (typeof number == "function") {
+    callback = number;
+    number = "latest";
+  }
+
+  if (!number) {
+    number = "latest";
+  }
+
+  this.getEffectiveBlockNumber(number, function(err, effective) {
+    number = effective;
+
+    self.stateTrie.keyExists(address, function(err, exists) {
+      // If we've stored the value and we're looking at one of our stored blocks,
+      // get it from our stored data.
+      if (exists && number > to.number(self.fork_block_number)) {
+        BlockchainDouble.prototype.getCode.call(self, address, number, callback);
+      } else {
+
+        // Else, we need to fetch it from web3. If our number is greater than
+        // the fork, let's just use "latest".
+        if (number > to.number(self.fork_block_number)) {
+          number = "latest";
+        }
+
+        self.fetchCodeFromFallback(address, number, function(err, code) {
+          if (code) {
+            code = utils.toBuffer(code);
+          }
+          callback(err, code);
+        });
+      }
+    });
+  });
+};
+
+ForkedBlockchain.prototype.putCode = function(address, value, callback) {
+  // This is a bit of a hack. We need to bypass the vm's
+  // _lookupAccount call that vm.stateManager.putContractCode() uses.
+  // This means we have to do some things ourself. The last call
+  // to self.stateTrie.put() at the bottom is important because
+  // we can't just be satisfied putting it in the cache.
+
+  var self = this;
+  address = utils.toBuffer(address);
+  this.stateTrie.get(address, function(err, data) {
+    if (err) return callback(err);
+
+    var account = new Account(data);
+    account.setCode(self.stateTrie, value, function(err, result) {
+      if (err) return callback(err);
+
+      self.stateTrie.put(address, account.serialize(), function(err) {
+        if (err) return callback(err);
+
+        // Ensure the cache updates as well.
+        self.vm.stateManager._putAccount(address, account, callback);
+      });
+    });
+  })
+};
+
+ForkedBlockchain.prototype.getAccount = function(address, number, callback) {
+  var self = this;
+
+  if (typeof number == "function") {
+    callback = number;
+    number = "latest";
+  }
+
+  this.getEffectiveBlockNumber(number, function(err, effective) {
+    if (err) return callback(err);
+    number = effective;
+
+    // If the account doesn't exist in our state trie, get it off the wire.
+    self.stateTrie.keyExists(address, function(err, exists) {
+      if (err) return callback(err);
+
+      if (exists && number > to.number(self.fork_block_number)) {
+        BlockchainDouble.prototype.getAccount.call(self, address, number, function(err, acc) {
+          if (err) return callback(err);
+          callback(null, acc);
+        });
+      } else {
+        self.fetchAccountFromFallback(address, number, callback);
+      }
+    });
+  });
+};
+
+ForkedBlockchain.prototype.getTransaction = function(hash, callback) {
+  var self = this;
+  BlockchainDouble.prototype.getTransaction.call(this, hash, function(err, tx) {
+    if (err) return callback(err);
+    if (tx != null) return callback(null, tx);
+
+    self.web3.eth.getTransaction(hash, function(err, result) {
+      if (err) return callback(err);
+
+      if (result) {
+        result = txhelper.fromJSON(result);
+      }
+
+      callback(null, result);
+    });
+  });
+};
+
+ForkedBlockchain.prototype.getTransactionReceipt = function(hash, callback) {
+  var self = this;
+  BlockchainDouble.prototype.getTransactionReceipt.call(this, hash, function(err, receipt) {
+    if (err) return callback(err);
+    if (receipt) return callback(null, receipt);
+
+    self.web3.eth.getTransactionReceipt(hash, function(err, receipt_json) {
+      if (err) return callback(err);
+      if (!receipt_json) return callback();
+
+      async.parallel({
+        tx: self.getTransaction.bind(self, hash),
+        block: self.getBlock.bind(self, receipt_json.blockNumber)
+      }, function(err, result) {
+        if (err) return callback(err);
+
+        var logs = receipt_json.logs.map(function(log) {
+          return new Log(log);
+        });
+
+        var receipt = new Receipt(result.tx, result.block, logs, receipt_json.cumulativeGasUsed, receipt_json.contractAddress);
+
+        callback(null, receipt);
+      });
+    });
+  });
+};
+
+ForkedBlockchain.prototype.fetchAccountFromFallback = function(address, block_number, callback) {
+  var self = this;
+  address = to.hex(address);
+
+  async.parallel({
+    code: this.fetchCodeFromFallback.bind(this, address, block_number),
+    balance: this.fetchBalanceFromFallback.bind(this, address, block_number),
+    nonce: this.fetchNonceFromFallback.bind(this, address, block_number)
+  }, function(err, results) {
+    if (err) return callback(err);
+
+    var code = results.code;
+    var balance = results.balance;
+    var nonce = results.nonce;
+
+    var account = new Account({
+      nonce: nonce,
+      balance: balance
+    });
+
+    account.exists = code != "0x0" || balance != "0x0" || nonce != "0x0";
+
+    // This puts the code on the trie, keyed by the hash of the code.
+    // It does not actually link an account to code in the trie.
+    account.setCode(self.stateTrie, utils.toBuffer(code), function(err) {
+      if (err) return callback(err);
+      callback(null, account);
+    });
+  });
+};
+
+ForkedBlockchain.prototype.fetchCodeFromFallback = function(address, block_number, callback) {
+  var self = this;
+  address = to.hex(address);
+
+  // Allow an optional block_number
+  if (typeof block_number == "function") {
+    callback = block_number;
+    block_number = this.fork_block_number;
+  }
+
+  this.getSafeFallbackBlockNumber(block_number, function(err, safe_block_number) {
+    if (err) return callback(err);
+
+    self.web3.eth.getCode(address, safe_block_number, function(err, code) {
+      if (err) return callback(err);
+
+      code = "0x" + utils.toBuffer(code).toString("hex");
+      callback(null, code);
+    });
+  });
+}
+
+ForkedBlockchain.prototype.fetchBalanceFromFallback = function(address, block_number, callback) {
+  var self = this;
+  address = to.hex(address);
+
+  // Allow an optional block_number
+  if (typeof block_number == "function") {
+    callback = block_number;
+    block_number = this.fork_block_number;
+  }
+
+  this.getSafeFallbackBlockNumber(block_number, function(err, safe_block_number) {
+    if (err) return callback(err);
+
+    self.web3.eth.getBalance(address, safe_block_number, function(err, balance) {
+      if (err) return callback(err);
+
+      balance = "0x" + balance.toString(16); // BigNumber
+      callback(null, balance);
+    });
+  });
+}
+
+ForkedBlockchain.prototype.fetchNonceFromFallback = function(address, block_number, callback) {
+  var self = this;
+  address = to.hex(address);
+
+  // Allow an optional block_number
+  if (typeof block_number == "function") {
+    callback = block_number;
+    block_number = this.fork_block_number;
+  }
+
+  this.getSafeFallbackBlockNumber(block_number, function(err, safe_block_number) {
+    if (err) return callback(err);
+
+    self.web3.eth.getTransactionCount(address, safe_block_number, function(err, nonce) {
+      if (err) return callback(err);
+
+      nonce = "0x" + self.web3.toBigNumber(nonce).toString(16);
+      callback(null, nonce);
+    });
+  });
+}
+
+ForkedBlockchain.prototype.getHeight = function(callback) {
+  var self = this;
+  this.latestBlock(function(err, block) {
+    if (err) return callback(err);
+    callback(null, to.number(block.header.number));
+  });
+};
+
+ForkedBlockchain.prototype.getRelativeBlockNumber = function(number, callback) {
+  var self = this;
+  this.getEffectiveBlockNumber(number, function(err, effective) {
+    if (err) return callback(err);
+    callback(null, effective - to.number(self.fork_block_number) - 1)
+  });
+};
+
+ForkedBlockchain.prototype.getSafeFallbackBlockNumber = function(block_number, callback) {
+  var fork_block_number = to.number(this.fork_block_number);
+
+  if (block_number == null) {
+    return callback(null, fork_block_number);
+  };
+
+  this.getEffectiveBlockNumber(block_number, function(err, effective) {
+    if (effective > fork_block_number) {
+      effective = fork_block_number
+    }
+
+    callback(null, effective);
+  });
+};
+
+ForkedBlockchain.prototype.getBlockLogs = function(number, callback) {
+  var self = this;
+
+  this.getEffectiveBlockNumber(number, function(err, effective) {
+    if (err) return callback(err);
+
+    self.getRelativeBlockNumber(effective, function(err, relative) {
+      if (err) return callback(err);
+
+      if (relative < 0) {
+        self.getBlock(number, function(err, block) {
+          if (err) return callback(err);
+
+          self.web3.currentProvider.sendAsync({
+            jsonrpc: "2.0",
+            method: "eth_getLogs",
+            params: [{
+              fromBlock: to.hex(number),
+              toBlock: to.hex(number)
+            }],
+            id: new Date().getTime()
+          }, function(err, res) {
+            if (err) return callback(err);
+
+            var logs = res.result.map(function(log) {
+              // To make this result masquerade as the right information.
+              log.block = block;
+              return new Log(log);
+            });
+
+            callback(null, logs);
+          });
+        });
+      } else {
+        BlockchainDouble.prototype.getBlockLogs.call(self, relative, callback);
+      }
+    });
+  });
+};
+
+ForkedBlockchain.prototype._checkpointTrie = function() {
+  var self = this;
+
+  BlockchainDouble.prototype._checkpointTrie.call(this);
+
+  Object.keys(this.storageTrieCache).forEach(function(address) {
+    var trie = self.storageTrieCache[address];
+    trie.customCheckpoint();
+  });
+};
+
+ForkedBlockchain.prototype._revertTrie = function() {
+  var self = this;
+
+  BlockchainDouble.prototype._revertTrie.call(this);
+
+  Object.keys(this.storageTrieCache).forEach(function(address) {
+    var trie = self.storageTrieCache[address];
+
+    // We're trying to revert to a point before this trie was created.
+    // Let's just remove the trie.
+    if (trie.checkpoints.length == 0) {
+      delete self.storageTrieCache[address];
+    } else {
+      trie.customRevert();
+    }
+  });
+};
+
+module.exports = ForkedBlockchain;
+
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MerklePatriciaTree = __webpack_require__(33);
+var Account = __webpack_require__(21);
+var utils = __webpack_require__(11)
+var inherits = __webpack_require__(0).inherits;
+var Web3 = __webpack_require__(54);
+var to = __webpack_require__(10);
+var async = __webpack_require__(5);
+
+inherits(ForkedStorageTrie, MerklePatriciaTree)
+
+function ForkedStorageTrie(db, root, options) {
+  MerklePatriciaTree.call(this, db, root);
+
+  this.address = options.address;
+
+  this.fork = options.fork;
+  this.fork_block_number = options.fork_block_number;
+
+  this.blockchain = options.blockchain;
+
+  this.web3 = new Web3();
+  this.web3.setProvider(this.fork);
+
+  this.checkpoints = [];
+}
+
+ForkedStorageTrie.prototype.keyExists = function(key, callback) {
+  key = utils.toBuffer(key);
+
+  this._findPath(key, function (err, node, remainder, stack) {
+    var exists = false;
+    if (node && remainder.length === 0) {
+      exists = true;
+    }
+    callback(err, exists)
+  })
+};
+
+// Note: This overrides a standard method whereas the other methods do not.
+ForkedStorageTrie.prototype.get = function(key, block_number, callback) {
+  var self = this;
+
+  // Allow an optional block_number
+  if (typeof block_number == "function") {
+    callback = block_number;
+    block_number = self.fork_block_number;
+  }
+
+  key = utils.toBuffer(key);
+
+  // If the account doesn't exist in our state trie, get it off the wire.
+  this.keyExists(key, function(err, exists) {
+    if (err) return callback(err);
+
+    if (exists) {
+      MerklePatriciaTree.prototype.get.call(self, key, function(err, r) {
+        callback(err, r);
+      });
+    } else {
+      // If this is the main trie, get the whole account.
+      if (self.address == null) {
+        self.blockchain.fetchAccountFromFallback(key, block_number, function(err, account) {
+          if (err) return callback(err);
+
+          callback(null, account.serialize());
+        });
+      } else {
+        self.web3.eth.getStorageAt(to.hex(self.address), to.hex(key), block_number, function(err, value) {
+          if (err) return callback(err);
+
+          value = utils.toBuffer(value);
+          value = utils.rlp.encode(value);
+
+          callback(null, value);
+        });
+      }
+    }
+  });
+};
+
+// I don't want checkpoints to be removed by commits.
+// Note: For some reason, naming this function checkpoint()
+// -- overriding the default function -- prevents it from
+// being called.
+ForkedStorageTrie.prototype.customCheckpoint = function() {
+  this.checkpoints.push(this.root);
+};
+
+ForkedStorageTrie.prototype.customRevert = function() {
+  this.root = this.checkpoints.pop();
+};
+
+module.exports = ForkedStorageTrie;
+
+
+/***/ }),
+/* 249 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  // Mimics crypto.random bytes, but takes in a random number generator
+  // as its second parameter. rng is expected to be a function that takes
+  // no parameters and returns a result like Math.random().
+  // This is important because it allows for a seeded random number generator.
+  // Since this is a mock RPC library, the rng doesn't need to be cryptographically secure.
+  randomBytes: function(length, rng) {
+    var buf = [];
+
+    for (var i = 0; i < length; i++) {
+      buf.push(rng()*255);
+    }
+
+    return new Buffer(buf);
+  }
+}
+
+
+/***/ }),
 /* 250 */
+/***/ (function(module, exports) {
+
+module.exports = {
+	"_args": [
+		[
+			{
+				"raw": "ganache-core",
+				"scope": null,
+				"escapedName": "ganache-core",
+				"name": "ganache-core",
+				"rawSpec": "",
+				"spec": "latest",
+				"type": "tag"
+			},
+			"/Users/tim/Documents/workspace/Consensys/testrpc"
+		]
+	],
+	"_from": "ganache-core@latest",
+	"_id": "ganache-core@0.0.1",
+	"_inCache": true,
+	"_location": "/ganache-core",
+	"_nodeVersion": "6.9.1",
+	"_npmOperationalInternal": {
+		"host": "packages-18-east.internal.npmjs.com",
+		"tmp": "tmp/ganache-core-0.0.1.tgz_1490635837492_0.26290462794713676"
+	},
+	"_npmUser": {
+		"name": "tcoulter",
+		"email": "tim@timothyjcoulter.com"
+	},
+	"_npmVersion": "3.10.8",
+	"_phantomChildren": {},
+	"_requested": {
+		"raw": "ganache-core",
+		"scope": null,
+		"escapedName": "ganache-core",
+		"name": "ganache-core",
+		"rawSpec": "",
+		"spec": "latest",
+		"type": "tag"
+	},
+	"_requiredBy": [
+		"#DEV:/",
+		"#USER"
+	],
+	"_resolved": "https://registry.npmjs.org/ganache-core/-/ganache-core-0.0.1.tgz",
+	"_shasum": "b711afd4d537fb466bfc7f376a354dfadf5960ee",
+	"_shrinkwrap": null,
+	"_spec": "ganache-core",
+	"_where": "/Users/tim/Documents/workspace/Consensys/testrpc",
+	"bugs": {
+		"url": "https://github.com/trufflesuite/ganache-core/issues"
+	},
+	"dependencies": {
+		"async": "~1.5.0",
+		"bip39": "~2.2.0",
+		"cachedown": "^1.0.0",
+		"chai": "^3.5.0",
+		"ethereumjs-account": "~2.0.4",
+		"ethereumjs-block": "~1.2.2",
+		"ethereumjs-tx": "1.1.2",
+		"ethereumjs-util": "~5.1.0",
+		"ethereumjs-vm": "~2.0.1",
+		"ethereumjs-wallet": "~0.6.0",
+		"fake-merkle-patricia-tree": "~1.0.1",
+		"heap": "~0.2.6",
+		"js-scrypt": "^0.2.0",
+		"level-sublevel": "^6.6.1",
+		"levelup": "^1.1.0",
+		"localstorage-down": "^0.6.7",
+		"merkle-patricia-tree": "^2.1.2",
+		"mocha": "~2.2.5",
+		"on-build-webpack": "^0.1.0",
+		"prepend-file": "^1.3.1",
+		"seedrandom": "~2.4.2",
+		"shebang-loader": "0.0.1",
+		"solc": "0.4.8",
+		"temp": "^0.8.3",
+		"tmp": "0.0.31",
+		"web3": "^0.18.2",
+		"web3-provider-engine": "~8.1.0",
+		"webpack": "^2.2.1",
+		"yargs": "^7.0.2"
+	},
+	"description": "[![npm](https://img.shields.io/npm/v/ethereumjs-testrpc.svg)]() [![npm](https://img.shields.io/npm/dm/ethereumjs-testrpc.svg)]() [![Build Status](https://travis-ci.org/ethereumjs/testrpc.svg?branch=master)](https://travis-ci.org/ethereumjs/testrpc)",
+	"devDependencies": {},
+	"directories": {
+		"lib": "./lib"
+	},
+	"dist": {
+		"shasum": "b711afd4d537fb466bfc7f376a354dfadf5960ee",
+		"tarball": "https://registry.npmjs.org/ganache-core/-/ganache-core-0.0.1.tgz"
+	},
+	"gitHead": "f0efbc2deb155d73bf96bc964a62064f04a2f48f",
+	"homepage": "https://github.com/trufflesuite/ganache-core#readme",
+	"main": "./index.js",
+	"maintainers": [
+		{
+			"name": "tcoulter",
+			"email": "tim@timothyjcoulter.com"
+		}
+	],
+	"name": "ganache-core",
+	"optionalDependencies": {},
+	"readme": "ERROR: No README data found!",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/trufflesuite/ganache-core.git"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
+	"version": "0.0.1"
+};
+
+/***/ }),
+/* 251 */
 /***/ (function(module, exports) {
 
 var PriorityQueue = function(size) {
@@ -83100,7 +83443,7 @@ exports.Pool = function (factory) {
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hash = __webpack_require__(32);
@@ -83197,7 +83540,7 @@ BlockHash.prototype._pad = function pad() {
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hmac = exports;
@@ -83251,7 +83594,7 @@ Hmac.prototype.digest = function digest(enc) {
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hash = __webpack_require__(32);
@@ -83401,7 +83744,7 @@ var sh = [
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hash = __webpack_require__(32);
@@ -83971,7 +84314,7 @@ function g1_512_lo(xh, xl) {
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var utils = exports;
@@ -84234,12 +84577,12 @@ exports.shr64_lo = shr64_lo;
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assert = __webpack_require__(14)
 var crypto = __webpack_require__(25)
-var cs = __webpack_require__(173)
+var cs = __webpack_require__(155)
 var secp256k1 = __webpack_require__(28)
 
 var MASTER_SECRET = new Buffer('Bitcoin seed')
@@ -84467,14 +84810,14 @@ module.exports = HDKey
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(258);
+module.exports = __webpack_require__(259);
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Generated by CoffeeScript 1.8.0
@@ -84858,7 +85201,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84978,7 +85321,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -85007,7 +85350,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -85018,21 +85361,21 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-	hash: __webpack_require__(263),
-	hashSync: __webpack_require__(265)
+	hash: __webpack_require__(264),
+	hashSync: __webpack_require__(266)
 }
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__dirname) {var argScrubber = __webpack_require__(103);
 var fork = __webpack_require__(135).fork;
-var gp = __webpack_require__(250);
+var gp = __webpack_require__(251);
 var cpu_count = __webpack_require__(137).cpus().length;
 
 //let there be up to cpu_count - 1 workers
@@ -85097,7 +85440,7 @@ module.exports = function scryptAsync(password, salt, options, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__dirname, module) {//adapted from https://github.com/tonyg/js-scrypt/blob/master/browser/scrypt.js
@@ -95368,10 +95711,10 @@ var scrypt = (function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/", __webpack_require__(19)(module)))
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var scrypt_module_factory = __webpack_require__(264);
+var scrypt_module_factory = __webpack_require__(265);
 var argScrubber = __webpack_require__(103);
 
 module.exports = function(password, salt, options) {
@@ -95388,7 +95731,7 @@ module.exports = function(password, salt, options) {
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports) {
 
 /*
@@ -95826,29 +96169,12 @@ module.exports = function(password, salt, options) {
 
 
 /***/ }),
-/* 267 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = __webpack_require__(104)(__webpack_require__(163)('keccak'))
-
-
-/***/ }),
 /* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-try {
-  module.exports = __webpack_require__(267)
-} catch (err) {
-  if (process.env.DEBUG) {
-    console.error('Keccak bindings are not compiled. Pure JS implementation will be used.')
-  }
-
-  module.exports = __webpack_require__(269)
-}
+module.exports = __webpack_require__(104)(__webpack_require__(145)('keccak'))
 
 
 /***/ }),
@@ -95857,11 +96183,28 @@ try {
 
 "use strict";
 
-module.exports = __webpack_require__(104)(__webpack_require__(273))
+try {
+  module.exports = __webpack_require__(268)
+} catch (err) {
+  if (process.env.DEBUG) {
+    console.error('Keccak bindings are not compiled. Pure JS implementation will be used.')
+  }
+
+  module.exports = __webpack_require__(270)
+}
 
 
 /***/ }),
 /* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = __webpack_require__(104)(__webpack_require__(274))
+
+
+/***/ }),
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95951,7 +96294,7 @@ module.exports = function (KeccakState) {
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96032,7 +96375,7 @@ module.exports = function (KeccakState) {
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96226,12 +96569,12 @@ exports.p1600 = function (s) {
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var keccakState = __webpack_require__(272)
+var keccakState = __webpack_require__(273)
 
 function Keccak () {
   // much faster than `new Array(50)`
@@ -96302,17 +96645,17 @@ module.exports = Keccak
 
 
 /***/ }),
-/* 274 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(168).SHA3Hash
-
-
-/***/ }),
 /* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var encodings = __webpack_require__(276);
+module.exports = __webpack_require__(150).SHA3Hash
+
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var encodings = __webpack_require__(277);
 
 module.exports = Codec;
 
@@ -96421,7 +96764,7 @@ Codec.prototype.valueAsBuffer = function(opts){
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports) {
 
 
@@ -96503,11 +96846,11 @@ function isBinary(data){
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(2);
-var Readable = __webpack_require__(280).Readable;
+var Readable = __webpack_require__(281).Readable;
 var extend = __webpack_require__(30);
 var EncodingError = __webpack_require__(47).EncodingError;
 
@@ -96565,7 +96908,7 @@ ReadStream.prototype._cleanup = function(){
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -96574,7 +96917,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -96626,7 +96969,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(105);
@@ -96635,14 +96978,14 @@ exports.Readable = exports;
 exports.Writable = __webpack_require__(107);
 exports.Duplex = __webpack_require__(40);
 exports.Transform = __webpack_require__(106);
-exports.PassThrough = __webpack_require__(279);
+exports.PassThrough = __webpack_require__(280);
 if (!process.browser && process.env.READABLE_STREAM === 'disable') {
   module.exports = __webpack_require__(4);
 }
 
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports) {
 
 
@@ -96668,7 +97011,7 @@ exports.upperBound = '\uffff'
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inRange = __webpack_require__(113)
@@ -96706,7 +97049,7 @@ module.exports = function (compare) {
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -96715,7 +97058,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -96804,7 +97147,7 @@ module.exports = {
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -96814,11 +97157,11 @@ module.exports = {
 
 // NOTE: we are fixed to readable-stream@1.0.x for now
 // for pure Streams2 across Node versions
-var Readable      = __webpack_require__(289).Readable
+var Readable      = __webpack_require__(290).Readable
   , inherits      = __webpack_require__(0).inherits
   , extend        = __webpack_require__(109)
   , EncodingError = __webpack_require__(70).EncodingError
-  , util          = __webpack_require__(286)
+  , util          = __webpack_require__(287)
 
 
 
@@ -96907,7 +97250,7 @@ module.exports = ReadStream
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -96957,7 +97300,7 @@ function getLevelDOWN () {
   if (leveldown)
     return leveldown
 
-  var requiredVersion       = __webpack_require__(287).devDependencies.leveldown
+  var requiredVersion       = __webpack_require__(288).devDependencies.leveldown
     , missingLevelDOWNError = 'Could not locate LevelDOWN, try `npm install leveldown`'
     , leveldownVersion
 
@@ -97005,7 +97348,7 @@ module.exports = {
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -97203,7 +97546,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -97255,7 +97598,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Stream = __webpack_require__(4); // hack to fix a circular dependency issue when used with browserify
@@ -97265,17 +97608,17 @@ exports.Readable = exports;
 exports.Writable = __webpack_require__(112);
 exports.Duplex = __webpack_require__(71);
 exports.Transform = __webpack_require__(111);
-exports.PassThrough = __webpack_require__(288);
+exports.PassThrough = __webpack_require__(289);
 if (!process.browser && process.env.READABLE_STREAM === 'disable') {
   module.exports = __webpack_require__(4);
 }
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hooks = __webpack_require__(282)
+var hooks = __webpack_require__(283)
 var ltgt = __webpack_require__(74)
 
 function isFunction (f) {
@@ -97489,7 +97832,7 @@ module.exports = function (db, precodec, codec, compare) {
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -97504,7 +97847,7 @@ module.exports = {
 				"spec": ">=6.6.1 <7.0.0",
 				"type": "range"
 			},
-			"/Users/tim/Documents/workspace/Consensys/testrpc"
+			"/Users/tim/Documents/workspace/Consensys/testrpc/node_modules/ganache-core"
 		]
 	],
 	"_from": "level-sublevel@>=6.6.1 <7.0.0",
@@ -97538,13 +97881,13 @@ module.exports = {
 		"type": "range"
 	},
 	"_requiredBy": [
-		"#DEV:/"
+		"/ganache-core"
 	],
 	"_resolved": "https://registry.npmjs.org/level-sublevel/-/level-sublevel-6.6.1.tgz",
 	"_shasum": "f9a77f7521ab70a8f8e92ed56f21a3c7886a4485",
 	"_shrinkwrap": null,
 	"_spec": "level-sublevel@^6.6.1",
-	"_where": "/Users/tim/Documents/workspace/Consensys/testrpc",
+	"_where": "/Users/tim/Documents/workspace/Consensys/testrpc/node_modules/ganache-core",
 	"author": {
 		"name": "Dominic Tarr",
 		"email": "dominic.tarr@gmail.com",
@@ -97619,7 +97962,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var EventEmitter = __webpack_require__(16).EventEmitter
@@ -97639,7 +97982,7 @@ function isObject (o) {
   return o && 'object' === typeof o
 }
 
-var version = __webpack_require__(291).version
+var version = __webpack_require__(292).version
 
 var sublevel = module.exports = function (nut, prefix, createStream, options) {
   var emitter = new EventEmitter()
@@ -97801,7 +98144,7 @@ var sublevel = module.exports = function (nut, prefix, createStream, options) {
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 LevelUP contributors
@@ -97810,9 +98153,9 @@ var sublevel = module.exports = function (nut, prefix, createStream, options) {
  * <https://github.com/Level/level-ws/master/LICENSE>
  */
 
-var Writable = __webpack_require__(4).Writable || __webpack_require__(296).Writable
+var Writable = __webpack_require__(4).Writable || __webpack_require__(297).Writable
   , inherits = __webpack_require__(0).inherits
-  , extend   = __webpack_require__(298)
+  , extend   = __webpack_require__(299)
 
   , defaultOptions = {
         type          : 'put'
@@ -97960,7 +98303,7 @@ module.exports = function (db) {
 module.exports.WriteStream = WriteStream
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -97969,7 +98312,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -98021,7 +98364,7 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Stream = __webpack_require__(4); // hack to fix a circular dependency issue when used with browserify
@@ -98031,14 +98374,14 @@ exports.Readable = exports;
 exports.Writable = __webpack_require__(116);
 exports.Duplex = __webpack_require__(72);
 exports.Transform = __webpack_require__(115);
-exports.PassThrough = __webpack_require__(295);
+exports.PassThrough = __webpack_require__(296);
 if (!process.browser && process.env.READABLE_STREAM === 'disable') {
   module.exports = __webpack_require__(4);
 }
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports) {
 
 module.exports = hasKeys
@@ -98051,11 +98394,11 @@ function hasKeys(source) {
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Keys = __webpack_require__(310)
-var hasKeys = __webpack_require__(297)
+var Keys = __webpack_require__(311)
+var hasKeys = __webpack_require__(298)
 
 module.exports = extend
 
@@ -98082,7 +98425,7 @@ function extend() {
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2016 LevelUP contributors
@@ -98171,7 +98514,7 @@ module.exports = Batch
 
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -98186,7 +98529,7 @@ module.exports = {
 				"spec": ">=1.1.0 <2.0.0",
 				"type": "range"
 			},
-			"/Users/tim/Documents/workspace/Consensys/testrpc"
+			"/Users/tim/Documents/workspace/Consensys/testrpc/node_modules/ganache-core"
 		]
 	],
 	"_from": "levelup@>=1.1.0 <2.0.0",
@@ -98214,14 +98557,14 @@ module.exports = {
 		"type": "range"
 	},
 	"_requiredBy": [
-		"#DEV:/",
+		"/ganache-core",
 		"/merkle-patricia-tree"
 	],
 	"_resolved": "https://registry.npmjs.org/levelup/-/levelup-1.3.5.tgz",
 	"_shasum": "fa80a972b74011f2537c8b65678bd8b5188e4e66",
 	"_shrinkwrap": null,
 	"_spec": "levelup@^1.1.0",
-	"_where": "/Users/tim/Documents/workspace/Consensys/testrpc",
+	"_where": "/Users/tim/Documents/workspace/Consensys/testrpc/node_modules/ganache-core",
 	"browser": {
 		"leveldown": false,
 		"leveldown/package": false,
@@ -98372,14 +98715,14 @@ module.exports = {
 };
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = LRUCache
 
 // This will be a proper iterable 'Map' in engines that support it,
 // or a fakey-fake PseudoMap in older versions.
-var Map = __webpack_require__(316)
+var Map = __webpack_require__(317)
 
 function naiveLength () { return 1 }
 
@@ -98734,14 +99077,14 @@ function incMru (self) {
 
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports) {
 
 module.exports = setImmediate
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var AbstractLevelDOWN = __webpack_require__(121)
@@ -98761,7 +99104,7 @@ module.exports = isLevelDOWN
 
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const assert = __webpack_require__(14)
@@ -98770,9 +99113,9 @@ const memdown = __webpack_require__(118)
 const async = __webpack_require__(5)
 const rlp = __webpack_require__(20)
 const ethUtil = __webpack_require__(75)
-const semaphore = __webpack_require__(334)
+const semaphore = __webpack_require__(335)
 const TrieNode = __webpack_require__(123)
-const ReadStream = __webpack_require__(306)
+const ReadStream = __webpack_require__(307)
 const matchingNibbleLength = __webpack_require__(48).matchingNibbleLength
 const doKeysMatch = __webpack_require__(48).doKeysMatch
 const callTogether = __webpack_require__(48).callTogether
@@ -99501,7 +99844,7 @@ Trie.prototype.checkRoot = function (root, cb) {
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const levelup = __webpack_require__(73)
@@ -99509,7 +99852,7 @@ const memdown = __webpack_require__(118)
 const async = __webpack_require__(5)
 const inherits = __webpack_require__(0).inherits
 const Readable = __webpack_require__(129).Readable
-const levelws = __webpack_require__(293)
+const levelws = __webpack_require__(294)
 const callTogether = __webpack_require__(48).callTogether
 
 module.exports = checkpointInterface
@@ -99692,7 +100035,7 @@ ScratchReadStream.prototype._read = function () {
 
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const Readable = __webpack_require__(129).Readable
@@ -99730,7 +100073,7 @@ TrieReadStream.prototype._read = function () {
 
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const ethUtil = __webpack_require__(75)
@@ -99775,11 +100118,11 @@ function del (_super, key, cb) {
 
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const CheckpointTrie = __webpack_require__(33)
-const secureInterface = __webpack_require__(307)
+const secureInterface = __webpack_require__(308)
 const inherits = __webpack_require__(0).inherits
 
 module.exports = SecureTrie
@@ -99797,7 +100140,7 @@ function SecureTrie () {
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports) {
 
 var hasOwn = Object.prototype.hasOwnProperty;
@@ -99843,15 +100186,15 @@ module.exports = function forEach(obj, fn) {
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = Object.keys || __webpack_require__(312);
+module.exports = Object.keys || __webpack_require__(313);
 
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports) {
 
 var toString = Object.prototype.toString;
@@ -99873,7 +100216,7 @@ module.exports = function isArguments(value) {
 
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function () {
@@ -99882,8 +100225,8 @@ module.exports = function isArguments(value) {
 	// modified from https://github.com/kriskowal/es5-shim
 	var has = Object.prototype.hasOwnProperty,
 		toString = Object.prototype.toString,
-		forEach = __webpack_require__(309),
-		isArgs = __webpack_require__(311),
+		forEach = __webpack_require__(310),
+		isArgs = __webpack_require__(312),
 		hasDontEnumBug = !({'toString': null}).propertyIsEnumerable('toString'),
 		hasProtoEnumBug = (function () {}).propertyIsEnumerable('prototype'),
 		dontEnums = [
@@ -99941,7 +100284,7 @@ module.exports = function isArguments(value) {
 
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99973,7 +100316,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var crypto = __webpack_require__(25)
@@ -99986,7 +100329,7 @@ exports.pbkdf2 = crypto.pbkdf2
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports) {
 
 /*!
@@ -100054,7 +100397,7 @@ exports.pbkdf2 = crypto.pbkdf2
 })
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 if (process.env.npm_package_name === 'pseudomap' &&
@@ -100064,12 +100407,12 @@ if (process.env.npm_package_name === 'pseudomap' &&
 if (typeof Map === 'function' && !process.env.TEST_PSEUDOMAP) {
   module.exports = Map
 } else {
-  module.exports = __webpack_require__(317)
+  module.exports = __webpack_require__(318)
 }
 
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = Object.prototype.hasOwnProperty
@@ -100188,14 +100531,14 @@ function set (data, k, v) {
 
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(25).randomBytes
 
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100227,7 +100570,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100235,7 +100578,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 
 var Buffer = __webpack_require__(15).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(64);
+var bufferShim = __webpack_require__(60);
 /*</replacement>*/
 
 module.exports = BufferList;
@@ -100297,10 +100640,10 @@ BufferList.prototype.concat = function (n) {
 };
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var scrypt = __webpack_require__(262)
+var scrypt = __webpack_require__(263)
 
 function hash(key, salt, n, r, p, dklen, progressCb) {
   return scrypt.hashSync(key, { N: n, r: r, p: p }, dklen, salt)
@@ -100310,7 +100653,7 @@ module.exports = hash
 
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100361,12 +100704,12 @@ exports.isNumberInInterval = function (number, x, y, message) {
 
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var bip66 = __webpack_require__(166)
+var bip66 = __webpack_require__(148)
 
 var EC_PRIVKEY_EXPORT_DER_COMPRESSED = new Buffer([
   // begin
@@ -100565,7 +100908,7 @@ exports.signatureImportLax = function (sig) {
 
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100819,13 +101162,13 @@ exports.ecdhUnsafe = function (publicKey, privateKey, compressed) {
 
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var assert = __webpack_require__(322)
-var der = __webpack_require__(323)
+var assert = __webpack_require__(323)
+var der = __webpack_require__(324)
 var messages = __webpack_require__(130)
 
 function initCompressedValue (value, defaultValue) {
@@ -101057,7 +101400,7 @@ module.exports = function (secp256k1) {
 
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // A library of seedable RNGs implemented in Javascript.
@@ -101072,17 +101415,17 @@ module.exports = function (secp256k1) {
 // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
 // Period: ~2^116
 // Reported to pass all BigCrush tests.
-var alea = __webpack_require__(327);
+var alea = __webpack_require__(328);
 
 // xor128, a pure xor-shift generator by George Marsaglia.
 // Period: 2^128-1.
 // Reported to fail: MatrixRank and LinearComp.
-var xor128 = __webpack_require__(329);
+var xor128 = __webpack_require__(330);
 
 // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
 // Period: 2^192-2^32
 // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
-var xorwow = __webpack_require__(332);
+var xorwow = __webpack_require__(333);
 
 // xorshift7, by François Panneton and Pierre L'ecuyer, takes
 // a different approach: it adds robustness by allowing more shifts
@@ -101090,7 +101433,7 @@ var xorwow = __webpack_require__(332);
 // with 256 bits, that passes BigCrush with no systmatic failures.
 // Period 2^256-1.
 // No systematic BigCrush failures reported.
-var xorshift7 = __webpack_require__(331);
+var xorshift7 = __webpack_require__(332);
 
 // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
 // very long period that also adds a Weyl generator. It also passes
@@ -101099,18 +101442,18 @@ var xorshift7 = __webpack_require__(331);
 // collisions.
 // Period: 2^4128-2^32.
 // No systematic BigCrush failures reported.
-var xor4096 = __webpack_require__(330);
+var xor4096 = __webpack_require__(331);
 
 // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
 // number generator derived from ChaCha, a modern stream cipher.
 // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
 // Period: ~2^127
 // No systematic BigCrush failures reported.
-var tychei = __webpack_require__(328);
+var tychei = __webpack_require__(329);
 
 // The original ARC4-based prng included in this library.
 // Period: ~2^1600
-var sr = __webpack_require__(333);
+var sr = __webpack_require__(334);
 
 sr.alea = alea;
 sr.xor128 = xor128;
@@ -101123,7 +101466,7 @@ module.exports = sr;
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
@@ -101245,7 +101588,7 @@ if (module && module.exports) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "Tyche-i" prng algorithm by
@@ -101356,7 +101699,7 @@ if (module && module.exports) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xor128" prng algorithm by
@@ -101445,7 +101788,7 @@ if (module && module.exports) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
@@ -101599,7 +101942,7 @@ if (module && module.exports) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xorshift7" algorithm by
@@ -101704,7 +102047,7 @@ if (module && module.exports) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xorwow" prng algorithm by
@@ -101798,7 +102141,7 @@ if (module && module.exports) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -102047,7 +102390,7 @@ if ((typeof module) == 'object' && module.exports) {
 
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function(global) {
@@ -102148,7 +102491,7 @@ if (true) {
 
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isHexPrefixed = __webpack_require__(102);
@@ -102168,7 +102511,7 @@ module.exports = function stripHexPrefix(str) {
 
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -102186,7 +102529,7 @@ var
   fs     = __webpack_require__(44),
   path   = __webpack_require__(51),
   crypto = __webpack_require__(25),
-  tmpDir = __webpack_require__(313),
+  tmpDir = __webpack_require__(314),
   _c     = process.binding('constants');
 
 
@@ -102663,7 +103006,7 @@ module.exports.setGracefulCleanup = _setGracefulCleanup;
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (root) {
@@ -103111,7 +103454,7 @@ UChar.udata={
 
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -103361,7 +103704,7 @@ UChar.udata={
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -103373,7 +103716,7 @@ module.exports = __webpack_require__(0).deprecate;
 
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rb = __webpack_require__(25).randomBytes;
@@ -103383,7 +103726,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //     uuid.js
@@ -103394,7 +103737,7 @@ module.exports = function() {
 // Unique ID creation requires a high quality random # generator.  We feature
 // detect to determine the best RNG source, normalizing to a function that
 // returns 128-bits of randomness, since that's what's usually required
-var _rng = __webpack_require__(340);
+var _rng = __webpack_require__(341);
 
 // Maps for number <-> hex string conversion
 var _byteToHex = [];
@@ -103572,13 +103915,13 @@ module.exports = uuid;
 
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const EventEmitter = __webpack_require__(16).EventEmitter
 const inherits = __webpack_require__(0).inherits
 const Stoplight = __webpack_require__(79)
-const cacheUtils = __webpack_require__(349)
+const cacheUtils = __webpack_require__(350)
 const createPayload = __webpack_require__(78)
 const ethUtil = __webpack_require__(11)
 const async = __webpack_require__(77)
@@ -103839,7 +104182,7 @@ function SourceNotFoundError(payload){
 
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -104077,13 +104420,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-const Transaction = __webpack_require__(345)
+const Transaction = __webpack_require__(346)
 const ethUtil = __webpack_require__(11)
 
 /**
@@ -104140,13 +104483,13 @@ module.exports = class FakeTransaction extends Transaction {
 
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 const ethUtil = __webpack_require__(11)
-const fees = __webpack_require__(343)
+const fees = __webpack_require__(344)
 const BN = ethUtil.BN
 
 // secp256k1n/2
@@ -104427,7 +104770,7 @@ module.exports = class Transaction {
 
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(77)
@@ -104915,15 +105258,15 @@ function valuesFor(obj){
 
 
 /***/ }),
-/* 347 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const async = __webpack_require__(77)
 const inherits = __webpack_require__(0).inherits
 const Stoplight = __webpack_require__(79)
-const createVm = __webpack_require__(227).fromWeb3Provider
+const createVm = __webpack_require__(209).fromWeb3Provider
 const Block = __webpack_require__(26)
-const FakeTransaction = __webpack_require__(344)
+const FakeTransaction = __webpack_require__(345)
 const ethUtil = __webpack_require__(11)
 const createPayload = __webpack_require__(78)
 const Subprovider = __webpack_require__(34)
@@ -105064,7 +105407,7 @@ function blockFromBlockData(blockData){
 
 
 /***/ }),
-/* 348 */
+/* 349 */
 /***/ (function(module, exports) {
 
 // gotta keep it within MAX_SAFE_INTEGER
@@ -105083,7 +105426,7 @@ function createRandomId(){
 }
 
 /***/ }),
-/* 349 */
+/* 350 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -105229,7 +105572,7 @@ function cacheTypeForPayload(payload) {
 
 
 /***/ }),
-/* 350 */
+/* 351 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -105488,7 +105831,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 351 */
+/* 352 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -105601,7 +105944,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -105753,7 +106096,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105785,7 +106128,7 @@ module.exports = SolidityTypeAddress;
 
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105817,7 +106160,7 @@ module.exports = SolidityTypeBool;
 
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105852,7 +106195,7 @@ module.exports = SolidityTypeBytes;
 
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105878,7 +106221,7 @@ module.exports = SolidityTypeDynamicBytes;
 
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105916,7 +106259,7 @@ module.exports = SolidityTypeInt;
 
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105954,7 +106297,7 @@ module.exports = SolidityTypeReal;
 
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -105980,7 +106323,7 @@ module.exports = SolidityTypeString;
 
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -106018,7 +106361,7 @@ module.exports = SolidityTypeUInt;
 
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(18);
@@ -106056,7 +106399,7 @@ module.exports = SolidityTypeUReal;
 
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -106064,7 +106407,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 363 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106094,23 +106437,23 @@ module.exports = {
  * @date 2014
  */
 
-var RequestManager = __webpack_require__(378);
+var RequestManager = __webpack_require__(379);
 var Iban = __webpack_require__(57);
-var Eth = __webpack_require__(372);
-var DB = __webpack_require__(371);
-var Shh = __webpack_require__(375);
-var Net = __webpack_require__(373);
-var Personal = __webpack_require__(374);
-var Swarm = __webpack_require__(376);
-var Settings = __webpack_require__(379);
-var version = __webpack_require__(362);
+var Eth = __webpack_require__(373);
+var DB = __webpack_require__(372);
+var Shh = __webpack_require__(376);
+var Net = __webpack_require__(374);
+var Personal = __webpack_require__(375);
+var Swarm = __webpack_require__(377);
+var Settings = __webpack_require__(380);
+var version = __webpack_require__(363);
 var utils = __webpack_require__(8);
 var sha3 = __webpack_require__(49);
-var extend = __webpack_require__(367);
-var Batch = __webpack_require__(365);
+var extend = __webpack_require__(368);
+var Batch = __webpack_require__(366);
 var Property = __webpack_require__(42);
-var HttpProvider = __webpack_require__(369);
-var IpcProvider = __webpack_require__(370);
+var HttpProvider = __webpack_require__(370);
+var IpcProvider = __webpack_require__(371);
 var BigNumber = __webpack_require__(45);
 
 
@@ -106220,7 +106563,7 @@ module.exports = Web3;
 
 
 /***/ }),
-/* 364 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106314,7 +106657,7 @@ module.exports = AllSolidityEvents;
 
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106386,7 +106729,7 @@ module.exports = Batch;
 
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106414,8 +106757,8 @@ module.exports = Batch;
 var utils = __webpack_require__(8);
 var coder = __webpack_require__(80);
 var SolidityEvent = __webpack_require__(133);
-var SolidityFunction = __webpack_require__(368);
-var AllEvents = __webpack_require__(364);
+var SolidityFunction = __webpack_require__(369);
+var AllEvents = __webpack_require__(365);
 
 /**
  * Should be called to encode constructor params
@@ -106702,7 +107045,7 @@ module.exports = ContractFactory;
 
 
 /***/ }),
-/* 367 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var formatters = __webpack_require__(24);
@@ -106756,7 +107099,7 @@ module.exports = extend;
 
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107024,7 +107367,7 @@ module.exports = SolidityFunction;
 
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107061,10 +107404,10 @@ if (typeof window !== 'undefined' && window.XMLHttpRequest) {
     XMLHttpRequest = window.XMLHttpRequest; // jshint ignore: line
 // node
 } else {
-    XMLHttpRequest = __webpack_require__(383).XMLHttpRequest; // jshint ignore: line
+    XMLHttpRequest = __webpack_require__(384).XMLHttpRequest; // jshint ignore: line
 }
 
-var XHR2 = __webpack_require__(382); // jshint ignore: line
+var XHR2 = __webpack_require__(383); // jshint ignore: line
 
 /**
  * HttpProvider should be used to send rpc calls over http
@@ -107183,7 +107526,7 @@ module.exports = HttpProvider;
 
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107397,7 +107740,7 @@ module.exports = IpcProvider;
 
 
 /***/ }),
-/* 371 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107469,7 +107812,7 @@ module.exports = DB;
 
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107503,13 +107846,13 @@ var utils = __webpack_require__(8);
 var Method = __webpack_require__(35);
 var Property = __webpack_require__(42);
 var c = __webpack_require__(55);
-var Contract = __webpack_require__(366);
+var Contract = __webpack_require__(367);
 var watches = __webpack_require__(58);
 var Filter = __webpack_require__(56);
-var IsSyncing = __webpack_require__(380);
-var namereg = __webpack_require__(377);
+var IsSyncing = __webpack_require__(381);
+var namereg = __webpack_require__(378);
 var Iban = __webpack_require__(57);
-var transfer = __webpack_require__(381);
+var transfer = __webpack_require__(382);
 
 var blockCall = function (args) {
     return (utils.isString(args[0]) && args[0].indexOf('0x') === 0) ? "eth_getBlockByHash" : "eth_getBlockByNumber";
@@ -107823,7 +108166,7 @@ module.exports = Eth;
 
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107881,7 +108224,7 @@ module.exports = Net;
 
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107981,7 +108324,7 @@ module.exports = Personal;
 
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108073,7 +108416,7 @@ module.exports = Shh;
 
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108225,7 +108568,7 @@ module.exports = Swarm;
 
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108250,8 +108593,8 @@ module.exports = Swarm;
  * @date 2015
  */
 
-var globalRegistrarAbi = __webpack_require__(350);
-var icapRegistrarAbi= __webpack_require__(351);
+var globalRegistrarAbi = __webpack_require__(351);
+var icapRegistrarAbi= __webpack_require__(352);
 
 var globalNameregAddress = '0xc6d9d2cd449a754c494264e1809c50e34d64562b';
 var icapNameregAddress = '0xa1a111bc074c9cfa781f0c38e63bd51c91b8af00';
@@ -108270,7 +108613,7 @@ module.exports = {
 
 
 /***/ }),
-/* 378 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108541,7 +108884,7 @@ module.exports = RequestManager;
 
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports) {
 
 
@@ -108556,7 +108899,7 @@ module.exports = Settings;
 
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108655,7 +108998,7 @@ module.exports = IsSyncing;
 
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108681,7 +109024,7 @@ module.exports = IsSyncing;
  */
 
 var Iban = __webpack_require__(57);
-var exchangeAbi = __webpack_require__(352);
+var exchangeAbi = __webpack_require__(353);
 
 /**
  * Should be used to make Iban transfer
@@ -108753,7 +109096,7 @@ module.exports = transfer;
 
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.2
@@ -109634,7 +109977,7 @@ module.exports = transfer;
 
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -110258,64 +110601,6 @@ exports.XMLHttpRequest = function() {
   };
 };
 
-
-/***/ }),
-/* 384 */
-/***/ (function(module, exports) {
-
-module.exports = {
-	"name": "truffle-testrpc",
-	"version": "0.0.8",
-	"bin": {
-		"truffle-testrpc": "./build/cli.node.js"
-	},
-	"main": "./index.js",
-	"directories": {
-		"lib": "./lib"
-	},
-	"scripts": {
-		"start": "./build/cli.node.js",
-		"test": "mocha",
-		"build": "npm run build-cli && npm run build-server",
-		"build-cli": "webpack --config ./webpack/cli.webpack.config.js",
-		"build-server": "webpack --config ./webpack/server.webpack.config.js"
-	},
-	"devDependencies": {
-		"async": "~1.5.0",
-		"bip39": "~2.2.0",
-		"cachedown": "^1.0.0",
-		"chai": "^3.5.0",
-		"ethereumjs-account": "~2.0.4",
-		"ethereumjs-block": "~1.2.2",
-		"ethereumjs-tx": "1.1.2",
-		"ethereumjs-util": "~5.1.0",
-		"ethereumjs-vm": "~2.0.1",
-		"ethereumjs-wallet": "~0.6.0",
-		"fake-merkle-patricia-tree": "~1.0.1",
-		"heap": "~0.2.6",
-		"js-scrypt": "^0.2.0",
-		"level-sublevel": "^6.6.1",
-		"levelup": "^1.1.0",
-		"localstorage-down": "^0.6.7",
-		"merkle-patricia-tree": "^2.1.2",
-		"mocha": "~2.2.5",
-		"on-build-webpack": "^0.1.0",
-		"prepend-file": "^1.3.1",
-		"seedrandom": "~2.4.2",
-		"shebang-loader": "0.0.1",
-		"solc": "0.4.8",
-		"temp": "^0.8.3",
-		"tmp": "0.0.31",
-		"web3": "^0.18.2",
-		"web3-provider-engine": "~8.1.0",
-		"webpack": "^2.2.1",
-		"yargs": "^7.0.2"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ethereumjs/testrpc"
-	}
-};
 
 /***/ }),
 /* 385 */

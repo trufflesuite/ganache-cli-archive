@@ -6,7 +6,7 @@ var outputDir = path.join(__dirname, '..', 'build');
 var outputFilename = 'server.node.js';
 
 module.exports = {
-  entry: './lib/server.js',
+  entry: './node_modules/ganache-core/lib/server.js',
   target: 'node',
   output: {
     path: outputDir,
