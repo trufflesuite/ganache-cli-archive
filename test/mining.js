@@ -3,8 +3,10 @@ var TestRPC = require("../index.js");
 var assert = require('assert');
 var to = require("../lib/utils/to.js");
 
-describe("Block Processing", function() {
-  var web3 = new Web3(TestRPC.provider());
+describe("Mining", function() {
+  var web3 = new Web3(TestRPC.provider({
+    //logger: console
+  }));
   var accounts;
   var snapshot_id;
   var badBytecode;
