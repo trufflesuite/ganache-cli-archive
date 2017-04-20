@@ -38,7 +38,7 @@ function parseAccounts(accounts) {
 }
 
 if (argv.d || argv.deterministic) {
-  argv.s = "TestRPC is awesome!"; // Seed phrase; don't change to Ganache so we maintain original determinism
+  argv.s = "TestRPC is awesome!"; // Seed phrase; don't change to Ganache, maintain original determinism
 }
 
 if (typeof argv.unlock == "string") {
