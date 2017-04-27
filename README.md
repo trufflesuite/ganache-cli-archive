@@ -30,12 +30,14 @@ Having problems? Be sure to check out the [FAQ](https://github.com/ethereumjs/te
 ### Command Line
 
 ```Bash
+$ testrpc --help
+
 $ testrpc <options>
 ```
 
 Options:
 
-* `-a` or `--accounts`: Specify the number of accounts to generate at startup.
+* `-a` or `--accounts`: Specify the list of accounts to generate at startup.
 * `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
