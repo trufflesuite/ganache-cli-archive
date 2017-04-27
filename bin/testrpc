@@ -100,6 +100,14 @@ var server = TestRPC.server(options);
 
 console.log("EthereumJS TestRPC v" + pkg.version);
 
+function getBalanceInEth(val) {
+  var balance = web3.fromWei(val, 'ether');
+  var splt = balance.split('.');
+  if (splt.length > 1)
+    splt[1] = splt[1].substr(0,3);      // 100000.00000000001 => 100000.000 
+  return splt.join('.')
+}
+
 server.listen(options.port, options.hostname, function(err, state) {
   if (err) {
     console.log(err);
@@ -113,12 +121,12 @@ server.listen(options.port, options.hostname, function(err, state) {
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
+    var balanceInEth = getBalanceInEth(util.bufferToInt(accounts[address].account.balance));
+
     var line = "(" + index + ") " + address;
-
-    if (state.isUnlocked(address) == false) {
-      line += " 🔒";
-    }
-
+    line += state.isUnlocked(address)?" 🔓 ":" 🔐 "; 
+    line += ' - ' + balanceInEth + ' ETH';
+    
     console.log(line);
   });
 
