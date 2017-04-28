@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("util"), require("stream"), require("assert"), require("buffer"), require("events"), require("crypto"), require("fs"), require("path"), require("http"), require("child_process"), require("https"), require("os"), require("url"), require("timers"));
+		module.exports = factory(require("util"), require("stream"), require("buffer"), require("assert"), require("events"), require("crypto"), require("fs"), require("path"), require("http"), require("child_process"), require("https"), require("os"), require("url"), require("timers"));
 	else if(typeof define === 'function' && define.amd)
-		define("TestRPC", ["util", "stream", "assert", "buffer", "events", "crypto", "fs", "path", "http", "child_process", "https", "os", "url", "timers"], factory);
+		define("TestRPC", ["util", "stream", "buffer", "assert", "events", "crypto", "fs", "path", "http", "child_process", "https", "os", "url", "timers"], factory);
 	else if(typeof exports === 'object')
-		exports["TestRPC"] = factory(require("util"), require("stream"), require("assert"), require("buffer"), require("events"), require("crypto"), require("fs"), require("path"), require("http"), require("child_process"), require("https"), require("os"), require("url"), require("timers"));
+		exports["TestRPC"] = factory(require("util"), require("stream"), require("buffer"), require("assert"), require("events"), require("crypto"), require("fs"), require("path"), require("http"), require("child_process"), require("https"), require("os"), require("url"), require("timers"));
 	else
-		root["TestRPC"] = factory(root["util"], root["stream"], root["assert"], root["buffer"], root["events"], root["crypto"], root["fs"], root["path"], root["http"], root["child_process"], root["https"], root["os"], root["url"], root["timers"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_25__, __WEBPACK_EXTERNAL_MODULE_44__, __WEBPACK_EXTERNAL_MODULE_51__, __WEBPACK_EXTERNAL_MODULE_80__, __WEBPACK_EXTERNAL_MODULE_136__, __WEBPACK_EXTERNAL_MODULE_137__, __WEBPACK_EXTERNAL_MODULE_138__, __WEBPACK_EXTERNAL_MODULE_139__, __WEBPACK_EXTERNAL_MODULE_386__) {
+		root["TestRPC"] = factory(root["util"], root["stream"], root["buffer"], root["assert"], root["events"], root["crypto"], root["fs"], root["path"], root["http"], root["child_process"], root["https"], root["os"], root["url"], root["timers"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_19__, __WEBPACK_EXTERNAL_MODULE_25__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_50__, __WEBPACK_EXTERNAL_MODULE_79__, __WEBPACK_EXTERNAL_MODULE_139__, __WEBPACK_EXTERNAL_MODULE_140__, __WEBPACK_EXTERNAL_MODULE_141__, __WEBPACK_EXTERNAL_MODULE_142__, __WEBPACK_EXTERNAL_MODULE_385__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -16,9 +16,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -73,17 +73,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 141);
+/******/ 	return __webpack_require__(__webpack_require__.s = 144);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = require("util");
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -848,15 +842,21 @@ module.exports = require("util");
 }));
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("util");
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 try {
-  var util = __webpack_require__(0);
+  var util = __webpack_require__(1);
   if (typeof util.inherits !== 'function') throw '';
   module.exports = util.inherits;
 } catch (e) {
-  module.exports = __webpack_require__(262);
+  module.exports = __webpack_require__(264);
 }
 
 
@@ -975,12 +975,6 @@ function objectToString(o) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("stream");
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -2252,7 +2246,1528 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+;(function (root, factory) {
+	if (true) {
+		// CommonJS
+		module.exports = exports = factory(__webpack_require__(0));
+	}
+	else if (typeof define === "function" && define.amd) {
+		// AMD
+		define(["./core"], factory);
+	}
+	else {
+		// Global (browser)
+		factory(root.CryptoJS);
+	}
+}(this, function (CryptoJS) {
+
+	/**
+	 * Cipher core components.
+	 */
+	CryptoJS.lib.Cipher || (function (undefined) {
+	    // Shortcuts
+	    var C = CryptoJS;
+	    var C_lib = C.lib;
+	    var Base = C_lib.Base;
+	    var WordArray = C_lib.WordArray;
+	    var BufferedBlockAlgorithm = C_lib.BufferedBlockAlgorithm;
+	    var C_enc = C.enc;
+	    var Utf8 = C_enc.Utf8;
+	    var Base64 = C_enc.Base64;
+	    var C_algo = C.algo;
+	    var EvpKDF = C_algo.EvpKDF;
+
+	    /**
+	     * Abstract base cipher template.
+	     *
+	     * @property {number} keySize This cipher's key size. Default: 4 (128 bits)
+	     * @property {number} ivSize This cipher's IV size. Default: 4 (128 bits)
+	     * @property {number} _ENC_XFORM_MODE A constant representing encryption mode.
+	     * @property {number} _DEC_XFORM_MODE A constant representing decryption mode.
+	     */
+	    var Cipher = C_lib.Cipher = BufferedBlockAlgorithm.extend({
+	        /**
+	         * Configuration options.
+	         *
+	         * @property {WordArray} iv The IV to use for this operation.
+	         */
+	        cfg: Base.extend(),
+
+	        /**
+	         * Creates this cipher in encryption mode.
+	         *
+	         * @param {WordArray} key The key.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @return {Cipher} A cipher instance.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var cipher = CryptoJS.algo.AES.createEncryptor(keyWordArray, { iv: ivWordArray });
+	         */
+	        createEncryptor: function (key, cfg) {
+	            return this.create(this._ENC_XFORM_MODE, key, cfg);
+	        },
+
+	        /**
+	         * Creates this cipher in decryption mode.
+	         *
+	         * @param {WordArray} key The key.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @return {Cipher} A cipher instance.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var cipher = CryptoJS.algo.AES.createDecryptor(keyWordArray, { iv: ivWordArray });
+	         */
+	        createDecryptor: function (key, cfg) {
+	            return this.create(this._DEC_XFORM_MODE, key, cfg);
+	        },
+
+	        /**
+	         * Initializes a newly created cipher.
+	         *
+	         * @param {number} xformMode Either the encryption or decryption transormation mode constant.
+	         * @param {WordArray} key The key.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @example
+	         *
+	         *     var cipher = CryptoJS.algo.AES.create(CryptoJS.algo.AES._ENC_XFORM_MODE, keyWordArray, { iv: ivWordArray });
+	         */
+	        init: function (xformMode, key, cfg) {
+	            // Apply config defaults
+	            this.cfg = this.cfg.extend(cfg);
+
+	            // Store transform mode and key
+	            this._xformMode = xformMode;
+	            this._key = key;
+
+	            // Set initial values
+	            this.reset();
+	        },
+
+	        /**
+	         * Resets this cipher to its initial state.
+	         *
+	         * @example
+	         *
+	         *     cipher.reset();
+	         */
+	        reset: function () {
+	            // Reset data buffer
+	            BufferedBlockAlgorithm.reset.call(this);
+
+	            // Perform concrete-cipher logic
+	            this._doReset();
+	        },
+
+	        /**
+	         * Adds data to be encrypted or decrypted.
+	         *
+	         * @param {WordArray|string} dataUpdate The data to encrypt or decrypt.
+	         *
+	         * @return {WordArray} The data after processing.
+	         *
+	         * @example
+	         *
+	         *     var encrypted = cipher.process('data');
+	         *     var encrypted = cipher.process(wordArray);
+	         */
+	        process: function (dataUpdate) {
+	            // Append
+	            this._append(dataUpdate);
+
+	            // Process available blocks
+	            return this._process();
+	        },
+
+	        /**
+	         * Finalizes the encryption or decryption process.
+	         * Note that the finalize operation is effectively a destructive, read-once operation.
+	         *
+	         * @param {WordArray|string} dataUpdate The final data to encrypt or decrypt.
+	         *
+	         * @return {WordArray} The data after final processing.
+	         *
+	         * @example
+	         *
+	         *     var encrypted = cipher.finalize();
+	         *     var encrypted = cipher.finalize('data');
+	         *     var encrypted = cipher.finalize(wordArray);
+	         */
+	        finalize: function (dataUpdate) {
+	            // Final data update
+	            if (dataUpdate) {
+	                this._append(dataUpdate);
+	            }
+
+	            // Perform concrete-cipher logic
+	            var finalProcessedData = this._doFinalize();
+
+	            return finalProcessedData;
+	        },
+
+	        keySize: 128/32,
+
+	        ivSize: 128/32,
+
+	        _ENC_XFORM_MODE: 1,
+
+	        _DEC_XFORM_MODE: 2,
+
+	        /**
+	         * Creates shortcut functions to a cipher's object interface.
+	         *
+	         * @param {Cipher} cipher The cipher to create a helper for.
+	         *
+	         * @return {Object} An object with encrypt and decrypt shortcut functions.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var AES = CryptoJS.lib.Cipher._createHelper(CryptoJS.algo.AES);
+	         */
+	        _createHelper: (function () {
+	            function selectCipherStrategy(key) {
+	                if (typeof key == 'string') {
+	                    return PasswordBasedCipher;
+	                } else {
+	                    return SerializableCipher;
+	                }
+	            }
+
+	            return function (cipher) {
+	                return {
+	                    encrypt: function (message, key, cfg) {
+	                        return selectCipherStrategy(key).encrypt(cipher, message, key, cfg);
+	                    },
+
+	                    decrypt: function (ciphertext, key, cfg) {
+	                        return selectCipherStrategy(key).decrypt(cipher, ciphertext, key, cfg);
+	                    }
+	                };
+	            };
+	        }())
+	    });
+
+	    /**
+	     * Abstract base stream cipher template.
+	     *
+	     * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 1 (32 bits)
+	     */
+	    var StreamCipher = C_lib.StreamCipher = Cipher.extend({
+	        _doFinalize: function () {
+	            // Process partial blocks
+	            var finalProcessedBlocks = this._process(!!'flush');
+
+	            return finalProcessedBlocks;
+	        },
+
+	        blockSize: 1
+	    });
+
+	    /**
+	     * Mode namespace.
+	     */
+	    var C_mode = C.mode = {};
+
+	    /**
+	     * Abstract base block cipher mode template.
+	     */
+	    var BlockCipherMode = C_lib.BlockCipherMode = Base.extend({
+	        /**
+	         * Creates this mode for encryption.
+	         *
+	         * @param {Cipher} cipher A block cipher instance.
+	         * @param {Array} iv The IV words.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var mode = CryptoJS.mode.CBC.createEncryptor(cipher, iv.words);
+	         */
+	        createEncryptor: function (cipher, iv) {
+	            return this.Encryptor.create(cipher, iv);
+	        },
+
+	        /**
+	         * Creates this mode for decryption.
+	         *
+	         * @param {Cipher} cipher A block cipher instance.
+	         * @param {Array} iv The IV words.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var mode = CryptoJS.mode.CBC.createDecryptor(cipher, iv.words);
+	         */
+	        createDecryptor: function (cipher, iv) {
+	            return this.Decryptor.create(cipher, iv);
+	        },
+
+	        /**
+	         * Initializes a newly created mode.
+	         *
+	         * @param {Cipher} cipher A block cipher instance.
+	         * @param {Array} iv The IV words.
+	         *
+	         * @example
+	         *
+	         *     var mode = CryptoJS.mode.CBC.Encryptor.create(cipher, iv.words);
+	         */
+	        init: function (cipher, iv) {
+	            this._cipher = cipher;
+	            this._iv = iv;
+	        }
+	    });
+
+	    /**
+	     * Cipher Block Chaining mode.
+	     */
+	    var CBC = C_mode.CBC = (function () {
+	        /**
+	         * Abstract base CBC mode.
+	         */
+	        var CBC = BlockCipherMode.extend();
+
+	        /**
+	         * CBC encryptor.
+	         */
+	        CBC.Encryptor = CBC.extend({
+	            /**
+	             * Processes the data block at offset.
+	             *
+	             * @param {Array} words The data words to operate on.
+	             * @param {number} offset The offset where the block starts.
+	             *
+	             * @example
+	             *
+	             *     mode.processBlock(data.words, offset);
+	             */
+	            processBlock: function (words, offset) {
+	                // Shortcuts
+	                var cipher = this._cipher;
+	                var blockSize = cipher.blockSize;
+
+	                // XOR and encrypt
+	                xorBlock.call(this, words, offset, blockSize);
+	                cipher.encryptBlock(words, offset);
+
+	                // Remember this block to use with next block
+	                this._prevBlock = words.slice(offset, offset + blockSize);
+	            }
+	        });
+
+	        /**
+	         * CBC decryptor.
+	         */
+	        CBC.Decryptor = CBC.extend({
+	            /**
+	             * Processes the data block at offset.
+	             *
+	             * @param {Array} words The data words to operate on.
+	             * @param {number} offset The offset where the block starts.
+	             *
+	             * @example
+	             *
+	             *     mode.processBlock(data.words, offset);
+	             */
+	            processBlock: function (words, offset) {
+	                // Shortcuts
+	                var cipher = this._cipher;
+	                var blockSize = cipher.blockSize;
+
+	                // Remember this block to use with next block
+	                var thisBlock = words.slice(offset, offset + blockSize);
+
+	                // Decrypt and XOR
+	                cipher.decryptBlock(words, offset);
+	                xorBlock.call(this, words, offset, blockSize);
+
+	                // This block becomes the previous block
+	                this._prevBlock = thisBlock;
+	            }
+	        });
+
+	        function xorBlock(words, offset, blockSize) {
+	            // Shortcut
+	            var iv = this._iv;
+
+	            // Choose mixing block
+	            if (iv) {
+	                var block = iv;
+
+	                // Remove IV for subsequent blocks
+	                this._iv = undefined;
+	            } else {
+	                var block = this._prevBlock;
+	            }
+
+	            // XOR blocks
+	            for (var i = 0; i < blockSize; i++) {
+	                words[offset + i] ^= block[i];
+	            }
+	        }
+
+	        return CBC;
+	    }());
+
+	    /**
+	     * Padding namespace.
+	     */
+	    var C_pad = C.pad = {};
+
+	    /**
+	     * PKCS #5/7 padding strategy.
+	     */
+	    var Pkcs7 = C_pad.Pkcs7 = {
+	        /**
+	         * Pads data using the algorithm defined in PKCS #5/7.
+	         *
+	         * @param {WordArray} data The data to pad.
+	         * @param {number} blockSize The multiple that the data should be padded to.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     CryptoJS.pad.Pkcs7.pad(wordArray, 4);
+	         */
+	        pad: function (data, blockSize) {
+	            // Shortcut
+	            var blockSizeBytes = blockSize * 4;
+
+	            // Count padding bytes
+	            var nPaddingBytes = blockSizeBytes - data.sigBytes % blockSizeBytes;
+
+	            // Create padding word
+	            var paddingWord = (nPaddingBytes << 24) | (nPaddingBytes << 16) | (nPaddingBytes << 8) | nPaddingBytes;
+
+	            // Create padding
+	            var paddingWords = [];
+	            for (var i = 0; i < nPaddingBytes; i += 4) {
+	                paddingWords.push(paddingWord);
+	            }
+	            var padding = WordArray.create(paddingWords, nPaddingBytes);
+
+	            // Add padding
+	            data.concat(padding);
+	        },
+
+	        /**
+	         * Unpads data that had been padded using the algorithm defined in PKCS #5/7.
+	         *
+	         * @param {WordArray} data The data to unpad.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     CryptoJS.pad.Pkcs7.unpad(wordArray);
+	         */
+	        unpad: function (data) {
+	            // Get number of padding bytes from last byte
+	            var nPaddingBytes = data.words[(data.sigBytes - 1) >>> 2] & 0xff;
+
+	            // Remove padding
+	            data.sigBytes -= nPaddingBytes;
+	        }
+	    };
+
+	    /**
+	     * Abstract base block cipher template.
+	     *
+	     * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 4 (128 bits)
+	     */
+	    var BlockCipher = C_lib.BlockCipher = Cipher.extend({
+	        /**
+	         * Configuration options.
+	         *
+	         * @property {Mode} mode The block mode to use. Default: CBC
+	         * @property {Padding} padding The padding strategy to use. Default: Pkcs7
+	         */
+	        cfg: Cipher.cfg.extend({
+	            mode: CBC,
+	            padding: Pkcs7
+	        }),
+
+	        reset: function () {
+	            // Reset cipher
+	            Cipher.reset.call(this);
+
+	            // Shortcuts
+	            var cfg = this.cfg;
+	            var iv = cfg.iv;
+	            var mode = cfg.mode;
+
+	            // Reset block mode
+	            if (this._xformMode == this._ENC_XFORM_MODE) {
+	                var modeCreator = mode.createEncryptor;
+	            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
+	                var modeCreator = mode.createDecryptor;
+
+	                // Keep at least one block in the buffer for unpadding
+	                this._minBufferSize = 1;
+	            }
+	            this._mode = modeCreator.call(mode, this, iv && iv.words);
+	        },
+
+	        _doProcessBlock: function (words, offset) {
+	            this._mode.processBlock(words, offset);
+	        },
+
+	        _doFinalize: function () {
+	            // Shortcut
+	            var padding = this.cfg.padding;
+
+	            // Finalize
+	            if (this._xformMode == this._ENC_XFORM_MODE) {
+	                // Pad data
+	                padding.pad(this._data, this.blockSize);
+
+	                // Process final blocks
+	                var finalProcessedBlocks = this._process(!!'flush');
+	            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
+	                // Process final blocks
+	                var finalProcessedBlocks = this._process(!!'flush');
+
+	                // Unpad data
+	                padding.unpad(finalProcessedBlocks);
+	            }
+
+	            return finalProcessedBlocks;
+	        },
+
+	        blockSize: 128/32
+	    });
+
+	    /**
+	     * A collection of cipher parameters.
+	     *
+	     * @property {WordArray} ciphertext The raw ciphertext.
+	     * @property {WordArray} key The key to this ciphertext.
+	     * @property {WordArray} iv The IV used in the ciphering operation.
+	     * @property {WordArray} salt The salt used with a key derivation function.
+	     * @property {Cipher} algorithm The cipher algorithm.
+	     * @property {Mode} mode The block mode used in the ciphering operation.
+	     * @property {Padding} padding The padding scheme used in the ciphering operation.
+	     * @property {number} blockSize The block size of the cipher.
+	     * @property {Format} formatter The default formatting strategy to convert this cipher params object to a string.
+	     */
+	    var CipherParams = C_lib.CipherParams = Base.extend({
+	        /**
+	         * Initializes a newly created cipher params object.
+	         *
+	         * @param {Object} cipherParams An object with any of the possible cipher parameters.
+	         *
+	         * @example
+	         *
+	         *     var cipherParams = CryptoJS.lib.CipherParams.create({
+	         *         ciphertext: ciphertextWordArray,
+	         *         key: keyWordArray,
+	         *         iv: ivWordArray,
+	         *         salt: saltWordArray,
+	         *         algorithm: CryptoJS.algo.AES,
+	         *         mode: CryptoJS.mode.CBC,
+	         *         padding: CryptoJS.pad.PKCS7,
+	         *         blockSize: 4,
+	         *         formatter: CryptoJS.format.OpenSSL
+	         *     });
+	         */
+	        init: function (cipherParams) {
+	            this.mixIn(cipherParams);
+	        },
+
+	        /**
+	         * Converts this cipher params object to a string.
+	         *
+	         * @param {Format} formatter (Optional) The formatting strategy to use.
+	         *
+	         * @return {string} The stringified cipher params.
+	         *
+	         * @throws Error If neither the formatter nor the default formatter is set.
+	         *
+	         * @example
+	         *
+	         *     var string = cipherParams + '';
+	         *     var string = cipherParams.toString();
+	         *     var string = cipherParams.toString(CryptoJS.format.OpenSSL);
+	         */
+	        toString: function (formatter) {
+	            return (formatter || this.formatter).stringify(this);
+	        }
+	    });
+
+	    /**
+	     * Format namespace.
+	     */
+	    var C_format = C.format = {};
+
+	    /**
+	     * OpenSSL formatting strategy.
+	     */
+	    var OpenSSLFormatter = C_format.OpenSSL = {
+	        /**
+	         * Converts a cipher params object to an OpenSSL-compatible string.
+	         *
+	         * @param {CipherParams} cipherParams The cipher params object.
+	         *
+	         * @return {string} The OpenSSL-compatible string.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var openSSLString = CryptoJS.format.OpenSSL.stringify(cipherParams);
+	         */
+	        stringify: function (cipherParams) {
+	            // Shortcuts
+	            var ciphertext = cipherParams.ciphertext;
+	            var salt = cipherParams.salt;
+
+	            // Format
+	            if (salt) {
+	                var wordArray = WordArray.create([0x53616c74, 0x65645f5f]).concat(salt).concat(ciphertext);
+	            } else {
+	                var wordArray = ciphertext;
+	            }
+
+	            return wordArray.toString(Base64);
+	        },
+
+	        /**
+	         * Converts an OpenSSL-compatible string to a cipher params object.
+	         *
+	         * @param {string} openSSLStr The OpenSSL-compatible string.
+	         *
+	         * @return {CipherParams} The cipher params object.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var cipherParams = CryptoJS.format.OpenSSL.parse(openSSLString);
+	         */
+	        parse: function (openSSLStr) {
+	            // Parse base64
+	            var ciphertext = Base64.parse(openSSLStr);
+
+	            // Shortcut
+	            var ciphertextWords = ciphertext.words;
+
+	            // Test for salt
+	            if (ciphertextWords[0] == 0x53616c74 && ciphertextWords[1] == 0x65645f5f) {
+	                // Extract salt
+	                var salt = WordArray.create(ciphertextWords.slice(2, 4));
+
+	                // Remove salt from ciphertext
+	                ciphertextWords.splice(0, 4);
+	                ciphertext.sigBytes -= 16;
+	            }
+
+	            return CipherParams.create({ ciphertext: ciphertext, salt: salt });
+	        }
+	    };
+
+	    /**
+	     * A cipher wrapper that returns ciphertext as a serializable cipher params object.
+	     */
+	    var SerializableCipher = C_lib.SerializableCipher = Base.extend({
+	        /**
+	         * Configuration options.
+	         *
+	         * @property {Formatter} format The formatting strategy to convert cipher param objects to and from a string. Default: OpenSSL
+	         */
+	        cfg: Base.extend({
+	            format: OpenSSLFormatter
+	        }),
+
+	        /**
+	         * Encrypts a message.
+	         *
+	         * @param {Cipher} cipher The cipher algorithm to use.
+	         * @param {WordArray|string} message The message to encrypt.
+	         * @param {WordArray} key The key.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @return {CipherParams} A cipher params object.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key);
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv });
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+	         */
+	        encrypt: function (cipher, message, key, cfg) {
+	            // Apply config defaults
+	            cfg = this.cfg.extend(cfg);
+
+	            // Encrypt
+	            var encryptor = cipher.createEncryptor(key, cfg);
+	            var ciphertext = encryptor.finalize(message);
+
+	            // Shortcut
+	            var cipherCfg = encryptor.cfg;
+
+	            // Create and return serializable cipher params
+	            return CipherParams.create({
+	                ciphertext: ciphertext,
+	                key: key,
+	                iv: cipherCfg.iv,
+	                algorithm: cipher,
+	                mode: cipherCfg.mode,
+	                padding: cipherCfg.padding,
+	                blockSize: cipher.blockSize,
+	                formatter: cfg.format
+	            });
+	        },
+
+	        /**
+	         * Decrypts serialized ciphertext.
+	         *
+	         * @param {Cipher} cipher The cipher algorithm to use.
+	         * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
+	         * @param {WordArray} key The key.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @return {WordArray} The plaintext.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var plaintext = CryptoJS.lib.SerializableCipher.decrypt(CryptoJS.algo.AES, formattedCiphertext, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+	         *     var plaintext = CryptoJS.lib.SerializableCipher.decrypt(CryptoJS.algo.AES, ciphertextParams, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+	         */
+	        decrypt: function (cipher, ciphertext, key, cfg) {
+	            // Apply config defaults
+	            cfg = this.cfg.extend(cfg);
+
+	            // Convert string to CipherParams
+	            ciphertext = this._parse(ciphertext, cfg.format);
+
+	            // Decrypt
+	            var plaintext = cipher.createDecryptor(key, cfg).finalize(ciphertext.ciphertext);
+
+	            return plaintext;
+	        },
+
+	        /**
+	         * Converts serialized ciphertext to CipherParams,
+	         * else assumed CipherParams already and returns ciphertext unchanged.
+	         *
+	         * @param {CipherParams|string} ciphertext The ciphertext.
+	         * @param {Formatter} format The formatting strategy to use to parse serialized ciphertext.
+	         *
+	         * @return {CipherParams} The unserialized ciphertext.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher._parse(ciphertextStringOrParams, format);
+	         */
+	        _parse: function (ciphertext, format) {
+	            if (typeof ciphertext == 'string') {
+	                return format.parse(ciphertext, this);
+	            } else {
+	                return ciphertext;
+	            }
+	        }
+	    });
+
+	    /**
+	     * Key derivation function namespace.
+	     */
+	    var C_kdf = C.kdf = {};
+
+	    /**
+	     * OpenSSL key derivation function.
+	     */
+	    var OpenSSLKdf = C_kdf.OpenSSL = {
+	        /**
+	         * Derives a key and IV from a password.
+	         *
+	         * @param {string} password The password to derive from.
+	         * @param {number} keySize The size in words of the key to generate.
+	         * @param {number} ivSize The size in words of the IV to generate.
+	         * @param {WordArray|string} salt (Optional) A 64-bit salt to use. If omitted, a salt will be generated randomly.
+	         *
+	         * @return {CipherParams} A cipher params object with the key, IV, and salt.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32);
+	         *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32, 'saltsalt');
+	         */
+	        execute: function (password, keySize, ivSize, salt) {
+	            // Generate random salt
+	            if (!salt) {
+	                salt = WordArray.random(64/8);
+	            }
+
+	            // Derive key and IV
+	            var key = EvpKDF.create({ keySize: keySize + ivSize }).compute(password, salt);
+
+	            // Separate key and IV
+	            var iv = WordArray.create(key.words.slice(keySize), ivSize * 4);
+	            key.sigBytes = keySize * 4;
+
+	            // Return params
+	            return CipherParams.create({ key: key, iv: iv, salt: salt });
+	        }
+	    };
+
+	    /**
+	     * A serializable cipher wrapper that derives the key from a password,
+	     * and returns ciphertext as a serializable cipher params object.
+	     */
+	    var PasswordBasedCipher = C_lib.PasswordBasedCipher = SerializableCipher.extend({
+	        /**
+	         * Configuration options.
+	         *
+	         * @property {KDF} kdf The key derivation function to use to generate a key and IV from a password. Default: OpenSSL
+	         */
+	        cfg: SerializableCipher.cfg.extend({
+	            kdf: OpenSSLKdf
+	        }),
+
+	        /**
+	         * Encrypts a message using a password.
+	         *
+	         * @param {Cipher} cipher The cipher algorithm to use.
+	         * @param {WordArray|string} message The message to encrypt.
+	         * @param {string} password The password.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @return {CipherParams} A cipher params object.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password');
+	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password', { format: CryptoJS.format.OpenSSL });
+	         */
+	        encrypt: function (cipher, message, password, cfg) {
+	            // Apply config defaults
+	            cfg = this.cfg.extend(cfg);
+
+	            // Derive key and other params
+	            var derivedParams = cfg.kdf.execute(password, cipher.keySize, cipher.ivSize);
+
+	            // Add IV to config
+	            cfg.iv = derivedParams.iv;
+
+	            // Encrypt
+	            var ciphertext = SerializableCipher.encrypt.call(this, cipher, message, derivedParams.key, cfg);
+
+	            // Mix in derived params
+	            ciphertext.mixIn(derivedParams);
+
+	            return ciphertext;
+	        },
+
+	        /**
+	         * Decrypts serialized ciphertext using a password.
+	         *
+	         * @param {Cipher} cipher The cipher algorithm to use.
+	         * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
+	         * @param {string} password The password.
+	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+	         *
+	         * @return {WordArray} The plaintext.
+	         *
+	         * @static
+	         *
+	         * @example
+	         *
+	         *     var plaintext = CryptoJS.lib.PasswordBasedCipher.decrypt(CryptoJS.algo.AES, formattedCiphertext, 'password', { format: CryptoJS.format.OpenSSL });
+	         *     var plaintext = CryptoJS.lib.PasswordBasedCipher.decrypt(CryptoJS.algo.AES, ciphertextParams, 'password', { format: CryptoJS.format.OpenSSL });
+	         */
+	        decrypt: function (cipher, ciphertext, password, cfg) {
+	            // Apply config defaults
+	            cfg = this.cfg.extend(cfg);
+
+	            // Convert string to CipherParams
+	            ciphertext = this._parse(ciphertext, cfg.format);
+
+	            // Derive key and other params
+	            var derivedParams = cfg.kdf.execute(password, cipher.keySize, cipher.ivSize, ciphertext.salt);
+
+	            // Add IV to config
+	            cfg.iv = derivedParams.iv;
+
+	            // Decrypt
+	            var plaintext = SerializableCipher.decrypt.call(this, cipher, ciphertext, derivedParams.key, cfg);
+
+	            return plaintext;
+	        }
+	    });
+	}());
+
+
+}));
+
+/***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+    This file is part of web3.js.
+
+    web3.js is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    web3.js is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/**
+ * @file utils.js
+ * @author Marek Kotewicz <marek@ethdev.com>
+ * @date 2015
+ */
+
+/**
+ * Utils
+ *
+ * @module utils
+ */
+
+/**
+ * Utility functions
+ *
+ * @class [utils] utils
+ * @constructor
+ */
+
+
+var BigNumber = __webpack_require__(44);
+var sha3 = __webpack_require__(48);
+var utf8 = __webpack_require__(342);
+
+var unitMap = {
+    'noether':      '0',    
+    'wei':          '1',
+    'kwei':         '1000',
+    'Kwei':         '1000',
+    'babbage':      '1000',
+    'femtoether':   '1000',
+    'mwei':         '1000000',
+    'Mwei':         '1000000',
+    'lovelace':     '1000000',
+    'picoether':    '1000000',
+    'gwei':         '1000000000',
+    'Gwei':         '1000000000',
+    'shannon':      '1000000000',
+    'nanoether':    '1000000000',
+    'nano':         '1000000000',
+    'szabo':        '1000000000000',
+    'microether':   '1000000000000',
+    'micro':        '1000000000000',
+    'finney':       '1000000000000000',
+    'milliether':    '1000000000000000',
+    'milli':         '1000000000000000',
+    'ether':        '1000000000000000000',
+    'kether':       '1000000000000000000000',
+    'grand':        '1000000000000000000000',
+    'mether':       '1000000000000000000000000',
+    'gether':       '1000000000000000000000000000',
+    'tether':       '1000000000000000000000000000000'
+};
+
+/**
+ * Should be called to pad string to expected length
+ *
+ * @method padLeft
+ * @param {String} string to be padded
+ * @param {Number} characters that result string should have
+ * @param {String} sign, by default 0
+ * @returns {String} right aligned string
+ */
+var padLeft = function (string, chars, sign) {
+    return new Array(chars - string.length + 1).join(sign ? sign : "0") + string;
+};
+
+/**
+ * Should be called to pad string to expected length
+ *
+ * @method padRight
+ * @param {String} string to be padded
+ * @param {Number} characters that result string should have
+ * @param {String} sign, by default 0
+ * @returns {String} right aligned string
+ */
+var padRight = function (string, chars, sign) {
+    return string + (new Array(chars - string.length + 1).join(sign ? sign : "0"));
+};
+
+/**
+ * Should be called to get utf8 from it's hex representation
+ *
+ * @method toUtf8
+ * @param {String} string in hex
+ * @returns {String} ascii string representation of hex value
+ */
+var toUtf8 = function(hex) {
+// Find termination
+    var str = "";
+    var i = 0, l = hex.length;
+    if (hex.substring(0, 2) === '0x') {
+        i = 2;
+    }
+    for (; i < l; i+=2) {
+        var code = parseInt(hex.substr(i, 2), 16);
+        if (code === 0)
+            break;
+        str += String.fromCharCode(code);
+    }
+
+    return utf8.decode(str);
+};
+
+/**
+ * Should be called to get ascii from it's hex representation
+ *
+ * @method toAscii
+ * @param {String} string in hex
+ * @returns {String} ascii string representation of hex value
+ */
+var toAscii = function(hex) {
+// Find termination
+    var str = "";
+    var i = 0, l = hex.length;
+    if (hex.substring(0, 2) === '0x') {
+        i = 2;
+    }
+    for (; i < l; i+=2) {
+        var code = parseInt(hex.substr(i, 2), 16);
+        str += String.fromCharCode(code);
+    }
+
+    return str;
+};
+
+/**
+ * Should be called to get hex representation (prefixed by 0x) of utf8 string
+ *
+ * @method fromUtf8
+ * @param {String} string
+ * @param {Number} optional padding
+ * @returns {String} hex representation of input string
+ */
+var fromUtf8 = function(str) {
+    str = utf8.encode(str);
+    var hex = "";
+    for(var i = 0; i < str.length; i++) {
+        var code = str.charCodeAt(i);
+        if (code === 0)
+            break;
+        var n = code.toString(16);
+        hex += n.length < 2 ? '0' + n : n;
+    }
+
+    return "0x" + hex;
+};
+
+/**
+ * Should be called to get hex representation (prefixed by 0x) of ascii string
+ *
+ * @method fromAscii
+ * @param {String} string
+ * @param {Number} optional padding
+ * @returns {String} hex representation of input string
+ */
+var fromAscii = function(str) {
+    var hex = "";
+    for(var i = 0; i < str.length; i++) {
+        var code = str.charCodeAt(i);
+        var n = code.toString(16);
+        hex += n.length < 2 ? '0' + n : n;
+    }
+
+    return "0x" + hex;
+};
+
+/**
+ * Should be used to create full function/event name from json abi
+ *
+ * @method transformToFullName
+ * @param {Object} json-abi
+ * @return {String} full fnction/event name
+ */
+var transformToFullName = function (json) {
+    if (json.name.indexOf('(') !== -1) {
+        return json.name;
+    }
+
+    var typeName = json.inputs.map(function(i){return i.type; }).join();
+    return json.name + '(' + typeName + ')';
+};
+
+/**
+ * Should be called to get display name of contract function
+ *
+ * @method extractDisplayName
+ * @param {String} name of function/event
+ * @returns {String} display name for function/event eg. multiply(uint256) -> multiply
+ */
+var extractDisplayName = function (name) {
+    var length = name.indexOf('(');
+    return length !== -1 ? name.substr(0, length) : name;
+};
+
+/// @returns overloaded part of function/event name
+var extractTypeName = function (name) {
+    /// TODO: make it invulnerable
+    var length = name.indexOf('(');
+    return length !== -1 ? name.substr(length + 1, name.length - 1 - (length + 1)).replace(' ', '') : "";
+};
+
+/**
+ * Converts value to it's decimal representation in string
+ *
+ * @method toDecimal
+ * @param {String|Number|BigNumber}
+ * @return {String}
+ */
+var toDecimal = function (value) {
+    return toBigNumber(value).toNumber();
+};
+
+/**
+ * Converts value to it's hex representation
+ *
+ * @method fromDecimal
+ * @param {String|Number|BigNumber}
+ * @return {String}
+ */
+var fromDecimal = function (value) {
+    var number = toBigNumber(value);
+    var result = number.toString(16);
+
+    return number.lessThan(0) ? '-0x' + result.substr(1) : '0x' + result;
+};
+
+/**
+ * Auto converts any given value into it's hex representation.
+ *
+ * And even stringifys objects before.
+ *
+ * @method toHex
+ * @param {String|Number|BigNumber|Object}
+ * @return {String}
+ */
+var toHex = function (val) {
+    /*jshint maxcomplexity: 8 */
+
+    if (isBoolean(val))
+        return fromDecimal(+val);
+
+    if (isBigNumber(val))
+        return fromDecimal(val);
+
+    if (isObject(val))
+        return fromUtf8(JSON.stringify(val));
+
+    // if its a negative number, pass it through fromDecimal
+    if (isString(val)) {
+        if (val.indexOf('-0x') === 0)
+            return fromDecimal(val);
+        else if(val.indexOf('0x') === 0)
+            return val;
+        else if (!isFinite(val))
+            return fromAscii(val);
+    }
+
+    return fromDecimal(val);
+};
+
+/**
+ * Returns value of unit in Wei
+ *
+ * @method getValueOfUnit
+ * @param {String} unit the unit to convert to, default ether
+ * @returns {BigNumber} value of the unit (in Wei)
+ * @throws error if the unit is not correct:w
+ */
+var getValueOfUnit = function (unit) {
+    unit = unit ? unit.toLowerCase() : 'ether';
+    var unitValue = unitMap[unit];
+    if (unitValue === undefined) {
+        throw new Error('This unit doesn\'t exists, please use the one of the following units' + JSON.stringify(unitMap, null, 2));
+    }
+    return new BigNumber(unitValue, 10);
+};
+
+/**
+ * Takes a number of wei and converts it to any other ether unit.
+ *
+ * Possible units are:
+ *   SI Short   SI Full        Effigy       Other
+ * - kwei       femtoether     babbage
+ * - mwei       picoether      lovelace
+ * - gwei       nanoether      shannon      nano
+ * - --         microether     szabo        micro
+ * - --         milliether     finney       milli
+ * - ether      --             --
+ * - kether                    --           grand
+ * - mether
+ * - gether
+ * - tether
+ *
+ * @method fromWei
+ * @param {Number|String} number can be a number, number string or a HEX of a decimal
+ * @param {String} unit the unit to convert to, default ether
+ * @return {String|Object} When given a BigNumber object it returns one as well, otherwise a number
+*/
+var fromWei = function(number, unit) {
+    var returnValue = toBigNumber(number).dividedBy(getValueOfUnit(unit));
+
+    return isBigNumber(number) ? returnValue : returnValue.toString(10);
+};
+
+/**
+ * Takes a number of a unit and converts it to wei.
+ *
+ * Possible units are:
+ *   SI Short   SI Full        Effigy       Other
+ * - kwei       femtoether     babbage
+ * - mwei       picoether      lovelace
+ * - gwei       nanoether      shannon      nano
+ * - --         microether     szabo        micro
+ * - --         microether     szabo        micro
+ * - --         milliether     finney       milli
+ * - ether      --             --
+ * - kether                    --           grand
+ * - mether
+ * - gether
+ * - tether
+ *
+ * @method toWei
+ * @param {Number|String|BigNumber} number can be a number, number string or a HEX of a decimal
+ * @param {String} unit the unit to convert from, default ether
+ * @return {String|Object} When given a BigNumber object it returns one as well, otherwise a number
+*/
+var toWei = function(number, unit) {
+    var returnValue = toBigNumber(number).times(getValueOfUnit(unit));
+
+    return isBigNumber(number) ? returnValue : returnValue.toString(10);
+};
+
+/**
+ * Takes an input and transforms it into an bignumber
+ *
+ * @method toBigNumber
+ * @param {Number|String|BigNumber} a number, string, HEX string or BigNumber
+ * @return {BigNumber} BigNumber
+*/
+var toBigNumber = function(number) {
+    /*jshint maxcomplexity:5 */
+    number = number || 0;
+    if (isBigNumber(number))
+        return number;
+
+    if (isString(number) && (number.indexOf('0x') === 0 || number.indexOf('-0x') === 0)) {
+        return new BigNumber(number.replace('0x',''), 16);
+    }
+
+    return new BigNumber(number.toString(10), 10);
+};
+
+/**
+ * Takes and input transforms it into bignumber and if it is negative value, into two's complement
+ *
+ * @method toTwosComplement
+ * @param {Number|String|BigNumber}
+ * @return {BigNumber}
+ */
+var toTwosComplement = function (number) {
+    var bigNumber = toBigNumber(number).round();
+    if (bigNumber.lessThan(0)) {
+        return new BigNumber("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16).plus(bigNumber).plus(1);
+    }
+    return bigNumber;
+};
+
+/**
+ * Checks if the given string is strictly an address
+ *
+ * @method isStrictAddress
+ * @param {String} address the given HEX adress
+ * @return {Boolean}
+*/
+var isStrictAddress = function (address) {
+    return /^0x[0-9a-f]{40}$/i.test(address);
+};
+
+/**
+ * Checks if the given string is an address
+ *
+ * @method isAddress
+ * @param {String} address the given HEX adress
+ * @return {Boolean}
+*/
+var isAddress = function (address) {
+    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+        // check if it has the basic requirements of an address
+        return false;
+    } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+        // If it's all small caps or all all caps, return true
+        return true;
+    } else {
+        // Otherwise check each case
+        return isChecksumAddress(address);
+    }
+};
+
+/**
+ * Checks if the given string is a checksummed address
+ *
+ * @method isChecksumAddress
+ * @param {String} address the given HEX adress
+ * @return {Boolean}
+*/
+var isChecksumAddress = function (address) {    
+    // Check each case
+    address = address.replace('0x','');
+    var addressHash = sha3(address.toLowerCase());
+
+    for (var i = 0; i < 40; i++ ) { 
+        // the nth letter should be uppercase if the nth digit of casemap is 1
+        if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
+            return false;
+        }
+    }
+    return true;    
+};
+
+
+
+/**
+ * Makes a checksum address
+ *
+ * @method toChecksumAddress
+ * @param {String} address the given HEX adress
+ * @return {String}
+*/
+var toChecksumAddress = function (address) { 
+    if (typeof address === 'undefined') return '';
+
+    address = address.toLowerCase().replace('0x','');
+    var addressHash = sha3(address);
+    var checksumAddress = '0x';
+
+    for (var i = 0; i < address.length; i++ ) { 
+        // If ith character is 9 to f then make it uppercase 
+        if (parseInt(addressHash[i], 16) > 7) {
+          checksumAddress += address[i].toUpperCase();
+        } else {
+            checksumAddress += address[i];
+        }
+    }
+    return checksumAddress;
+};
+
+/**
+ * Transforms given string to valid 20 bytes-length addres with 0x prefix
+ *
+ * @method toAddress
+ * @param {String} address
+ * @return {String} formatted address
+ */
+var toAddress = function (address) {
+    if (isStrictAddress(address)) {
+        return address;
+    }
+
+    if (/^[0-9a-f]{40}$/.test(address)) {
+        return '0x' + address;
+    }
+
+    return '0x' + padLeft(toHex(address).substr(2), 40);
+};
+
+/**
+ * Returns true if object is BigNumber, otherwise false
+ *
+ * @method isBigNumber
+ * @param {Object}
+ * @return {Boolean}
+ */
+var isBigNumber = function (object) {
+    return object instanceof BigNumber ||
+        (object && object.constructor && object.constructor.name === 'BigNumber');
+};
+
+/**
+ * Returns true if object is string, otherwise false
+ *
+ * @method isString
+ * @param {Object}
+ * @return {Boolean}
+ */
+var isString = function (object) {
+    return typeof object === 'string' ||
+        (object && object.constructor && object.constructor.name === 'String');
+};
+
+/**
+ * Returns true if object is function, otherwise false
+ *
+ * @method isFunction
+ * @param {Object}
+ * @return {Boolean}
+ */
+var isFunction = function (object) {
+    return typeof object === 'function';
+};
+
+/**
+ * Returns true if object is Objet, otherwise false
+ *
+ * @method isObject
+ * @param {Object}
+ * @return {Boolean}
+ */
+var isObject = function (object) {
+    return typeof object === 'object';
+};
+
+/**
+ * Returns true if object is boolean, otherwise false
+ *
+ * @method isBoolean
+ * @param {Object}
+ * @return {Boolean}
+ */
+var isBoolean = function (object) {
+    return typeof object === 'boolean';
+};
+
+/**
+ * Returns true if object is array, otherwise false
+ *
+ * @method isArray
+ * @param {Object}
+ * @return {Boolean}
+ */
+var isArray = function (object) {
+    return object instanceof Array;
+};
+
+/**
+ * Returns true if given string is valid json object
+ *
+ * @method isJson
+ * @param {String}
+ * @return {Boolean}
+ */
+var isJson = function (str) {
+    try {
+        return !!JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+};
+
+/**
+ * Returns true if given string is a valid Ethereum block header bloom.
+ *
+ * @method isBloom
+ * @param {String} hex encoded bloom filter
+ * @return {Boolean}
+ */
+var isBloom = function (bloom) {
+    if (!/^(0x)?[0-9a-f]{512}$/i.test(bloom)) {
+        return false;
+    } else if (/^(0x)?[0-9a-f]{512}$/.test(bloom) || /^(0x)?[0-9A-F]{512}$/.test(bloom)) {
+        return true;
+    } 
+    return false;
+};
+
+/**
+ * Returns true if given string is a valid log topic.
+ *
+ * @method isTopic
+ * @param {String} hex encoded topic
+ * @return {Boolean}
+ */
+var isTopic = function (topic) {
+    if (!/^(0x)?[0-9a-f]{64}$/i.test(topic)) {
+        return false;
+    } else if (/^(0x)?[0-9a-f]{64}$/.test(topic) || /^(0x)?[0-9A-F]{64}$/.test(topic)) {
+        return true;
+    } 
+    return false;
+};
+
+module.exports = {
+    padLeft: padLeft,
+    padRight: padRight,
+    toHex: toHex,
+    toDecimal: toDecimal,
+    fromDecimal: fromDecimal,
+    toUtf8: toUtf8,
+    toAscii: toAscii,
+    fromUtf8: fromUtf8,
+    fromAscii: fromAscii,
+    transformToFullName: transformToFullName,
+    extractDisplayName: extractDisplayName,
+    extractTypeName: extractTypeName,
+    toWei: toWei,
+    fromWei: fromWei,
+    toBigNumber: toBigNumber,
+    toTwosComplement: toTwosComplement,
+    toAddress: toAddress,
+    isBigNumber: isBigNumber,
+    isStrictAddress: isStrictAddress,
+    isAddress: isAddress,
+    isChecksumAddress: isChecksumAddress,
+    toChecksumAddress: toChecksumAddress,
+    isFunction: isFunction,
+    isString: isString,
+    isObject: isObject,
+    isBoolean: isBoolean,
+    isArray: isArray,
+    isJson: isJson,
+    isBloom: isBloom,
+    isTopic: isTopic,
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("stream");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -2307,7 +3822,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   var Buffer;
   try {
-    Buffer = __webpack_require__(15).Buffer;
+    Buffer = __webpack_require__(12).Buffer;
   } catch (e) {
   }
 
@@ -5683,1501 +7198,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
 })(typeof module === 'undefined' || module, this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-;(function (root, factory) {
-	if (true) {
-		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
-	}
-	else if (typeof define === "function" && define.amd) {
-		// AMD
-		define(["./core"], factory);
-	}
-	else {
-		// Global (browser)
-		factory(root.CryptoJS);
-	}
-}(this, function (CryptoJS) {
-
-	/**
-	 * Cipher core components.
-	 */
-	CryptoJS.lib.Cipher || (function (undefined) {
-	    // Shortcuts
-	    var C = CryptoJS;
-	    var C_lib = C.lib;
-	    var Base = C_lib.Base;
-	    var WordArray = C_lib.WordArray;
-	    var BufferedBlockAlgorithm = C_lib.BufferedBlockAlgorithm;
-	    var C_enc = C.enc;
-	    var Utf8 = C_enc.Utf8;
-	    var Base64 = C_enc.Base64;
-	    var C_algo = C.algo;
-	    var EvpKDF = C_algo.EvpKDF;
-
-	    /**
-	     * Abstract base cipher template.
-	     *
-	     * @property {number} keySize This cipher's key size. Default: 4 (128 bits)
-	     * @property {number} ivSize This cipher's IV size. Default: 4 (128 bits)
-	     * @property {number} _ENC_XFORM_MODE A constant representing encryption mode.
-	     * @property {number} _DEC_XFORM_MODE A constant representing decryption mode.
-	     */
-	    var Cipher = C_lib.Cipher = BufferedBlockAlgorithm.extend({
-	        /**
-	         * Configuration options.
-	         *
-	         * @property {WordArray} iv The IV to use for this operation.
-	         */
-	        cfg: Base.extend(),
-
-	        /**
-	         * Creates this cipher in encryption mode.
-	         *
-	         * @param {WordArray} key The key.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @return {Cipher} A cipher instance.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var cipher = CryptoJS.algo.AES.createEncryptor(keyWordArray, { iv: ivWordArray });
-	         */
-	        createEncryptor: function (key, cfg) {
-	            return this.create(this._ENC_XFORM_MODE, key, cfg);
-	        },
-
-	        /**
-	         * Creates this cipher in decryption mode.
-	         *
-	         * @param {WordArray} key The key.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @return {Cipher} A cipher instance.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var cipher = CryptoJS.algo.AES.createDecryptor(keyWordArray, { iv: ivWordArray });
-	         */
-	        createDecryptor: function (key, cfg) {
-	            return this.create(this._DEC_XFORM_MODE, key, cfg);
-	        },
-
-	        /**
-	         * Initializes a newly created cipher.
-	         *
-	         * @param {number} xformMode Either the encryption or decryption transormation mode constant.
-	         * @param {WordArray} key The key.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @example
-	         *
-	         *     var cipher = CryptoJS.algo.AES.create(CryptoJS.algo.AES._ENC_XFORM_MODE, keyWordArray, { iv: ivWordArray });
-	         */
-	        init: function (xformMode, key, cfg) {
-	            // Apply config defaults
-	            this.cfg = this.cfg.extend(cfg);
-
-	            // Store transform mode and key
-	            this._xformMode = xformMode;
-	            this._key = key;
-
-	            // Set initial values
-	            this.reset();
-	        },
-
-	        /**
-	         * Resets this cipher to its initial state.
-	         *
-	         * @example
-	         *
-	         *     cipher.reset();
-	         */
-	        reset: function () {
-	            // Reset data buffer
-	            BufferedBlockAlgorithm.reset.call(this);
-
-	            // Perform concrete-cipher logic
-	            this._doReset();
-	        },
-
-	        /**
-	         * Adds data to be encrypted or decrypted.
-	         *
-	         * @param {WordArray|string} dataUpdate The data to encrypt or decrypt.
-	         *
-	         * @return {WordArray} The data after processing.
-	         *
-	         * @example
-	         *
-	         *     var encrypted = cipher.process('data');
-	         *     var encrypted = cipher.process(wordArray);
-	         */
-	        process: function (dataUpdate) {
-	            // Append
-	            this._append(dataUpdate);
-
-	            // Process available blocks
-	            return this._process();
-	        },
-
-	        /**
-	         * Finalizes the encryption or decryption process.
-	         * Note that the finalize operation is effectively a destructive, read-once operation.
-	         *
-	         * @param {WordArray|string} dataUpdate The final data to encrypt or decrypt.
-	         *
-	         * @return {WordArray} The data after final processing.
-	         *
-	         * @example
-	         *
-	         *     var encrypted = cipher.finalize();
-	         *     var encrypted = cipher.finalize('data');
-	         *     var encrypted = cipher.finalize(wordArray);
-	         */
-	        finalize: function (dataUpdate) {
-	            // Final data update
-	            if (dataUpdate) {
-	                this._append(dataUpdate);
-	            }
-
-	            // Perform concrete-cipher logic
-	            var finalProcessedData = this._doFinalize();
-
-	            return finalProcessedData;
-	        },
-
-	        keySize: 128/32,
-
-	        ivSize: 128/32,
-
-	        _ENC_XFORM_MODE: 1,
-
-	        _DEC_XFORM_MODE: 2,
-
-	        /**
-	         * Creates shortcut functions to a cipher's object interface.
-	         *
-	         * @param {Cipher} cipher The cipher to create a helper for.
-	         *
-	         * @return {Object} An object with encrypt and decrypt shortcut functions.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var AES = CryptoJS.lib.Cipher._createHelper(CryptoJS.algo.AES);
-	         */
-	        _createHelper: (function () {
-	            function selectCipherStrategy(key) {
-	                if (typeof key == 'string') {
-	                    return PasswordBasedCipher;
-	                } else {
-	                    return SerializableCipher;
-	                }
-	            }
-
-	            return function (cipher) {
-	                return {
-	                    encrypt: function (message, key, cfg) {
-	                        return selectCipherStrategy(key).encrypt(cipher, message, key, cfg);
-	                    },
-
-	                    decrypt: function (ciphertext, key, cfg) {
-	                        return selectCipherStrategy(key).decrypt(cipher, ciphertext, key, cfg);
-	                    }
-	                };
-	            };
-	        }())
-	    });
-
-	    /**
-	     * Abstract base stream cipher template.
-	     *
-	     * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 1 (32 bits)
-	     */
-	    var StreamCipher = C_lib.StreamCipher = Cipher.extend({
-	        _doFinalize: function () {
-	            // Process partial blocks
-	            var finalProcessedBlocks = this._process(!!'flush');
-
-	            return finalProcessedBlocks;
-	        },
-
-	        blockSize: 1
-	    });
-
-	    /**
-	     * Mode namespace.
-	     */
-	    var C_mode = C.mode = {};
-
-	    /**
-	     * Abstract base block cipher mode template.
-	     */
-	    var BlockCipherMode = C_lib.BlockCipherMode = Base.extend({
-	        /**
-	         * Creates this mode for encryption.
-	         *
-	         * @param {Cipher} cipher A block cipher instance.
-	         * @param {Array} iv The IV words.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var mode = CryptoJS.mode.CBC.createEncryptor(cipher, iv.words);
-	         */
-	        createEncryptor: function (cipher, iv) {
-	            return this.Encryptor.create(cipher, iv);
-	        },
-
-	        /**
-	         * Creates this mode for decryption.
-	         *
-	         * @param {Cipher} cipher A block cipher instance.
-	         * @param {Array} iv The IV words.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var mode = CryptoJS.mode.CBC.createDecryptor(cipher, iv.words);
-	         */
-	        createDecryptor: function (cipher, iv) {
-	            return this.Decryptor.create(cipher, iv);
-	        },
-
-	        /**
-	         * Initializes a newly created mode.
-	         *
-	         * @param {Cipher} cipher A block cipher instance.
-	         * @param {Array} iv The IV words.
-	         *
-	         * @example
-	         *
-	         *     var mode = CryptoJS.mode.CBC.Encryptor.create(cipher, iv.words);
-	         */
-	        init: function (cipher, iv) {
-	            this._cipher = cipher;
-	            this._iv = iv;
-	        }
-	    });
-
-	    /**
-	     * Cipher Block Chaining mode.
-	     */
-	    var CBC = C_mode.CBC = (function () {
-	        /**
-	         * Abstract base CBC mode.
-	         */
-	        var CBC = BlockCipherMode.extend();
-
-	        /**
-	         * CBC encryptor.
-	         */
-	        CBC.Encryptor = CBC.extend({
-	            /**
-	             * Processes the data block at offset.
-	             *
-	             * @param {Array} words The data words to operate on.
-	             * @param {number} offset The offset where the block starts.
-	             *
-	             * @example
-	             *
-	             *     mode.processBlock(data.words, offset);
-	             */
-	            processBlock: function (words, offset) {
-	                // Shortcuts
-	                var cipher = this._cipher;
-	                var blockSize = cipher.blockSize;
-
-	                // XOR and encrypt
-	                xorBlock.call(this, words, offset, blockSize);
-	                cipher.encryptBlock(words, offset);
-
-	                // Remember this block to use with next block
-	                this._prevBlock = words.slice(offset, offset + blockSize);
-	            }
-	        });
-
-	        /**
-	         * CBC decryptor.
-	         */
-	        CBC.Decryptor = CBC.extend({
-	            /**
-	             * Processes the data block at offset.
-	             *
-	             * @param {Array} words The data words to operate on.
-	             * @param {number} offset The offset where the block starts.
-	             *
-	             * @example
-	             *
-	             *     mode.processBlock(data.words, offset);
-	             */
-	            processBlock: function (words, offset) {
-	                // Shortcuts
-	                var cipher = this._cipher;
-	                var blockSize = cipher.blockSize;
-
-	                // Remember this block to use with next block
-	                var thisBlock = words.slice(offset, offset + blockSize);
-
-	                // Decrypt and XOR
-	                cipher.decryptBlock(words, offset);
-	                xorBlock.call(this, words, offset, blockSize);
-
-	                // This block becomes the previous block
-	                this._prevBlock = thisBlock;
-	            }
-	        });
-
-	        function xorBlock(words, offset, blockSize) {
-	            // Shortcut
-	            var iv = this._iv;
-
-	            // Choose mixing block
-	            if (iv) {
-	                var block = iv;
-
-	                // Remove IV for subsequent blocks
-	                this._iv = undefined;
-	            } else {
-	                var block = this._prevBlock;
-	            }
-
-	            // XOR blocks
-	            for (var i = 0; i < blockSize; i++) {
-	                words[offset + i] ^= block[i];
-	            }
-	        }
-
-	        return CBC;
-	    }());
-
-	    /**
-	     * Padding namespace.
-	     */
-	    var C_pad = C.pad = {};
-
-	    /**
-	     * PKCS #5/7 padding strategy.
-	     */
-	    var Pkcs7 = C_pad.Pkcs7 = {
-	        /**
-	         * Pads data using the algorithm defined in PKCS #5/7.
-	         *
-	         * @param {WordArray} data The data to pad.
-	         * @param {number} blockSize The multiple that the data should be padded to.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     CryptoJS.pad.Pkcs7.pad(wordArray, 4);
-	         */
-	        pad: function (data, blockSize) {
-	            // Shortcut
-	            var blockSizeBytes = blockSize * 4;
-
-	            // Count padding bytes
-	            var nPaddingBytes = blockSizeBytes - data.sigBytes % blockSizeBytes;
-
-	            // Create padding word
-	            var paddingWord = (nPaddingBytes << 24) | (nPaddingBytes << 16) | (nPaddingBytes << 8) | nPaddingBytes;
-
-	            // Create padding
-	            var paddingWords = [];
-	            for (var i = 0; i < nPaddingBytes; i += 4) {
-	                paddingWords.push(paddingWord);
-	            }
-	            var padding = WordArray.create(paddingWords, nPaddingBytes);
-
-	            // Add padding
-	            data.concat(padding);
-	        },
-
-	        /**
-	         * Unpads data that had been padded using the algorithm defined in PKCS #5/7.
-	         *
-	         * @param {WordArray} data The data to unpad.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     CryptoJS.pad.Pkcs7.unpad(wordArray);
-	         */
-	        unpad: function (data) {
-	            // Get number of padding bytes from last byte
-	            var nPaddingBytes = data.words[(data.sigBytes - 1) >>> 2] & 0xff;
-
-	            // Remove padding
-	            data.sigBytes -= nPaddingBytes;
-	        }
-	    };
-
-	    /**
-	     * Abstract base block cipher template.
-	     *
-	     * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 4 (128 bits)
-	     */
-	    var BlockCipher = C_lib.BlockCipher = Cipher.extend({
-	        /**
-	         * Configuration options.
-	         *
-	         * @property {Mode} mode The block mode to use. Default: CBC
-	         * @property {Padding} padding The padding strategy to use. Default: Pkcs7
-	         */
-	        cfg: Cipher.cfg.extend({
-	            mode: CBC,
-	            padding: Pkcs7
-	        }),
-
-	        reset: function () {
-	            // Reset cipher
-	            Cipher.reset.call(this);
-
-	            // Shortcuts
-	            var cfg = this.cfg;
-	            var iv = cfg.iv;
-	            var mode = cfg.mode;
-
-	            // Reset block mode
-	            if (this._xformMode == this._ENC_XFORM_MODE) {
-	                var modeCreator = mode.createEncryptor;
-	            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
-	                var modeCreator = mode.createDecryptor;
-
-	                // Keep at least one block in the buffer for unpadding
-	                this._minBufferSize = 1;
-	            }
-	            this._mode = modeCreator.call(mode, this, iv && iv.words);
-	        },
-
-	        _doProcessBlock: function (words, offset) {
-	            this._mode.processBlock(words, offset);
-	        },
-
-	        _doFinalize: function () {
-	            // Shortcut
-	            var padding = this.cfg.padding;
-
-	            // Finalize
-	            if (this._xformMode == this._ENC_XFORM_MODE) {
-	                // Pad data
-	                padding.pad(this._data, this.blockSize);
-
-	                // Process final blocks
-	                var finalProcessedBlocks = this._process(!!'flush');
-	            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
-	                // Process final blocks
-	                var finalProcessedBlocks = this._process(!!'flush');
-
-	                // Unpad data
-	                padding.unpad(finalProcessedBlocks);
-	            }
-
-	            return finalProcessedBlocks;
-	        },
-
-	        blockSize: 128/32
-	    });
-
-	    /**
-	     * A collection of cipher parameters.
-	     *
-	     * @property {WordArray} ciphertext The raw ciphertext.
-	     * @property {WordArray} key The key to this ciphertext.
-	     * @property {WordArray} iv The IV used in the ciphering operation.
-	     * @property {WordArray} salt The salt used with a key derivation function.
-	     * @property {Cipher} algorithm The cipher algorithm.
-	     * @property {Mode} mode The block mode used in the ciphering operation.
-	     * @property {Padding} padding The padding scheme used in the ciphering operation.
-	     * @property {number} blockSize The block size of the cipher.
-	     * @property {Format} formatter The default formatting strategy to convert this cipher params object to a string.
-	     */
-	    var CipherParams = C_lib.CipherParams = Base.extend({
-	        /**
-	         * Initializes a newly created cipher params object.
-	         *
-	         * @param {Object} cipherParams An object with any of the possible cipher parameters.
-	         *
-	         * @example
-	         *
-	         *     var cipherParams = CryptoJS.lib.CipherParams.create({
-	         *         ciphertext: ciphertextWordArray,
-	         *         key: keyWordArray,
-	         *         iv: ivWordArray,
-	         *         salt: saltWordArray,
-	         *         algorithm: CryptoJS.algo.AES,
-	         *         mode: CryptoJS.mode.CBC,
-	         *         padding: CryptoJS.pad.PKCS7,
-	         *         blockSize: 4,
-	         *         formatter: CryptoJS.format.OpenSSL
-	         *     });
-	         */
-	        init: function (cipherParams) {
-	            this.mixIn(cipherParams);
-	        },
-
-	        /**
-	         * Converts this cipher params object to a string.
-	         *
-	         * @param {Format} formatter (Optional) The formatting strategy to use.
-	         *
-	         * @return {string} The stringified cipher params.
-	         *
-	         * @throws Error If neither the formatter nor the default formatter is set.
-	         *
-	         * @example
-	         *
-	         *     var string = cipherParams + '';
-	         *     var string = cipherParams.toString();
-	         *     var string = cipherParams.toString(CryptoJS.format.OpenSSL);
-	         */
-	        toString: function (formatter) {
-	            return (formatter || this.formatter).stringify(this);
-	        }
-	    });
-
-	    /**
-	     * Format namespace.
-	     */
-	    var C_format = C.format = {};
-
-	    /**
-	     * OpenSSL formatting strategy.
-	     */
-	    var OpenSSLFormatter = C_format.OpenSSL = {
-	        /**
-	         * Converts a cipher params object to an OpenSSL-compatible string.
-	         *
-	         * @param {CipherParams} cipherParams The cipher params object.
-	         *
-	         * @return {string} The OpenSSL-compatible string.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var openSSLString = CryptoJS.format.OpenSSL.stringify(cipherParams);
-	         */
-	        stringify: function (cipherParams) {
-	            // Shortcuts
-	            var ciphertext = cipherParams.ciphertext;
-	            var salt = cipherParams.salt;
-
-	            // Format
-	            if (salt) {
-	                var wordArray = WordArray.create([0x53616c74, 0x65645f5f]).concat(salt).concat(ciphertext);
-	            } else {
-	                var wordArray = ciphertext;
-	            }
-
-	            return wordArray.toString(Base64);
-	        },
-
-	        /**
-	         * Converts an OpenSSL-compatible string to a cipher params object.
-	         *
-	         * @param {string} openSSLStr The OpenSSL-compatible string.
-	         *
-	         * @return {CipherParams} The cipher params object.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var cipherParams = CryptoJS.format.OpenSSL.parse(openSSLString);
-	         */
-	        parse: function (openSSLStr) {
-	            // Parse base64
-	            var ciphertext = Base64.parse(openSSLStr);
-
-	            // Shortcut
-	            var ciphertextWords = ciphertext.words;
-
-	            // Test for salt
-	            if (ciphertextWords[0] == 0x53616c74 && ciphertextWords[1] == 0x65645f5f) {
-	                // Extract salt
-	                var salt = WordArray.create(ciphertextWords.slice(2, 4));
-
-	                // Remove salt from ciphertext
-	                ciphertextWords.splice(0, 4);
-	                ciphertext.sigBytes -= 16;
-	            }
-
-	            return CipherParams.create({ ciphertext: ciphertext, salt: salt });
-	        }
-	    };
-
-	    /**
-	     * A cipher wrapper that returns ciphertext as a serializable cipher params object.
-	     */
-	    var SerializableCipher = C_lib.SerializableCipher = Base.extend({
-	        /**
-	         * Configuration options.
-	         *
-	         * @property {Formatter} format The formatting strategy to convert cipher param objects to and from a string. Default: OpenSSL
-	         */
-	        cfg: Base.extend({
-	            format: OpenSSLFormatter
-	        }),
-
-	        /**
-	         * Encrypts a message.
-	         *
-	         * @param {Cipher} cipher The cipher algorithm to use.
-	         * @param {WordArray|string} message The message to encrypt.
-	         * @param {WordArray} key The key.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @return {CipherParams} A cipher params object.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key);
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv });
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv, format: CryptoJS.format.OpenSSL });
-	         */
-	        encrypt: function (cipher, message, key, cfg) {
-	            // Apply config defaults
-	            cfg = this.cfg.extend(cfg);
-
-	            // Encrypt
-	            var encryptor = cipher.createEncryptor(key, cfg);
-	            var ciphertext = encryptor.finalize(message);
-
-	            // Shortcut
-	            var cipherCfg = encryptor.cfg;
-
-	            // Create and return serializable cipher params
-	            return CipherParams.create({
-	                ciphertext: ciphertext,
-	                key: key,
-	                iv: cipherCfg.iv,
-	                algorithm: cipher,
-	                mode: cipherCfg.mode,
-	                padding: cipherCfg.padding,
-	                blockSize: cipher.blockSize,
-	                formatter: cfg.format
-	            });
-	        },
-
-	        /**
-	         * Decrypts serialized ciphertext.
-	         *
-	         * @param {Cipher} cipher The cipher algorithm to use.
-	         * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
-	         * @param {WordArray} key The key.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @return {WordArray} The plaintext.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var plaintext = CryptoJS.lib.SerializableCipher.decrypt(CryptoJS.algo.AES, formattedCiphertext, key, { iv: iv, format: CryptoJS.format.OpenSSL });
-	         *     var plaintext = CryptoJS.lib.SerializableCipher.decrypt(CryptoJS.algo.AES, ciphertextParams, key, { iv: iv, format: CryptoJS.format.OpenSSL });
-	         */
-	        decrypt: function (cipher, ciphertext, key, cfg) {
-	            // Apply config defaults
-	            cfg = this.cfg.extend(cfg);
-
-	            // Convert string to CipherParams
-	            ciphertext = this._parse(ciphertext, cfg.format);
-
-	            // Decrypt
-	            var plaintext = cipher.createDecryptor(key, cfg).finalize(ciphertext.ciphertext);
-
-	            return plaintext;
-	        },
-
-	        /**
-	         * Converts serialized ciphertext to CipherParams,
-	         * else assumed CipherParams already and returns ciphertext unchanged.
-	         *
-	         * @param {CipherParams|string} ciphertext The ciphertext.
-	         * @param {Formatter} format The formatting strategy to use to parse serialized ciphertext.
-	         *
-	         * @return {CipherParams} The unserialized ciphertext.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher._parse(ciphertextStringOrParams, format);
-	         */
-	        _parse: function (ciphertext, format) {
-	            if (typeof ciphertext == 'string') {
-	                return format.parse(ciphertext, this);
-	            } else {
-	                return ciphertext;
-	            }
-	        }
-	    });
-
-	    /**
-	     * Key derivation function namespace.
-	     */
-	    var C_kdf = C.kdf = {};
-
-	    /**
-	     * OpenSSL key derivation function.
-	     */
-	    var OpenSSLKdf = C_kdf.OpenSSL = {
-	        /**
-	         * Derives a key and IV from a password.
-	         *
-	         * @param {string} password The password to derive from.
-	         * @param {number} keySize The size in words of the key to generate.
-	         * @param {number} ivSize The size in words of the IV to generate.
-	         * @param {WordArray|string} salt (Optional) A 64-bit salt to use. If omitted, a salt will be generated randomly.
-	         *
-	         * @return {CipherParams} A cipher params object with the key, IV, and salt.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32);
-	         *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32, 'saltsalt');
-	         */
-	        execute: function (password, keySize, ivSize, salt) {
-	            // Generate random salt
-	            if (!salt) {
-	                salt = WordArray.random(64/8);
-	            }
-
-	            // Derive key and IV
-	            var key = EvpKDF.create({ keySize: keySize + ivSize }).compute(password, salt);
-
-	            // Separate key and IV
-	            var iv = WordArray.create(key.words.slice(keySize), ivSize * 4);
-	            key.sigBytes = keySize * 4;
-
-	            // Return params
-	            return CipherParams.create({ key: key, iv: iv, salt: salt });
-	        }
-	    };
-
-	    /**
-	     * A serializable cipher wrapper that derives the key from a password,
-	     * and returns ciphertext as a serializable cipher params object.
-	     */
-	    var PasswordBasedCipher = C_lib.PasswordBasedCipher = SerializableCipher.extend({
-	        /**
-	         * Configuration options.
-	         *
-	         * @property {KDF} kdf The key derivation function to use to generate a key and IV from a password. Default: OpenSSL
-	         */
-	        cfg: SerializableCipher.cfg.extend({
-	            kdf: OpenSSLKdf
-	        }),
-
-	        /**
-	         * Encrypts a message using a password.
-	         *
-	         * @param {Cipher} cipher The cipher algorithm to use.
-	         * @param {WordArray|string} message The message to encrypt.
-	         * @param {string} password The password.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @return {CipherParams} A cipher params object.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password');
-	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password', { format: CryptoJS.format.OpenSSL });
-	         */
-	        encrypt: function (cipher, message, password, cfg) {
-	            // Apply config defaults
-	            cfg = this.cfg.extend(cfg);
-
-	            // Derive key and other params
-	            var derivedParams = cfg.kdf.execute(password, cipher.keySize, cipher.ivSize);
-
-	            // Add IV to config
-	            cfg.iv = derivedParams.iv;
-
-	            // Encrypt
-	            var ciphertext = SerializableCipher.encrypt.call(this, cipher, message, derivedParams.key, cfg);
-
-	            // Mix in derived params
-	            ciphertext.mixIn(derivedParams);
-
-	            return ciphertext;
-	        },
-
-	        /**
-	         * Decrypts serialized ciphertext using a password.
-	         *
-	         * @param {Cipher} cipher The cipher algorithm to use.
-	         * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
-	         * @param {string} password The password.
-	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
-	         *
-	         * @return {WordArray} The plaintext.
-	         *
-	         * @static
-	         *
-	         * @example
-	         *
-	         *     var plaintext = CryptoJS.lib.PasswordBasedCipher.decrypt(CryptoJS.algo.AES, formattedCiphertext, 'password', { format: CryptoJS.format.OpenSSL });
-	         *     var plaintext = CryptoJS.lib.PasswordBasedCipher.decrypt(CryptoJS.algo.AES, ciphertextParams, 'password', { format: CryptoJS.format.OpenSSL });
-	         */
-	        decrypt: function (cipher, ciphertext, password, cfg) {
-	            // Apply config defaults
-	            cfg = this.cfg.extend(cfg);
-
-	            // Convert string to CipherParams
-	            ciphertext = this._parse(ciphertext, cfg.format);
-
-	            // Derive key and other params
-	            var derivedParams = cfg.kdf.execute(password, cipher.keySize, cipher.ivSize, ciphertext.salt);
-
-	            // Add IV to config
-	            cfg.iv = derivedParams.iv;
-
-	            // Decrypt
-	            var plaintext = SerializableCipher.decrypt.call(this, cipher, ciphertext, derivedParams.key, cfg);
-
-	            return plaintext;
-	        }
-	    });
-	}());
-
-
-}));
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-    This file is part of web3.js.
-
-    web3.js is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    web3.js is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/**
- * @file utils.js
- * @author Marek Kotewicz <marek@ethdev.com>
- * @date 2015
- */
-
-/**
- * Utils
- *
- * @module utils
- */
-
-/**
- * Utility functions
- *
- * @class [utils] utils
- * @constructor
- */
-
-
-var BigNumber = __webpack_require__(45);
-var sha3 = __webpack_require__(49);
-var utf8 = __webpack_require__(340);
-
-var unitMap = {
-    'noether':      '0',    
-    'wei':          '1',
-    'kwei':         '1000',
-    'Kwei':         '1000',
-    'babbage':      '1000',
-    'femtoether':   '1000',
-    'mwei':         '1000000',
-    'Mwei':         '1000000',
-    'lovelace':     '1000000',
-    'picoether':    '1000000',
-    'gwei':         '1000000000',
-    'Gwei':         '1000000000',
-    'shannon':      '1000000000',
-    'nanoether':    '1000000000',
-    'nano':         '1000000000',
-    'szabo':        '1000000000000',
-    'microether':   '1000000000000',
-    'micro':        '1000000000000',
-    'finney':       '1000000000000000',
-    'milliether':    '1000000000000000',
-    'milli':         '1000000000000000',
-    'ether':        '1000000000000000000',
-    'kether':       '1000000000000000000000',
-    'grand':        '1000000000000000000000',
-    'mether':       '1000000000000000000000000',
-    'gether':       '1000000000000000000000000000',
-    'tether':       '1000000000000000000000000000000'
-};
-
-/**
- * Should be called to pad string to expected length
- *
- * @method padLeft
- * @param {String} string to be padded
- * @param {Number} characters that result string should have
- * @param {String} sign, by default 0
- * @returns {String} right aligned string
- */
-var padLeft = function (string, chars, sign) {
-    return new Array(chars - string.length + 1).join(sign ? sign : "0") + string;
-};
-
-/**
- * Should be called to pad string to expected length
- *
- * @method padRight
- * @param {String} string to be padded
- * @param {Number} characters that result string should have
- * @param {String} sign, by default 0
- * @returns {String} right aligned string
- */
-var padRight = function (string, chars, sign) {
-    return string + (new Array(chars - string.length + 1).join(sign ? sign : "0"));
-};
-
-/**
- * Should be called to get utf8 from it's hex representation
- *
- * @method toUtf8
- * @param {String} string in hex
- * @returns {String} ascii string representation of hex value
- */
-var toUtf8 = function(hex) {
-// Find termination
-    var str = "";
-    var i = 0, l = hex.length;
-    if (hex.substring(0, 2) === '0x') {
-        i = 2;
-    }
-    for (; i < l; i+=2) {
-        var code = parseInt(hex.substr(i, 2), 16);
-        if (code === 0)
-            break;
-        str += String.fromCharCode(code);
-    }
-
-    return utf8.decode(str);
-};
-
-/**
- * Should be called to get ascii from it's hex representation
- *
- * @method toAscii
- * @param {String} string in hex
- * @returns {String} ascii string representation of hex value
- */
-var toAscii = function(hex) {
-// Find termination
-    var str = "";
-    var i = 0, l = hex.length;
-    if (hex.substring(0, 2) === '0x') {
-        i = 2;
-    }
-    for (; i < l; i+=2) {
-        var code = parseInt(hex.substr(i, 2), 16);
-        str += String.fromCharCode(code);
-    }
-
-    return str;
-};
-
-/**
- * Should be called to get hex representation (prefixed by 0x) of utf8 string
- *
- * @method fromUtf8
- * @param {String} string
- * @param {Number} optional padding
- * @returns {String} hex representation of input string
- */
-var fromUtf8 = function(str) {
-    str = utf8.encode(str);
-    var hex = "";
-    for(var i = 0; i < str.length; i++) {
-        var code = str.charCodeAt(i);
-        if (code === 0)
-            break;
-        var n = code.toString(16);
-        hex += n.length < 2 ? '0' + n : n;
-    }
-
-    return "0x" + hex;
-};
-
-/**
- * Should be called to get hex representation (prefixed by 0x) of ascii string
- *
- * @method fromAscii
- * @param {String} string
- * @param {Number} optional padding
- * @returns {String} hex representation of input string
- */
-var fromAscii = function(str) {
-    var hex = "";
-    for(var i = 0; i < str.length; i++) {
-        var code = str.charCodeAt(i);
-        var n = code.toString(16);
-        hex += n.length < 2 ? '0' + n : n;
-    }
-
-    return "0x" + hex;
-};
-
-/**
- * Should be used to create full function/event name from json abi
- *
- * @method transformToFullName
- * @param {Object} json-abi
- * @return {String} full fnction/event name
- */
-var transformToFullName = function (json) {
-    if (json.name.indexOf('(') !== -1) {
-        return json.name;
-    }
-
-    var typeName = json.inputs.map(function(i){return i.type; }).join();
-    return json.name + '(' + typeName + ')';
-};
-
-/**
- * Should be called to get display name of contract function
- *
- * @method extractDisplayName
- * @param {String} name of function/event
- * @returns {String} display name for function/event eg. multiply(uint256) -> multiply
- */
-var extractDisplayName = function (name) {
-    var length = name.indexOf('(');
-    return length !== -1 ? name.substr(0, length) : name;
-};
-
-/// @returns overloaded part of function/event name
-var extractTypeName = function (name) {
-    /// TODO: make it invulnerable
-    var length = name.indexOf('(');
-    return length !== -1 ? name.substr(length + 1, name.length - 1 - (length + 1)).replace(' ', '') : "";
-};
-
-/**
- * Converts value to it's decimal representation in string
- *
- * @method toDecimal
- * @param {String|Number|BigNumber}
- * @return {String}
- */
-var toDecimal = function (value) {
-    return toBigNumber(value).toNumber();
-};
-
-/**
- * Converts value to it's hex representation
- *
- * @method fromDecimal
- * @param {String|Number|BigNumber}
- * @return {String}
- */
-var fromDecimal = function (value) {
-    var number = toBigNumber(value);
-    var result = number.toString(16);
-
-    return number.lessThan(0) ? '-0x' + result.substr(1) : '0x' + result;
-};
-
-/**
- * Auto converts any given value into it's hex representation.
- *
- * And even stringifys objects before.
- *
- * @method toHex
- * @param {String|Number|BigNumber|Object}
- * @return {String}
- */
-var toHex = function (val) {
-    /*jshint maxcomplexity: 8 */
-
-    if (isBoolean(val))
-        return fromDecimal(+val);
-
-    if (isBigNumber(val))
-        return fromDecimal(val);
-
-    if (isObject(val))
-        return fromUtf8(JSON.stringify(val));
-
-    // if its a negative number, pass it through fromDecimal
-    if (isString(val)) {
-        if (val.indexOf('-0x') === 0)
-            return fromDecimal(val);
-        else if(val.indexOf('0x') === 0)
-            return val;
-        else if (!isFinite(val))
-            return fromAscii(val);
-    }
-
-    return fromDecimal(val);
-};
-
-/**
- * Returns value of unit in Wei
- *
- * @method getValueOfUnit
- * @param {String} unit the unit to convert to, default ether
- * @returns {BigNumber} value of the unit (in Wei)
- * @throws error if the unit is not correct:w
- */
-var getValueOfUnit = function (unit) {
-    unit = unit ? unit.toLowerCase() : 'ether';
-    var unitValue = unitMap[unit];
-    if (unitValue === undefined) {
-        throw new Error('This unit doesn\'t exists, please use the one of the following units' + JSON.stringify(unitMap, null, 2));
-    }
-    return new BigNumber(unitValue, 10);
-};
-
-/**
- * Takes a number of wei and converts it to any other ether unit.
- *
- * Possible units are:
- *   SI Short   SI Full        Effigy       Other
- * - kwei       femtoether     babbage
- * - mwei       picoether      lovelace
- * - gwei       nanoether      shannon      nano
- * - --         microether     szabo        micro
- * - --         milliether     finney       milli
- * - ether      --             --
- * - kether                    --           grand
- * - mether
- * - gether
- * - tether
- *
- * @method fromWei
- * @param {Number|String} number can be a number, number string or a HEX of a decimal
- * @param {String} unit the unit to convert to, default ether
- * @return {String|Object} When given a BigNumber object it returns one as well, otherwise a number
-*/
-var fromWei = function(number, unit) {
-    var returnValue = toBigNumber(number).dividedBy(getValueOfUnit(unit));
-
-    return isBigNumber(number) ? returnValue : returnValue.toString(10);
-};
-
-/**
- * Takes a number of a unit and converts it to wei.
- *
- * Possible units are:
- *   SI Short   SI Full        Effigy       Other
- * - kwei       femtoether     babbage
- * - mwei       picoether      lovelace
- * - gwei       nanoether      shannon      nano
- * - --         microether     szabo        micro
- * - --         microether     szabo        micro
- * - --         milliether     finney       milli
- * - ether      --             --
- * - kether                    --           grand
- * - mether
- * - gether
- * - tether
- *
- * @method toWei
- * @param {Number|String|BigNumber} number can be a number, number string or a HEX of a decimal
- * @param {String} unit the unit to convert from, default ether
- * @return {String|Object} When given a BigNumber object it returns one as well, otherwise a number
-*/
-var toWei = function(number, unit) {
-    var returnValue = toBigNumber(number).times(getValueOfUnit(unit));
-
-    return isBigNumber(number) ? returnValue : returnValue.toString(10);
-};
-
-/**
- * Takes an input and transforms it into an bignumber
- *
- * @method toBigNumber
- * @param {Number|String|BigNumber} a number, string, HEX string or BigNumber
- * @return {BigNumber} BigNumber
-*/
-var toBigNumber = function(number) {
-    /*jshint maxcomplexity:5 */
-    number = number || 0;
-    if (isBigNumber(number))
-        return number;
-
-    if (isString(number) && (number.indexOf('0x') === 0 || number.indexOf('-0x') === 0)) {
-        return new BigNumber(number.replace('0x',''), 16);
-    }
-
-    return new BigNumber(number.toString(10), 10);
-};
-
-/**
- * Takes and input transforms it into bignumber and if it is negative value, into two's complement
- *
- * @method toTwosComplement
- * @param {Number|String|BigNumber}
- * @return {BigNumber}
- */
-var toTwosComplement = function (number) {
-    var bigNumber = toBigNumber(number).round();
-    if (bigNumber.lessThan(0)) {
-        return new BigNumber("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16).plus(bigNumber).plus(1);
-    }
-    return bigNumber;
-};
-
-/**
- * Checks if the given string is strictly an address
- *
- * @method isStrictAddress
- * @param {String} address the given HEX adress
- * @return {Boolean}
-*/
-var isStrictAddress = function (address) {
-    return /^0x[0-9a-f]{40}$/i.test(address);
-};
-
-/**
- * Checks if the given string is an address
- *
- * @method isAddress
- * @param {String} address the given HEX adress
- * @return {Boolean}
-*/
-var isAddress = function (address) {
-    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
-        // check if it has the basic requirements of an address
-        return false;
-    } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
-        // If it's all small caps or all all caps, return true
-        return true;
-    } else {
-        // Otherwise check each case
-        return isChecksumAddress(address);
-    }
-};
-
-
-
-/**
- * Checks if the given string is a checksummed address
- *
- * @method isChecksumAddress
- * @param {String} address the given HEX adress
- * @return {Boolean}
-*/
-var isChecksumAddress = function (address) {    
-    // Check each case
-    address = address.replace('0x','');
-    var addressHash = sha3(address.toLowerCase());
-
-    for (var i = 0; i < 40; i++ ) { 
-        // the nth letter should be uppercase if the nth digit of casemap is 1
-        if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
-            return false;
-        }
-    }
-    return true;    
-};
-
-
-
-/**
- * Makes a checksum address
- *
- * @method toChecksumAddress
- * @param {String} address the given HEX adress
- * @return {String}
-*/
-var toChecksumAddress = function (address) { 
-    if (typeof address === 'undefined') return '';
-
-    address = address.toLowerCase().replace('0x','');
-    var addressHash = sha3(address);
-    var checksumAddress = '0x';
-
-    for (var i = 0; i < address.length; i++ ) { 
-        // If ith character is 9 to f then make it uppercase 
-        if (parseInt(addressHash[i], 16) > 7) {
-          checksumAddress += address[i].toUpperCase();
-        } else {
-            checksumAddress += address[i];
-        }
-    }
-    return checksumAddress;
-};
-
-/**
- * Transforms given string to valid 20 bytes-length addres with 0x prefix
- *
- * @method toAddress
- * @param {String} address
- * @return {String} formatted address
- */
-var toAddress = function (address) {
-    if (isStrictAddress(address)) {
-        return address;
-    }
-
-    if (/^[0-9a-f]{40}$/.test(address)) {
-        return '0x' + address;
-    }
-
-    return '0x' + padLeft(toHex(address).substr(2), 40);
-};
-
-/**
- * Returns true if object is BigNumber, otherwise false
- *
- * @method isBigNumber
- * @param {Object}
- * @return {Boolean}
- */
-var isBigNumber = function (object) {
-    return object instanceof BigNumber ||
-        (object && object.constructor && object.constructor.name === 'BigNumber');
-};
-
-/**
- * Returns true if object is string, otherwise false
- *
- * @method isString
- * @param {Object}
- * @return {Boolean}
- */
-var isString = function (object) {
-    return typeof object === 'string' ||
-        (object && object.constructor && object.constructor.name === 'String');
-};
-
-/**
- * Returns true if object is function, otherwise false
- *
- * @method isFunction
- * @param {Object}
- * @return {Boolean}
- */
-var isFunction = function (object) {
-    return typeof object === 'function';
-};
-
-/**
- * Returns true if object is Objet, otherwise false
- *
- * @method isObject
- * @param {Object}
- * @return {Boolean}
- */
-var isObject = function (object) {
-    return typeof object === 'object';
-};
-
-/**
- * Returns true if object is boolean, otherwise false
- *
- * @method isBoolean
- * @param {Object}
- * @return {Boolean}
- */
-var isBoolean = function (object) {
-    return typeof object === 'boolean';
-};
-
-/**
- * Returns true if object is array, otherwise false
- *
- * @method isArray
- * @param {Object}
- * @return {Boolean}
- */
-var isArray = function (object) {
-    return object instanceof Array;
-};
-
-/**
- * Returns true if given string is valid json object
- *
- * @method isJson
- * @param {String}
- * @return {Boolean}
- */
-var isJson = function (str) {
-    try {
-        return !!JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-};
-
-module.exports = {
-    padLeft: padLeft,
-    padRight: padRight,
-    toHex: toHex,
-    toDecimal: toDecimal,
-    fromDecimal: fromDecimal,
-    toUtf8: toUtf8,
-    toAscii: toAscii,
-    fromUtf8: fromUtf8,
-    fromAscii: fromAscii,
-    transformToFullName: transformToFullName,
-    extractDisplayName: extractDisplayName,
-    extractTypeName: extractTypeName,
-    toWei: toWei,
-    fromWei: fromWei,
-    toBigNumber: toBigNumber,
-    toTwosComplement: toTwosComplement,
-    toAddress: toAddress,
-    isBigNumber: isBigNumber,
-    isStrictAddress: isStrictAddress,
-    isAddress: isAddress,
-    isChecksumAddress: isChecksumAddress,
-    toChecksumAddress: toChecksumAddress,
-    isFunction: isFunction,
-    isString: isString,
-    isObject: isObject,
-    isBoolean: isBoolean,
-    isArray: isArray,
-    isJson: isJson
-};
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
+const SHA3 = __webpack_require__(45)
+const secp256k1 = __webpack_require__(32)
+const assert = __webpack_require__(17)
+const rlp = __webpack_require__(22)
+const BN = __webpack_require__(8)
+const createHash = __webpack_require__(18)
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -7919,13 +7951,13 @@ module.exports = {
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const createKeccakHash = __webpack_require__(270)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
-Object.assign(exports, __webpack_require__(232))
+const createKeccakHash = __webpack_require__(272)
+const secp256k1 = __webpack_require__(32)
+const assert = __webpack_require__(17)
+const rlp = __webpack_require__(22)
+const BN = __webpack_require__(8)
+const createHash = __webpack_require__(18)
+Object.assign(exports, __webpack_require__(234))
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -8589,6 +8621,12 @@ exports.defineProperties = function (self, fields, data) {
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("buffer");
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8596,19 +8634,19 @@ exports.defineProperties = function (self, fields, data) {
 
 var elliptic = exports;
 
-elliptic.version = __webpack_require__(198).version;
-elliptic.utils = __webpack_require__(197);
-elliptic.rand = __webpack_require__(151);
+elliptic.version = __webpack_require__(201).version;
+elliptic.utils = __webpack_require__(200);
+elliptic.rand = __webpack_require__(154);
 elliptic.curve = __webpack_require__(53);
-elliptic.curves = __webpack_require__(189);
+elliptic.curves = __webpack_require__(192);
 
 // Protocols
-elliptic.ec = __webpack_require__(190);
-elliptic.eddsa = __webpack_require__(193);
+elliptic.ec = __webpack_require__(193);
+elliptic.eddsa = __webpack_require__(196);
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -8617,31 +8655,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("assert");
-
-/***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("buffer");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("events");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(25).createHash;
-
-/***/ }),
-/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -8666,10 +8680,10 @@ module.exports = __webpack_require__(25).createHash;
  * @date 2015
  */
 
-var BigNumber = __webpack_require__(45);
-var utils = __webpack_require__(8);
+var BigNumber = __webpack_require__(44);
+var utils = __webpack_require__(6);
 var c = __webpack_require__(55);
-var SolidityParam = __webpack_require__(133);
+var SolidityParam = __webpack_require__(136);
 
 
 /**
@@ -8899,7 +8913,7 @@ module.exports = {
 
 
 /***/ }),
-/* 19 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -8927,246 +8941,29 @@ module.exports = function(module) {
 
 
 /***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("assert");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(25).createHash;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("events");
+
+/***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const assert = __webpack_require__(14)
-/**
- * RLP Encoding based on: https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP
- * This function takes in a data, convert it to buffer if not, and a length for recursion
- *
- * @param {Buffer,String,Integer,Array} data - will be converted to buffer
- * @returns {Buffer} - returns buffer of encoded data
- **/
-exports.encode = function (input) {
-  if (input instanceof Array) {
-    var output = []
-    for (var i = 0; i < input.length; i++) {
-      output.push(exports.encode(input[i]))
-    }
-    var buf = Buffer.concat(output)
-    return Buffer.concat([encodeLength(buf.length, 192), buf])
-  } else {
-    input = toBuffer(input)
-    if (input.length === 1 && input[0] < 128) {
-      return input
-    } else {
-      return Buffer.concat([encodeLength(input.length, 128), input])
-    }
-  }
-}
-
-function safeParseInt (v, base) {
-  if (v.slice(0, 2) === '00') {
-    throw (new Error('invalid RLP: extra zeros'))
-  }
-
-  return parseInt(v, base)
-}
-
-function encodeLength (len, offset) {
-  if (len < 56) {
-    return new Buffer([len + offset])
-  } else {
-    var hexLength = intToHex(len)
-    var lLength = hexLength.length / 2
-    var firstByte = intToHex(offset + 55 + lLength)
-    return new Buffer(firstByte + hexLength, 'hex')
-  }
-}
-
-/**
- * RLP Decoding based on: {@link https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP|RLP}
- * @param {Buffer,String,Integer,Array} data - will be converted to buffer
- * @returns {Array} - returns decode Array of Buffers containg the original message
- **/
-exports.decode = function (input, stream) {
-  if (!input || input.length === 0) {
-    return new Buffer([])
-  }
-
-  input = toBuffer(input)
-  var decoded = _decode(input)
-
-  if (stream) {
-    return decoded
-  }
-
-  assert.equal(decoded.remainder.length, 0, 'invalid remainder')
-  return decoded.data
-}
-
-exports.getLength = function (input) {
-  if (!input || input.length === 0) {
-    return new Buffer([])
-  }
-
-  input = toBuffer(input)
-  var firstByte = input[0]
-  if (firstByte <= 0x7f) {
-    return input.length
-  } else if (firstByte <= 0xb7) {
-    return firstByte - 0x7f
-  } else if (firstByte <= 0xbf) {
-    return firstByte - 0xb6
-  } else if (firstByte <= 0xf7) {
-    // a list between  0-55 bytes long
-    return firstByte - 0xbf
-  } else {
-    // a list  over 55 bytes long
-    var llength = firstByte - 0xf6
-    var length = safeParseInt(input.slice(1, llength).toString('hex'), 16)
-    return llength + length
-  }
-}
-
-function _decode (input) {
-  var length, llength, data, innerRemainder, d
-  var decoded = []
-  var firstByte = input[0]
-
-  if (firstByte <= 0x7f) {
-    // a single byte whose value is in the [0x00, 0x7f] range, that byte is its own RLP encoding.
-    return {
-      data: input.slice(0, 1),
-      remainder: input.slice(1)
-    }
-  } else if (firstByte <= 0xb7) {
-    // string is 0-55 bytes long. A single byte with value 0x80 plus the length of the string followed by the string
-    // The range of the first byte is [0x80, 0xb7]
-    length = firstByte - 0x7f
-
-    // set 0x80 null to 0
-    if (firstByte === 0x80) {
-      data = new Buffer([])
-    } else {
-      data = input.slice(1, length)
-    }
-
-    if (length === 2 && data[0] < 0x80) {
-      throw new Error('invalid rlp encoding: byte must be less 0x80')
-    }
-
-    return {
-      data: data,
-      remainder: input.slice(length)
-    }
-  } else if (firstByte <= 0xbf) {
-    llength = firstByte - 0xb6
-    length = safeParseInt(input.slice(1, llength).toString('hex'), 16)
-    data = input.slice(llength, length + llength)
-    if (data.length < length) {
-      throw (new Error('invalid RLP'))
-    }
-
-    return {
-      data: data,
-      remainder: input.slice(length + llength)
-    }
-  } else if (firstByte <= 0xf7) {
-    // a list between  0-55 bytes long
-    length = firstByte - 0xbf
-    innerRemainder = input.slice(1, length)
-    while (innerRemainder.length) {
-      d = _decode(innerRemainder)
-      decoded.push(d.data)
-      innerRemainder = d.remainder
-    }
-
-    return {
-      data: decoded,
-      remainder: input.slice(length)
-    }
-  } else {
-    // a list  over 55 bytes long
-    llength = firstByte - 0xf6
-    length = safeParseInt(input.slice(1, llength).toString('hex'), 16)
-    var totalLength = llength + length
-    if (totalLength > input.length) {
-      throw new Error('invalid rlp: total length is larger than the data')
-    }
-
-    innerRemainder = input.slice(llength, totalLength)
-    if (innerRemainder.length === 0) {
-      throw new Error('invalid rlp, List has a invalid length')
-    }
-
-    while (innerRemainder.length) {
-      d = _decode(innerRemainder)
-      decoded.push(d.data)
-      innerRemainder = d.remainder
-    }
-    return {
-      data: decoded,
-      remainder: input.slice(totalLength)
-    }
-  }
-}
-
-function isHexPrefixed (str) {
-  return str.slice(0, 2) === '0x'
-}
-
-// Removes 0x from a given String
-function stripHexPrefix (str) {
-  if (typeof str !== 'string') {
-    return str
-  }
-  return isHexPrefixed(str) ? str.slice(2) : str
-}
-
-function intToHex (i) {
-  var hex = i.toString(16)
-  if (hex.length % 2) {
-    hex = '0' + hex
-  }
-
-  return hex
-}
-
-function padToEven (a) {
-  if (a.length % 2) a = '0' + a
-  return a
-}
-
-function intToBuffer (i) {
-  var hex = intToHex(i)
-  return new Buffer(hex, 'hex')
-}
-
-function toBuffer (v) {
-  if (!Buffer.isBuffer(v)) {
-    if (typeof v === 'string') {
-      if (isHexPrefixed(v)) {
-        v = new Buffer(padToEven(stripHexPrefix(v)), 'hex')
-      } else {
-        v = new Buffer(v)
-      }
-    } else if (typeof v === 'number') {
-      if (!v) {
-        v = new Buffer([])
-      } else {
-        v = intToBuffer(v)
-      }
-    } else if (v === null || v === undefined) {
-      v = new Buffer([])
-    } else if (v.toArray) {
-      // converts a BN to a Buffer
-      v = new Buffer(v.toArray())
-    } else {
-      throw new Error('invalid type')
-    }
-  }
-  return v
-}
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const ethUtil = __webpack_require__(204)
-const rlp = __webpack_require__(20)
+const ethUtil = __webpack_require__(207)
+const rlp = __webpack_require__(22)
 
 var Account = module.exports = function (data) {
   // Define Properties
@@ -9247,7 +9044,7 @@ Account.prototype.isEmpty = function () {
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (global, factory) {
@@ -9342,12 +9139,142 @@ var initialParams = function (fn) {
     });
 };
 
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+/**
+ * Take a sync function and make it async, passing its return value to a
+ * callback. This is useful for plugging sync functions into a waterfall,
+ * series, or other async functions. Any arguments passed to the generated
+ * function will be passed to the wrapped function (except for the final
+ * callback argument). Errors thrown will be passed to the callback.
+ *
+ * If the function passed to `asyncify` returns a Promise, that promises's
+ * resolved/rejected state will be used to call the callback, rather than simply
+ * the synchronous return value.
+ *
+ * This also means you can asyncify ES2017 `async` functions.
+ *
+ * @name asyncify
+ * @static
+ * @memberOf module:Utils
+ * @method
+ * @alias wrapSync
+ * @category Util
+ * @param {Function} func - The synchronous funuction, or Promise-returning
+ * function to convert to an {@link AsyncFunction}.
+ * @returns {AsyncFunction} An asynchronous wrapper of the `func`. To be
+ * invoked with `(args..., callback)`.
+ * @example
+ *
+ * // passing a regular synchronous function
+ * async.waterfall([
+ *     async.apply(fs.readFile, filename, "utf8"),
+ *     async.asyncify(JSON.parse),
+ *     function (data, next) {
+ *         // data is the result of parsing the text.
+ *         // If there was a parsing error, it would have been caught.
+ *     }
+ * ], callback);
+ *
+ * // passing a function returning a promise
+ * async.waterfall([
+ *     async.apply(fs.readFile, filename, "utf8"),
+ *     async.asyncify(function (contents) {
+ *         return db.model.create(contents);
+ *     }),
+ *     function (model, next) {
+ *         // `model` is the instantiated model object.
+ *         // If there was an error, this function would be skipped.
+ *     }
+ * ], callback);
+ *
+ * // es2017 example, though `asyncify` is not needed if your JS environment
+ * // supports async functions out of the box
+ * var q = async.queue(async.asyncify(async function(file) {
+ *     var intermediateStep = await processFile(file);
+ *     return await somePromise(intermediateStep)
+ * }));
+ *
+ * q.push(files);
+ */
+function asyncify(func) {
+    return initialParams(function (args, callback) {
+        var result;
+        try {
+            result = func.apply(this, args);
+        } catch (e) {
+            return callback(e);
+        }
+        // if result is Promise object
+        if (isObject(result) && typeof result.then === 'function') {
+            result.then(function (value) {
+                callback(null, value);
+            }, function (err) {
+                callback(err.message ? err : new Error(err));
+            });
+        } else {
+            callback(null, result);
+        }
+    });
+}
+
+var supportsSymbol = typeof Symbol === 'function';
+
+function supportsAsync() {
+    var supported;
+    try {
+        /* eslint no-eval: 0 */
+        supported = isAsync(eval('(async function () {})'));
+    } catch (e) {
+        supported = false;
+    }
+    return supported;
+}
+
+function isAsync(fn) {
+    return supportsSymbol && fn[Symbol.toStringTag] === 'AsyncFunction';
+}
+
+function wrapAsync(asyncFn) {
+    return isAsync(asyncFn) ? asyncify(asyncFn) : asyncFn;
+}
+
+var wrapAsync$1 = supportsAsync() ? wrapAsync : identity;
+
 function applyEach$1(eachfn) {
     return rest(function (fns, args) {
         var go = initialParams(function (args, callback) {
             var that = this;
             return eachfn(fns, function (fn, cb) {
-                fn.apply(that, args.concat(cb));
+                wrapAsync$1(fn).apply(that, args.concat(cb));
             }, callback);
         });
         if (args.length) {
@@ -9456,36 +9383,6 @@ function baseGetTag(value) {
   return (symToStringTag && symToStringTag in value)
     ? getRawTag(value)
     : objectToString(value);
-}
-
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return value != null && (type == 'object' || type == 'function');
 }
 
 /** `Object#toString` result references. */
@@ -10152,17 +10049,15 @@ function _eachOfLimit(limit) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each
+ * @param {AsyncFunction} iteratee - An async function to apply to each
  * item in `coll`. The `key` is the item's key, or index in the case of an
- * array. The iteratee is passed a `callback(err)` which must be called once it
- * has completed. If no error has occurred, the callback should be run without
- * arguments or with an explicit `null` argument. Invoked with
- * (item, key, callback).
+ * array.
+ * Invoked with (item, key, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  */
 function eachOfLimit(coll, limit, iteratee, callback) {
-  _eachOfLimit(limit)(coll, iteratee, callback);
+  _eachOfLimit(limit)(coll, wrapAsync$1(iteratee), callback);
 }
 
 function doLimit(fn, limit) {
@@ -10209,12 +10104,10 @@ var eachOfGeneric = doLimit(eachOfLimit, Infinity);
  * @category Collection
  * @see [async.each]{@link module:Collections.each}
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each
- * item in `coll`. The `key` is the item's key, or index in the case of an
- * array. The iteratee is passed a `callback(err)` which must be called once it
- * has completed. If no error has occurred, the callback should be run without
- * arguments or with an explicit `null` argument. Invoked with
- * (item, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each
+ * item in `coll`.
+ * The `key` is the item's key, or index in the case of an array.
+ * Invoked with (item, key, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  * @example
@@ -10240,12 +10133,12 @@ var eachOfGeneric = doLimit(eachOfLimit, Infinity);
  */
 var eachOf = function (coll, iteratee, callback) {
     var eachOfImplementation = isArrayLike(coll) ? eachOfArrayLike : eachOfGeneric;
-    eachOfImplementation(coll, iteratee, callback);
+    eachOfImplementation(coll, wrapAsync$1(iteratee), callback);
 };
 
 function doParallel(fn) {
     return function (obj, iteratee, callback) {
-        return fn(eachOf, obj, iteratee, callback);
+        return fn(eachOf, obj, wrapAsync$1(iteratee), callback);
     };
 }
 
@@ -10254,10 +10147,11 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
     arr = arr || [];
     var results = [];
     var counter = 0;
+    var _iteratee = wrapAsync$1(iteratee);
 
     eachfn(arr, function (value, _, callback) {
         var index = counter++;
-        iteratee(value, function (err, v) {
+        _iteratee(value, function (err, v) {
             results[index] = v;
             callback(err);
         });
@@ -10289,10 +10183,10 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed item. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with the transformed item.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Results is an Array of the
  * transformed items from the `coll`. Invoked with (err, results).
@@ -10316,7 +10210,7 @@ var map = doParallel(_asyncMap);
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array|Iterable|Object} fns - A collection of asynchronous functions
+ * @param {Array|Iterable|Object} fns - A collection of {@link AsyncFunction}s
  * to all call with the same arguments
  * @param {...*} [args] - any number of separate arguments to pass to the
  * function.
@@ -10341,7 +10235,7 @@ var applyEach = applyEach$1(map);
 
 function doParallelLimit(fn) {
     return function (obj, limit, iteratee, callback) {
-        return fn(_eachOfLimit(limit), obj, iteratee, callback);
+        return fn(_eachOfLimit(limit), obj, wrapAsync$1(iteratee), callback);
     };
 }
 
@@ -10356,10 +10250,10 @@ function doParallelLimit(fn) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a transformed
- * item. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with the transformed item.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Results is an array of the
  * transformed items from the `coll`. Invoked with (err, results).
@@ -10376,10 +10270,10 @@ var mapLimit = doParallelLimit(_asyncMap);
  * @see [async.map]{@link module:Collections.map}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed item. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with the transformed item.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Results is an array of the
  * transformed items from the `coll`. Invoked with (err, results).
@@ -10395,7 +10289,7 @@ var mapSeries = doLimit(mapLimit, 1);
  * @method
  * @see [async.applyEach]{@link module:ControlFlow.applyEach}
  * @category Control Flow
- * @param {Array|Iterable|Object} fns - A collection of asynchronous functions to all
+ * @param {Array|Iterable|Object} fns - A collection of {@link AsyncFunction}s to all
  * call with the same arguments
  * @param {...*} [args] - any number of separate arguments to pass to the
  * function.
@@ -10456,82 +10350,6 @@ var apply$2 = rest(function (fn, args) {
         return fn.apply(null, args.concat(callArgs));
     });
 });
-
-/**
- * Take a sync function and make it async, passing its return value to a
- * callback. This is useful for plugging sync functions into a waterfall,
- * series, or other async functions. Any arguments passed to the generated
- * function will be passed to the wrapped function (except for the final
- * callback argument). Errors thrown will be passed to the callback.
- *
- * If the function passed to `asyncify` returns a Promise, that promises's
- * resolved/rejected state will be used to call the callback, rather than simply
- * the synchronous return value.
- *
- * This also means you can asyncify ES2016 `async` functions.
- *
- * @name asyncify
- * @static
- * @memberOf module:Utils
- * @method
- * @alias wrapSync
- * @category Util
- * @param {Function} func - The synchronous function to convert to an
- * asynchronous function.
- * @returns {Function} An asynchronous wrapper of the `func`. To be invoked with
- * (callback).
- * @example
- *
- * // passing a regular synchronous function
- * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(JSON.parse),
- *     function (data, next) {
- *         // data is the result of parsing the text.
- *         // If there was a parsing error, it would have been caught.
- *     }
- * ], callback);
- *
- * // passing a function returning a promise
- * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(function (contents) {
- *         return db.model.create(contents);
- *     }),
- *     function (model, next) {
- *         // `model` is the instantiated model object.
- *         // If there was an error, this function would be skipped.
- *     }
- * ], callback);
- *
- * // es6 example
- * var q = async.queue(async.asyncify(async function(file) {
- *     var intermediateStep = await processFile(file);
- *     return await somePromise(intermediateStep)
- * }));
- *
- * q.push(files);
- */
-function asyncify(func) {
-    return initialParams(function (args, callback) {
-        var result;
-        try {
-            result = func.apply(this, args);
-        } catch (e) {
-            return callback(e);
-        }
-        // if result is Promise object
-        if (isObject(result) && typeof result.then === 'function') {
-            result.then(function (value) {
-                callback(null, value);
-            }, function (err) {
-                callback(err.message ? err : new Error(err));
-            });
-        } else {
-            callback(null, result);
-        }
-    });
-}
 
 /**
  * A specialized version of `_.forEach` for arrays without support for
@@ -10675,17 +10493,17 @@ function baseIndexOf(array, value, fromIndex) {
 }
 
 /**
- * Determines the best order for running the functions in `tasks`, based on
+ * Determines the best order for running the {@link AsyncFunction}s in `tasks`, based on
  * their requirements. Each function can optionally depend on other functions
  * being completed first, and each function is run as soon as its requirements
  * are satisfied.
  *
- * If any of the functions pass an error to their callback, the `auto` sequence
+ * If any of the {@link AsyncFunction}s pass an error to their callback, the `auto` sequence
  * will stop. Further tasks will not execute (so any other functions depending
  * on it will not run), and the main `callback` is immediately called with the
  * error.
  *
- * Functions also receive an object containing the results of functions which
+ * {@link AsyncFunction}s also receive an object containing the results of functions which
  * have completed so far as the first argument, if they have dependencies. If a
  * task function has no dependencies, it will only be passed a callback.
  *
@@ -10695,7 +10513,7 @@ function baseIndexOf(array, value, fromIndex) {
  * @method
  * @category Control Flow
  * @param {Object} tasks - An object. Each of its properties is either a
- * function or an array of requirements, with the function itself the last item
+ * function or an array of requirements, with the {@link AsyncFunction} itself the last item
  * in the array. The object's key of a property serves as the name of the task
  * defined by that property, i.e. can be used when specifying requirements for
  * other tasks. The function receives one or two arguments:
@@ -10873,7 +10691,7 @@ var auto = function (tasks, concurrency, callback) {
         }));
 
         runningTasks++;
-        var taskFn = task[task.length - 1];
+        var taskFn = wrapAsync$1(task[task.length - 1]);
         if (task.length > 1) {
             taskFn(results, taskCallback);
         } else {
@@ -11217,7 +11035,7 @@ function trim(string, chars, guard) {
   return castSlice(strSymbols, start, end).join('');
 }
 
-var FN_ARGS = /^(function)?\s*[^\(]*\(\s*([^\)]*)\)/m;
+var FN_ARGS = /^(?:async\s+)?(function)?\s*[^\(]*\(\s*([^\)]*)\)/m;
 var FN_ARG_SPLIT = /,/;
 var FN_ARG = /(=.+)?(\s*)$/;
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
@@ -11251,7 +11069,7 @@ function parseParams(func) {
  * @method
  * @see [async.auto]{@link module:ControlFlow.auto}
  * @category Control Flow
- * @param {Object} tasks - An object, each of whose properties is a function of
+ * @param {Object} tasks - An object, each of whose properties is an {@link AsyncFunction} of
  * the form 'func([dependencies...], callback). The object's key of a property
  * serves as the name of the task defined by that property, i.e. can be used
  * when specifying requirements for other tasks.
@@ -11319,22 +11137,25 @@ function autoInject(tasks, callback) {
 
     baseForOwn(tasks, function (taskFn, key) {
         var params;
+        var fnIsAsync = isAsync(taskFn);
+        var hasNoDeps = !fnIsAsync && taskFn.length === 1 || fnIsAsync && taskFn.length === 0;
 
         if (isArray(taskFn)) {
             params = taskFn.slice(0, -1);
             taskFn = taskFn[taskFn.length - 1];
 
             newTasks[key] = params.concat(params.length > 0 ? newTask : taskFn);
-        } else if (taskFn.length === 1) {
+        } else if (hasNoDeps) {
             // no dependencies, use the function as-is
             newTasks[key] = taskFn;
         } else {
             params = parseParams(taskFn);
-            if (taskFn.length === 0 && params.length === 0) {
+            if (taskFn.length === 0 && !fnIsAsync && params.length === 0) {
                 throw new Error("autoInject task functions require explicit parameters.");
             }
 
-            params.pop();
+            // remove callback param
+            if (!fnIsAsync) params.pop();
 
             newTasks[key] = params.concat(newTask);
         }
@@ -11344,7 +11165,7 @@ function autoInject(tasks, callback) {
                 return results[name];
             });
             newArgs.push(taskCb);
-            taskFn.apply(null, newArgs);
+            wrapAsync$1(taskFn).apply(null, newArgs);
         }
     });
 
@@ -11442,6 +11263,10 @@ function queue(worker, concurrency, payload) {
         throw new Error('Concurrency must not be zero');
     }
 
+    var _worker = wrapAsync$1(worker);
+    var numRunning = 0;
+    var workersList = [];
+
     function _insert(data, insertAtFront, callback) {
         if (callback != null && typeof callback !== 'function') {
             throw new Error('task callback must be a function');
@@ -11474,7 +11299,7 @@ function queue(worker, concurrency, payload) {
 
     function _next(tasks) {
         return rest(function (args) {
-            workers -= 1;
+            numRunning -= 1;
 
             for (var i = 0, l = tasks.length; i < l; i++) {
                 var task = tasks[i];
@@ -11490,7 +11315,7 @@ function queue(worker, concurrency, payload) {
                 }
             }
 
-            if (workers <= q.concurrency - q.buffer) {
+            if (numRunning <= q.concurrency - q.buffer) {
                 q.unsaturated();
             }
 
@@ -11501,8 +11326,6 @@ function queue(worker, concurrency, payload) {
         });
     }
 
-    var workers = 0;
-    var workersList = [];
     var isProcessing = false;
     var q = {
         _tasks: new DLL(),
@@ -11533,7 +11356,7 @@ function queue(worker, concurrency, payload) {
                 return;
             }
             isProcessing = true;
-            while (!q.paused && workers < q.concurrency && q._tasks.length) {
+            while (!q.paused && numRunning < q.concurrency && q._tasks.length) {
                 var tasks = [],
                     data = [];
                 var l = q._tasks.length;
@@ -11547,15 +11370,15 @@ function queue(worker, concurrency, payload) {
                 if (q._tasks.length === 0) {
                     q.empty();
                 }
-                workers += 1;
+                numRunning += 1;
                 workersList.push(tasks[0]);
 
-                if (workers === q.concurrency) {
+                if (numRunning === q.concurrency) {
                     q.saturated();
                 }
 
                 var cb = onlyOnce(_next(tasks));
-                worker(data, cb);
+                _worker(data, cb);
             }
             isProcessing = false;
         },
@@ -11563,13 +11386,13 @@ function queue(worker, concurrency, payload) {
             return q._tasks.length;
         },
         running: function () {
-            return workers;
+            return numRunning;
         },
         workersList: function () {
             return workersList;
         },
         idle: function () {
-            return q._tasks.length + workers === 0;
+            return q._tasks.length + numRunning === 0;
         },
         pause: function () {
             q.paused = true;
@@ -11633,9 +11456,8 @@ function queue(worker, concurrency, payload) {
  * @method
  * @see [async.queue]{@link module:ControlFlow.queue}
  * @category Control Flow
- * @param {Function} worker - An asynchronous function for processing an array
- * of queued tasks, which must call its `callback(err)` argument when finished,
- * with an optional `err` argument. Invoked with `(tasks, callback)`.
+ * @param {AsyncFunction} worker - An asynchronous function for processing an array
+ * of queued tasks. Invoked with `(tasks, callback)`.
  * @param {number} [payload=Infinity] - An optional `integer` for determining
  * how many tasks should be processed per round; if omitted, the default is
  * unlimited.
@@ -11678,11 +11500,9 @@ function cargo(worker, payload) {
  * @alias forEachOfSeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`. The
- * `key` is the item's key, or index in the case of an array. The iteratee is
- * passed a `callback(err)` which must be called once it has completed. If no
- * error has occurred, the callback should be run without arguments or with an
- * explicit `null` argument. Invoked with (item, key, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * Invoked with (item, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Invoked with (err).
  */
@@ -11708,12 +11528,12 @@ var eachOfSeries = doLimit(eachOfLimit, 1);
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {*} memo - The initial state of the reduction.
- * @param {Function} iteratee - A function applied to each item in the
- * array to produce the next step in the reduction. The `iteratee` is passed a
- * `callback(err, reduction)` which accepts an optional error as its first
- * argument, and the state of the reduction as the second. If an error is
- * passed to the callback, the reduction is stopped and the main `callback` is
- * immediately called with the error. Invoked with (memo, item, callback).
+ * @param {AsyncFunction} iteratee - A function applied to each item in the
+ * array to produce the next step in the reduction.
+ * The `iteratee` should complete with the next state of the reduction.
+ * If the iteratee complete with an error, the reduction is stopped and the
+ * main `callback` is immediately called with the error.
+ * Invoked with (memo, item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result is the reduced value. Invoked with
  * (err, result).
@@ -11730,8 +11550,9 @@ var eachOfSeries = doLimit(eachOfLimit, 1);
  */
 function reduce(coll, memo, iteratee, callback) {
     callback = once(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
     eachOfSeries(coll, function (x, i, callback) {
-        iteratee(memo, x, function (err, v) {
+        _iteratee(memo, x, function (err, v) {
             memo = v;
             callback(err);
         });
@@ -11753,7 +11574,7 @@ function reduce(coll, memo, iteratee, callback) {
  * @method
  * @see [async.compose]{@link module:ControlFlow.compose}
  * @category Control Flow
- * @param {...Function} functions - the asynchronous functions to compose
+ * @param {...AsyncFunction} functions - the asynchronous functions to compose
  * @returns {Function} a function that composes the `functions` in order
  * @example
  *
@@ -11779,6 +11600,7 @@ function reduce(coll, memo, iteratee, callback) {
  * });
  */
 var seq$1 = rest(function seq(functions) {
+    var _functions = arrayMap(functions, wrapAsync$1);
     return rest(function (args) {
         var that = this;
 
@@ -11789,7 +11611,7 @@ var seq$1 = rest(function seq(functions) {
             cb = noop;
         }
 
-        reduce(functions, args, function (newargs, fn, cb) {
+        reduce(_functions, args, function (newargs, fn, cb) {
             fn.apply(that, newargs.concat(rest(function (err, nextargs) {
                 cb(err, nextargs);
             })));
@@ -11812,7 +11634,7 @@ var seq$1 = rest(function seq(functions) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {...Function} functions - the asynchronous functions to compose
+ * @param {...AsyncFunction} functions - the asynchronous functions to compose
  * @returns {Function} an asynchronous function that is the composed
  * asynchronous `functions`
  * @example
@@ -11863,10 +11685,8 @@ function concat$1(eachfn, arr, fn, callback) {
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, results)` which must be called once
- * it has completed with an error (which can be `null`) and an array of results.
- * Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`,
+ * which should use an array as its result. Invoked with (item, callback).
  * @param {Function} [callback(err)] - A callback which is called after all the
  * `iteratee` functions have finished, or an error occurs. Results is an array
  * containing the concatenated results of the `iteratee` function. Invoked with
@@ -11881,7 +11701,7 @@ var concat = doParallel(concat$1);
 
 function doSeries(fn) {
     return function (obj, iteratee, callback) {
-        return fn(eachOfSeries, obj, iteratee, callback);
+        return fn(eachOfSeries, obj, wrapAsync$1(iteratee), callback);
     };
 }
 
@@ -11895,9 +11715,8 @@ function doSeries(fn) {
  * @see [async.concat]{@link module:Collections.concat}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, results)` which must be called once
- * it has completed with an error (which can be `null`) and an array of results.
+ * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`.
+ * The iteratee should complete with an array an array of results.
  * Invoked with (item, callback).
  * @param {Function} [callback(err)] - A callback which is called after all the
  * `iteratee` functions have finished, or an error occurs. Results is an array
@@ -11918,7 +11737,7 @@ var concatSeries = doSeries(concat$1);
  * @category Util
  * @param {...*} arguments... - Any number of arguments to automatically invoke
  * callback with.
- * @returns {Function} Returns a function that when invoked, automatically
+ * @returns {AsyncFunction} Returns a function that when invoked, automatically
  * invokes the callback with the previous given arguments.
  * @example
  *
@@ -12003,9 +11822,9 @@ function _findGetResult(v, x) {
  * @alias find
  * @category Collections
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, truthValue)` which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
+ * The iteratee must complete with a boolean value as its result.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the `iteratee` functions have finished.
  * Result will be the first item in the array that passes the truth test
@@ -12036,9 +11855,9 @@ var detect = doParallel(_createTester(identity, _findGetResult));
  * @category Collections
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, truthValue)` which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
+ * The iteratee must complete with a boolean value as its result.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the `iteratee` functions have finished.
  * Result will be the first item in the array that passes the truth test
@@ -12058,9 +11877,9 @@ var detectLimit = doParallelLimit(_createTester(identity, _findGetResult));
  * @alias findSeries
  * @category Collections
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, truthValue)` which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
+ * The iteratee must complete with a boolean value as its result.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the `iteratee` functions have finished.
  * Result will be the first item in the array that passes the truth test
@@ -12071,7 +11890,7 @@ var detectSeries = doLimit(detectLimit, 1);
 
 function consoleFunc(name) {
     return rest(function (fn, args) {
-        fn.apply(null, args.concat(rest(function (err, args) {
+        wrapAsync$1(fn).apply(null, args.concat(rest(function (err, args) {
             if (typeof console === 'object') {
                 if (err) {
                     if (console.error) {
@@ -12088,10 +11907,11 @@ function consoleFunc(name) {
 }
 
 /**
- * Logs the result of an `async` function to the `console` using `console.dir`
- * to display the properties of the resulting object. Only works in Node.js or
- * in browsers that support `console.dir` and `console.error` (such as FF and
- * Chrome). If multiple arguments are returned from the async function,
+ * Logs the result of an [`async` function]{@link AsyncFunction} to the
+ * `console` using `console.dir` to display the properties of the resulting object.
+ * Only works in Node.js or in browsers that support `console.dir` and
+ * `console.error` (such as FF and Chrome).
+ * If multiple arguments are returned from the async function,
  * `console.dir` is called on each argument in order.
  *
  * @name dir
@@ -12099,8 +11919,8 @@ function consoleFunc(name) {
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} function - The function you want to eventually apply all
- * arguments to.
+ * @param {AsyncFunction} function - The function you want to eventually apply
+ * all arguments to.
  * @param {...*} arguments... - Any number of arguments to apply to the function.
  * @example
  *
@@ -12128,29 +11948,30 @@ var dir = consoleFunc('dir');
  * @method
  * @see [async.during]{@link module:ControlFlow.during}
  * @category Control Flow
- * @param {Function} fn - A function which is called each time `test` passes.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
- * @param {Function} test - asynchronous truth test to perform before each
+ * @param {AsyncFunction} fn - An async function which is called each time
+ * `test` passes. Invoked with (callback).
+ * @param {AsyncFunction} test - asynchronous truth test to perform before each
  * execution of `fn`. Invoked with (...args, callback), where `...args` are the
  * non-error args from the previous callback of `fn`.
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error if one occured, otherwise `null`.
+ * will be passed an error if one occurred, otherwise `null`.
  */
 function doDuring(fn, test, callback) {
     callback = onlyOnce(callback || noop);
+    var _fn = wrapAsync$1(fn);
+    var _test = wrapAsync$1(test);
 
     var next = rest(function (err, args) {
         if (err) return callback(err);
         args.push(check);
-        test.apply(this, args);
+        _test.apply(this, args);
     });
 
     function check(err, truth) {
         if (err) return callback(err);
         if (!truth) return callback(null);
-        fn(next);
+        _fn(next);
     }
 
     check(null, true);
@@ -12168,11 +11989,10 @@ function doDuring(fn, test, callback) {
  * @method
  * @see [async.whilst]{@link module:ControlFlow.whilst}
  * @category Control Flow
- * @param {Function} iteratee - A function which is called each time `test`
- * passes. The function is passed a `callback(err)`, which must be called once
- * it has completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} iteratee - A function which is called each time `test`
+ * passes. Invoked with (callback).
  * @param {Function} test - synchronous truth test to perform after each
- * execution of `iteratee`. Invoked with the non-error callback results of 
+ * execution of `iteratee`. Invoked with any non-error callback results of
  * `iteratee`.
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `iteratee` has stopped.
@@ -12181,12 +12001,13 @@ function doDuring(fn, test, callback) {
  */
 function doWhilst(iteratee, test, callback) {
     callback = onlyOnce(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
     var next = rest(function (err, args) {
         if (err) return callback(err);
-        if (test.apply(this, args)) return iteratee(next);
+        if (test.apply(this, args)) return _iteratee(next);
         callback.apply(null, [null].concat(args));
     });
-    iteratee(next);
+    _iteratee(next);
 }
 
 /**
@@ -12199,18 +12020,18 @@ function doWhilst(iteratee, test, callback) {
  * @method
  * @see [async.doWhilst]{@link module:ControlFlow.doWhilst}
  * @category Control Flow
- * @param {Function} fn - A function which is called each time `test` fails.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} iteratee - An async function which is called each time
+ * `test` fails. Invoked with (callback).
  * @param {Function} test - synchronous truth test to perform after each
- * execution of `fn`. Invoked with the non-error callback results of `fn`.
+ * execution of `iteratee`. Invoked with any non-error callback results of
+ * `iteratee`.
  * @param {Function} [callback] - A callback which is called after the test
- * function has passed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `fn`'s
+ * function has passed and repeated execution of `iteratee` has stopped. `callback`
+ * will be passed an error and any arguments passed to the final `iteratee`'s
  * callback. Invoked with (err, [results]);
  */
-function doUntil(fn, test, callback) {
-    doWhilst(fn, function () {
+function doUntil(iteratee, test, callback) {
+    doWhilst(iteratee, function () {
         return !test.apply(this, arguments);
     }, callback);
 }
@@ -12227,14 +12048,13 @@ function doUntil(fn, test, callback) {
  * @method
  * @see [async.whilst]{@link module:ControlFlow.whilst}
  * @category Control Flow
- * @param {Function} test - asynchronous truth test to perform before each
+ * @param {AsyncFunction} test - asynchronous truth test to perform before each
  * execution of `fn`. Invoked with (callback).
- * @param {Function} fn - A function which is called each time `test` passes.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} fn - An async function which is called each time
+ * `test` passes. Invoked with (callback).
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error, if one occured, otherwise `null`.
+ * will be passed an error, if one occurred, otherwise `null`.
  * @example
  *
  * var count = 0;
@@ -12254,19 +12074,21 @@ function doUntil(fn, test, callback) {
  */
 function during(test, fn, callback) {
     callback = onlyOnce(callback || noop);
+    var _fn = wrapAsync$1(fn);
+    var _test = wrapAsync$1(test);
 
     function next(err) {
         if (err) return callback(err);
-        test(check);
+        _test(check);
     }
 
     function check(err, truth) {
         if (err) return callback(err);
         if (!truth) return callback(null);
-        fn(next);
+        _fn(next);
     }
 
-    test(check);
+    _test(check);
 }
 
 function _withoutIndex(iteratee) {
@@ -12292,12 +12114,10 @@ function _withoutIndex(iteratee) {
  * @alias forEach
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item
- * in `coll`. The iteratee is passed a `callback(err)` which must be called once
- * it has completed. If no error has occurred, the `callback` should be run
- * without arguments or with an explicit `null` argument. The array index is not
- * passed to the iteratee. Invoked with (item, callback). If you need the index,
- * use `eachOf`.
+ * @param {AsyncFunction} iteratee - An async function to apply to
+ * each item in `coll`. Invoked with (item, callback).
+ * The array index is not passed to the iteratee.
+ * If you need the index, use `eachOf`.
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  * @example
@@ -12335,7 +12155,7 @@ function _withoutIndex(iteratee) {
  * });
  */
 function eachLimit(coll, iteratee, callback) {
-  eachOf(coll, _withoutIndex(iteratee), callback);
+  eachOf(coll, _withoutIndex(wrapAsync$1(iteratee)), callback);
 }
 
 /**
@@ -12350,17 +12170,16 @@ function eachLimit(coll, iteratee, callback) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`. The
- * iteratee is passed a `callback(err)` which must be called once it has
- * completed. If no error has occurred, the `callback` should be run without
- * arguments or with an explicit `null` argument. The array index is not passed
- * to the iteratee. Invoked with (item, callback). If you need the index, use
- * `eachOfLimit`.
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The array index is not passed to the iteratee.
+ * If you need the index, use `eachOfLimit`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  */
 function eachLimit$1(coll, limit, iteratee, callback) {
-  _eachOfLimit(limit)(coll, _withoutIndex(iteratee), callback);
+  _eachOfLimit(limit)(coll, _withoutIndex(wrapAsync$1(iteratee)), callback);
 }
 
 /**
@@ -12374,12 +12193,11 @@ function eachLimit$1(coll, limit, iteratee, callback) {
  * @alias forEachSeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each
- * item in `coll`. The iteratee is passed a `callback(err)` which must be called
- * once it has completed. If no error has occurred, the `callback` should be run
- * without arguments or with an explicit `null` argument. The array index is
- * not passed to the iteratee. Invoked with (item, callback). If you need the
- * index, use `eachOfSeries`.
+ * @param {AsyncFunction} iteratee - An async function to apply to each
+ * item in `coll`.
+ * The array index is not passed to the iteratee.
+ * If you need the index, use `eachOfSeries`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  */
@@ -12391,16 +12209,17 @@ var eachSeries = doLimit(eachLimit$1, 1);
  * no extra deferral is added. This is useful for preventing stack overflows
  * (`RangeError: Maximum call stack size exceeded`) and generally keeping
  * [Zalgo](http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony)
- * contained.
+ * contained. ES2017 `async` functions are returned as-is -- they are immune
+ * to Zalgo's corrupting influences, as they always resolve on a later tick.
  *
  * @name ensureAsync
  * @static
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} fn - an async function, one that expects a node-style
+ * @param {AsyncFunction} fn - an async function, one that expects a node-style
  * callback as its last argument.
- * @returns {Function} Returns a wrapped function with the exact same call
+ * @returns {AsyncFunction} Returns a wrapped function with the exact same call
  * signature as the function passed in.
  * @example
  *
@@ -12420,6 +12239,7 @@ var eachSeries = doLimit(eachLimit$1, 1);
  * async.mapSeries(args, async.ensureAsync(sometimesAsync), done);
  */
 function ensureAsync(fn) {
+    if (isAsync(fn)) return fn;
     return initialParams(function (args, callback) {
         var sync = true;
         args.push(function () {
@@ -12452,10 +12272,10 @@ function notId(v) {
  * @alias all
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the
- * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
- * with (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collection in parallel.
+ * The iteratee must complete with a boolean result value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
  * depending on the values of the async tests. Invoked with (err, result).
@@ -12483,10 +12303,10 @@ var every = doParallel(_createTester(notId, notId));
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in the
- * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
- * with (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collection in parallel.
+ * The iteratee must complete with a boolean result value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
  * depending on the values of the async tests. Invoked with (err, result).
@@ -12504,10 +12324,10 @@ var everyLimit = doParallelLimit(_createTester(notId, notId));
  * @alias allSeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the
- * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
- * with (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collection in series.
+ * The iteratee must complete with a boolean result value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
  * depending on the values of the async tests. Invoked with (err, result).
@@ -12570,7 +12390,7 @@ function filterGeneric(eachfn, coll, iteratee, callback) {
 
 function _filter(eachfn, coll, iteratee, callback) {
     var filter = isArrayLike(coll) ? filterArray : filterGeneric;
-    filter(eachfn, coll, iteratee, callback || noop);
+    filter(eachfn, coll, wrapAsync$1(iteratee), callback || noop);
 }
 
 /**
@@ -12646,16 +12466,16 @@ var filterSeries = doLimit(filterLimit, 1);
  * Calls the asynchronous function `fn` with a callback parameter that allows it
  * to call itself again, in series, indefinitely.
 
- * If an error is passed to the
- * callback then `errback` is called with the error, and execution stops,
- * otherwise it will never be called.
+ * If an error is passed to the callback then `errback` is called with the
+ * error, and execution stops, otherwise it will never be called.
  *
  * @name forever
  * @static
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Function} fn - a function to call repeatedly. Invoked with (next).
+ * @param {AsyncFunction} fn - an async function to call repeatedly.
+ * Invoked with (next).
  * @param {Function} [errback] - when `fn` passes an error to it's callback,
  * this function will be called, and execution stops. Invoked with (err).
  * @example
@@ -12673,7 +12493,7 @@ var filterSeries = doLimit(filterLimit, 1);
  */
 function forever(fn, errback) {
     var done = onlyOnce(errback || noop);
-    var task = ensureAsync(fn);
+    var task = wrapAsync$1(ensureAsync(fn));
 
     function next(err) {
         if (err) return done(err);
@@ -12693,19 +12513,19 @@ function forever(fn, errback) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, key)` which must be called once it
- * has completed with an error (which can be `null`) and the `key` to group the
- * value under. Invoked with (value, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a `key` to group the value under.
+ * Invoked with (value, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Result is an `Object` whoses
  * properties are arrays of values which returned the corresponding key.
  */
 var groupByLimit = function (coll, limit, iteratee, callback) {
     callback = callback || noop;
-
+    var _iteratee = wrapAsync$1(iteratee);
     mapLimit(coll, limit, function (val, callback) {
-        iteratee(val, function (err, key) {
+        _iteratee(val, function (err, key) {
             if (err) return callback(err);
             return callback(null, { key: key, val: val });
         });
@@ -12748,10 +12568,10 @@ var groupByLimit = function (coll, limit, iteratee, callback) {
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, key)` which must be called once it
- * has completed with an error (which can be `null`) and the `key` to group the
- * value under. Invoked with (value, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a `key` to group the value under.
+ * Invoked with (value, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Result is an `Object` whoses
  * properties are arrays of values which returned the corresponding key.
@@ -12780,10 +12600,10 @@ var groupBy = doLimit(groupByLimit, Infinity);
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, key)` which must be called once it
- * has completed with an error (which can be `null`) and the `key` to group the
- * value under. Invoked with (value, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a `key` to group the value under.
+ * Invoked with (value, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Result is an `Object` whoses
  * properties are arrays of values which returned the corresponding key.
@@ -12801,8 +12621,8 @@ var groupBySeries = doLimit(groupByLimit, 1);
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} function - The function you want to eventually apply all
- * arguments to.
+ * @param {AsyncFunction} function - The function you want to eventually apply
+ * all arguments to.
  * @param {...*} arguments... - Any number of arguments to apply to the function.
  * @example
  *
@@ -12831,10 +12651,10 @@ var log = consoleFunc('log');
  * @category Collection
  * @param {Object} obj - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each value in `obj`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed value. Invoked with (value, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each value and key
+ * in `coll`.
+ * The iteratee should complete with the transformed value as its result.
+ * Invoked with (value, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. `result` is a new object consisting
  * of each key from `obj`, with each transformed value on the right-hand side.
@@ -12843,8 +12663,9 @@ var log = consoleFunc('log');
 function mapValuesLimit(obj, limit, iteratee, callback) {
     callback = once(callback || noop);
     var newObj = {};
+    var _iteratee = wrapAsync$1(iteratee);
     eachOfLimit(obj, limit, function (val, key, next) {
-        iteratee(val, key, function (err, result) {
+        _iteratee(val, key, function (err, result) {
             if (err) return next(err);
             newObj[key] = result;
             next();
@@ -12873,10 +12694,10 @@ function mapValuesLimit(obj, limit, iteratee, callback) {
  * @method
  * @category Collection
  * @param {Object} obj - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each value and key in
- * `coll`. The iteratee is passed a `callback(err, transformed)` which must be
- * called once it has completed with an error (which can be `null`) and a
- * transformed value. Invoked with (value, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each value and key
+ * in `coll`.
+ * The iteratee should complete with the transformed value as its result.
+ * Invoked with (value, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. `result` is a new object consisting
  * of each key from `obj`, with each transformed value on the right-hand side.
@@ -12911,10 +12732,10 @@ var mapValues = doLimit(mapValuesLimit, Infinity);
  * @see [async.mapValues]{@link module:Collections.mapValues}
  * @category Collection
  * @param {Object} obj - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each value in `obj`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed value. Invoked with (value, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each value and key
+ * in `coll`.
+ * The iteratee should complete with the transformed value as its result.
+ * Invoked with (value, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. `result` is a new object consisting
  * of each key from `obj`, with each transformed value on the right-hand side.
@@ -12927,7 +12748,7 @@ function has(obj, key) {
 }
 
 /**
- * Caches the results of an `async` function. When creating a hash to store
+ * Caches the results of an async function. When creating a hash to store
  * function results against, the callback is omitted from the hash and an
  * optional hash function can be used.
  *
@@ -12945,11 +12766,11 @@ function has(obj, key) {
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} fn - The function to proxy and cache results from.
+ * @param {AsyncFunction} fn - The async function to proxy and cache results from.
  * @param {Function} hasher - An optional function for generating a custom hash
  * for storing results. It has all the arguments applied to it apart from the
  * callback, and must be synchronous.
- * @returns {Function} a memoized version of `fn`
+ * @returns {AsyncFunction} a memoized version of `fn`
  * @example
  *
  * var slow_fn = function(name, callback) {
@@ -12967,6 +12788,7 @@ function memoize(fn, hasher) {
     var memo = Object.create(null);
     var queues = Object.create(null);
     hasher = hasher || identity;
+    var _fn = wrapAsync$1(fn);
     var memoized = initialParams(function memoized(args, callback) {
         var key = hasher.apply(null, args);
         if (has(memo, key)) {
@@ -12977,7 +12799,7 @@ function memoize(fn, hasher) {
             queues[key].push(callback);
         } else {
             queues[key] = [callback];
-            fn.apply(null, args.concat(rest(function (args) {
+            _fn.apply(null, args.concat(rest(function (args) {
                 memo[key] = args;
                 var q = queues[key];
                 delete queues[key];
@@ -13040,7 +12862,7 @@ function _parallel(eachfn, tasks, callback) {
     var results = isArrayLike(tasks) ? [] : {};
 
     eachfn(tasks, function (task, key, callback) {
-        task(rest(function (err, args) {
+        wrapAsync$1(task)(rest(function (err, args) {
             if (args.length <= 1) {
                 args = args[0];
             }
@@ -13064,6 +12886,7 @@ function _parallel(eachfn, tasks, callback) {
  * any I/O, they will actually be executed in series.  Any synchronous setup
  * sections for each task will happen one after the other.  JavaScript remains
  * single-threaded.
+ *
  * **Hint:** Use [`reflect`]{@link module:Utils.reflect} to continue the
  * execution of other tasks when a task fails.
  *
@@ -13077,14 +12900,14 @@ function _parallel(eachfn, tasks, callback) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection containing functions to run.
- * Each function is passed a `callback(err, result)` which it must call on
- * completion with an error `err` (which can be `null`) and an optional `result`
- * value.
+ * @param {Array|Iterable|Object} tasks - A collection of
+ * [async functions]{@link AsyncFunction} to run.
+ * Each async function can complete with any number of optional `result` values.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed successfully. This function gets a results array
  * (or object) containing all the result arguments passed to the task callbacks.
  * Invoked with (err, results).
+ *
  * @example
  * async.parallel([
  *     function(callback) {
@@ -13134,10 +12957,9 @@ function parallelLimit(tasks, callback) {
  * @method
  * @see [async.parallel]{@link module:ControlFlow.parallel}
  * @category Control Flow
- * @param {Array|Collection} tasks - A collection containing functions to run.
- * Each function is passed a `callback(err, result)` which it must call on
- * completion with an error `err` (which can be `null`) and an optional `result`
- * value.
+ * @param {Array|Iterable|Object} tasks - A collection of
+ * [async functions]{@link AsyncFunction} to run.
+ * Each async function can complete with any number of optional `result` values.
  * @param {number} limit - The maximum number of async operations at a time.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed successfully. This function gets a results array
@@ -13206,11 +13028,9 @@ function parallelLimit$1(tasks, limit, callback) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Function} worker - An asynchronous function for processing a queued
- * task, which must call its `callback(err)` argument when finished, with an
- * optional `error` as an argument.  If you want to handle errors from an
- * individual task, pass a callback to `q.push()`. Invoked with
- * (task, callback).
+ * @param {AsyncFunction} worker - An async function for processing a queued task.
+ * If you want to handle errors from an individual task, pass a callback to
+ * `q.push()`. Invoked with (task, callback).
  * @param {number} [concurrency=1] - An `integer` for determining how many
  * `worker` functions should be run in parallel.  If omitted, the concurrency
  * defaults to `1`.  If the concurrency is `0`, an error is thrown.
@@ -13249,8 +13069,9 @@ function parallelLimit$1(tasks, limit, callback) {
  * });
  */
 var queue$1 = function (worker, concurrency) {
+  var _worker = wrapAsync$1(worker);
   return queue(function (items, cb) {
-    worker(items[0], cb);
+    _worker(items[0], cb);
   }, concurrency, 1);
 };
 
@@ -13264,11 +13085,10 @@ var queue$1 = function (worker, concurrency) {
  * @method
  * @see [async.queue]{@link module:ControlFlow.queue}
  * @category Control Flow
- * @param {Function} worker - An asynchronous function for processing a queued
- * task, which must call its `callback(err)` argument when finished, with an
- * optional `error` as an argument.  If you want to handle errors from an
- * individual task, pass a callback to `q.push()`. Invoked with
- * (task, callback).
+ * @param {AsyncFunction} worker - An async function for processing a queued task.
+ * If you want to handle errors from an individual task, pass a callback to
+ * `q.push()`.
+ * Invoked with (task, callback).
  * @param {number} concurrency - An `integer` for determining how many `worker`
  * functions should be run in parallel.  If omitted, the concurrency defaults to
  * `1`.  If the concurrency is `0`, an error is thrown.
@@ -13338,9 +13158,8 @@ var priorityQueue = function (worker, concurrency) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array} tasks - An array containing functions to run. Each function
- * is passed a `callback(err, result)` which it must call on completion with an
- * error `err` (which can be `null`) and an optional `result` value.
+ * @param {Array} tasks - An array containing [async functions]{@link AsyncFunction}
+ * to run. Each function can complete with an optional `result` value.
  * @param {Function} callback - A callback to run once any of the functions have
  * completed. This function gets an error or result from the first function that
  * completed. Invoked with (err, result).
@@ -13369,7 +13188,7 @@ function race(tasks, callback) {
     if (!isArray(tasks)) return callback(new TypeError('First argument to race must be an array of functions'));
     if (!tasks.length) return callback();
     for (var i = 0, l = tasks.length; i < l; i++) {
-        tasks[i](callback);
+        wrapAsync$1(tasks[i])(callback);
     }
 }
 
@@ -13387,12 +13206,12 @@ var slice = Array.prototype.slice;
  * @category Collection
  * @param {Array} array - A collection to iterate over.
  * @param {*} memo - The initial state of the reduction.
- * @param {Function} iteratee - A function applied to each item in the
- * array to produce the next step in the reduction. The `iteratee` is passed a
- * `callback(err, reduction)` which accepts an optional error as its first
- * argument, and the state of the reduction as the second. If an error is
- * passed to the callback, the reduction is stopped and the main `callback` is
- * immediately called with the error. Invoked with (memo, item, callback).
+ * @param {AsyncFunction} iteratee - A function applied to each item in the
+ * array to produce the next step in the reduction.
+ * The `iteratee` should complete with the next state of the reduction.
+ * If the iteratee complete with an error, the reduction is stopped and the
+ * main `callback` is immediately called with the error.
+ * Invoked with (memo, item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result is the reduced value. Invoked with
  * (err, result).
@@ -13403,17 +13222,17 @@ function reduceRight(array, memo, iteratee, callback) {
 }
 
 /**
- * Wraps the function in another function that always returns data even when it
- * errors.
+ * Wraps the async function in another function that always completes with a
+ * result object, even when it errors.
  *
- * The object returned has either the property `error` or `value`.
+ * The result object has either the property `error` or `value`.
  *
  * @name reflect
  * @static
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} fn - The function you want to wrap
+ * @param {AsyncFunction} fn - The async function you want to wrap
  * @returns {Function} - A function that always passes null to it's callback as
  * the error. The second argument to the callback will be an `object` with
  * either an `error` or a `value` property.
@@ -13442,6 +13261,7 @@ function reduceRight(array, memo, iteratee, callback) {
  * });
  */
 function reflect(fn) {
+    var _fn = wrapAsync$1(fn);
     return initialParams(function reflectOn(args, reflectCallback) {
         args.push(rest(function callback(err, cbArgs) {
             if (err) {
@@ -13461,7 +13281,7 @@ function reflect(fn) {
             }
         }));
 
-        return fn.apply(this, args);
+        return _fn.apply(this, args);
     });
 }
 
@@ -13483,9 +13303,10 @@ function reject$1(eachfn, arr, iteratee, callback) {
  * @see [async.filter]{@link module:Collections.filter}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {Function} iteratee - An async truth test to apply to each item in
+ * `coll`.
+ * The should complete with a boolean value as its `result`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Invoked with (err, results).
  * @example
@@ -13502,7 +13323,7 @@ function reject$1(eachfn, arr, iteratee, callback) {
 var reject = doParallel(reject$1);
 
 /**
- * A helper function that wraps an array or an object of functions with reflect.
+ * A helper function that wraps an array or an object of functions with `reflect`.
  *
  * @name reflectAll
  * @static
@@ -13510,8 +13331,9 @@ var reject = doParallel(reject$1);
  * @method
  * @see [async.reflect]{@link module:Utils.reflect}
  * @category Util
- * @param {Array} tasks - The array of functions to wrap in `async.reflect`.
- * @returns {Array} Returns an array of functions, each function wrapped in
+ * @param {Array|Object|Iterable} tasks - The collection of
+ * [async functions]{@link AsyncFunction} to wrap in `async.reflect`.
+ * @returns {Array} Returns an array of async functions, each wrapped in
  * `async.reflect`
  * @example
  *
@@ -13592,9 +13414,10 @@ function reflectAll(tasks) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {Function} iteratee - An async truth test to apply to each item in
+ * `coll`.
+ * The should complete with a boolean value as its `result`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Invoked with (err, results).
  */
@@ -13610,9 +13433,10 @@ var rejectLimit = doParallelLimit(reject$1);
  * @see [async.reject]{@link module:Collections.reject}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {Function} iteratee - An async truth test to apply to each item in
+ * `coll`.
+ * The should complete with a boolean value as its `result`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Invoked with (err, results).
  */
@@ -13654,6 +13478,7 @@ function constant$1(value) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
+ * @see [async.retryable]{@link module:ControlFlow.retryable}
  * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - Can be either an
  * object with `times` and `interval` or a number.
  * * `times` - The number of attempts to make before giving up.  The default
@@ -13668,16 +13493,13 @@ function constant$1(value) {
  *   Invoked with (err).
  * * If `opts` is a number, the number specifies the number of times to retry,
  *   with the default interval of `0`.
- * @param {Function} task - A function which receives two arguments: (1) a
- * `callback(err, result)` which must be called when finished, passing `err`
- * (which can be `null`) and the `result` of the function's execution, and (2)
- * a `results` object, containing the results of the previously executed
- * functions (if nested inside another control flow). Invoked with
- * (callback, results).
+ * @param {AsyncFunction} task - An async function to retry.
+ * Invoked with (callback).
  * @param {Function} [callback] - An optional callback which is called when the
  * task has succeeded, or after the final failed attempt. It receives the `err`
  * and `result` arguments of the last attempt at completing the `task`. Invoked
  * with (err, results).
+ *
  * @example
  *
  * // The `retry` function can be used as a stand-alone control flow by passing
@@ -13723,7 +13545,7 @@ function constant$1(value) {
  * // individual methods that are not as reliable, like this:
  * async.auto({
  *     users: api.getUsers.bind(api),
- *     payments: async.retry(3, api.getPayments.bind(api))
+ *     payments: async.retryable(3, api.getPayments.bind(api))
  * }, function(err, results) {
  *     // do something with the results
  * });
@@ -13764,9 +13586,11 @@ function retry(opts, task, callback) {
         throw new Error("Invalid arguments for async.retry");
     }
 
+    var _task = wrapAsync$1(task);
+
     var attempt = 1;
     function retryAttempt() {
-        task(function (err) {
+        _task(function (err) {
             if (err && attempt++ < options.times && (typeof options.errorFilter != 'function' || options.errorFilter(err))) {
                 setTimeout(retryAttempt, options.intervalFunc(attempt));
             } else {
@@ -13779,8 +13603,9 @@ function retry(opts, task, callback) {
 }
 
 /**
- * A close relative of [`retry`]{@link module:ControlFlow.retry}.  This method wraps a task and makes it
- * retryable, rather than immediately calling it with retries.
+ * A close relative of [`retry`]{@link module:ControlFlow.retry}.  This method
+ * wraps a task and makes it retryable, rather than immediately calling it
+ * with retries.
  *
  * @name retryable
  * @static
@@ -13790,9 +13615,12 @@ function retry(opts, task, callback) {
  * @category Control Flow
  * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - optional
  * options, exactly the same as from `retry`
- * @param {Function} task - the asynchronous function to wrap
- * @returns {Functions} The wrapped function, which when invoked, will retry on
- * an error, based on the parameters specified in `opts`.
+ * @param {AsyncFunction} task - the asynchronous function to wrap.
+ * This function will be passed any arguments passed to the returned wrapper.
+ * Invoked with (...args, callback).
+ * @returns {AsyncFunction} The wrapped function, which when invoked, will
+ * retry on an error, based on the parameters specified in `opts`.
+ * This function will accept the same parameters as `task`.
  * @example
  *
  * async.auto({
@@ -13807,9 +13635,10 @@ var retryable = function (opts, task) {
         task = opts;
         opts = null;
     }
+    var _task = wrapAsync$1(task);
     return initialParams(function (args, callback) {
         function taskFn(cb) {
-            task.apply(null, args.concat(cb));
+            _task.apply(null, args.concat(cb));
         }
 
         if (opts) retry(opts, taskFn, callback);else retry(taskFn, callback);
@@ -13842,9 +13671,9 @@ var retryable = function (opts, task) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection containing functions to run, each
- * function is passed a `callback(err, result)` it must call on completion with
- * an error `err` (which can be `null`) and an optional `result` value.
+ * @param {Array|Iterable|Object} tasks - A collection containing
+ * [async functions]{@link AsyncFunction} to run in series.
+ * Each function can complete with any number of optional `result` values.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed. This function gets a results array (or object)
  * containing all the result arguments passed to the `task` callbacks. Invoked
@@ -13896,10 +13725,10 @@ function series(tasks, callback) {
  * @alias any
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the array
- * in parallel. The iteratee is passed a `callback(err, truthValue)` which must
- * be called with a boolean argument once it has completed. Invoked with
- * (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collections in parallel.
+ * The iteratee should complete with a boolean `result` value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the iteratee functions have finished.
  * Result will be either `true` or `false` depending on the values of the async
@@ -13928,10 +13757,10 @@ var some = doParallel(_createTester(Boolean, identity));
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in the array
- * in parallel. The iteratee is passed a `callback(err, truthValue)` which must
- * be called with a boolean argument once it has completed. Invoked with
- * (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collections in parallel.
+ * The iteratee should complete with a boolean `result` value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the iteratee functions have finished.
  * Result will be either `true` or `false` depending on the values of the async
@@ -13950,10 +13779,10 @@ var someLimit = doParallelLimit(_createTester(Boolean, identity));
  * @alias anySeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the array
- * in parallel. The iteratee is passed a `callback(err, truthValue)` which must
- * be called with a boolean argument once it has completed. Invoked with
- * (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collections in series.
+ * The iteratee should complete with a boolean `result` value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the iteratee functions have finished.
  * Result will be either `true` or `false` depending on the values of the async
@@ -13971,10 +13800,11 @@ var someSeries = doLimit(someLimit, 1);
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, sortValue)` which must be called once
- * it has completed with an error (which can be `null`) and a value to use as
- * the sort criteria. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a value to use as the sort criteria as
+ * its `result`.
+ * Invoked with (item, callback).
  * @param {Function} callback - A callback which is called after all the
  * `iteratee` functions have finished, or an error occurs. Results is the items
  * from the original `coll` sorted by the values returned by the `iteratee`
@@ -14008,8 +13838,9 @@ var someSeries = doLimit(someLimit, 1);
  * });
  */
 function sortBy(coll, iteratee, callback) {
+    var _iteratee = wrapAsync$1(iteratee);
     map(coll, function (x, callback) {
-        iteratee(x, function (err, criteria) {
+        _iteratee(x, function (err, criteria) {
             if (err) return callback(err);
             callback(null, { value: x, criteria: criteria });
         });
@@ -14035,14 +13866,13 @@ function sortBy(coll, iteratee, callback) {
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} asyncFn - The asynchronous function you want to set the
- * time limit.
+ * @param {AsyncFunction} asyncFn - The async function to limit in time.
  * @param {number} milliseconds - The specified time limit.
  * @param {*} [info] - Any variable you want attached (`string`, `object`, etc)
  * to timeout Error for more information..
- * @returns {Function} Returns a wrapped function that can be used with any of
- * the control flow functions. Invoke this function with the same
- * parameters as you would `asyncFunc`.
+ * @returns {AsyncFunction} Returns a wrapped function that can be used with any
+ * of the control flow functions.
+ * Invoke this function with the same parameters as you would `asyncFunc`.
  * @example
  *
  * function myFunction(foo, callback) {
@@ -14089,11 +13919,13 @@ function timeout(asyncFn, milliseconds, info) {
         originalCallback(error);
     }
 
+    var fn = wrapAsync$1(asyncFn);
+
     return initialParams(function (args, origCallback) {
         originalCallback = origCallback;
         // setup timer and call original function
         timer = setTimeout(timeoutCallback, milliseconds);
-        asyncFn.apply(null, args.concat(injectedCallback));
+        fn.apply(null, args.concat(injectedCallback));
     });
 }
 
@@ -14136,12 +13968,13 @@ function baseRange(start, end, step, fromRight) {
  * @category Control Flow
  * @param {number} count - The number of times to run the function.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - The function to call `n` times. Invoked with the
- * iteration index and a callback (n, next).
+ * @param {AsyncFunction} iteratee - The async function to call `n` times.
+ * Invoked with the iteration index and a callback: (n, next).
  * @param {Function} callback - see [async.map]{@link module:Collections.map}.
  */
 function timeLimit(count, limit, iteratee, callback) {
-  mapLimit(baseRange(0, count, 1), limit, iteratee, callback);
+  var _iteratee = wrapAsync$1(iteratee);
+  mapLimit(baseRange(0, count, 1), limit, _iteratee, callback);
 }
 
 /**
@@ -14155,8 +13988,8 @@ function timeLimit(count, limit, iteratee, callback) {
  * @see [async.map]{@link module:Collections.map}
  * @category Control Flow
  * @param {number} n - The number of times to run the function.
- * @param {Function} iteratee - The function to call `n` times. Invoked with the
- * iteration index and a callback (n, next).
+ * @param {AsyncFunction} iteratee - The async function to call `n` times.
+ * Invoked with the iteration index and a callback: (n, next).
  * @param {Function} callback - see {@link module:Collections.map}.
  * @example
  *
@@ -14188,8 +14021,8 @@ var times = doLimit(timeLimit, Infinity);
  * @see [async.times]{@link module:ControlFlow.times}
  * @category Control Flow
  * @param {number} n - The number of times to run the function.
- * @param {Function} iteratee - The function to call `n` times. Invoked with the
- * iteration index and a callback (n, next).
+ * @param {AsyncFunction} iteratee - The async function to call `n` times.
+ * Invoked with the iteration index and a callback: (n, next).
  * @param {Function} callback - see {@link module:Collections.map}.
  */
 var timesSeries = doLimit(timeLimit, 1);
@@ -14207,11 +14040,8 @@ var timesSeries = doLimit(timeLimit, 1);
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {*} [accumulator] - The initial state of the transform.  If omitted,
  * it will default to an empty Object or Array, depending on the type of `coll`
- * @param {Function} iteratee - A function applied to each item in the
- * collection that potentially modifies the accumulator. The `iteratee` is
- * passed a `callback(err)` which accepts an optional error as its first
- * argument. If an error is passed to the callback, the transform is stopped
- * and the main `callback` is immediately called with the error.
+ * @param {AsyncFunction} iteratee - A function applied to each item in the
+ * collection that potentially modifies the accumulator.
  * Invoked with (accumulator, item, key, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result is the transformed accumulator.
@@ -14246,9 +14076,10 @@ function transform(coll, accumulator, iteratee, callback) {
         accumulator = isArray(coll) ? [] : {};
     }
     callback = once(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
 
     eachOf(coll, function (v, k, cb) {
-        iteratee(accumulator, v, k, cb);
+        _iteratee(accumulator, v, k, cb);
     }, function (err) {
         callback(err, accumulator);
     });
@@ -14264,8 +14095,8 @@ function transform(coll, accumulator, iteratee, callback) {
  * @method
  * @see [async.memoize]{@link module:Utils.memoize}
  * @category Util
- * @param {Function} fn - the memoized function
- * @returns {Function} a function that calls the original unmemoized function
+ * @param {AsyncFunction} fn - the memoized function
+ * @returns {AsyncFunction} a function that calls the original unmemoized function
  */
 function unmemoize(fn) {
     return function () {
@@ -14284,9 +14115,8 @@ function unmemoize(fn) {
  * @category Control Flow
  * @param {Function} test - synchronous truth test to perform before each
  * execution of `iteratee`. Invoked with ().
- * @param {Function} iteratee - A function which is called each time `test` passes.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} iteratee - An async function which is called each time
+ * `test` passes. Invoked with (callback).
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `iteratee` has stopped. `callback`
  * will be passed an error and any arguments passed to the final `iteratee`'s
@@ -14310,19 +14140,20 @@ function unmemoize(fn) {
  */
 function whilst(test, iteratee, callback) {
     callback = onlyOnce(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
     if (!test()) return callback(null);
     var next = rest(function (err, args) {
         if (err) return callback(err);
-        if (test()) return iteratee(next);
+        if (test()) return _iteratee(next);
         callback.apply(null, [null].concat(args));
     });
-    iteratee(next);
+    _iteratee(next);
 }
 
 /**
- * Repeatedly call `fn` until `test` returns `true`. Calls `callback` when
+ * Repeatedly call `iteratee` until `test` returns `true`. Calls `callback` when
  * stopped, or an error occurs. `callback` will be passed an error and any
- * arguments passed to the final `fn`'s callback.
+ * arguments passed to the final `iteratee`'s callback.
  *
  * The inverse of [whilst]{@link module:ControlFlow.whilst}.
  *
@@ -14333,19 +14164,18 @@ function whilst(test, iteratee, callback) {
  * @see [async.whilst]{@link module:ControlFlow.whilst}
  * @category Control Flow
  * @param {Function} test - synchronous truth test to perform before each
- * execution of `fn`. Invoked with ().
- * @param {Function} fn - A function which is called each time `test` fails.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * execution of `iteratee`. Invoked with ().
+ * @param {AsyncFunction} iteratee - An async function which is called each time
+ * `test` fails. Invoked with (callback).
  * @param {Function} [callback] - A callback which is called after the test
- * function has passed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `fn`'s
+ * function has passed and repeated execution of `iteratee` has stopped. `callback`
+ * will be passed an error and any arguments passed to the final `iteratee`'s
  * callback. Invoked with (err, [results]);
  */
-function until(test, fn, callback) {
+function until(test, iteratee, callback) {
     whilst(function () {
         return !test.apply(this, arguments);
-    }, fn, callback);
+    }, iteratee, callback);
 }
 
 /**
@@ -14359,10 +14189,10 @@ function until(test, fn, callback) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array} tasks - An array of functions to run, each function is passed
- * a `callback(err, result1, result2, ...)` it must call on completion. The
- * first argument is an error (which can be `null`) and any further arguments
- * will be passed as arguments in order to the next task.
+ * @param {Array} tasks - An array of [async functions]{@link AsyncFunction}
+ * to run.
+ * Each function should complete with any number of `result` values.
+ * The `result` values will be passed as arguments, in order, to the next task.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed. This will be passed the results of the last task's
  * callback. Invoked with (err, [results]).
@@ -14425,7 +14255,7 @@ var waterfall = function (tasks, callback) {
 
         args.push(taskCallback);
 
-        var task = tasks[taskIndex++];
+        var task = wrapAsync$1(tasks[taskIndex++]);
         task.apply(null, args);
     }
 
@@ -14433,11 +14263,51 @@ var waterfall = function (tasks, callback) {
 };
 
 /**
+ * An "async function" in the context of Async is an asynchronous function with
+ * a variable number of parameters, with the final parameter being a callback.
+ * (`function (arg1, arg2, ..., callback) {}`)
+ * The final callback is of the form `callback(err, results...)`, which must be
+ * called once the function is completed.  The callback should be called with a
+ * Error as its first argument to signal that an error occurred.
+ * Otherwise, if no error occurred, it should be called with `null` as the first
+ * argument, and any additional `result` arguments that may apply, to signal
+ * successful completion.
+ * The callback must be called exactly once, ideally on a later tick of the
+ * JavaScript event loop.
+ *
+ * This type of function is also referred to as a "Node-style async function",
+ * or a "continuation passing-style function" (CPS). Most of the methods of this
+ * library are themselves CPS/Node-style async functions, or functions that
+ * return CPS/Node-style async functions.
+ *
+ * Wherever we accept a Node-style async function, we also directly accept an
+ * [ES2017 `async` function]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function}.
+ * In this case, the `async` function will not be passed a final callback
+ * argument, and any thrown error will be used as the `err` argument of the
+ * implicit callback, and the return value will be used as the `result` value.
+ * (i.e. a `rejected` of the returned Promise becomes the `err` callback
+ * argument, and a `resolved` value becomes the `result`.)
+ *
+ * Note, due to JavaScript limitations, we can only detect native `async`
+ * functions and not transpilied implementations.
+ * Your environment must have `async`/`await` support for this to work.
+ * (e.g. Node > v7.6, or a recent version of a modern browser).
+ * If you are using `async` functions through a transpiler (e.g. Babel), you
+ * must still wrap the function with [asyncify]{@link module:Utils.asyncify},
+ * because the `async function` will be compiled to an ordinary function that
+ * returns a promise.
+ *
+ * @typedef {Function} AsyncFunction
+ * @static
+ */
+
+/**
  * Async is a utility module which provides straight-forward, powerful functions
  * for working with asynchronous JavaScript. Although originally designed for
  * use with [Node.js](http://nodejs.org) and installable via
  * `npm install --save async`, it can also be used directly in the browser.
  * @module async
+ * @see AsyncFunction
  */
 
 /**
@@ -14455,6 +14325,7 @@ var waterfall = function (tasks, callback) {
  * A collection of `async` utility functions.
  * @module Utils
  */
+
 var index = {
   applyEach: applyEach,
   applyEachSeries: applyEachSeries,
@@ -14653,14 +14524,249 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const assert = __webpack_require__(17)
+/**
+ * RLP Encoding based on: https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP
+ * This function takes in a data, convert it to buffer if not, and a length for recursion
+ *
+ * @param {Buffer,String,Integer,Array} data - will be converted to buffer
+ * @returns {Buffer} - returns buffer of encoded data
+ **/
+exports.encode = function (input) {
+  if (input instanceof Array) {
+    var output = []
+    for (var i = 0; i < input.length; i++) {
+      output.push(exports.encode(input[i]))
+    }
+    var buf = Buffer.concat(output)
+    return Buffer.concat([encodeLength(buf.length, 192), buf])
+  } else {
+    input = toBuffer(input)
+    if (input.length === 1 && input[0] < 128) {
+      return input
+    } else {
+      return Buffer.concat([encodeLength(input.length, 128), input])
+    }
+  }
+}
+
+function safeParseInt (v, base) {
+  if (v.slice(0, 2) === '00') {
+    throw (new Error('invalid RLP: extra zeros'))
+  }
+
+  return parseInt(v, base)
+}
+
+function encodeLength (len, offset) {
+  if (len < 56) {
+    return new Buffer([len + offset])
+  } else {
+    var hexLength = intToHex(len)
+    var lLength = hexLength.length / 2
+    var firstByte = intToHex(offset + 55 + lLength)
+    return new Buffer(firstByte + hexLength, 'hex')
+  }
+}
+
+/**
+ * RLP Decoding based on: {@link https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP|RLP}
+ * @param {Buffer,String,Integer,Array} data - will be converted to buffer
+ * @returns {Array} - returns decode Array of Buffers containg the original message
+ **/
+exports.decode = function (input, stream) {
+  if (!input || input.length === 0) {
+    return new Buffer([])
+  }
+
+  input = toBuffer(input)
+  var decoded = _decode(input)
+
+  if (stream) {
+    return decoded
+  }
+
+  assert.equal(decoded.remainder.length, 0, 'invalid remainder')
+  return decoded.data
+}
+
+exports.getLength = function (input) {
+  if (!input || input.length === 0) {
+    return new Buffer([])
+  }
+
+  input = toBuffer(input)
+  var firstByte = input[0]
+  if (firstByte <= 0x7f) {
+    return input.length
+  } else if (firstByte <= 0xb7) {
+    return firstByte - 0x7f
+  } else if (firstByte <= 0xbf) {
+    return firstByte - 0xb6
+  } else if (firstByte <= 0xf7) {
+    // a list between  0-55 bytes long
+    return firstByte - 0xbf
+  } else {
+    // a list  over 55 bytes long
+    var llength = firstByte - 0xf6
+    var length = safeParseInt(input.slice(1, llength).toString('hex'), 16)
+    return llength + length
+  }
+}
+
+function _decode (input) {
+  var length, llength, data, innerRemainder, d
+  var decoded = []
+  var firstByte = input[0]
+
+  if (firstByte <= 0x7f) {
+    // a single byte whose value is in the [0x00, 0x7f] range, that byte is its own RLP encoding.
+    return {
+      data: input.slice(0, 1),
+      remainder: input.slice(1)
+    }
+  } else if (firstByte <= 0xb7) {
+    // string is 0-55 bytes long. A single byte with value 0x80 plus the length of the string followed by the string
+    // The range of the first byte is [0x80, 0xb7]
+    length = firstByte - 0x7f
+
+    // set 0x80 null to 0
+    if (firstByte === 0x80) {
+      data = new Buffer([])
+    } else {
+      data = input.slice(1, length)
+    }
+
+    if (length === 2 && data[0] < 0x80) {
+      throw new Error('invalid rlp encoding: byte must be less 0x80')
+    }
+
+    return {
+      data: data,
+      remainder: input.slice(length)
+    }
+  } else if (firstByte <= 0xbf) {
+    llength = firstByte - 0xb6
+    length = safeParseInt(input.slice(1, llength).toString('hex'), 16)
+    data = input.slice(llength, length + llength)
+    if (data.length < length) {
+      throw (new Error('invalid RLP'))
+    }
+
+    return {
+      data: data,
+      remainder: input.slice(length + llength)
+    }
+  } else if (firstByte <= 0xf7) {
+    // a list between  0-55 bytes long
+    length = firstByte - 0xbf
+    innerRemainder = input.slice(1, length)
+    while (innerRemainder.length) {
+      d = _decode(innerRemainder)
+      decoded.push(d.data)
+      innerRemainder = d.remainder
+    }
+
+    return {
+      data: decoded,
+      remainder: input.slice(length)
+    }
+  } else {
+    // a list  over 55 bytes long
+    llength = firstByte - 0xf6
+    length = safeParseInt(input.slice(1, llength).toString('hex'), 16)
+    var totalLength = llength + length
+    if (totalLength > input.length) {
+      throw new Error('invalid rlp: total length is larger than the data')
+    }
+
+    innerRemainder = input.slice(llength, totalLength)
+    if (innerRemainder.length === 0) {
+      throw new Error('invalid rlp, List has a invalid length')
+    }
+
+    while (innerRemainder.length) {
+      d = _decode(innerRemainder)
+      decoded.push(d.data)
+      innerRemainder = d.remainder
+    }
+    return {
+      data: decoded,
+      remainder: input.slice(totalLength)
+    }
+  }
+}
+
+function isHexPrefixed (str) {
+  return str.slice(0, 2) === '0x'
+}
+
+// Removes 0x from a given String
+function stripHexPrefix (str) {
+  if (typeof str !== 'string') {
+    return str
+  }
+  return isHexPrefixed(str) ? str.slice(2) : str
+}
+
+function intToHex (i) {
+  var hex = i.toString(16)
+  if (hex.length % 2) {
+    hex = '0' + hex
+  }
+
+  return hex
+}
+
+function padToEven (a) {
+  if (a.length % 2) a = '0' + a
+  return a
+}
+
+function intToBuffer (i) {
+  var hex = intToHex(i)
+  return new Buffer(hex, 'hex')
+}
+
+function toBuffer (v) {
+  if (!Buffer.isBuffer(v)) {
+    if (typeof v === 'string') {
+      if (isHexPrefixed(v)) {
+        v = new Buffer(padToEven(stripHexPrefix(v)), 'hex')
+      } else {
+        v = new Buffer(v)
+      }
+    } else if (typeof v === 'number') {
+      if (!v) {
+        v = new Buffer([])
+      } else {
+        v = intToBuffer(v)
+      }
+    } else if (v === null || v === undefined) {
+      v = new Buffer([])
+    } else if (v.toArray) {
+      // converts a BN to a Buffer
+      v = new Buffer(v.toArray())
+    } else {
+      throw new Error('invalid type')
+    }
+  }
+  return v
+}
+
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
-var SolidityParam = __webpack_require__(133);
+var f = __webpack_require__(15);
+var SolidityParam = __webpack_require__(136);
 
 /**
  * SolidityType prototype is used to encode/decode solidity params of certain type
@@ -14943,7 +15049,7 @@ module.exports = SolidityType;
  * @date 2015
  */
 
-var utils = __webpack_require__(8);
+var utils = __webpack_require__(6);
 var config = __webpack_require__(55);
 var Iban = __webpack_require__(57);
 
@@ -15235,14 +15341,14 @@ module.exports = require("crypto");
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const ethUtil = __webpack_require__(96)
-const Tx = __webpack_require__(97)
-const Trie = __webpack_require__(33)
+const ethUtil = __webpack_require__(95)
+const Tx = __webpack_require__(96)
+const Trie = __webpack_require__(31)
 const BN = ethUtil.BN
 const rlp = ethUtil.rlp
-const async = __webpack_require__(5)
-const BlockHeader = __webpack_require__(205)
-const params = __webpack_require__(95)
+const async = __webpack_require__(4)
+const BlockHeader = __webpack_require__(208)
+const params = __webpack_require__(94)
 
 /**
  * Creates a new block object
@@ -15561,250 +15667,14 @@ function arrayToString (array) {
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var params = __webpack_require__(228)
-params.genesisState = __webpack_require__(227)
-params.bootstrapNodes = __webpack_require__(226)
+var params = __webpack_require__(230)
+params.genesisState = __webpack_require__(229)
+params.bootstrapNodes = __webpack_require__(228)
 module.exports = params
 
 
 /***/ }),
 /* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = __webpack_require__(327)(__webpack_require__(326))
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-var Buffer = __webpack_require__(15).Buffer;
-
-var isBufferEncoding = Buffer.isEncoding
-  || function(encoding) {
-       switch (encoding && encoding.toLowerCase()) {
-         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
-         default: return false;
-       }
-     }
-
-
-function assertEncoding(encoding) {
-  if (encoding && !isBufferEncoding(encoding)) {
-    throw new Error('Unknown encoding: ' + encoding);
-  }
-}
-
-// StringDecoder provides an interface for efficiently splitting a series of
-// buffers into a series of JS strings without breaking apart multi-byte
-// characters. CESU-8 is handled as part of the UTF-8 encoding.
-//
-// @TODO Handling all encodings inside a single object makes it very difficult
-// to reason about this code, so it should be split up in the future.
-// @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
-// points as used by CESU-8.
-var StringDecoder = exports.StringDecoder = function(encoding) {
-  this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
-  assertEncoding(encoding);
-  switch (this.encoding) {
-    case 'utf8':
-      // CESU-8 represents each of Surrogate Pair by 3-bytes
-      this.surrogateSize = 3;
-      break;
-    case 'ucs2':
-    case 'utf16le':
-      // UTF-16 represents each of Surrogate Pair by 2-bytes
-      this.surrogateSize = 2;
-      this.detectIncompleteChar = utf16DetectIncompleteChar;
-      break;
-    case 'base64':
-      // Base-64 stores 3 bytes in 4 chars, and pads the remainder.
-      this.surrogateSize = 3;
-      this.detectIncompleteChar = base64DetectIncompleteChar;
-      break;
-    default:
-      this.write = passThroughWrite;
-      return;
-  }
-
-  // Enough space to store all bytes of a single character. UTF-8 needs 4
-  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
-  this.charBuffer = new Buffer(6);
-  // Number of bytes received for the current incomplete multi-byte character.
-  this.charReceived = 0;
-  // Number of bytes expected for the current incomplete multi-byte character.
-  this.charLength = 0;
-};
-
-
-// write decodes the given buffer and returns it as JS string that is
-// guaranteed to not contain any partial multi-byte characters. Any partial
-// character found at the end of the buffer is buffered up, and will be
-// returned when calling write again with the remaining bytes.
-//
-// Note: Converting a Buffer containing an orphan surrogate to a String
-// currently works, but converting a String to a Buffer (via `new Buffer`, or
-// Buffer#write) will replace incomplete surrogates with the unicode
-// replacement character. See https://codereview.chromium.org/121173009/ .
-StringDecoder.prototype.write = function(buffer) {
-  var charStr = '';
-  // if our last write ended with an incomplete multibyte character
-  while (this.charLength) {
-    // determine how many remaining bytes this buffer has to offer for this char
-    var available = (buffer.length >= this.charLength - this.charReceived) ?
-        this.charLength - this.charReceived :
-        buffer.length;
-
-    // add the new bytes to the char buffer
-    buffer.copy(this.charBuffer, this.charReceived, 0, available);
-    this.charReceived += available;
-
-    if (this.charReceived < this.charLength) {
-      // still not enough chars in this buffer? wait for more ...
-      return '';
-    }
-
-    // remove bytes belonging to the current character from the buffer
-    buffer = buffer.slice(available, buffer.length);
-
-    // get the character that was split
-    charStr = this.charBuffer.slice(0, this.charLength).toString(this.encoding);
-
-    // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
-    var charCode = charStr.charCodeAt(charStr.length - 1);
-    if (charCode >= 0xD800 && charCode <= 0xDBFF) {
-      this.charLength += this.surrogateSize;
-      charStr = '';
-      continue;
-    }
-    this.charReceived = this.charLength = 0;
-
-    // if there are no more bytes in this buffer, just emit our char
-    if (buffer.length === 0) {
-      return charStr;
-    }
-    break;
-  }
-
-  // determine and set charLength / charReceived
-  this.detectIncompleteChar(buffer);
-
-  var end = buffer.length;
-  if (this.charLength) {
-    // buffer the incomplete character bytes we got
-    buffer.copy(this.charBuffer, 0, buffer.length - this.charReceived, end);
-    end -= this.charReceived;
-  }
-
-  charStr += buffer.toString(this.encoding, 0, end);
-
-  var end = charStr.length - 1;
-  var charCode = charStr.charCodeAt(end);
-  // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
-  if (charCode >= 0xD800 && charCode <= 0xDBFF) {
-    var size = this.surrogateSize;
-    this.charLength += size;
-    this.charReceived += size;
-    this.charBuffer.copy(this.charBuffer, size, 0, size);
-    buffer.copy(this.charBuffer, 0, 0, size);
-    return charStr.substring(0, end);
-  }
-
-  // or just emit the charStr
-  return charStr;
-};
-
-// detectIncompleteChar determines if there is an incomplete UTF-8 character at
-// the end of the given buffer. If so, it sets this.charLength to the byte
-// length that character, and sets this.charReceived to the number of bytes
-// that are available for this character.
-StringDecoder.prototype.detectIncompleteChar = function(buffer) {
-  // determine how many bytes we have to check at the end of this buffer
-  var i = (buffer.length >= 3) ? 3 : buffer.length;
-
-  // Figure out if one of the last i bytes of our buffer announces an
-  // incomplete char.
-  for (; i > 0; i--) {
-    var c = buffer[buffer.length - i];
-
-    // See http://en.wikipedia.org/wiki/UTF-8#Description
-
-    // 110XXXXX
-    if (i == 1 && c >> 5 == 0x06) {
-      this.charLength = 2;
-      break;
-    }
-
-    // 1110XXXX
-    if (i <= 2 && c >> 4 == 0x0E) {
-      this.charLength = 3;
-      break;
-    }
-
-    // 11110XXX
-    if (i <= 3 && c >> 3 == 0x1E) {
-      this.charLength = 4;
-      break;
-    }
-  }
-  this.charReceived = i;
-};
-
-StringDecoder.prototype.end = function(buffer) {
-  var res = '';
-  if (buffer && buffer.length)
-    res = this.write(buffer);
-
-  if (this.charReceived) {
-    var cr = this.charReceived;
-    var buf = this.charBuffer;
-    var enc = this.encoding;
-    res += buf.slice(0, cr).toString(enc);
-  }
-
-  return res;
-};
-
-function passThroughWrite(buffer) {
-  return buffer.toString(this.encoding);
-}
-
-function utf16DetectIncompleteChar(buffer) {
-  this.charReceived = buffer.length % 2;
-  this.charLength = this.charReceived ? 2 : 0;
-}
-
-function base64DetectIncompleteChar(buffer) {
-  this.charReceived = buffer.length % 3;
-  this.charLength = this.charReceived ? 3 : 0;
-}
-
-
-/***/ }),
-/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -15829,7 +15699,7 @@ function extend() {
 
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports) {
 
 exports.ERROR = {
@@ -15841,16 +15711,16 @@ exports.ERROR = {
 
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hash = exports;
 
-hash.utils = __webpack_require__(257);
-hash.common = __webpack_require__(253);
-hash.sha = __webpack_require__(256);
-hash.ripemd = __webpack_require__(255);
-hash.hmac = __webpack_require__(254);
+hash.utils = __webpack_require__(259);
+hash.common = __webpack_require__(255);
+hash.sha = __webpack_require__(258);
+hash.ripemd = __webpack_require__(257);
+hash.hmac = __webpack_require__(256);
 
 // Proxy hash functions to the main object
 hash.sha1 = hash.sha.sha1;
@@ -15862,12 +15732,12 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const BaseTrie = __webpack_require__(306)
-const checkpointInterface = __webpack_require__(307)
-const inherits = __webpack_require__(0).inherits
+const BaseTrie = __webpack_require__(308)
+const checkpointInterface = __webpack_require__(309)
+const inherits = __webpack_require__(1).inherits
 
 module.exports = CheckpointTrie
 
@@ -15880,10 +15750,19 @@ function CheckpointTrie () {
 
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const createPayload = __webpack_require__(77)
+"use strict";
+
+module.exports = __webpack_require__(329)(__webpack_require__(328))
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const createPayload = __webpack_require__(76)
 
 module.exports = SubProvider
 
@@ -15912,7 +15791,7 @@ SubProvider.prototype.emitPayload = function(payload, cb){
 }
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -15937,8 +15816,8 @@ SubProvider.prototype.emitPayload = function(payload, cb){
  * @date 2015
  */
 
-var utils = __webpack_require__(8);
-var errors = __webpack_require__(50);
+var utils = __webpack_require__(6);
+var errors = __webpack_require__(49);
 
 var Method = function (options) {
     this.name = options.name;
@@ -16083,13 +15962,13 @@ module.exports = Method;
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -16223,13 +16102,13 @@ module.exports = Method;
 }));
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(61), __webpack_require__(60));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(60), __webpack_require__(59));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -16360,13 +16239,13 @@ module.exports = Method;
 }));
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -16633,18 +16512,70 @@ module.exports = Method;
 }));
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-try {
-  module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"sha3\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())).SHA3Hash
-} catch (err) {
-  module.exports = __webpack_require__(276)
+"use strict";
+
+
+const Transaction = __webpack_require__(96)
+const ethUtil = __webpack_require__(11)
+
+/**
+ * Creates a new transaction object that doesn't need to be signed
+ * @constructor
+ * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
+ *
+ * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
+ * @example
+ * var rawTx = {
+ *   nonce: '00',
+ *   gasPrice: '09184e72a000',
+ *   gasLimit: '2710',
+ *   to: '0000000000000000000000000000000000000000',
+ *   value: '00',
+ *   data: '7f7465737432000000000000000000000000000000000000000000000000000000600057',
+ *   v: '1c',
+ *   r: '5e1d3a76fbf824220eafc8c79ad578ad2b67d01b0c2425eb1f1347e8f50882ab',
+ *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
+ * };
+ * var tx = new Transaction(rawTx);
+ * @prop {Buffer} raw The raw rlp decoded transaction
+ * @prop {Buffer} nonce
+ * @prop {Buffer} to the to address
+ * @prop {Buffer} value the amount of ether sent
+ * @prop {Buffer} data this will contain the data of the message or the init of a contract
+ * @prop {Buffer} v EC signature parameter
+ * @prop {Buffer} r EC signature parameter
+ * @prop {Buffer} s EC recovery ID
+ */
+module.exports = class FakeTransaction extends Transaction {
+  constructor (data) {
+    super(data)
+
+    var self = this
+
+    /**
+     * @prop {Buffer} from (read/write) Set from address to bypass transaction signing.
+     */
+    Object.defineProperty(this, 'from', {
+      enumerable: true,
+      configurable: true,
+      get: this.getSenderAddress.bind(self),
+      set: function (val) {
+        self._from = ethUtil.toBuffer(val)
+      }
+    })
+
+    if (data && data.from) {
+      this.from = data.from
+    }
+  }
 }
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -16689,8 +16620,8 @@ var util = __webpack_require__(3);
 util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
-var Readable = __webpack_require__(106);
-var Writable = __webpack_require__(108);
+var Readable = __webpack_require__(104);
+var Writable = __webpack_require__(106);
 
 util.inherits(Duplex, Readable);
 
@@ -16739,7 +16670,7 @@ function forEach (xs, f) {
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16763,7 +16694,7 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(75);
+var processNextTick = __webpack_require__(74);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -16771,8 +16702,8 @@ var util = __webpack_require__(3);
 util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
-var Readable = __webpack_require__(127);
-var Writable = __webpack_require__(129);
+var Readable = __webpack_require__(128);
+var Writable = __webpack_require__(130);
 
 util.inherits(Duplex, Readable);
 
@@ -16820,7 +16751,7 @@ function forEach(xs, f) {
 }
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -16846,7 +16777,7 @@ function forEach(xs, f) {
  * @date 2015
  */
 
-var utils = __webpack_require__(8);
+var utils = __webpack_require__(6);
 
 var Property = function (options) {
     this.name = options.name;
@@ -16970,7 +16901,7 @@ module.exports = Property;
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -16979,13 +16910,13 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -19675,70 +19606,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/Mik
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const inherits = __webpack_require__(0).inherits
-const Transaction = __webpack_require__(97)
-const ethUtil = __webpack_require__(98)
-
-module.exports = FakeTransaction
-
-inherits(FakeTransaction, Transaction)
-
-/**
- * Creates a new transaction object that doesn't need to be signed
- * @constructor
- * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
- *
- * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
- * @example
- * var rawTx = {
- *   nonce: '00',
- *   gasPrice: '09184e72a000',
- *   gasLimit: '2710',
- *   to: '0000000000000000000000000000000000000000',
- *   value: '00',
- *   data: '7f7465737432000000000000000000000000000000000000000000000000000000600057',
- *   v: '1c',
- *   r: '5e1d3a76fbf824220eafc8c79ad578ad2b67d01b0c2425eb1f1347e8f50882ab',
- *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
- * };
- * var tx = new Transaction(rawTx);
- * @prop {Buffer} raw The raw rlp decoded transaction
- * @prop {Buffer} nonce
- * @prop {Buffer} to the to address
- * @prop {Buffer} value the amount of ether sent
- * @prop {Buffer} data this will contain the data of the message or the init of a contract
- * @prop {Buffer} v EC signature parameter
- * @prop {Buffer} r EC signature parameter
- * @prop {Buffer} s EC recovery ID
- */
-function FakeTransaction (data) {
-  var self = this
-
-  FakeTransaction.super_.call(this, data)
-
-  /**
-   * @prop {Buffer} from (read/write) Set from address to bypass transaction signing.
-   */
-  Object.defineProperty(this, 'from', {
-    enumerable: true,
-    configurable: true,
-    get: this.getSenderAddress.bind(self),
-    set: function (val) {
-      self._from = ethUtil.toBuffer(val)
-    }
-  })
-
-  if (data && data.from) {
-    this.from = data.from
-  }
+try {
+  module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"sha3\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())).SHA3Hash
+} catch (err) {
+  module.exports = __webpack_require__(278)
 }
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2015 LevelUP contributors
@@ -19747,7 +19626,7 @@ function FakeTransaction (data) {
  * <https://github.com/rvagg/node-levelup/blob/master/LICENSE.md>
  */
 
-var createError   = __webpack_require__(94).create
+var createError   = __webpack_require__(93).create
   , LevelUPError  = createError('LevelUPError')
   , NotFoundError = createError('NotFoundError', LevelUPError)
 
@@ -19766,10 +19645,10 @@ module.exports = {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(5)
+const async = __webpack_require__(4)
 
 module.exports = {
   matchingNibbleLength: matchingNibbleLength,
@@ -19850,7 +19729,7 @@ function asyncFirstSeries (array, iterator, cb) {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -19875,8 +19754,8 @@ function asyncFirstSeries (array, iterator, cb) {
  * @date 2015
  */
 
-var CryptoJS = __webpack_require__(162);
-var sha3 = __webpack_require__(88);
+var CryptoJS = __webpack_require__(165);
+var sha3 = __webpack_require__(87);
 
 module.exports = function (value, options) {
     if (options && options.encoding === 'hex') {
@@ -19894,7 +19773,7 @@ module.exports = function (value, options) {
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /*
@@ -19940,10 +19819,125 @@ module.exports = {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var buffer = __webpack_require__(12);
+var Buffer = buffer.Buffer;
+var SlowBuffer = buffer.SlowBuffer;
+var MAX_LEN = buffer.kMaxLength || 2147483647;
+exports.alloc = function alloc(size, fill, encoding) {
+  if (typeof Buffer.alloc === 'function') {
+    return Buffer.alloc(size, fill, encoding);
+  }
+  if (typeof encoding === 'number') {
+    throw new TypeError('encoding must not be number');
+  }
+  if (typeof size !== 'number') {
+    throw new TypeError('size must be a number');
+  }
+  if (size > MAX_LEN) {
+    throw new RangeError('size is too large');
+  }
+  var enc = encoding;
+  var _fill = fill;
+  if (_fill === undefined) {
+    enc = undefined;
+    _fill = 0;
+  }
+  var buf = new Buffer(size);
+  if (typeof _fill === 'string') {
+    var fillBuf = new Buffer(_fill, enc);
+    var flen = fillBuf.length;
+    var i = -1;
+    while (++i < size) {
+      buf[i] = fillBuf[i % flen];
+    }
+  } else {
+    buf.fill(_fill);
+  }
+  return buf;
+}
+exports.allocUnsafe = function allocUnsafe(size) {
+  if (typeof Buffer.allocUnsafe === 'function') {
+    return Buffer.allocUnsafe(size);
+  }
+  if (typeof size !== 'number') {
+    throw new TypeError('size must be a number');
+  }
+  if (size > MAX_LEN) {
+    throw new RangeError('size is too large');
+  }
+  return new Buffer(size);
+}
+exports.from = function from(value, encodingOrOffset, length) {
+  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
+    return Buffer.from(value, encodingOrOffset, length);
+  }
+  if (typeof value === 'number') {
+    throw new TypeError('"value" argument must not be a number');
+  }
+  if (typeof value === 'string') {
+    return new Buffer(value, encodingOrOffset);
+  }
+  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+    var offset = encodingOrOffset;
+    if (arguments.length === 1) {
+      return new Buffer(value);
+    }
+    if (typeof offset === 'undefined') {
+      offset = 0;
+    }
+    var len = length;
+    if (typeof len === 'undefined') {
+      len = value.byteLength - offset;
+    }
+    if (offset >= value.byteLength) {
+      throw new RangeError('\'offset\' is out of bounds');
+    }
+    if (len > value.byteLength - offset) {
+      throw new RangeError('\'length\' is out of bounds');
+    }
+    return new Buffer(value.slice(offset, offset + len));
+  }
+  if (Buffer.isBuffer(value)) {
+    var out = new Buffer(value.length);
+    value.copy(out, 0, 0, value.length);
+    return out;
+  }
+  if (value) {
+    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
+      return new Buffer(value);
+    }
+    if (value.type === 'Buffer' && Array.isArray(value.data)) {
+      return new Buffer(value.data);
+    }
+  }
+
+  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
+}
+exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
+  if (typeof Buffer.allocUnsafeSlow === 'function') {
+    return Buffer.allocUnsafeSlow(size);
+  }
+  if (typeof size !== 'number') {
+    throw new TypeError('size must be a number');
+  }
+  if (size >= MAX_LEN) {
+    throw new RangeError('size is too large');
+  }
+  return new SlowBuffer(size);
+}
+
 
 /***/ }),
 /* 52 */
@@ -19952,7 +19946,7 @@ module.exports = require("path");
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -20263,17 +20257,17 @@ module.exports = require("path");
 
 var curve = exports;
 
-curve.base = __webpack_require__(185);
-curve.short = __webpack_require__(188);
-curve.mont = __webpack_require__(187);
-curve.edwards = __webpack_require__(186);
+curve.base = __webpack_require__(188);
+curve.short = __webpack_require__(191);
+curve.mont = __webpack_require__(190);
+curve.edwards = __webpack_require__(189);
 
 
 /***/ }),
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Web3 = __webpack_require__(365);
+var Web3 = __webpack_require__(364);
 
 // dont override global variable
 if (typeof window !== 'undefined' && typeof window.Web3 === 'undefined') {
@@ -20324,7 +20318,7 @@ module.exports = Web3;
 
 
 /// required to define ETH_BIGNUMBER_ROUNDING_MODE
-var BigNumber = __webpack_require__(45);
+var BigNumber = __webpack_require__(44);
 
 var ETH_UNITS = [
     'wei',
@@ -20399,7 +20393,7 @@ module.exports = {
  */
 
 var formatters = __webpack_require__(24);
-var utils = __webpack_require__(8);
+var utils = __webpack_require__(6);
 
 /**
 * Converts a given topic to a hex string, but also allows null values.
@@ -20635,7 +20629,7 @@ module.exports = Filter;
  * @date 2015
  */
 
-var BigNumber = __webpack_require__(45);
+var BigNumber = __webpack_require__(44);
 
 var padLeft = function (string, bytes) {
     var result = string;
@@ -20868,7 +20862,7 @@ module.exports = Iban;
  * @date 2015
  */
 
-var Method = __webpack_require__(35);
+var Method = __webpack_require__(34);
 
 /// @returns an array of objects describing web3.eth.filter api methods
 var eth = function () {
@@ -20966,125 +20960,10 @@ module.exports = {
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var buffer = __webpack_require__(15);
-var Buffer = buffer.Buffer;
-var SlowBuffer = buffer.SlowBuffer;
-var MAX_LEN = buffer.kMaxLength || 2147483647;
-exports.alloc = function alloc(size, fill, encoding) {
-  if (typeof Buffer.alloc === 'function') {
-    return Buffer.alloc(size, fill, encoding);
-  }
-  if (typeof encoding === 'number') {
-    throw new TypeError('encoding must not be number');
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size > MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  var enc = encoding;
-  var _fill = fill;
-  if (_fill === undefined) {
-    enc = undefined;
-    _fill = 0;
-  }
-  var buf = new Buffer(size);
-  if (typeof _fill === 'string') {
-    var fillBuf = new Buffer(_fill, enc);
-    var flen = fillBuf.length;
-    var i = -1;
-    while (++i < size) {
-      buf[i] = fillBuf[i % flen];
-    }
-  } else {
-    buf.fill(_fill);
-  }
-  return buf;
-}
-exports.allocUnsafe = function allocUnsafe(size) {
-  if (typeof Buffer.allocUnsafe === 'function') {
-    return Buffer.allocUnsafe(size);
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size > MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  return new Buffer(size);
-}
-exports.from = function from(value, encodingOrOffset, length) {
-  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
-    return Buffer.from(value, encodingOrOffset, length);
-  }
-  if (typeof value === 'number') {
-    throw new TypeError('"value" argument must not be a number');
-  }
-  if (typeof value === 'string') {
-    return new Buffer(value, encodingOrOffset);
-  }
-  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    var offset = encodingOrOffset;
-    if (arguments.length === 1) {
-      return new Buffer(value);
-    }
-    if (typeof offset === 'undefined') {
-      offset = 0;
-    }
-    var len = length;
-    if (typeof len === 'undefined') {
-      len = value.byteLength - offset;
-    }
-    if (offset >= value.byteLength) {
-      throw new RangeError('\'offset\' is out of bounds');
-    }
-    if (len > value.byteLength - offset) {
-      throw new RangeError('\'length\' is out of bounds');
-    }
-    return new Buffer(value.slice(offset, offset + len));
-  }
-  if (Buffer.isBuffer(value)) {
-    var out = new Buffer(value.length);
-    value.copy(out, 0, 0, value.length);
-    return out;
-  }
-  if (value) {
-    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
-      return new Buffer(value);
-    }
-    if (value.type === 'Buffer' && Array.isArray(value.data)) {
-      return new Buffer(value.data);
-    }
-  }
-
-  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
-}
-exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
-  if (typeof Buffer.allocUnsafeSlow === 'function') {
-    return Buffer.allocUnsafeSlow(size);
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size >= MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  return new SlowBuffer(size);
-}
-
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -21226,13 +21105,13 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }));
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -21381,14 +21260,14 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }));
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(100)
+module.exports = __webpack_require__(98)
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22390,25 +22269,25 @@ function createRBTree(compare) {
 }
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0).inherits;
+var inherits = __webpack_require__(1).inherits;
 var to = __webpack_require__(10);
-var Account = __webpack_require__(21);
+var Account = __webpack_require__(20);
 var Block = __webpack_require__(26);
-var Log = __webpack_require__(65);
-var Receipt = __webpack_require__(66);
-var VM = __webpack_require__(62);
-var RuntimeError = __webpack_require__(102);
-var Trie = __webpack_require__(33);
+var Log = __webpack_require__(64);
+var Receipt = __webpack_require__(65);
+var VM = __webpack_require__(61);
+var RuntimeError = __webpack_require__(100);
+var Trie = __webpack_require__(31);
 var Web3 = __webpack_require__(54);
 var utils = __webpack_require__(11);
-var async = __webpack_require__(5);
-var Heap = __webpack_require__(259);
-var Database = __webpack_require__(234);
-var path = __webpack_require__(51);
-var async = __webpack_require__(5);
+var async = __webpack_require__(4);
+var Heap = __webpack_require__(261);
+var Database = __webpack_require__(236);
+var path = __webpack_require__(50);
+var async = __webpack_require__(4);
 
 function BlockchainDouble(options) {
   var self = this;
@@ -23033,6 +22912,10 @@ BlockchainDouble.prototype.processTransactionTrace = function(hash, params, call
   this.getTransactionReceipt(target_hash, function(err, receipt) {
     if (err) return callback(err);
 
+    if (!receipt) {
+      return callback(new Error("Unknown transaction " + target_hash));
+    }
+
     var targetBlock = receipt.block;
 
     // Get the parent of the target block
@@ -23264,7 +23147,7 @@ module.exports = BlockchainDouble;
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
@@ -23305,7 +23188,7 @@ module.exports = Log;
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
@@ -23347,11 +23230,11 @@ module.exports = Receipt;
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
-var FakeTransaction = __webpack_require__(46);
+var FakeTransaction = __webpack_require__(38);
 var utils = __webpack_require__(11);
 
 module.exports = {
@@ -23403,20 +23286,20 @@ module.exports = {
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 
-var nut   = __webpack_require__(292)
-var shell = __webpack_require__(294) //the shell surrounds the nut
-var precodec = __webpack_require__(283)
-var codec = __webpack_require__(286)
-var merge = __webpack_require__(30)
+var nut   = __webpack_require__(294)
+var shell = __webpack_require__(296) //the shell surrounds the nut
+var precodec = __webpack_require__(285)
+var codec = __webpack_require__(288)
+var merge = __webpack_require__(28)
 
-var ReadStream = __webpack_require__(287)
+var ReadStream = __webpack_require__(289)
 
 var sublevel = function (db, opts) {
   opts = merge(db.options, opts)
@@ -23430,7 +23313,7 @@ module.exports = function (db, opts) {
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -23439,7 +23322,7 @@ module.exports = function (db, opts) {
  * <https://github.com/rvagg/node-levelup/blob/master/LICENSE.md>
  */
 
-var createError   = __webpack_require__(94).create
+var createError   = __webpack_require__(93).create
   , LevelUPError  = createError('LevelUPError')
   , NotFoundError = createError('NotFoundError', LevelUPError)
 
@@ -23458,7 +23341,7 @@ module.exports = {
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -23503,8 +23386,8 @@ var util = __webpack_require__(3);
 util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
-var Readable = __webpack_require__(111);
-var Writable = __webpack_require__(113);
+var Readable = __webpack_require__(110);
+var Writable = __webpack_require__(112);
 
 util.inherits(Duplex, Readable);
 
@@ -23553,7 +23436,7 @@ function forEach (xs, f) {
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -23648,7 +23531,7 @@ function forEach (xs, f) {
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2016 LevelUP contributors
@@ -23657,15 +23540,15 @@ function forEach (xs, f) {
  * <https://github.com/level/levelup/blob/master/LICENSE.md>
  */
 
-var EventEmitter        = __webpack_require__(16).EventEmitter
-  , inherits            = __webpack_require__(0).inherits
-  , deprecate           = __webpack_require__(0).deprecate
-  , extend              = __webpack_require__(30)
-  , prr                 = __webpack_require__(317)
-  , DeferredLevelDOWN   = __webpack_require__(183)
-  , IteratorStream      = __webpack_require__(279)
+var EventEmitter        = __webpack_require__(19).EventEmitter
+  , inherits            = __webpack_require__(1).inherits
+  , deprecate           = __webpack_require__(1).deprecate
+  , extend              = __webpack_require__(28)
+  , prr                 = __webpack_require__(319)
+  , DeferredLevelDOWN   = __webpack_require__(186)
+  , IteratorStream      = __webpack_require__(281)
 
-  , errors              = __webpack_require__(47)
+  , errors              = __webpack_require__(46)
   , WriteError          = errors.WriteError
   , ReadError           = errors.ReadError
   , NotFoundError       = errors.NotFoundError
@@ -23673,9 +23556,9 @@ var EventEmitter        = __webpack_require__(16).EventEmitter
   , EncodingError       = errors.EncodingError
   , InitializationError = errors.InitializationError
 
-  , util                = __webpack_require__(118)
-  , Batch               = __webpack_require__(301)
-  , Codec               = __webpack_require__(277)
+  , util                = __webpack_require__(119)
+  , Batch               = __webpack_require__(303)
+  , Codec               = __webpack_require__(279)
 
   , getOptions          = util.getOptions
   , defaultOptions      = util.defaultOptions
@@ -24040,7 +23923,7 @@ function utilStatic (name) {
 }
 
 module.exports         = LevelUP
-module.exports.errors  = __webpack_require__(47)
+module.exports.errors  = __webpack_require__(46)
 module.exports.destroy = deprecate(
     utilStatic('destroy')
   , 'levelup.destroy() is deprecated. Use leveldown.destroy() instead'
@@ -24053,7 +23936,7 @@ module.exports.repair  = deprecate(
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports) {
 
 
@@ -24210,15 +24093,15 @@ exports.filter = function (range, compare) {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
+const SHA3 = __webpack_require__(45)
+const secp256k1 = __webpack_require__(32)
+const assert = __webpack_require__(17)
+const rlp = __webpack_require__(22)
+const BN = __webpack_require__(8)
+const createHash = __webpack_require__(18)
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -24917,7 +24800,7 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24967,7 +24850,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (global, factory) {
@@ -25062,12 +24945,142 @@ var initialParams = function (fn) {
     });
 };
 
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+/**
+ * Take a sync function and make it async, passing its return value to a
+ * callback. This is useful for plugging sync functions into a waterfall,
+ * series, or other async functions. Any arguments passed to the generated
+ * function will be passed to the wrapped function (except for the final
+ * callback argument). Errors thrown will be passed to the callback.
+ *
+ * If the function passed to `asyncify` returns a Promise, that promises's
+ * resolved/rejected state will be used to call the callback, rather than simply
+ * the synchronous return value.
+ *
+ * This also means you can asyncify ES2017 `async` functions.
+ *
+ * @name asyncify
+ * @static
+ * @memberOf module:Utils
+ * @method
+ * @alias wrapSync
+ * @category Util
+ * @param {Function} func - The synchronous funuction, or Promise-returning
+ * function to convert to an {@link AsyncFunction}.
+ * @returns {AsyncFunction} An asynchronous wrapper of the `func`. To be
+ * invoked with `(args..., callback)`.
+ * @example
+ *
+ * // passing a regular synchronous function
+ * async.waterfall([
+ *     async.apply(fs.readFile, filename, "utf8"),
+ *     async.asyncify(JSON.parse),
+ *     function (data, next) {
+ *         // data is the result of parsing the text.
+ *         // If there was a parsing error, it would have been caught.
+ *     }
+ * ], callback);
+ *
+ * // passing a function returning a promise
+ * async.waterfall([
+ *     async.apply(fs.readFile, filename, "utf8"),
+ *     async.asyncify(function (contents) {
+ *         return db.model.create(contents);
+ *     }),
+ *     function (model, next) {
+ *         // `model` is the instantiated model object.
+ *         // If there was an error, this function would be skipped.
+ *     }
+ * ], callback);
+ *
+ * // es2017 example, though `asyncify` is not needed if your JS environment
+ * // supports async functions out of the box
+ * var q = async.queue(async.asyncify(async function(file) {
+ *     var intermediateStep = await processFile(file);
+ *     return await somePromise(intermediateStep)
+ * }));
+ *
+ * q.push(files);
+ */
+function asyncify(func) {
+    return initialParams(function (args, callback) {
+        var result;
+        try {
+            result = func.apply(this, args);
+        } catch (e) {
+            return callback(e);
+        }
+        // if result is Promise object
+        if (isObject(result) && typeof result.then === 'function') {
+            result.then(function (value) {
+                callback(null, value);
+            }, function (err) {
+                callback(err.message ? err : new Error(err));
+            });
+        } else {
+            callback(null, result);
+        }
+    });
+}
+
+var supportsSymbol = typeof Symbol === 'function';
+
+function supportsAsync() {
+    var supported;
+    try {
+        /* eslint no-eval: 0 */
+        supported = isAsync(eval('(async function () {})'));
+    } catch (e) {
+        supported = false;
+    }
+    return supported;
+}
+
+function isAsync(fn) {
+    return supportsSymbol && fn[Symbol.toStringTag] === 'AsyncFunction';
+}
+
+function wrapAsync(asyncFn) {
+    return isAsync(asyncFn) ? asyncify(asyncFn) : asyncFn;
+}
+
+var wrapAsync$1 = supportsAsync() ? wrapAsync : identity;
+
 function applyEach$1(eachfn) {
     return rest(function (fns, args) {
         var go = initialParams(function (args, callback) {
             var that = this;
             return eachfn(fns, function (fn, cb) {
-                fn.apply(that, args.concat(cb));
+                wrapAsync$1(fn).apply(that, args.concat(cb));
             }, callback);
         });
         if (args.length) {
@@ -25176,36 +25189,6 @@ function baseGetTag(value) {
   return (symToStringTag && symToStringTag in value)
     ? getRawTag(value)
     : objectToString(value);
-}
-
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return value != null && (type == 'object' || type == 'function');
 }
 
 /** `Object#toString` result references. */
@@ -25872,17 +25855,15 @@ function _eachOfLimit(limit) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each
+ * @param {AsyncFunction} iteratee - An async function to apply to each
  * item in `coll`. The `key` is the item's key, or index in the case of an
- * array. The iteratee is passed a `callback(err)` which must be called once it
- * has completed. If no error has occurred, the callback should be run without
- * arguments or with an explicit `null` argument. Invoked with
- * (item, key, callback).
+ * array.
+ * Invoked with (item, key, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  */
 function eachOfLimit(coll, limit, iteratee, callback) {
-  _eachOfLimit(limit)(coll, iteratee, callback);
+  _eachOfLimit(limit)(coll, wrapAsync$1(iteratee), callback);
 }
 
 function doLimit(fn, limit) {
@@ -25929,12 +25910,10 @@ var eachOfGeneric = doLimit(eachOfLimit, Infinity);
  * @category Collection
  * @see [async.each]{@link module:Collections.each}
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each
- * item in `coll`. The `key` is the item's key, or index in the case of an
- * array. The iteratee is passed a `callback(err)` which must be called once it
- * has completed. If no error has occurred, the callback should be run without
- * arguments or with an explicit `null` argument. Invoked with
- * (item, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each
+ * item in `coll`.
+ * The `key` is the item's key, or index in the case of an array.
+ * Invoked with (item, key, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  * @example
@@ -25960,12 +25939,12 @@ var eachOfGeneric = doLimit(eachOfLimit, Infinity);
  */
 var eachOf = function (coll, iteratee, callback) {
     var eachOfImplementation = isArrayLike(coll) ? eachOfArrayLike : eachOfGeneric;
-    eachOfImplementation(coll, iteratee, callback);
+    eachOfImplementation(coll, wrapAsync$1(iteratee), callback);
 };
 
 function doParallel(fn) {
     return function (obj, iteratee, callback) {
-        return fn(eachOf, obj, iteratee, callback);
+        return fn(eachOf, obj, wrapAsync$1(iteratee), callback);
     };
 }
 
@@ -25974,10 +25953,11 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
     arr = arr || [];
     var results = [];
     var counter = 0;
+    var _iteratee = wrapAsync$1(iteratee);
 
     eachfn(arr, function (value, _, callback) {
         var index = counter++;
-        iteratee(value, function (err, v) {
+        _iteratee(value, function (err, v) {
             results[index] = v;
             callback(err);
         });
@@ -26009,10 +25989,10 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed item. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with the transformed item.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Results is an Array of the
  * transformed items from the `coll`. Invoked with (err, results).
@@ -26036,7 +26016,7 @@ var map = doParallel(_asyncMap);
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array|Iterable|Object} fns - A collection of asynchronous functions
+ * @param {Array|Iterable|Object} fns - A collection of {@link AsyncFunction}s
  * to all call with the same arguments
  * @param {...*} [args] - any number of separate arguments to pass to the
  * function.
@@ -26061,7 +26041,7 @@ var applyEach = applyEach$1(map);
 
 function doParallelLimit(fn) {
     return function (obj, limit, iteratee, callback) {
-        return fn(_eachOfLimit(limit), obj, iteratee, callback);
+        return fn(_eachOfLimit(limit), obj, wrapAsync$1(iteratee), callback);
     };
 }
 
@@ -26076,10 +26056,10 @@ function doParallelLimit(fn) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a transformed
- * item. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with the transformed item.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Results is an array of the
  * transformed items from the `coll`. Invoked with (err, results).
@@ -26096,10 +26076,10 @@ var mapLimit = doParallelLimit(_asyncMap);
  * @see [async.map]{@link module:Collections.map}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed item. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with the transformed item.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Results is an array of the
  * transformed items from the `coll`. Invoked with (err, results).
@@ -26115,7 +26095,7 @@ var mapSeries = doLimit(mapLimit, 1);
  * @method
  * @see [async.applyEach]{@link module:ControlFlow.applyEach}
  * @category Control Flow
- * @param {Array|Iterable|Object} fns - A collection of asynchronous functions to all
+ * @param {Array|Iterable|Object} fns - A collection of {@link AsyncFunction}s to all
  * call with the same arguments
  * @param {...*} [args] - any number of separate arguments to pass to the
  * function.
@@ -26176,82 +26156,6 @@ var apply$2 = rest(function (fn, args) {
         return fn.apply(null, args.concat(callArgs));
     });
 });
-
-/**
- * Take a sync function and make it async, passing its return value to a
- * callback. This is useful for plugging sync functions into a waterfall,
- * series, or other async functions. Any arguments passed to the generated
- * function will be passed to the wrapped function (except for the final
- * callback argument). Errors thrown will be passed to the callback.
- *
- * If the function passed to `asyncify` returns a Promise, that promises's
- * resolved/rejected state will be used to call the callback, rather than simply
- * the synchronous return value.
- *
- * This also means you can asyncify ES2016 `async` functions.
- *
- * @name asyncify
- * @static
- * @memberOf module:Utils
- * @method
- * @alias wrapSync
- * @category Util
- * @param {Function} func - The synchronous function to convert to an
- * asynchronous function.
- * @returns {Function} An asynchronous wrapper of the `func`. To be invoked with
- * (callback).
- * @example
- *
- * // passing a regular synchronous function
- * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(JSON.parse),
- *     function (data, next) {
- *         // data is the result of parsing the text.
- *         // If there was a parsing error, it would have been caught.
- *     }
- * ], callback);
- *
- * // passing a function returning a promise
- * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(function (contents) {
- *         return db.model.create(contents);
- *     }),
- *     function (model, next) {
- *         // `model` is the instantiated model object.
- *         // If there was an error, this function would be skipped.
- *     }
- * ], callback);
- *
- * // es6 example
- * var q = async.queue(async.asyncify(async function(file) {
- *     var intermediateStep = await processFile(file);
- *     return await somePromise(intermediateStep)
- * }));
- *
- * q.push(files);
- */
-function asyncify(func) {
-    return initialParams(function (args, callback) {
-        var result;
-        try {
-            result = func.apply(this, args);
-        } catch (e) {
-            return callback(e);
-        }
-        // if result is Promise object
-        if (isObject(result) && typeof result.then === 'function') {
-            result.then(function (value) {
-                callback(null, value);
-            }, function (err) {
-                callback(err.message ? err : new Error(err));
-            });
-        } else {
-            callback(null, result);
-        }
-    });
-}
 
 /**
  * A specialized version of `_.forEach` for arrays without support for
@@ -26395,17 +26299,17 @@ function baseIndexOf(array, value, fromIndex) {
 }
 
 /**
- * Determines the best order for running the functions in `tasks`, based on
+ * Determines the best order for running the {@link AsyncFunction}s in `tasks`, based on
  * their requirements. Each function can optionally depend on other functions
  * being completed first, and each function is run as soon as its requirements
  * are satisfied.
  *
- * If any of the functions pass an error to their callback, the `auto` sequence
+ * If any of the {@link AsyncFunction}s pass an error to their callback, the `auto` sequence
  * will stop. Further tasks will not execute (so any other functions depending
  * on it will not run), and the main `callback` is immediately called with the
  * error.
  *
- * Functions also receive an object containing the results of functions which
+ * {@link AsyncFunction}s also receive an object containing the results of functions which
  * have completed so far as the first argument, if they have dependencies. If a
  * task function has no dependencies, it will only be passed a callback.
  *
@@ -26415,7 +26319,7 @@ function baseIndexOf(array, value, fromIndex) {
  * @method
  * @category Control Flow
  * @param {Object} tasks - An object. Each of its properties is either a
- * function or an array of requirements, with the function itself the last item
+ * function or an array of requirements, with the {@link AsyncFunction} itself the last item
  * in the array. The object's key of a property serves as the name of the task
  * defined by that property, i.e. can be used when specifying requirements for
  * other tasks. The function receives one or two arguments:
@@ -26593,7 +26497,7 @@ var auto = function (tasks, concurrency, callback) {
         }));
 
         runningTasks++;
-        var taskFn = task[task.length - 1];
+        var taskFn = wrapAsync$1(task[task.length - 1]);
         if (task.length > 1) {
             taskFn(results, taskCallback);
         } else {
@@ -26937,7 +26841,7 @@ function trim(string, chars, guard) {
   return castSlice(strSymbols, start, end).join('');
 }
 
-var FN_ARGS = /^(function)?\s*[^\(]*\(\s*([^\)]*)\)/m;
+var FN_ARGS = /^(?:async\s+)?(function)?\s*[^\(]*\(\s*([^\)]*)\)/m;
 var FN_ARG_SPLIT = /,/;
 var FN_ARG = /(=.+)?(\s*)$/;
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
@@ -26971,7 +26875,7 @@ function parseParams(func) {
  * @method
  * @see [async.auto]{@link module:ControlFlow.auto}
  * @category Control Flow
- * @param {Object} tasks - An object, each of whose properties is a function of
+ * @param {Object} tasks - An object, each of whose properties is an {@link AsyncFunction} of
  * the form 'func([dependencies...], callback). The object's key of a property
  * serves as the name of the task defined by that property, i.e. can be used
  * when specifying requirements for other tasks.
@@ -27039,22 +26943,25 @@ function autoInject(tasks, callback) {
 
     baseForOwn(tasks, function (taskFn, key) {
         var params;
+        var fnIsAsync = isAsync(taskFn);
+        var hasNoDeps = !fnIsAsync && taskFn.length === 1 || fnIsAsync && taskFn.length === 0;
 
         if (isArray(taskFn)) {
             params = taskFn.slice(0, -1);
             taskFn = taskFn[taskFn.length - 1];
 
             newTasks[key] = params.concat(params.length > 0 ? newTask : taskFn);
-        } else if (taskFn.length === 1) {
+        } else if (hasNoDeps) {
             // no dependencies, use the function as-is
             newTasks[key] = taskFn;
         } else {
             params = parseParams(taskFn);
-            if (taskFn.length === 0 && params.length === 0) {
+            if (taskFn.length === 0 && !fnIsAsync && params.length === 0) {
                 throw new Error("autoInject task functions require explicit parameters.");
             }
 
-            params.pop();
+            // remove callback param
+            if (!fnIsAsync) params.pop();
 
             newTasks[key] = params.concat(newTask);
         }
@@ -27064,7 +26971,7 @@ function autoInject(tasks, callback) {
                 return results[name];
             });
             newArgs.push(taskCb);
-            taskFn.apply(null, newArgs);
+            wrapAsync$1(taskFn).apply(null, newArgs);
         }
     });
 
@@ -27162,6 +27069,10 @@ function queue(worker, concurrency, payload) {
         throw new Error('Concurrency must not be zero');
     }
 
+    var _worker = wrapAsync$1(worker);
+    var numRunning = 0;
+    var workersList = [];
+
     function _insert(data, insertAtFront, callback) {
         if (callback != null && typeof callback !== 'function') {
             throw new Error('task callback must be a function');
@@ -27194,7 +27105,7 @@ function queue(worker, concurrency, payload) {
 
     function _next(tasks) {
         return rest(function (args) {
-            workers -= 1;
+            numRunning -= 1;
 
             for (var i = 0, l = tasks.length; i < l; i++) {
                 var task = tasks[i];
@@ -27210,7 +27121,7 @@ function queue(worker, concurrency, payload) {
                 }
             }
 
-            if (workers <= q.concurrency - q.buffer) {
+            if (numRunning <= q.concurrency - q.buffer) {
                 q.unsaturated();
             }
 
@@ -27221,8 +27132,6 @@ function queue(worker, concurrency, payload) {
         });
     }
 
-    var workers = 0;
-    var workersList = [];
     var isProcessing = false;
     var q = {
         _tasks: new DLL(),
@@ -27253,7 +27162,7 @@ function queue(worker, concurrency, payload) {
                 return;
             }
             isProcessing = true;
-            while (!q.paused && workers < q.concurrency && q._tasks.length) {
+            while (!q.paused && numRunning < q.concurrency && q._tasks.length) {
                 var tasks = [],
                     data = [];
                 var l = q._tasks.length;
@@ -27267,15 +27176,15 @@ function queue(worker, concurrency, payload) {
                 if (q._tasks.length === 0) {
                     q.empty();
                 }
-                workers += 1;
+                numRunning += 1;
                 workersList.push(tasks[0]);
 
-                if (workers === q.concurrency) {
+                if (numRunning === q.concurrency) {
                     q.saturated();
                 }
 
                 var cb = onlyOnce(_next(tasks));
-                worker(data, cb);
+                _worker(data, cb);
             }
             isProcessing = false;
         },
@@ -27283,13 +27192,13 @@ function queue(worker, concurrency, payload) {
             return q._tasks.length;
         },
         running: function () {
-            return workers;
+            return numRunning;
         },
         workersList: function () {
             return workersList;
         },
         idle: function () {
-            return q._tasks.length + workers === 0;
+            return q._tasks.length + numRunning === 0;
         },
         pause: function () {
             q.paused = true;
@@ -27353,9 +27262,8 @@ function queue(worker, concurrency, payload) {
  * @method
  * @see [async.queue]{@link module:ControlFlow.queue}
  * @category Control Flow
- * @param {Function} worker - An asynchronous function for processing an array
- * of queued tasks, which must call its `callback(err)` argument when finished,
- * with an optional `err` argument. Invoked with `(tasks, callback)`.
+ * @param {AsyncFunction} worker - An asynchronous function for processing an array
+ * of queued tasks. Invoked with `(tasks, callback)`.
  * @param {number} [payload=Infinity] - An optional `integer` for determining
  * how many tasks should be processed per round; if omitted, the default is
  * unlimited.
@@ -27398,11 +27306,9 @@ function cargo(worker, payload) {
  * @alias forEachOfSeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`. The
- * `key` is the item's key, or index in the case of an array. The iteratee is
- * passed a `callback(err)` which must be called once it has completed. If no
- * error has occurred, the callback should be run without arguments or with an
- * explicit `null` argument. Invoked with (item, key, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * Invoked with (item, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Invoked with (err).
  */
@@ -27428,12 +27334,12 @@ var eachOfSeries = doLimit(eachOfLimit, 1);
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {*} memo - The initial state of the reduction.
- * @param {Function} iteratee - A function applied to each item in the
- * array to produce the next step in the reduction. The `iteratee` is passed a
- * `callback(err, reduction)` which accepts an optional error as its first
- * argument, and the state of the reduction as the second. If an error is
- * passed to the callback, the reduction is stopped and the main `callback` is
- * immediately called with the error. Invoked with (memo, item, callback).
+ * @param {AsyncFunction} iteratee - A function applied to each item in the
+ * array to produce the next step in the reduction.
+ * The `iteratee` should complete with the next state of the reduction.
+ * If the iteratee complete with an error, the reduction is stopped and the
+ * main `callback` is immediately called with the error.
+ * Invoked with (memo, item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result is the reduced value. Invoked with
  * (err, result).
@@ -27450,8 +27356,9 @@ var eachOfSeries = doLimit(eachOfLimit, 1);
  */
 function reduce(coll, memo, iteratee, callback) {
     callback = once(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
     eachOfSeries(coll, function (x, i, callback) {
-        iteratee(memo, x, function (err, v) {
+        _iteratee(memo, x, function (err, v) {
             memo = v;
             callback(err);
         });
@@ -27473,7 +27380,7 @@ function reduce(coll, memo, iteratee, callback) {
  * @method
  * @see [async.compose]{@link module:ControlFlow.compose}
  * @category Control Flow
- * @param {...Function} functions - the asynchronous functions to compose
+ * @param {...AsyncFunction} functions - the asynchronous functions to compose
  * @returns {Function} a function that composes the `functions` in order
  * @example
  *
@@ -27499,6 +27406,7 @@ function reduce(coll, memo, iteratee, callback) {
  * });
  */
 var seq$1 = rest(function seq(functions) {
+    var _functions = arrayMap(functions, wrapAsync$1);
     return rest(function (args) {
         var that = this;
 
@@ -27509,7 +27417,7 @@ var seq$1 = rest(function seq(functions) {
             cb = noop;
         }
 
-        reduce(functions, args, function (newargs, fn, cb) {
+        reduce(_functions, args, function (newargs, fn, cb) {
             fn.apply(that, newargs.concat(rest(function (err, nextargs) {
                 cb(err, nextargs);
             })));
@@ -27532,7 +27440,7 @@ var seq$1 = rest(function seq(functions) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {...Function} functions - the asynchronous functions to compose
+ * @param {...AsyncFunction} functions - the asynchronous functions to compose
  * @returns {Function} an asynchronous function that is the composed
  * asynchronous `functions`
  * @example
@@ -27583,10 +27491,8 @@ function concat$1(eachfn, arr, fn, callback) {
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, results)` which must be called once
- * it has completed with an error (which can be `null`) and an array of results.
- * Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`,
+ * which should use an array as its result. Invoked with (item, callback).
  * @param {Function} [callback(err)] - A callback which is called after all the
  * `iteratee` functions have finished, or an error occurs. Results is an array
  * containing the concatenated results of the `iteratee` function. Invoked with
@@ -27601,7 +27507,7 @@ var concat = doParallel(concat$1);
 
 function doSeries(fn) {
     return function (obj, iteratee, callback) {
-        return fn(eachOfSeries, obj, iteratee, callback);
+        return fn(eachOfSeries, obj, wrapAsync$1(iteratee), callback);
     };
 }
 
@@ -27615,9 +27521,8 @@ function doSeries(fn) {
  * @see [async.concat]{@link module:Collections.concat}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, results)` which must be called once
- * it has completed with an error (which can be `null`) and an array of results.
+ * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`.
+ * The iteratee should complete with an array an array of results.
  * Invoked with (item, callback).
  * @param {Function} [callback(err)] - A callback which is called after all the
  * `iteratee` functions have finished, or an error occurs. Results is an array
@@ -27638,7 +27543,7 @@ var concatSeries = doSeries(concat$1);
  * @category Util
  * @param {...*} arguments... - Any number of arguments to automatically invoke
  * callback with.
- * @returns {Function} Returns a function that when invoked, automatically
+ * @returns {AsyncFunction} Returns a function that when invoked, automatically
  * invokes the callback with the previous given arguments.
  * @example
  *
@@ -27723,9 +27628,9 @@ function _findGetResult(v, x) {
  * @alias find
  * @category Collections
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, truthValue)` which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
+ * The iteratee must complete with a boolean value as its result.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the `iteratee` functions have finished.
  * Result will be the first item in the array that passes the truth test
@@ -27756,9 +27661,9 @@ var detect = doParallel(_createTester(identity, _findGetResult));
  * @category Collections
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, truthValue)` which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
+ * The iteratee must complete with a boolean value as its result.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the `iteratee` functions have finished.
  * Result will be the first item in the array that passes the truth test
@@ -27778,9 +27683,9 @@ var detectLimit = doParallelLimit(_createTester(identity, _findGetResult));
  * @alias findSeries
  * @category Collections
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, truthValue)` which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
+ * The iteratee must complete with a boolean value as its result.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the `iteratee` functions have finished.
  * Result will be the first item in the array that passes the truth test
@@ -27791,7 +27696,7 @@ var detectSeries = doLimit(detectLimit, 1);
 
 function consoleFunc(name) {
     return rest(function (fn, args) {
-        fn.apply(null, args.concat(rest(function (err, args) {
+        wrapAsync$1(fn).apply(null, args.concat(rest(function (err, args) {
             if (typeof console === 'object') {
                 if (err) {
                     if (console.error) {
@@ -27808,10 +27713,11 @@ function consoleFunc(name) {
 }
 
 /**
- * Logs the result of an `async` function to the `console` using `console.dir`
- * to display the properties of the resulting object. Only works in Node.js or
- * in browsers that support `console.dir` and `console.error` (such as FF and
- * Chrome). If multiple arguments are returned from the async function,
+ * Logs the result of an [`async` function]{@link AsyncFunction} to the
+ * `console` using `console.dir` to display the properties of the resulting object.
+ * Only works in Node.js or in browsers that support `console.dir` and
+ * `console.error` (such as FF and Chrome).
+ * If multiple arguments are returned from the async function,
  * `console.dir` is called on each argument in order.
  *
  * @name dir
@@ -27819,8 +27725,8 @@ function consoleFunc(name) {
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} function - The function you want to eventually apply all
- * arguments to.
+ * @param {AsyncFunction} function - The function you want to eventually apply
+ * all arguments to.
  * @param {...*} arguments... - Any number of arguments to apply to the function.
  * @example
  *
@@ -27848,29 +27754,30 @@ var dir = consoleFunc('dir');
  * @method
  * @see [async.during]{@link module:ControlFlow.during}
  * @category Control Flow
- * @param {Function} fn - A function which is called each time `test` passes.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
- * @param {Function} test - asynchronous truth test to perform before each
+ * @param {AsyncFunction} fn - An async function which is called each time
+ * `test` passes. Invoked with (callback).
+ * @param {AsyncFunction} test - asynchronous truth test to perform before each
  * execution of `fn`. Invoked with (...args, callback), where `...args` are the
  * non-error args from the previous callback of `fn`.
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error if one occured, otherwise `null`.
+ * will be passed an error if one occurred, otherwise `null`.
  */
 function doDuring(fn, test, callback) {
     callback = onlyOnce(callback || noop);
+    var _fn = wrapAsync$1(fn);
+    var _test = wrapAsync$1(test);
 
     var next = rest(function (err, args) {
         if (err) return callback(err);
         args.push(check);
-        test.apply(this, args);
+        _test.apply(this, args);
     });
 
     function check(err, truth) {
         if (err) return callback(err);
         if (!truth) return callback(null);
-        fn(next);
+        _fn(next);
     }
 
     check(null, true);
@@ -27888,11 +27795,10 @@ function doDuring(fn, test, callback) {
  * @method
  * @see [async.whilst]{@link module:ControlFlow.whilst}
  * @category Control Flow
- * @param {Function} iteratee - A function which is called each time `test`
- * passes. The function is passed a `callback(err)`, which must be called once
- * it has completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} iteratee - A function which is called each time `test`
+ * passes. Invoked with (callback).
  * @param {Function} test - synchronous truth test to perform after each
- * execution of `iteratee`. Invoked with the non-error callback results of 
+ * execution of `iteratee`. Invoked with any non-error callback results of
  * `iteratee`.
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `iteratee` has stopped.
@@ -27901,12 +27807,13 @@ function doDuring(fn, test, callback) {
  */
 function doWhilst(iteratee, test, callback) {
     callback = onlyOnce(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
     var next = rest(function (err, args) {
         if (err) return callback(err);
-        if (test.apply(this, args)) return iteratee(next);
+        if (test.apply(this, args)) return _iteratee(next);
         callback.apply(null, [null].concat(args));
     });
-    iteratee(next);
+    _iteratee(next);
 }
 
 /**
@@ -27919,18 +27826,18 @@ function doWhilst(iteratee, test, callback) {
  * @method
  * @see [async.doWhilst]{@link module:ControlFlow.doWhilst}
  * @category Control Flow
- * @param {Function} fn - A function which is called each time `test` fails.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} iteratee - An async function which is called each time
+ * `test` fails. Invoked with (callback).
  * @param {Function} test - synchronous truth test to perform after each
- * execution of `fn`. Invoked with the non-error callback results of `fn`.
+ * execution of `iteratee`. Invoked with any non-error callback results of
+ * `iteratee`.
  * @param {Function} [callback] - A callback which is called after the test
- * function has passed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `fn`'s
+ * function has passed and repeated execution of `iteratee` has stopped. `callback`
+ * will be passed an error and any arguments passed to the final `iteratee`'s
  * callback. Invoked with (err, [results]);
  */
-function doUntil(fn, test, callback) {
-    doWhilst(fn, function () {
+function doUntil(iteratee, test, callback) {
+    doWhilst(iteratee, function () {
         return !test.apply(this, arguments);
     }, callback);
 }
@@ -27947,14 +27854,13 @@ function doUntil(fn, test, callback) {
  * @method
  * @see [async.whilst]{@link module:ControlFlow.whilst}
  * @category Control Flow
- * @param {Function} test - asynchronous truth test to perform before each
+ * @param {AsyncFunction} test - asynchronous truth test to perform before each
  * execution of `fn`. Invoked with (callback).
- * @param {Function} fn - A function which is called each time `test` passes.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} fn - An async function which is called each time
+ * `test` passes. Invoked with (callback).
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error, if one occured, otherwise `null`.
+ * will be passed an error, if one occurred, otherwise `null`.
  * @example
  *
  * var count = 0;
@@ -27974,19 +27880,21 @@ function doUntil(fn, test, callback) {
  */
 function during(test, fn, callback) {
     callback = onlyOnce(callback || noop);
+    var _fn = wrapAsync$1(fn);
+    var _test = wrapAsync$1(test);
 
     function next(err) {
         if (err) return callback(err);
-        test(check);
+        _test(check);
     }
 
     function check(err, truth) {
         if (err) return callback(err);
         if (!truth) return callback(null);
-        fn(next);
+        _fn(next);
     }
 
-    test(check);
+    _test(check);
 }
 
 function _withoutIndex(iteratee) {
@@ -28012,12 +27920,10 @@ function _withoutIndex(iteratee) {
  * @alias forEach
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item
- * in `coll`. The iteratee is passed a `callback(err)` which must be called once
- * it has completed. If no error has occurred, the `callback` should be run
- * without arguments or with an explicit `null` argument. The array index is not
- * passed to the iteratee. Invoked with (item, callback). If you need the index,
- * use `eachOf`.
+ * @param {AsyncFunction} iteratee - An async function to apply to
+ * each item in `coll`. Invoked with (item, callback).
+ * The array index is not passed to the iteratee.
+ * If you need the index, use `eachOf`.
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  * @example
@@ -28055,7 +27961,7 @@ function _withoutIndex(iteratee) {
  * });
  */
 function eachLimit(coll, iteratee, callback) {
-  eachOf(coll, _withoutIndex(iteratee), callback);
+  eachOf(coll, _withoutIndex(wrapAsync$1(iteratee)), callback);
 }
 
 /**
@@ -28070,17 +27976,16 @@ function eachLimit(coll, iteratee, callback) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`. The
- * iteratee is passed a `callback(err)` which must be called once it has
- * completed. If no error has occurred, the `callback` should be run without
- * arguments or with an explicit `null` argument. The array index is not passed
- * to the iteratee. Invoked with (item, callback). If you need the index, use
- * `eachOfLimit`.
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The array index is not passed to the iteratee.
+ * If you need the index, use `eachOfLimit`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  */
 function eachLimit$1(coll, limit, iteratee, callback) {
-  _eachOfLimit(limit)(coll, _withoutIndex(iteratee), callback);
+  _eachOfLimit(limit)(coll, _withoutIndex(wrapAsync$1(iteratee)), callback);
 }
 
 /**
@@ -28094,12 +27999,11 @@ function eachLimit$1(coll, limit, iteratee, callback) {
  * @alias forEachSeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each
- * item in `coll`. The iteratee is passed a `callback(err)` which must be called
- * once it has completed. If no error has occurred, the `callback` should be run
- * without arguments or with an explicit `null` argument. The array index is
- * not passed to the iteratee. Invoked with (item, callback). If you need the
- * index, use `eachOfSeries`.
+ * @param {AsyncFunction} iteratee - An async function to apply to each
+ * item in `coll`.
+ * The array index is not passed to the iteratee.
+ * If you need the index, use `eachOfSeries`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called when all
  * `iteratee` functions have finished, or an error occurs. Invoked with (err).
  */
@@ -28111,16 +28015,17 @@ var eachSeries = doLimit(eachLimit$1, 1);
  * no extra deferral is added. This is useful for preventing stack overflows
  * (`RangeError: Maximum call stack size exceeded`) and generally keeping
  * [Zalgo](http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony)
- * contained.
+ * contained. ES2017 `async` functions are returned as-is -- they are immune
+ * to Zalgo's corrupting influences, as they always resolve on a later tick.
  *
  * @name ensureAsync
  * @static
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} fn - an async function, one that expects a node-style
+ * @param {AsyncFunction} fn - an async function, one that expects a node-style
  * callback as its last argument.
- * @returns {Function} Returns a wrapped function with the exact same call
+ * @returns {AsyncFunction} Returns a wrapped function with the exact same call
  * signature as the function passed in.
  * @example
  *
@@ -28140,6 +28045,7 @@ var eachSeries = doLimit(eachLimit$1, 1);
  * async.mapSeries(args, async.ensureAsync(sometimesAsync), done);
  */
 function ensureAsync(fn) {
+    if (isAsync(fn)) return fn;
     return initialParams(function (args, callback) {
         var sync = true;
         args.push(function () {
@@ -28172,10 +28078,10 @@ function notId(v) {
  * @alias all
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the
- * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
- * with (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collection in parallel.
+ * The iteratee must complete with a boolean result value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
  * depending on the values of the async tests. Invoked with (err, result).
@@ -28203,10 +28109,10 @@ var every = doParallel(_createTester(notId, notId));
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in the
- * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
- * with (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collection in parallel.
+ * The iteratee must complete with a boolean result value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
  * depending on the values of the async tests. Invoked with (err, result).
@@ -28224,10 +28130,10 @@ var everyLimit = doParallelLimit(_createTester(notId, notId));
  * @alias allSeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the
- * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
- * with (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collection in series.
+ * The iteratee must complete with a boolean result value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
  * depending on the values of the async tests. Invoked with (err, result).
@@ -28290,7 +28196,7 @@ function filterGeneric(eachfn, coll, iteratee, callback) {
 
 function _filter(eachfn, coll, iteratee, callback) {
     var filter = isArrayLike(coll) ? filterArray : filterGeneric;
-    filter(eachfn, coll, iteratee, callback || noop);
+    filter(eachfn, coll, wrapAsync$1(iteratee), callback || noop);
 }
 
 /**
@@ -28366,16 +28272,16 @@ var filterSeries = doLimit(filterLimit, 1);
  * Calls the asynchronous function `fn` with a callback parameter that allows it
  * to call itself again, in series, indefinitely.
 
- * If an error is passed to the
- * callback then `errback` is called with the error, and execution stops,
- * otherwise it will never be called.
+ * If an error is passed to the callback then `errback` is called with the
+ * error, and execution stops, otherwise it will never be called.
  *
  * @name forever
  * @static
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Function} fn - a function to call repeatedly. Invoked with (next).
+ * @param {AsyncFunction} fn - an async function to call repeatedly.
+ * Invoked with (next).
  * @param {Function} [errback] - when `fn` passes an error to it's callback,
  * this function will be called, and execution stops. Invoked with (err).
  * @example
@@ -28393,7 +28299,7 @@ var filterSeries = doLimit(filterLimit, 1);
  */
 function forever(fn, errback) {
     var done = onlyOnce(errback || noop);
-    var task = ensureAsync(fn);
+    var task = wrapAsync$1(ensureAsync(fn));
 
     function next(err) {
         if (err) return done(err);
@@ -28413,19 +28319,19 @@ function forever(fn, errback) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, key)` which must be called once it
- * has completed with an error (which can be `null`) and the `key` to group the
- * value under. Invoked with (value, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a `key` to group the value under.
+ * Invoked with (value, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Result is an `Object` whoses
  * properties are arrays of values which returned the corresponding key.
  */
 var groupByLimit = function (coll, limit, iteratee, callback) {
     callback = callback || noop;
-
+    var _iteratee = wrapAsync$1(iteratee);
     mapLimit(coll, limit, function (val, callback) {
-        iteratee(val, function (err, key) {
+        _iteratee(val, function (err, key) {
             if (err) return callback(err);
             return callback(null, { key: key, val: val });
         });
@@ -28468,10 +28374,10 @@ var groupByLimit = function (coll, limit, iteratee, callback) {
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, key)` which must be called once it
- * has completed with an error (which can be `null`) and the `key` to group the
- * value under. Invoked with (value, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a `key` to group the value under.
+ * Invoked with (value, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Result is an `Object` whoses
  * properties are arrays of values which returned the corresponding key.
@@ -28500,10 +28406,10 @@ var groupBy = doLimit(groupByLimit, Infinity);
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, key)` which must be called once it
- * has completed with an error (which can be `null`) and the `key` to group the
- * value under. Invoked with (value, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a `key` to group the value under.
+ * Invoked with (value, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. Result is an `Object` whoses
  * properties are arrays of values which returned the corresponding key.
@@ -28521,8 +28427,8 @@ var groupBySeries = doLimit(groupByLimit, 1);
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} function - The function you want to eventually apply all
- * arguments to.
+ * @param {AsyncFunction} function - The function you want to eventually apply
+ * all arguments to.
  * @param {...*} arguments... - Any number of arguments to apply to the function.
  * @example
  *
@@ -28551,10 +28457,10 @@ var log = consoleFunc('log');
  * @category Collection
  * @param {Object} obj - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A function to apply to each value in `obj`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed value. Invoked with (value, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each value and key
+ * in `coll`.
+ * The iteratee should complete with the transformed value as its result.
+ * Invoked with (value, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. `result` is a new object consisting
  * of each key from `obj`, with each transformed value on the right-hand side.
@@ -28563,8 +28469,9 @@ var log = consoleFunc('log');
 function mapValuesLimit(obj, limit, iteratee, callback) {
     callback = once(callback || noop);
     var newObj = {};
+    var _iteratee = wrapAsync$1(iteratee);
     eachOfLimit(obj, limit, function (val, key, next) {
-        iteratee(val, key, function (err, result) {
+        _iteratee(val, key, function (err, result) {
             if (err) return next(err);
             newObj[key] = result;
             next();
@@ -28593,10 +28500,10 @@ function mapValuesLimit(obj, limit, iteratee, callback) {
  * @method
  * @category Collection
  * @param {Object} obj - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each value and key in
- * `coll`. The iteratee is passed a `callback(err, transformed)` which must be
- * called once it has completed with an error (which can be `null`) and a
- * transformed value. Invoked with (value, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each value and key
+ * in `coll`.
+ * The iteratee should complete with the transformed value as its result.
+ * Invoked with (value, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. `result` is a new object consisting
  * of each key from `obj`, with each transformed value on the right-hand side.
@@ -28631,10 +28538,10 @@ var mapValues = doLimit(mapValuesLimit, Infinity);
  * @see [async.mapValues]{@link module:Collections.mapValues}
  * @category Collection
  * @param {Object} obj - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each value in `obj`.
- * The iteratee is passed a `callback(err, transformed)` which must be called
- * once it has completed with an error (which can be `null`) and a
- * transformed value. Invoked with (value, key, callback).
+ * @param {AsyncFunction} iteratee - A function to apply to each value and key
+ * in `coll`.
+ * The iteratee should complete with the transformed value as its result.
+ * Invoked with (value, key, callback).
  * @param {Function} [callback] - A callback which is called when all `iteratee`
  * functions have finished, or an error occurs. `result` is a new object consisting
  * of each key from `obj`, with each transformed value on the right-hand side.
@@ -28647,7 +28554,7 @@ function has(obj, key) {
 }
 
 /**
- * Caches the results of an `async` function. When creating a hash to store
+ * Caches the results of an async function. When creating a hash to store
  * function results against, the callback is omitted from the hash and an
  * optional hash function can be used.
  *
@@ -28665,11 +28572,11 @@ function has(obj, key) {
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} fn - The function to proxy and cache results from.
+ * @param {AsyncFunction} fn - The async function to proxy and cache results from.
  * @param {Function} hasher - An optional function for generating a custom hash
  * for storing results. It has all the arguments applied to it apart from the
  * callback, and must be synchronous.
- * @returns {Function} a memoized version of `fn`
+ * @returns {AsyncFunction} a memoized version of `fn`
  * @example
  *
  * var slow_fn = function(name, callback) {
@@ -28687,6 +28594,7 @@ function memoize(fn, hasher) {
     var memo = Object.create(null);
     var queues = Object.create(null);
     hasher = hasher || identity;
+    var _fn = wrapAsync$1(fn);
     var memoized = initialParams(function memoized(args, callback) {
         var key = hasher.apply(null, args);
         if (has(memo, key)) {
@@ -28697,7 +28605,7 @@ function memoize(fn, hasher) {
             queues[key].push(callback);
         } else {
             queues[key] = [callback];
-            fn.apply(null, args.concat(rest(function (args) {
+            _fn.apply(null, args.concat(rest(function (args) {
                 memo[key] = args;
                 var q = queues[key];
                 delete queues[key];
@@ -28760,7 +28668,7 @@ function _parallel(eachfn, tasks, callback) {
     var results = isArrayLike(tasks) ? [] : {};
 
     eachfn(tasks, function (task, key, callback) {
-        task(rest(function (err, args) {
+        wrapAsync$1(task)(rest(function (err, args) {
             if (args.length <= 1) {
                 args = args[0];
             }
@@ -28784,6 +28692,7 @@ function _parallel(eachfn, tasks, callback) {
  * any I/O, they will actually be executed in series.  Any synchronous setup
  * sections for each task will happen one after the other.  JavaScript remains
  * single-threaded.
+ *
  * **Hint:** Use [`reflect`]{@link module:Utils.reflect} to continue the
  * execution of other tasks when a task fails.
  *
@@ -28797,14 +28706,14 @@ function _parallel(eachfn, tasks, callback) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection containing functions to run.
- * Each function is passed a `callback(err, result)` which it must call on
- * completion with an error `err` (which can be `null`) and an optional `result`
- * value.
+ * @param {Array|Iterable|Object} tasks - A collection of
+ * [async functions]{@link AsyncFunction} to run.
+ * Each async function can complete with any number of optional `result` values.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed successfully. This function gets a results array
  * (or object) containing all the result arguments passed to the task callbacks.
  * Invoked with (err, results).
+ *
  * @example
  * async.parallel([
  *     function(callback) {
@@ -28854,10 +28763,9 @@ function parallelLimit(tasks, callback) {
  * @method
  * @see [async.parallel]{@link module:ControlFlow.parallel}
  * @category Control Flow
- * @param {Array|Collection} tasks - A collection containing functions to run.
- * Each function is passed a `callback(err, result)` which it must call on
- * completion with an error `err` (which can be `null`) and an optional `result`
- * value.
+ * @param {Array|Iterable|Object} tasks - A collection of
+ * [async functions]{@link AsyncFunction} to run.
+ * Each async function can complete with any number of optional `result` values.
  * @param {number} limit - The maximum number of async operations at a time.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed successfully. This function gets a results array
@@ -28926,11 +28834,9 @@ function parallelLimit$1(tasks, limit, callback) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Function} worker - An asynchronous function for processing a queued
- * task, which must call its `callback(err)` argument when finished, with an
- * optional `error` as an argument.  If you want to handle errors from an
- * individual task, pass a callback to `q.push()`. Invoked with
- * (task, callback).
+ * @param {AsyncFunction} worker - An async function for processing a queued task.
+ * If you want to handle errors from an individual task, pass a callback to
+ * `q.push()`. Invoked with (task, callback).
  * @param {number} [concurrency=1] - An `integer` for determining how many
  * `worker` functions should be run in parallel.  If omitted, the concurrency
  * defaults to `1`.  If the concurrency is `0`, an error is thrown.
@@ -28969,8 +28875,9 @@ function parallelLimit$1(tasks, limit, callback) {
  * });
  */
 var queue$1 = function (worker, concurrency) {
+  var _worker = wrapAsync$1(worker);
   return queue(function (items, cb) {
-    worker(items[0], cb);
+    _worker(items[0], cb);
   }, concurrency, 1);
 };
 
@@ -28984,11 +28891,10 @@ var queue$1 = function (worker, concurrency) {
  * @method
  * @see [async.queue]{@link module:ControlFlow.queue}
  * @category Control Flow
- * @param {Function} worker - An asynchronous function for processing a queued
- * task, which must call its `callback(err)` argument when finished, with an
- * optional `error` as an argument.  If you want to handle errors from an
- * individual task, pass a callback to `q.push()`. Invoked with
- * (task, callback).
+ * @param {AsyncFunction} worker - An async function for processing a queued task.
+ * If you want to handle errors from an individual task, pass a callback to
+ * `q.push()`.
+ * Invoked with (task, callback).
  * @param {number} concurrency - An `integer` for determining how many `worker`
  * functions should be run in parallel.  If omitted, the concurrency defaults to
  * `1`.  If the concurrency is `0`, an error is thrown.
@@ -29058,9 +28964,8 @@ var priorityQueue = function (worker, concurrency) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array} tasks - An array containing functions to run. Each function
- * is passed a `callback(err, result)` which it must call on completion with an
- * error `err` (which can be `null`) and an optional `result` value.
+ * @param {Array} tasks - An array containing [async functions]{@link AsyncFunction}
+ * to run. Each function can complete with an optional `result` value.
  * @param {Function} callback - A callback to run once any of the functions have
  * completed. This function gets an error or result from the first function that
  * completed. Invoked with (err, result).
@@ -29089,7 +28994,7 @@ function race(tasks, callback) {
     if (!isArray(tasks)) return callback(new TypeError('First argument to race must be an array of functions'));
     if (!tasks.length) return callback();
     for (var i = 0, l = tasks.length; i < l; i++) {
-        tasks[i](callback);
+        wrapAsync$1(tasks[i])(callback);
     }
 }
 
@@ -29107,12 +29012,12 @@ var slice = Array.prototype.slice;
  * @category Collection
  * @param {Array} array - A collection to iterate over.
  * @param {*} memo - The initial state of the reduction.
- * @param {Function} iteratee - A function applied to each item in the
- * array to produce the next step in the reduction. The `iteratee` is passed a
- * `callback(err, reduction)` which accepts an optional error as its first
- * argument, and the state of the reduction as the second. If an error is
- * passed to the callback, the reduction is stopped and the main `callback` is
- * immediately called with the error. Invoked with (memo, item, callback).
+ * @param {AsyncFunction} iteratee - A function applied to each item in the
+ * array to produce the next step in the reduction.
+ * The `iteratee` should complete with the next state of the reduction.
+ * If the iteratee complete with an error, the reduction is stopped and the
+ * main `callback` is immediately called with the error.
+ * Invoked with (memo, item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result is the reduced value. Invoked with
  * (err, result).
@@ -29123,17 +29028,17 @@ function reduceRight(array, memo, iteratee, callback) {
 }
 
 /**
- * Wraps the function in another function that always returns data even when it
- * errors.
+ * Wraps the async function in another function that always completes with a
+ * result object, even when it errors.
  *
- * The object returned has either the property `error` or `value`.
+ * The result object has either the property `error` or `value`.
  *
  * @name reflect
  * @static
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} fn - The function you want to wrap
+ * @param {AsyncFunction} fn - The async function you want to wrap
  * @returns {Function} - A function that always passes null to it's callback as
  * the error. The second argument to the callback will be an `object` with
  * either an `error` or a `value` property.
@@ -29162,6 +29067,7 @@ function reduceRight(array, memo, iteratee, callback) {
  * });
  */
 function reflect(fn) {
+    var _fn = wrapAsync$1(fn);
     return initialParams(function reflectOn(args, reflectCallback) {
         args.push(rest(function callback(err, cbArgs) {
             if (err) {
@@ -29181,7 +29087,7 @@ function reflect(fn) {
             }
         }));
 
-        return fn.apply(this, args);
+        return _fn.apply(this, args);
     });
 }
 
@@ -29203,9 +29109,10 @@ function reject$1(eachfn, arr, iteratee, callback) {
  * @see [async.filter]{@link module:Collections.filter}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {Function} iteratee - An async truth test to apply to each item in
+ * `coll`.
+ * The should complete with a boolean value as its `result`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Invoked with (err, results).
  * @example
@@ -29222,7 +29129,7 @@ function reject$1(eachfn, arr, iteratee, callback) {
 var reject = doParallel(reject$1);
 
 /**
- * A helper function that wraps an array or an object of functions with reflect.
+ * A helper function that wraps an array or an object of functions with `reflect`.
  *
  * @name reflectAll
  * @static
@@ -29230,8 +29137,9 @@ var reject = doParallel(reject$1);
  * @method
  * @see [async.reflect]{@link module:Utils.reflect}
  * @category Util
- * @param {Array} tasks - The array of functions to wrap in `async.reflect`.
- * @returns {Array} Returns an array of functions, each function wrapped in
+ * @param {Array|Object|Iterable} tasks - The collection of
+ * [async functions]{@link AsyncFunction} to wrap in `async.reflect`.
+ * @returns {Array} Returns an array of async functions, each wrapped in
  * `async.reflect`
  * @example
  *
@@ -29312,9 +29220,10 @@ function reflectAll(tasks) {
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {Function} iteratee - An async truth test to apply to each item in
+ * `coll`.
+ * The should complete with a boolean value as its `result`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Invoked with (err, results).
  */
@@ -29330,9 +29239,10 @@ var rejectLimit = doParallelLimit(reject$1);
  * @see [async.reject]{@link module:Collections.reject}
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
+ * @param {Function} iteratee - An async truth test to apply to each item in
+ * `coll`.
+ * The should complete with a boolean value as its `result`.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Invoked with (err, results).
  */
@@ -29374,6 +29284,7 @@ function constant$1(value) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
+ * @see [async.retryable]{@link module:ControlFlow.retryable}
  * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - Can be either an
  * object with `times` and `interval` or a number.
  * * `times` - The number of attempts to make before giving up.  The default
@@ -29388,16 +29299,13 @@ function constant$1(value) {
  *   Invoked with (err).
  * * If `opts` is a number, the number specifies the number of times to retry,
  *   with the default interval of `0`.
- * @param {Function} task - A function which receives two arguments: (1) a
- * `callback(err, result)` which must be called when finished, passing `err`
- * (which can be `null`) and the `result` of the function's execution, and (2)
- * a `results` object, containing the results of the previously executed
- * functions (if nested inside another control flow). Invoked with
- * (callback, results).
+ * @param {AsyncFunction} task - An async function to retry.
+ * Invoked with (callback).
  * @param {Function} [callback] - An optional callback which is called when the
  * task has succeeded, or after the final failed attempt. It receives the `err`
  * and `result` arguments of the last attempt at completing the `task`. Invoked
  * with (err, results).
+ *
  * @example
  *
  * // The `retry` function can be used as a stand-alone control flow by passing
@@ -29443,7 +29351,7 @@ function constant$1(value) {
  * // individual methods that are not as reliable, like this:
  * async.auto({
  *     users: api.getUsers.bind(api),
- *     payments: async.retry(3, api.getPayments.bind(api))
+ *     payments: async.retryable(3, api.getPayments.bind(api))
  * }, function(err, results) {
  *     // do something with the results
  * });
@@ -29484,9 +29392,11 @@ function retry(opts, task, callback) {
         throw new Error("Invalid arguments for async.retry");
     }
 
+    var _task = wrapAsync$1(task);
+
     var attempt = 1;
     function retryAttempt() {
-        task(function (err) {
+        _task(function (err) {
             if (err && attempt++ < options.times && (typeof options.errorFilter != 'function' || options.errorFilter(err))) {
                 setTimeout(retryAttempt, options.intervalFunc(attempt));
             } else {
@@ -29499,8 +29409,9 @@ function retry(opts, task, callback) {
 }
 
 /**
- * A close relative of [`retry`]{@link module:ControlFlow.retry}.  This method wraps a task and makes it
- * retryable, rather than immediately calling it with retries.
+ * A close relative of [`retry`]{@link module:ControlFlow.retry}.  This method
+ * wraps a task and makes it retryable, rather than immediately calling it
+ * with retries.
  *
  * @name retryable
  * @static
@@ -29510,9 +29421,12 @@ function retry(opts, task, callback) {
  * @category Control Flow
  * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - optional
  * options, exactly the same as from `retry`
- * @param {Function} task - the asynchronous function to wrap
- * @returns {Functions} The wrapped function, which when invoked, will retry on
- * an error, based on the parameters specified in `opts`.
+ * @param {AsyncFunction} task - the asynchronous function to wrap.
+ * This function will be passed any arguments passed to the returned wrapper.
+ * Invoked with (...args, callback).
+ * @returns {AsyncFunction} The wrapped function, which when invoked, will
+ * retry on an error, based on the parameters specified in `opts`.
+ * This function will accept the same parameters as `task`.
  * @example
  *
  * async.auto({
@@ -29527,9 +29441,10 @@ var retryable = function (opts, task) {
         task = opts;
         opts = null;
     }
+    var _task = wrapAsync$1(task);
     return initialParams(function (args, callback) {
         function taskFn(cb) {
-            task.apply(null, args.concat(cb));
+            _task.apply(null, args.concat(cb));
         }
 
         if (opts) retry(opts, taskFn, callback);else retry(taskFn, callback);
@@ -29562,9 +29477,9 @@ var retryable = function (opts, task) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection containing functions to run, each
- * function is passed a `callback(err, result)` it must call on completion with
- * an error `err` (which can be `null`) and an optional `result` value.
+ * @param {Array|Iterable|Object} tasks - A collection containing
+ * [async functions]{@link AsyncFunction} to run in series.
+ * Each function can complete with any number of optional `result` values.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed. This function gets a results array (or object)
  * containing all the result arguments passed to the `task` callbacks. Invoked
@@ -29616,10 +29531,10 @@ function series(tasks, callback) {
  * @alias any
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the array
- * in parallel. The iteratee is passed a `callback(err, truthValue)` which must
- * be called with a boolean argument once it has completed. Invoked with
- * (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collections in parallel.
+ * The iteratee should complete with a boolean `result` value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the iteratee functions have finished.
  * Result will be either `true` or `false` depending on the values of the async
@@ -29648,10 +29563,10 @@ var some = doParallel(_createTester(Boolean, identity));
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in the array
- * in parallel. The iteratee is passed a `callback(err, truthValue)` which must
- * be called with a boolean argument once it has completed. Invoked with
- * (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collections in parallel.
+ * The iteratee should complete with a boolean `result` value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the iteratee functions have finished.
  * Result will be either `true` or `false` depending on the values of the async
@@ -29670,10 +29585,10 @@ var someLimit = doParallelLimit(_createTester(Boolean, identity));
  * @alias anySeries
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in the array
- * in parallel. The iteratee is passed a `callback(err, truthValue)` which must
- * be called with a boolean argument once it has completed. Invoked with
- * (item, callback).
+ * @param {AsyncFunction} iteratee - An async truth test to apply to each item
+ * in the collections in series.
+ * The iteratee should complete with a boolean `result` value.
+ * Invoked with (item, callback).
  * @param {Function} [callback] - A callback which is called as soon as any
  * iteratee returns `true`, or after all the iteratee functions have finished.
  * Result will be either `true` or `false` depending on the values of the async
@@ -29691,10 +29606,11 @@ var someSeries = doLimit(someLimit, 1);
  * @method
  * @category Collection
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A function to apply to each item in `coll`.
- * The iteratee is passed a `callback(err, sortValue)` which must be called once
- * it has completed with an error (which can be `null`) and a value to use as
- * the sort criteria. Invoked with (item, callback).
+ * @param {AsyncFunction} iteratee - An async function to apply to each item in
+ * `coll`.
+ * The iteratee should complete with a value to use as the sort criteria as
+ * its `result`.
+ * Invoked with (item, callback).
  * @param {Function} callback - A callback which is called after all the
  * `iteratee` functions have finished, or an error occurs. Results is the items
  * from the original `coll` sorted by the values returned by the `iteratee`
@@ -29728,8 +29644,9 @@ var someSeries = doLimit(someLimit, 1);
  * });
  */
 function sortBy(coll, iteratee, callback) {
+    var _iteratee = wrapAsync$1(iteratee);
     map(coll, function (x, callback) {
-        iteratee(x, function (err, criteria) {
+        _iteratee(x, function (err, criteria) {
             if (err) return callback(err);
             callback(null, { value: x, criteria: criteria });
         });
@@ -29755,14 +29672,13 @@ function sortBy(coll, iteratee, callback) {
  * @memberOf module:Utils
  * @method
  * @category Util
- * @param {Function} asyncFn - The asynchronous function you want to set the
- * time limit.
+ * @param {AsyncFunction} asyncFn - The async function to limit in time.
  * @param {number} milliseconds - The specified time limit.
  * @param {*} [info] - Any variable you want attached (`string`, `object`, etc)
  * to timeout Error for more information..
- * @returns {Function} Returns a wrapped function that can be used with any of
- * the control flow functions. Invoke this function with the same
- * parameters as you would `asyncFunc`.
+ * @returns {AsyncFunction} Returns a wrapped function that can be used with any
+ * of the control flow functions.
+ * Invoke this function with the same parameters as you would `asyncFunc`.
  * @example
  *
  * function myFunction(foo, callback) {
@@ -29809,11 +29725,13 @@ function timeout(asyncFn, milliseconds, info) {
         originalCallback(error);
     }
 
+    var fn = wrapAsync$1(asyncFn);
+
     return initialParams(function (args, origCallback) {
         originalCallback = origCallback;
         // setup timer and call original function
         timer = setTimeout(timeoutCallback, milliseconds);
-        asyncFn.apply(null, args.concat(injectedCallback));
+        fn.apply(null, args.concat(injectedCallback));
     });
 }
 
@@ -29856,12 +29774,13 @@ function baseRange(start, end, step, fromRight) {
  * @category Control Flow
  * @param {number} count - The number of times to run the function.
  * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - The function to call `n` times. Invoked with the
- * iteration index and a callback (n, next).
+ * @param {AsyncFunction} iteratee - The async function to call `n` times.
+ * Invoked with the iteration index and a callback: (n, next).
  * @param {Function} callback - see [async.map]{@link module:Collections.map}.
  */
 function timeLimit(count, limit, iteratee, callback) {
-  mapLimit(baseRange(0, count, 1), limit, iteratee, callback);
+  var _iteratee = wrapAsync$1(iteratee);
+  mapLimit(baseRange(0, count, 1), limit, _iteratee, callback);
 }
 
 /**
@@ -29875,8 +29794,8 @@ function timeLimit(count, limit, iteratee, callback) {
  * @see [async.map]{@link module:Collections.map}
  * @category Control Flow
  * @param {number} n - The number of times to run the function.
- * @param {Function} iteratee - The function to call `n` times. Invoked with the
- * iteration index and a callback (n, next).
+ * @param {AsyncFunction} iteratee - The async function to call `n` times.
+ * Invoked with the iteration index and a callback: (n, next).
  * @param {Function} callback - see {@link module:Collections.map}.
  * @example
  *
@@ -29908,8 +29827,8 @@ var times = doLimit(timeLimit, Infinity);
  * @see [async.times]{@link module:ControlFlow.times}
  * @category Control Flow
  * @param {number} n - The number of times to run the function.
- * @param {Function} iteratee - The function to call `n` times. Invoked with the
- * iteration index and a callback (n, next).
+ * @param {AsyncFunction} iteratee - The async function to call `n` times.
+ * Invoked with the iteration index and a callback: (n, next).
  * @param {Function} callback - see {@link module:Collections.map}.
  */
 var timesSeries = doLimit(timeLimit, 1);
@@ -29927,11 +29846,8 @@ var timesSeries = doLimit(timeLimit, 1);
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {*} [accumulator] - The initial state of the transform.  If omitted,
  * it will default to an empty Object or Array, depending on the type of `coll`
- * @param {Function} iteratee - A function applied to each item in the
- * collection that potentially modifies the accumulator. The `iteratee` is
- * passed a `callback(err)` which accepts an optional error as its first
- * argument. If an error is passed to the callback, the transform is stopped
- * and the main `callback` is immediately called with the error.
+ * @param {AsyncFunction} iteratee - A function applied to each item in the
+ * collection that potentially modifies the accumulator.
  * Invoked with (accumulator, item, key, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result is the transformed accumulator.
@@ -29966,9 +29882,10 @@ function transform(coll, accumulator, iteratee, callback) {
         accumulator = isArray(coll) ? [] : {};
     }
     callback = once(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
 
     eachOf(coll, function (v, k, cb) {
-        iteratee(accumulator, v, k, cb);
+        _iteratee(accumulator, v, k, cb);
     }, function (err) {
         callback(err, accumulator);
     });
@@ -29984,8 +29901,8 @@ function transform(coll, accumulator, iteratee, callback) {
  * @method
  * @see [async.memoize]{@link module:Utils.memoize}
  * @category Util
- * @param {Function} fn - the memoized function
- * @returns {Function} a function that calls the original unmemoized function
+ * @param {AsyncFunction} fn - the memoized function
+ * @returns {AsyncFunction} a function that calls the original unmemoized function
  */
 function unmemoize(fn) {
     return function () {
@@ -30004,9 +29921,8 @@ function unmemoize(fn) {
  * @category Control Flow
  * @param {Function} test - synchronous truth test to perform before each
  * execution of `iteratee`. Invoked with ().
- * @param {Function} iteratee - A function which is called each time `test` passes.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * @param {AsyncFunction} iteratee - An async function which is called each time
+ * `test` passes. Invoked with (callback).
  * @param {Function} [callback] - A callback which is called after the test
  * function has failed and repeated execution of `iteratee` has stopped. `callback`
  * will be passed an error and any arguments passed to the final `iteratee`'s
@@ -30030,19 +29946,20 @@ function unmemoize(fn) {
  */
 function whilst(test, iteratee, callback) {
     callback = onlyOnce(callback || noop);
+    var _iteratee = wrapAsync$1(iteratee);
     if (!test()) return callback(null);
     var next = rest(function (err, args) {
         if (err) return callback(err);
-        if (test()) return iteratee(next);
+        if (test()) return _iteratee(next);
         callback.apply(null, [null].concat(args));
     });
-    iteratee(next);
+    _iteratee(next);
 }
 
 /**
- * Repeatedly call `fn` until `test` returns `true`. Calls `callback` when
+ * Repeatedly call `iteratee` until `test` returns `true`. Calls `callback` when
  * stopped, or an error occurs. `callback` will be passed an error and any
- * arguments passed to the final `fn`'s callback.
+ * arguments passed to the final `iteratee`'s callback.
  *
  * The inverse of [whilst]{@link module:ControlFlow.whilst}.
  *
@@ -30053,19 +29970,18 @@ function whilst(test, iteratee, callback) {
  * @see [async.whilst]{@link module:ControlFlow.whilst}
  * @category Control Flow
  * @param {Function} test - synchronous truth test to perform before each
- * execution of `fn`. Invoked with ().
- * @param {Function} fn - A function which is called each time `test` fails.
- * The function is passed a `callback(err)`, which must be called once it has
- * completed with an optional `err` argument. Invoked with (callback).
+ * execution of `iteratee`. Invoked with ().
+ * @param {AsyncFunction} iteratee - An async function which is called each time
+ * `test` fails. Invoked with (callback).
  * @param {Function} [callback] - A callback which is called after the test
- * function has passed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `fn`'s
+ * function has passed and repeated execution of `iteratee` has stopped. `callback`
+ * will be passed an error and any arguments passed to the final `iteratee`'s
  * callback. Invoked with (err, [results]);
  */
-function until(test, fn, callback) {
+function until(test, iteratee, callback) {
     whilst(function () {
         return !test.apply(this, arguments);
-    }, fn, callback);
+    }, iteratee, callback);
 }
 
 /**
@@ -30079,10 +29995,10 @@ function until(test, fn, callback) {
  * @memberOf module:ControlFlow
  * @method
  * @category Control Flow
- * @param {Array} tasks - An array of functions to run, each function is passed
- * a `callback(err, result1, result2, ...)` it must call on completion. The
- * first argument is an error (which can be `null`) and any further arguments
- * will be passed as arguments in order to the next task.
+ * @param {Array} tasks - An array of [async functions]{@link AsyncFunction}
+ * to run.
+ * Each function should complete with any number of `result` values.
+ * The `result` values will be passed as arguments, in order, to the next task.
  * @param {Function} [callback] - An optional callback to run once all the
  * functions have completed. This will be passed the results of the last task's
  * callback. Invoked with (err, [results]).
@@ -30145,7 +30061,7 @@ var waterfall = function (tasks, callback) {
 
         args.push(taskCallback);
 
-        var task = tasks[taskIndex++];
+        var task = wrapAsync$1(tasks[taskIndex++]);
         task.apply(null, args);
     }
 
@@ -30153,11 +30069,51 @@ var waterfall = function (tasks, callback) {
 };
 
 /**
+ * An "async function" in the context of Async is an asynchronous function with
+ * a variable number of parameters, with the final parameter being a callback.
+ * (`function (arg1, arg2, ..., callback) {}`)
+ * The final callback is of the form `callback(err, results...)`, which must be
+ * called once the function is completed.  The callback should be called with a
+ * Error as its first argument to signal that an error occurred.
+ * Otherwise, if no error occurred, it should be called with `null` as the first
+ * argument, and any additional `result` arguments that may apply, to signal
+ * successful completion.
+ * The callback must be called exactly once, ideally on a later tick of the
+ * JavaScript event loop.
+ *
+ * This type of function is also referred to as a "Node-style async function",
+ * or a "continuation passing-style function" (CPS). Most of the methods of this
+ * library are themselves CPS/Node-style async functions, or functions that
+ * return CPS/Node-style async functions.
+ *
+ * Wherever we accept a Node-style async function, we also directly accept an
+ * [ES2017 `async` function]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function}.
+ * In this case, the `async` function will not be passed a final callback
+ * argument, and any thrown error will be used as the `err` argument of the
+ * implicit callback, and the return value will be used as the `result` value.
+ * (i.e. a `rejected` of the returned Promise becomes the `err` callback
+ * argument, and a `resolved` value becomes the `result`.)
+ *
+ * Note, due to JavaScript limitations, we can only detect native `async`
+ * functions and not transpilied implementations.
+ * Your environment must have `async`/`await` support for this to work.
+ * (e.g. Node > v7.6, or a recent version of a modern browser).
+ * If you are using `async` functions through a transpiler (e.g. Babel), you
+ * must still wrap the function with [asyncify]{@link module:Utils.asyncify},
+ * because the `async function` will be compiled to an ordinary function that
+ * returns a promise.
+ *
+ * @typedef {Function} AsyncFunction
+ * @static
+ */
+
+/**
  * Async is a utility module which provides straight-forward, powerful functions
  * for working with asynchronous JavaScript. Although originally designed for
  * use with [Node.js](http://nodejs.org) and installable via
  * `npm install --save async`, it can also be used directly in the browser.
  * @module async
+ * @see AsyncFunction
  */
 
 /**
@@ -30175,6 +30131,7 @@ var waterfall = function (tasks, callback) {
  * A collection of `async` utility functions.
  * @module Utils
  */
+
 var index = {
   applyEach: applyEach,
   applyEachSeries: applyEachSeries,
@@ -30373,14 +30330,14 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const getRandomId = __webpack_require__(350)
-const extend = __webpack_require__(30)
+const getRandomId = __webpack_require__(349)
+const extend = __webpack_require__(28)
 
 module.exports = createPayload
 
@@ -30397,11 +30354,11 @@ function createPayload(data){
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const EventEmitter = __webpack_require__(16).EventEmitter
-const inherits = __webpack_require__(0).inherits
+const EventEmitter = __webpack_require__(19).EventEmitter
+const inherits = __webpack_require__(1).inherits
 
 module.exports = Stoplight
 
@@ -30436,7 +30393,7 @@ Stoplight.prototype.await = function(fn){
 }
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -30461,17 +30418,17 @@ Stoplight.prototype.await = function(fn){
  * @date 2015
  */
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 
-var SolidityTypeAddress = __webpack_require__(355);
-var SolidityTypeBool = __webpack_require__(356);
-var SolidityTypeInt = __webpack_require__(359);
-var SolidityTypeUInt = __webpack_require__(362);
-var SolidityTypeDynamicBytes = __webpack_require__(358);
-var SolidityTypeString = __webpack_require__(361);
-var SolidityTypeReal = __webpack_require__(360);
-var SolidityTypeUReal = __webpack_require__(363);
-var SolidityTypeBytes = __webpack_require__(357);
+var SolidityTypeAddress = __webpack_require__(354);
+var SolidityTypeBool = __webpack_require__(355);
+var SolidityTypeInt = __webpack_require__(358);
+var SolidityTypeUInt = __webpack_require__(361);
+var SolidityTypeDynamicBytes = __webpack_require__(357);
+var SolidityTypeString = __webpack_require__(360);
+var SolidityTypeReal = __webpack_require__(359);
+var SolidityTypeUReal = __webpack_require__(362);
+var SolidityTypeBytes = __webpack_require__(356);
 
 var isDynamic = function (solidityType, type) {
    return solidityType.isDynamicType(type) ||
@@ -30705,27 +30662,27 @@ module.exports = coder;
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ProviderEngine = __webpack_require__(344);
-var FilterSubprovider = __webpack_require__(348);
-var VmSubprovider = __webpack_require__(349);
+var ProviderEngine = __webpack_require__(346);
+var FilterSubprovider = __webpack_require__(347);
+var VmSubprovider = __webpack_require__(348);
 //var SolcSubprovider = require('web3-provider-engine/subproviders/solc.js')
 
-var BlockchainDouble = __webpack_require__(64);
+var BlockchainDouble = __webpack_require__(63);
 
-var RequestFunnel = __webpack_require__(247);
-var DelayedBlockFilter = __webpack_require__(243);
-var ReactiveBlockTracker = __webpack_require__(246);
-var GethDefaults = __webpack_require__(245);
-var GethApiDouble = __webpack_require__(244);
+var RequestFunnel = __webpack_require__(249);
+var DelayedBlockFilter = __webpack_require__(245);
+var ReactiveBlockTracker = __webpack_require__(248);
+var GethDefaults = __webpack_require__(247);
+var GethApiDouble = __webpack_require__(246);
 
 function Provider(options) {
   var self = this;
@@ -30811,7 +30768,7 @@ module.exports = Provider;
 
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -30905,7 +30862,7 @@ module.exports = AbstractChainedBatch
 
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -30960,14 +30917,14 @@ module.exports = AbstractIterator
 
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
 
-var xtend                = __webpack_require__(30)
-  , AbstractIterator     = __webpack_require__(83)
-  , AbstractChainedBatch = __webpack_require__(82)
+var xtend                = __webpack_require__(28)
+  , AbstractIterator     = __webpack_require__(82)
+  , AbstractChainedBatch = __webpack_require__(81)
 
 function AbstractLevelDOWN (location) {
   if (!arguments.length || location === undefined)
@@ -31238,17 +31195,17 @@ module.exports = AbstractLevelDOWN
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.AbstractLevelDOWN    = __webpack_require__(84)
-exports.AbstractIterator     = __webpack_require__(83)
-exports.AbstractChainedBatch = __webpack_require__(82)
-exports.isLevelDOWN          = __webpack_require__(142)
+exports.AbstractLevelDOWN    = __webpack_require__(83)
+exports.AbstractIterator     = __webpack_require__(82)
+exports.AbstractChainedBatch = __webpack_require__(81)
+exports.isLevelDOWN          = __webpack_require__(145)
 
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -31257,16 +31214,16 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 86;
+webpackEmptyContext.id = 85;
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -31464,13 +31421,13 @@ webpackEmptyContext.id = 86;
 }));
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(52));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -31792,13 +31749,13 @@ webpackEmptyContext.id = 86;
 }));
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(52));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -32120,7 +32077,7 @@ webpackEmptyContext.id = 86;
 }));
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -32205,7 +32162,7 @@ AbstractChainedBatch.prototype.write = function (options, callback) {
 module.exports = AbstractChainedBatch
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -32260,14 +32217,14 @@ module.exports = AbstractIterator
 
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
 
-var xtend                = __webpack_require__(30)
-  , AbstractIterator     = __webpack_require__(91)
-  , AbstractChainedBatch = __webpack_require__(90)
+var xtend                = __webpack_require__(28)
+  , AbstractIterator     = __webpack_require__(90)
+  , AbstractChainedBatch = __webpack_require__(89)
 
 function AbstractLevelDOWN (location) {
   if (!arguments.length || location === undefined)
@@ -32538,17 +32495,17 @@ module.exports = AbstractLevelDOWN
 
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.AbstractLevelDOWN    = __webpack_require__(92)
-exports.AbstractIterator     = __webpack_require__(91)
-exports.AbstractChainedBatch = __webpack_require__(90)
-exports.isLevelDOWN          = __webpack_require__(184)
+exports.AbstractLevelDOWN    = __webpack_require__(91)
+exports.AbstractIterator     = __webpack_require__(90)
+exports.AbstractChainedBatch = __webpack_require__(89)
+exports.isLevelDOWN          = __webpack_require__(187)
 
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var all = module.exports.all = [
@@ -32862,30 +32819,30 @@ all.forEach(function (error) {
   module.exports.code[error.code] = error
 })
 
-module.exports.custom = __webpack_require__(199)(module.exports)
+module.exports.custom = __webpack_require__(202)(module.exports)
 module.exports.create = module.exports.custom.createError
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var params = __webpack_require__(206)
+params.genesisState = __webpack_require__(205)
+params.bootstrapNodes = __webpack_require__(204)
+module.exports = params
 
 
 /***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var params = __webpack_require__(203)
-params.genesisState = __webpack_require__(202)
-params.bootstrapNodes = __webpack_require__(201)
-module.exports = params
-
-
-/***/ }),
-/* 96 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
+const SHA3 = __webpack_require__(45)
+const secp256k1 = __webpack_require__(32)
+const assert = __webpack_require__(17)
+const rlp = __webpack_require__(22)
+const BN = __webpack_require__(8)
+const createHash = __webpack_require__(18)
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -33584,24 +33541,21 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-const ethUtil = __webpack_require__(98)
-const fees = __webpack_require__(206)
+const ethUtil = __webpack_require__(11)
+const fees = __webpack_require__(209)
 const BN = ethUtil.BN
 
 // secp256k1n/2
 const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
 
 /**
- * Creates a new transaction object
- * @constructor
- * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
+ * Creates a new transaction object.
  *
- * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
  * @example
  * var rawTx = {
  *   nonce: '00',
@@ -33615,946 +33569,284 @@ const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46
  *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
  * };
  * var tx = new Transaction(rawTx);
- * @prop {Buffer} raw The raw rlp decoded transaction
- * @prop {Buffer} nonce
- * @prop {Buffer} to the to address
- * @prop {Buffer} value the amount of ether sent
- * @prop {Buffer} data this will contain the data of the message or the init of a contract
- * @prop {Buffer} v EC signature parameter
- * @prop {Buffer} r EC signature parameter
- * @prop {Buffer} s EC recovery ID
- */
-const Transaction = module.exports = function (data) {
-  // Define Properties
-  const fields = [{
-    name: 'nonce',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'gasPrice',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'gasLimit',
-    alias: 'gas',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'to',
-    allowZero: true,
-    length: 20,
-    default: new Buffer([])
-  }, {
-    name: 'value',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 'data',
-    alias: 'input',
-    allowZero: true,
-    default: new Buffer([])
-  }, {
-    name: 'v',
-    length: 1,
-    default: new Buffer([0x1c])
-  }, {
-    name: 'r',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }, {
-    name: 's',
-    length: 32,
-    allowLess: true,
-    default: new Buffer([])
-  }]
-
-  /**
-   * Returns the rlp encoding of the transaction
-   * @method serialize
-   * @return {Buffer}
-   */
-  // attached serialize
-  ethUtil.defineProperties(this, fields, data)
-
-  /**
-   * @prop {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
-   */
-  Object.defineProperty(this, 'from', {
-    enumerable: true,
-    configurable: true,
-    get: this.getSenderAddress.bind(this)
-  })
-
-  this._homestead = true
-}
-
-/**
- * If the tx's `to` is to the creation address
- * @method toCreationAddress
- * @return {Boolean}
- */
-Transaction.prototype.toCreationAddress = function () {
-  return this.to.toString('hex') === ''
-}
-
-/**
- * Computes a sha3-256 hash of the serialized tx
- * @method hash
- * @param {Boolean} [signature=true] whether or not to inculde the signature
- * @return {Buffer}
- */
-Transaction.prototype.hash = function (signature) {
-  let toHash
-
-  if (typeof signature === 'undefined') {
-    signature = true
-  }
-
-  toHash = signature ? this.raw : this.raw.slice(0, 6)
-
-  // create hash
-  return ethUtil.rlphash(toHash)
-}
-
-/**
- * returns the sender's address
- * @method getSenderAddress
- * @return {Buffer}
- */
-Transaction.prototype.getSenderAddress = function () {
-  if (this._from) {
-    return this._from
-  }
-  const pubkey = this.getSenderPublicKey()
-  this._from = ethUtil.publicToAddress(pubkey)
-  return this._from
-}
-
-/**
- * returns the public key of the sender
- * @method getSenderPublicKey
- * @return {Buffer}
- */
-Transaction.prototype.getSenderPublicKey = function () {
-  if (!this._senderPubKey || !this._senderPubKey.length) {
-    this.verifySignature()
-  }
-
-  return this._senderPubKey
-}
-
-/**
- * Determines if the signature is valid
- * @method verifySignature
- * @return {Boolean}
- */
-Transaction.prototype.verifySignature = function () {
-  const msgHash = this.hash(false)
-
-  // All transaction signatures whose s-value is greater than secp256k1n/2 are considered invalid.
-  if (this._homestead && new BN(this.s).cmp(N_DIV_2) === 1) {
-    return false
-  }
-
-  try {
-    this._senderPubKey = ethUtil.ecrecover(msgHash, this.v, this.r, this.s)
-  } catch (e) {
-    return false
-  }
-
-  return !!this._senderPubKey
-}
-
-/**
- * sign a transaction with a given a private key
- * @method sign
- * @param {Buffer} privateKey
- */
-Transaction.prototype.sign = function (privateKey) {
-  const msgHash = this.hash(false)
-  const sig = ethUtil.ecsign(msgHash, privateKey)
-  Object.assign(this, sig)
-}
-
-/**
- * The amount of gas paid for the data in this tx
- * @method getDataFee
- * @return {BN}
- */
-Transaction.prototype.getDataFee = function () {
-  const data = this.raw[5]
-  const cost = new BN(0)
-  for (var i = 0; i < data.length; i++) {
-    data[i] === 0 ? cost.iaddn(fees.txDataZeroGas.v) : cost.iaddn(fees.txDataNonZeroGas.v)
-  }
-  return cost
-}
-
-/**
- * the minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
- * @method getBaseFee
- * @return {BN}
- */
-Transaction.prototype.getBaseFee = function () {
-  const fee = this.getDataFee().iaddn(fees.txGas.v)
-  if (this._homestead && this.toCreationAddress()) {
-    fee.iaddn(fees.txCreation.v)
-  }
-  return fee
-}
-
-/**
- * the up front amount that an account must have for this transaction to be valid
- * @method getUpfrontCost
- * @return {BN}
- */
-Transaction.prototype.getUpfrontCost = function () {
-  return new BN(this.gasLimit)
-    .imul(new BN(this.gasPrice))
-    .iadd(new BN(this.value))
-}
-
-/**
- * validates the signature and checks to see if it has enough gas
- * @method validate
- * @param {Boolean} [stringError=false] whether to return a string with a dscription of why the validation failed or return a Bloolean
- * @return {Boolean|String}
- */
-Transaction.prototype.validate = function (stringError) {
-  const errors = []
-  if (!this.verifySignature()) {
-    errors.push('Invalid Signature')
-  }
-
-  if (this.getBaseFee().cmp(new BN(this.gasLimit)) > 0) {
-    errors.push([`gas limit is to low. Need at least ${this.getBaseFee()}`])
-  }
-
-  if (stringError === undefined || stringError === false) {
-    return errors.length === 0
-  } else {
-    return errors.join(' ')
-  }
-}
-
-
-/***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
-
-/**
- * the max integer that this VM can handle (a ```BN```)
- * @var {BN} MAX_INTEGER
- */
-exports.MAX_INTEGER = new BN('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16)
-
-/**
- * 2^256 (a ```BN```)
- * @var {BN} TWO_POW256
- */
-exports.TWO_POW256 = new BN('10000000000000000000000000000000000000000000000000000000000000000', 16)
-
-/**
- * SHA3-256 hash of null (a ```String```)
- * @var {String} SHA3_NULL_S
- */
-exports.SHA3_NULL_S = 'c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-
-/**
- * SHA3-256 hash of null (a ```Buffer```)
- * @var {Buffer} SHA3_NULL
- */
-exports.SHA3_NULL = new Buffer(exports.SHA3_NULL_S, 'hex')
-
-/**
- * SHA3-256 of an RLP of an empty array (a ```String```)
- * @var {String} SHA3_RLP_ARRAY_S
- */
-exports.SHA3_RLP_ARRAY_S = '1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
-
-/**
- * SHA3-256 of an RLP of an empty array (a ```Buffer```)
- * @var {Buffer} SHA3_RLP_ARRAY
- */
-exports.SHA3_RLP_ARRAY = new Buffer(exports.SHA3_RLP_ARRAY_S, 'hex')
-
-/**
- * SHA3-256 hash of the RLP of null  (a ```String```)
- * @var {String} SHA3_RLP_S
- */
-exports.SHA3_RLP_S = '56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-
-/**
- * SHA3-256 hash of the RLP of null (a ```Buffer```)
- * @var {Buffer} SHA3_RLP
- */
-exports.SHA3_RLP = new Buffer(exports.SHA3_RLP_S, 'hex')
-
-/**
- * [`BN`](https://github.com/indutny/bn.js)
- * @var {Function}
- */
-exports.BN = BN
-
-/**
- * [`rlp`](https://github.com/ethereumjs/rlp)
- * @var {Function}
- */
-exports.rlp = rlp
-
-/**
- * [`secp256k1`](https://github.com/cryptocoinjs/secp256k1-node/)
- * @var {Object}
- */
-exports.secp256k1 = secp256k1
-
-/**
- * Returns a buffer filled with 0s
- * @method zeros
- * @param {Number} bytes  the number of bytes the buffer should be
- * @return {Buffer}
- */
-exports.zeros = function (bytes) {
-  var buf = new Buffer(bytes)
-  buf.fill(0)
-  return buf
-}
-
-/**
- * Left Pads an `Array` or `Buffer` with leading zeros till it has `length` bytes.
- * Or it truncates the beginning if it exceeds.
- * @method lsetLength
- * @param {Buffer|Array} msg the value to pad
- * @param {Number} length the number of bytes the output should be
- * @param {Boolean} [right=false] whether to start padding form the left or right
- * @return {Buffer|Array}
- */
-exports.setLengthLeft = exports.setLength = function (msg, length, right) {
-  var buf = exports.zeros(length)
-  msg = exports.toBuffer(msg)
-  if (right) {
-    if (msg.length < length) {
-      msg.copy(buf)
-      return buf
-    }
-    return msg.slice(0, length)
-  } else {
-    if (msg.length < length) {
-      msg.copy(buf, length - msg.length)
-      return buf
-    }
-    return msg.slice(-length)
-  }
-}
-
-/**
- * Right Pads an `Array` or `Buffer` with leading zeros till it has `length` bytes.
- * Or it truncates the beginning if it exceeds.
- * @method lsetLength
- * @param {Buffer|Array} msg the value to pad
- * @param {Number} length the number of bytes the output should be
- * @return {Buffer|Array}
- */
-exports.setLengthRight = function (msg, length) {
-  return exports.setLength(msg, length, true)
-}
-
-/**
- * Trims leading zeros from a `Buffer` or an `Array`
- * @method unpad
- * @param {Buffer|Array|String} a
- * @return {Buffer|Array|String}
- */
-exports.unpad = exports.stripZeros = function (a) {
-  a = exports.stripHexPrefix(a)
-  var first = a[0]
-  while (a.length > 0 && first.toString() === '0') {
-    a = a.slice(1)
-    first = a[0]
-  }
-  return a
-}
-/**
- * Attempts to turn a value into a `Buffer`. As input it supports `Buffer`, `String`, `Number`, null/undefined, `BN` and other objects with a `toArray()` method.
- * @method toBuffer
- * @param {*} v the value
- */
-exports.toBuffer = function (v) {
-  if (!Buffer.isBuffer(v)) {
-    if (Array.isArray(v)) {
-      v = new Buffer(v)
-    } else if (typeof v === 'string') {
-      if (exports.isHexPrefixed(v)) {
-        v = new Buffer(exports.padToEven(exports.stripHexPrefix(v)), 'hex')
-      } else {
-        v = new Buffer(v)
-      }
-    } else if (typeof v === 'number') {
-      v = exports.intToBuffer(v)
-    } else if (v === null || v === undefined) {
-      v = new Buffer([])
-    } else if (v.toArray) {
-      // converts a BN to a Buffer
-      v = new Buffer(v.toArray())
-    } else {
-      throw new Error('invalid type')
-    }
-  }
-  return v
-}
-
-/**
- * Converts a `Number` into a hex `String`
- * @method intToHex
- * @param {Number} i
- * @return {String}
- */
-exports.intToHex = function (i) {
-  assert(i % 1 === 0, 'number is not a integer')
-  assert(i >= 0, 'number must be positive')
-  var hex = i.toString(16)
-  if (hex.length % 2) {
-    hex = '0' + hex
-  }
-
-  return '0x' + hex
-}
-
-/**
- * Converts an `Number` to a `Buffer`
- * @method intToBuffer
- * @param {Number} i
- * @return {Buffer}
- */
-exports.intToBuffer = function (i) {
-  var hex = exports.intToHex(i)
-  return new Buffer(hex.slice(2), 'hex')
-}
-
-/**
- * Converts a `Buffer` to a `Number`
- * @method bufferToInt
- * @param {Buffer} buf
- * @return {Number}
- */
-exports.bufferToInt = function (buf) {
-  return parseInt(exports.bufferToHex(buf), 16)
-}
-
-/**
- * Converts a `Buffer` into a hex `String`
- * @method bufferToHex
- * @param {Buffer} buf
- * @return {String}
- */
-exports.bufferToHex = function (buf) {
-  buf = exports.toBuffer(buf)
-  if (buf.length === 0) {
-    return 0
-  }
-
-  return '0x' + buf.toString('hex')
-}
-
-/**
- * Interprets a `Buffer` as a signed integer and returns a `BN`. Assumes 256-bit numbers.
- * @method fromSigned
- * @param {Buffer} num
- * @return {BN}
- */
-exports.fromSigned = function (num) {
-  return new BN(num).fromTwos(256)
-}
-
-/**
- * Converts a `BN` to an unsigned integer and returns it as a `Buffer`. Assumes 256-bit numbers.
- * @method toUnsigned
- * @param {BN} num
- * @return {Buffer}
- */
-exports.toUnsigned = function (num) {
-  return new Buffer(num.toTwos(256).toArray())
-}
-
-/**
- * Creates SHA-3 hash of the input
- * @method sha3
- * @param {Buffer|Array|String|Number} a the input data
- * @param {Number} [bytes=256] the SHA width
- * @return {Buffer}
- */
-exports.sha3 = function (a, bytes) {
-  a = exports.toBuffer(a)
-  if (!bytes) bytes = 256
-
-  var h = new SHA3(bytes)
-  if (a) {
-    h.update(a)
-  }
-  return new Buffer(h.digest('hex'), 'hex')
-}
-
-/**
- * Creates SHA256 hash of the input
- * @method sha256
- * @param {Buffer|Array|String|Number} a the input data
- * @return {Buffer}
- */
-exports.sha256 = function (a) {
-  a = exports.toBuffer(a)
-  return createHash('sha256').update(a).digest()
-}
-
-/**
- * Creates RIPEMD160 hash of the input
- * @method ripemd160
- * @param {Buffer|Array|String|Number} a the input data
- * @param {Boolean} padded whether it should be padded to 256 bits or not
- * @return {Buffer}
- */
-exports.ripemd160 = function (a, padded) {
-  a = exports.toBuffer(a)
-  var hash = createHash('rmd160').update(a).digest()
-  if (padded === true) {
-    return exports.setLength(hash, 32)
-  } else {
-    return hash
-  }
-}
-
-/**
- * Creates SHA-3 hash of the RLP encoded version of the input
- * @method rlphash
- * @param {Buffer|Array|String|Number} a the input data
- * @return {Buffer}
- */
-exports.rlphash = function (a) {
-  return exports.sha3(rlp.encode(a))
-}
-
-/**
- * Checks if the private key satisfies the rules of the curve secp256k1.
- * @method isValidPrivate
- * @param {Buffer} privateKey
- * @return {Boolean}
- */
-exports.isValidPrivate = function (privateKey) {
-  return secp256k1.privateKeyVerify(privateKey)
-}
-
-/**
- * Checks if the public key satisfies the rules of the curve secp256k1
- * and the requirements of Ethereum.
- * @method isValidPublic
- * @param {Buffer} publicKey The two points of an uncompressed key, unless sanitize is enabled
- * @param {Boolean} [sanitize=false] Accept public keys in other formats
- * @return {Boolean}
- */
-exports.isValidPublic = function (publicKey, sanitize) {
-  if (publicKey.length === 64) {
-    // Convert to SEC1 for secp256k1
-    return secp256k1.publicKeyVerify(Buffer.concat([ new Buffer([4]), publicKey ]))
-  }
-
-  if (!sanitize) {
-    return false
-  }
-
-  return secp256k1.publicKeyVerify(publicKey)
-}
-
-/**
- * Returns the ethereum address of a given public key.
- * Accepts "Ethereum public keys" and SEC1 encoded keys.
- * @method publicToAddress
- * @param {Buffer} pubKey The two points of an uncompressed key, unless sanitize is enabled
- * @param {Boolean} [sanitize=false] Accept public keys in other formats
- * @return {Buffer}
- */
-exports.pubToAddress = exports.publicToAddress = function (pubKey, sanitize) {
-  pubKey = exports.toBuffer(pubKey)
-  if (sanitize && (pubKey.length !== 64)) {
-    pubKey = secp256k1.publicKeyConvert(pubKey, false).slice(1)
-  }
-  assert(pubKey.length === 64)
-  // Only take the lower 160bits of the hash
-  return exports.sha3(pubKey).slice(-20)
-}
-
-/**
- * Returns the ethereum public key of a given private key
- * @method privateToPublic
- * @param {Buffer} privateKey A private key must be 256 bits wide
- * @return {Buffer}
- */
-var privateToPublic = exports.privateToPublic = function (privateKey) {
-  privateKey = exports.toBuffer(privateKey)
-  // skip the type flag and use the X, Y points
-  return secp256k1.publicKeyCreate(privateKey, false).slice(1)
-}
-
-/**
- * Converts a public key to the Ethereum format.
- * @method importPublic
- * @param {Buffer} publicKey
- * @return {Buffer}
- */
-exports.importPublic = function (publicKey) {
-  publicKey = exports.toBuffer(publicKey)
-  if (publicKey.length !== 64) {
-    publicKey = secp256k1.publicKeyConvert(publicKey, false).slice(1)
-  }
-  return publicKey
-}
-
-/**
- * ECDSA sign
- * @method ecsign
- * @param {Buffer} msgHash
- * @param {Buffer} privateKey
- * @return {Object}
- */
-exports.ecsign = function (msgHash, privateKey) {
-  var sig = secp256k1.sign(msgHash, privateKey)
-
-  var ret = {}
-  ret.r = sig.signature.slice(0, 32)
-  ret.s = sig.signature.slice(32, 64)
-  ret.v = sig.recovery + 27
-  return ret
-}
-
-/**
- * ECDSA public key recovery from signature
- * @method ecrecover
- * @param {Buffer} msgHash
- * @param {Buffer} v
- * @param {Buffer} r
- * @param {Buffer} s
- * @return {Buffer} publicKey
- */
-exports.ecrecover = function (msgHash, v, r, s) {
-  var signature = Buffer.concat([exports.setLength(r, 32), exports.setLength(s, 32)], 64)
-  var recovery = exports.bufferToInt(v) - 27
-  if (recovery !== 0 && recovery !== 1) {
-    throw new Error('Invalid signature v value')
-  }
-  var senderPubKey = secp256k1.recover(msgHash, signature, recovery)
-  return secp256k1.publicKeyConvert(senderPubKey, false).slice(1)
-}
-
-/**
- * Convert signature parameters into the format of `eth_sign` RPC method
- * @method toRpcSig
- * @param {Number} v
- * @param {Buffer} r
- * @param {Buffer} s
- * @return {String} sig
- */
-exports.toRpcSig = function (v, r, s) {
-  // geth (and the RPC eth_sign method) uses the 65 byte format used by Bitcoin
-  // FIXME: this might change in the future - https://github.com/ethereum/go-ethereum/issues/2053
-  return exports.bufferToHex(Buffer.concat([ r, s, exports.toBuffer(v - 27) ]))
-}
-
-/**
- * Convert signature format of the `eth_sign` RPC method to signature parameters
- * @method fromRpcSig
- * @param {String} sig
- * @return {Object}
- */
-exports.fromRpcSig = function (sig) {
-  sig = exports.toBuffer(sig)
-
-  var v = sig[64]
-  // support both versions of `eth_sign` responses
-  if (v < 27) {
-    v += 27
-  }
-
-  return {
-    v: v,
-    r: sig.slice(0, 32),
-    s: sig.slice(32, 64)
-  }
-}
-
-/**
- * Returns the ethereum address of a given private key
- * @method privateToAddress
- * @param {Buffer} privateKey A private key must be 256 bits wide
- * @return {Buffer}
- */
-exports.privateToAddress = function (privateKey) {
-  return exports.publicToAddress(privateToPublic(privateKey))
-}
-
-/**
- * Checks if the address is a valid. Accepts checksummed addresses too
- * @method isValidAddress
- * @param {String} address
- * @return {Boolean}
- */
-exports.isValidAddress = function (address) {
-  return /^0x[0-9a-fA-F]{40}$/i.test(address)
-}
-
-/**
- * Returns a checksummed address
- * @method toChecksumAddress
- * @param {String} address
- * @return {String}
- */
-exports.toChecksumAddress = function (address) {
-  address = exports.stripHexPrefix(address).toLowerCase()
-  var hash = exports.sha3(address).toString('hex')
-  var ret = '0x'
-
-  for (var i = 0; i < address.length; i++) {
-    if (parseInt(hash[i], 16) >= 8) {
-      ret += address[i].toUpperCase()
-    } else {
-      ret += address[i]
-    }
-  }
-
-  return ret
-}
-
-/**
- * Checks if the address is a valid checksummed address
- * @method isValidChecksumAddress
- * @param {Buffer} address
- * @return {Boolean}
- */
-exports.isValidChecksumAddress = function (address) {
-  return exports.isValidAddress(address) && (exports.toChecksumAddress(address) === address)
-}
-
-/**
- * Generates an address of a newly created contract
- * @method generateAddress
- * @param {Buffer} from the address which is creating this new address
- * @param {Buffer} nonce the nonce of the from account
- * @return {Buffer}
- */
-exports.generateAddress = function (from, nonce) {
-  from = exports.toBuffer(from)
-  nonce = new BN(nonce)
-
-  if (nonce.isZero()) {
-    // in RLP we want to encode null in the case of zero nonce
-    // read the RLP documentation for an answer if you dare
-    nonce = null
-  } else {
-    nonce = new Buffer(nonce.toArray())
-  }
-
-  // Only take the lower 160bits of the hash
-  return exports.rlphash([from, nonce]).slice(-20)
-}
-
-/**
- * Returns true if the supplied address belongs to a precompiled account
- * @method isPrecompiled
- * @param {Buffer|String} address
- * @return {Boolean}
- */
-exports.isPrecompiled = function (address) {
-  var a = exports.unpad(address)
-  return a.length === 1 && a[0] > 0 && a[0] < 5
-}
-
-/**
- * Returns a `Boolean` on whether or not the a `String` starts with "0x"
- * @method isHexPrefixed
- * @param {String} str
- * @return {Boolean}
- */
-exports.isHexPrefixed = function (str) {
-  return str.slice(0, 2) === '0x'
-}
-
-/**
- * Removes "0x" from a given `String`
- * @method stripHexPrefix
- * @param {String} str
- * @return {String}
- */
-exports.stripHexPrefix = function (str) {
-  if (typeof str !== 'string') {
-    return str
-  }
-  return exports.isHexPrefixed(str) ? str.slice(2) : str
-}
-
-/**
- * Adds "0x" to a given `String` if it does not already start with "0x"
- * @method addHexPrefix
- * @param {String} str
- * @return {String}
- */
-exports.addHexPrefix = function (str) {
-  if (typeof str !== 'string') {
-    return str
-  }
-
-  return exports.isHexPrefixed(str) ? str : '0x' + str
-}
-
-/**
- * Pads a `String` to have an even length
- * @method padToEven
- * @param {String} a
- * @return {String}
- */
-exports.padToEven = function (a) {
-  if (a.length % 2) a = '0' + a
-  return a
-}
-
-/**
- * Converts a `Buffer` or `Array` to JSON
- * @method BAToJSON
- * @param {Buffer|Array} ba
- * @return {Array|String|null}
- */
-exports.baToJSON = function (ba) {
-  if (Buffer.isBuffer(ba)) {
-    return '0x' + ba.toString('hex')
-  } else if (ba instanceof Array) {
-    var array = []
-    for (var i = 0; i < ba.length; i++) {
-      array.push(exports.baToJSON(ba[i]))
-    }
-    return array
-  }
-}
-
-/**
- * Defines properties on a `Object`. It make the assumption that underlying data is binary.
- * @method defineProperties
- * @param {Object} self the `Object` to define properties on
- * @param {Array} fields an array fields to define. Fields can contain:
- * * `name` - the name of the properties
- * * `length` - the number of bytes the field can have
- * * `allowLess` - if the field can be less than the length
- * * `allowEmpty`
- * @param {*} data data to be validated against the definitions
- */
-exports.defineProperties = function (self, fields, data) {
-  self.raw = []
-  self._fields = []
-
-  // attach the `toJSON`
-  self.toJSON = function (label) {
-    if (label) {
-      var obj = {}
-      self._fields.forEach(function (field) {
-        obj[field] = '0x' + self[field].toString('hex')
-      })
-      return obj
-    }
-    return exports.baToJSON(this.raw)
-  }
-
-  self.serialize = function serialize () {
-    return rlp.encode(self.raw)
-  }
-
-  fields.forEach(function (field, i) {
-    self._fields.push(field.name)
-    function getter () {
-      return self.raw[i]
-    }
-    function setter (v) {
-      v = exports.toBuffer(v)
-
-      if (v.toString('hex') === '00' && !field.allowZero) {
-        v = new Buffer([])
-      }
-
-      if (field.allowLess && field.length) {
-        v = exports.stripZeros(v)
-        assert(field.length >= v.length, 'The field ' + field.name + ' must not have more ' + field.length + ' bytes')
-      } else if (!(field.allowZero && v.length === 0) && field.length) {
-        assert(field.length === v.length, 'The field ' + field.name + ' must have byte length of ' + field.length)
-      }
-
-      self.raw[i] = v
-    }
-
-    Object.defineProperty(self, field.name, {
+ *
+ * @class
+ * @param {Buffer | Array | Object} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple.
+ *
+ * Or lastly an Object containing the Properties of the transaction like in the Usage example.
+ *
+ * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
+ *
+ * @property {Buffer} raw The raw rlp encoded transaction
+ * @param {Buffer} data.nonce nonce number
+ * @param {Buffer} data.gasLimit transaction gas limit
+ * @param {Buffer} data.gasPrice transaction gas price
+ * @param {Buffer} data.to to the to address
+ * @param {Buffer} data.value the amount of ether sent
+ * @param {Buffer} data.data this will contain the data of the message or the init of a contract
+ * @param {Buffer} data.v EC signature parameter
+ * @param {Buffer} data.r EC signature parameter
+ * @param {Buffer} data.s EC recovery ID
+ * @param {Number} data.chainId EIP 155 chainId - mainnet: 1, ropsten: 3
+ * */
+
+class Transaction {
+  constructor (data) {
+    data = data || {}
+    // Define Properties
+    const fields = [{
+      name: 'nonce',
+      length: 32,
+      allowLess: true,
+      default: new Buffer([])
+    }, {
+      name: 'gasPrice',
+      length: 32,
+      allowLess: true,
+      default: new Buffer([])
+    }, {
+      name: 'gasLimit',
+      alias: 'gas',
+      length: 32,
+      allowLess: true,
+      default: new Buffer([])
+    }, {
+      name: 'to',
+      allowZero: true,
+      length: 20,
+      default: new Buffer([])
+    }, {
+      name: 'value',
+      length: 32,
+      allowLess: true,
+      default: new Buffer([])
+    }, {
+      name: 'data',
+      alias: 'input',
+      allowZero: true,
+      default: new Buffer([])
+    }, {
+      name: 'v',
+      default: new Buffer([0x1c])
+    }, {
+      name: 'r',
+      length: 32,
+      allowLess: true,
+      default: new Buffer([])
+    }, {
+      name: 's',
+      length: 32,
+      allowLess: true,
+      default: new Buffer([])
+    }]
+
+    /**
+     * Returns the rlp encoding of the transaction
+     * @method serialize
+     * @return {Buffer}
+     * @memberof Transaction
+     * @name serialize
+     */
+    // attached serialize
+    ethUtil.defineProperties(this, fields, data)
+
+    /**
+     * @property {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
+     * @name from
+     * @memberof Transaction
+     */
+    Object.defineProperty(this, 'from', {
       enumerable: true,
       configurable: true,
-      get: getter,
-      set: setter
+      get: this.getSenderAddress.bind(this)
     })
 
-    if (field.default) {
-      self[field.name] = field.default
-    }
+    // calculate chainId from signature
+    let sigV = ethUtil.bufferToInt(this.v)
+    let chainId = Math.floor((sigV - 35) / 2)
+    if (chainId < 0) chainId = 0
 
-    // attach alias
-    if (field.alias) {
-      Object.defineProperty(self, field.alias, {
-        enumerable: false,
-        configurable: true,
-        set: setter,
-        get: getter
-      })
-    }
-  })
+    // set chainId
+    this._chainId = chainId || data.chainId || 0
+    this._homestead = true
+  }
 
-  // if the constuctor is passed data
-  if (data) {
-    if (typeof data === 'string') {
-      data = new Buffer(exports.stripHexPrefix(data), 'hex')
-    }
+  /**
+   * If the tx's `to` is to the creation address
+   * @return {Boolean}
+   */
+  toCreationAddress () {
+    return this.to.toString('hex') === ''
+  }
 
-    if (Buffer.isBuffer(data)) {
-      data = rlp.decode(data)
-    }
+  /**
+   * Computes a sha3-256 hash of the serialized tx
+   * @param {Boolean} [includeSignature=true] whether or not to inculde the signature
+   * @return {Buffer}
+   */
+  hash (includeSignature) {
+    if (includeSignature === undefined) includeSignature = true
 
-    if (Array.isArray(data)) {
-      if (data.length > self._fields.length) {
-        throw (new Error('wrong number of fields in data'))
-      }
+    // EIP155 spec:
+    // when computing the hash of a transaction for purposes of signing or recovering,
+    // instead of hashing only the first six elements (ie. nonce, gasprice, startgas, to, value, data),
+    // hash nine elements, with v replaced by CHAIN_ID, r = 0 and s = 0
 
-      // make sure all the items are buffers
-      data.forEach(function (d, i) {
-        self[self._fields[i]] = exports.toBuffer(d)
-      })
-    } else if (typeof data === 'object') {
-      for (var prop in data) {
-        if (self._fields.indexOf(prop) !== -1) {
-          self[prop] = data[prop]
-        }
-      }
+    let items
+    if (includeSignature) {
+      items = this.raw
     } else {
-      throw new Error('invalid data')
+      if (this._chainId > 0) {
+        const raw = this.raw.slice()
+        this.v = this._chainId
+        this.r = 0
+        this.s = 0
+        items = this.raw
+        this.raw = raw
+      } else {
+        items = this.raw.slice(0, 6)
+      }
+    }
+
+    // create hash
+    return ethUtil.rlphash(items)
+  }
+
+  /**
+   * returns the public key of the sender
+   * @return {Buffer}
+   */
+  getChainId () {
+    return this._chainId
+  }
+
+  /**
+   * returns the sender's address
+   * @return {Buffer}
+   */
+  getSenderAddress () {
+    if (this._from) {
+      return this._from
+    }
+    const pubkey = this.getSenderPublicKey()
+    this._from = ethUtil.publicToAddress(pubkey)
+    return this._from
+  }
+
+  /**
+   * returns the public key of the sender
+   * @return {Buffer}
+   */
+  getSenderPublicKey () {
+    if (!this._senderPubKey || !this._senderPubKey.length) {
+      if (!this.verifySignature()) throw new Error('Invalid Signature')
+    }
+    return this._senderPubKey
+  }
+
+  /**
+   * Determines if the signature is valid
+   * @return {Boolean}
+   */
+  verifySignature () {
+    const msgHash = this.hash(false)
+    // All transaction signatures whose s-value is greater than secp256k1n/2 are considered invalid.
+    if (this._homestead && new BN(this.s).cmp(N_DIV_2) === 1) {
+      return false
+    }
+
+    try {
+      let v = ethUtil.bufferToInt(this.v)
+      if (this._chainId > 0) {
+        v -= this._chainId * 2 + 8
+      }
+      this._senderPubKey = ethUtil.ecrecover(msgHash, v, this.r, this.s)
+    } catch (e) {
+      return false
+    }
+
+    return !!this._senderPubKey
+  }
+
+  /**
+   * sign a transaction with a given a private key
+   * @param {Buffer} privateKey
+   */
+  sign (privateKey) {
+    const msgHash = this.hash(false)
+    const sig = ethUtil.ecsign(msgHash, privateKey)
+    if (this._chainId > 0) {
+      sig.v += this._chainId * 2 + 8
+    }
+    Object.assign(this, sig)
+  }
+
+  /**
+   * The amount of gas paid for the data in this tx
+   * @return {BN}
+   */
+  getDataFee () {
+    const data = this.raw[5]
+    const cost = new BN(0)
+    for (let i = 0; i < data.length; i++) {
+      data[i] === 0 ? cost.iaddn(fees.txDataZeroGas.v) : cost.iaddn(fees.txDataNonZeroGas.v)
+    }
+    return cost
+  }
+
+  /**
+   * the minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
+   * @return {BN}
+   */
+  getBaseFee () {
+    const fee = this.getDataFee().iaddn(fees.txGas.v)
+    if (this._homestead && this.toCreationAddress()) {
+      fee.iaddn(fees.txCreation.v)
+    }
+    return fee
+  }
+
+  /**
+   * the up front amount that an account must have for this transaction to be valid
+   * @return {BN}
+   */
+  getUpfrontCost () {
+    return new BN(this.gasLimit)
+      .imul(new BN(this.gasPrice))
+      .iadd(new BN(this.value))
+  }
+
+  /**
+   * validates the signature and checks to see if it has enough gas
+   * @param {Boolean} [stringError=false] whether to return a string with a dscription of why the validation failed or return a Bloolean
+   * @return {Boolean|String}
+   */
+  validate (stringError) {
+    const errors = []
+    if (!this.verifySignature()) {
+      errors.push('Invalid Signature')
+    }
+
+    if (this.getBaseFee().cmp(new BN(this.gasLimit)) > 0) {
+      errors.push([`gas limit is too low. Need at least ${this.getBaseFee()}`])
+    }
+
+    if (stringError === undefined || stringError === false) {
+      return errors.length === 0
+    } else {
+      return errors.join(' ')
     }
   }
 }
 
+module.exports = Transaction
+
 
 /***/ }),
-/* 99 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const assert = __webpack_require__(14)
+const assert = __webpack_require__(17)
 const utils = __webpack_require__(9)
 const byteSize = 256
 
@@ -34645,26 +33937,26 @@ Bloom.prototype.or = function (bloom) {
 
 
 /***/ }),
-/* 100 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const util = __webpack_require__(0)
-const StateManager = __webpack_require__(225)
-const Account = __webpack_require__(21)
-const AsyncEventEmitter = __webpack_require__(143)
+const util = __webpack_require__(1)
+const StateManager = __webpack_require__(227)
+const Account = __webpack_require__(20)
+const AsyncEventEmitter = __webpack_require__(146)
 
 // require the percomiled contracts
-const num01 = __webpack_require__(215)
-const num02 = __webpack_require__(216)
-const num03 = __webpack_require__(217)
-const num04 = __webpack_require__(218)
+const num01 = __webpack_require__(217)
+const num02 = __webpack_require__(218)
+const num03 = __webpack_require__(219)
+const num04 = __webpack_require__(220)
 
 module.exports = VM
 
 VM.deps = {
   ethUtil: __webpack_require__(9),
-  Account: __webpack_require__(21),
-  Trie: __webpack_require__(33),
+  Account: __webpack_require__(20),
+  Trie: __webpack_require__(31),
   rlp: __webpack_require__(9).rlp
 }
 
@@ -34706,12 +33998,12 @@ function VM (opts = {}) {
 
 util.inherits(VM, AsyncEventEmitter)
 
-VM.prototype.runCode = __webpack_require__(222)
-VM.prototype.runJIT = __webpack_require__(223)
-VM.prototype.runBlock = __webpack_require__(219)
-VM.prototype.runTx = __webpack_require__(224)
-VM.prototype.runCall = __webpack_require__(221)
-VM.prototype.runBlockchain = __webpack_require__(220)
+VM.prototype.runCode = __webpack_require__(224)
+VM.prototype.runJIT = __webpack_require__(225)
+VM.prototype.runBlock = __webpack_require__(221)
+VM.prototype.runTx = __webpack_require__(226)
+VM.prototype.runCall = __webpack_require__(223)
+VM.prototype.runBlockchain = __webpack_require__(222)
 
 VM.prototype.copy = function () {
   var trie = this.trie.copy()
@@ -34731,12 +34023,12 @@ VM.prototype.populateCache = function (addresses, cb) {
 
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
 var utils = __webpack_require__(11);
-var FakeTransaction = __webpack_require__(46)
+var FakeTransaction = __webpack_require__(38)
 
 module.exports = {
   encode: function(tx, done) {
@@ -34775,10 +34067,10 @@ module.exports = {
 
 
 /***/ }),
-/* 102 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0).inherits;
+var inherits = __webpack_require__(1).inherits;
 var to = __webpack_require__(10);
 
 inherits(RuntimeError, Error);
@@ -34858,7 +34150,7 @@ module.exports = RuntimeError;
 
 
 /***/ }),
-/* 103 */
+/* 101 */
 /***/ (function(module, exports) {
 
 /**
@@ -34877,7 +34169,7 @@ module.exports = function isHexPrefixed(str) {
 
 
 /***/ }),
-/* 104 */
+/* 102 */
 /***/ (function(module, exports) {
 
 module.exports = cleanInputArguments;
@@ -34957,13 +34249,13 @@ function checkLength(input) {
 }
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var createKeccak = __webpack_require__(272)
-var createShake = __webpack_require__(273)
+var createKeccak = __webpack_require__(274)
+var createShake = __webpack_require__(275)
 
 module.exports = function (KeccakState) {
   var Keccak = createKeccak(KeccakState)
@@ -34992,7 +34284,7 @@ module.exports = function (KeccakState) {
 
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -35019,17 +34311,17 @@ module.exports = function (KeccakState) {
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(280);
+var isArray = __webpack_require__(282);
 /*</replacement>*/
 
 
 /*<replacement>*/
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 Readable.ReadableState = ReadableState;
 
-var EE = __webpack_require__(16).EventEmitter;
+var EE = __webpack_require__(19).EventEmitter;
 
 /*<replacement>*/
 if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -35037,7 +34329,7 @@ if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
 };
 /*</replacement>*/
 
-var Stream = __webpack_require__(4);
+var Stream = __webpack_require__(7);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -35048,7 +34340,7 @@ var StringDecoder;
 
 
 /*<replacement>*/
-var debug = __webpack_require__(0);
+var debug = __webpack_require__(1);
 if (debug && debug.debuglog) {
   debug = debug.debuglog('stream');
 } else {
@@ -35060,7 +34352,7 @@ if (debug && debug.debuglog) {
 util.inherits(Readable, Stream);
 
 function ReadableState(options, stream) {
-  var Duplex = __webpack_require__(40);
+  var Duplex = __webpack_require__(39);
 
   options = options || {};
 
@@ -35121,14 +34413,14 @@ function ReadableState(options, stream) {
   this.encoding = null;
   if (options.encoding) {
     if (!StringDecoder)
-      StringDecoder = __webpack_require__(29).StringDecoder;
+      StringDecoder = __webpack_require__(107).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
 }
 
 function Readable(options) {
-  var Duplex = __webpack_require__(40);
+  var Duplex = __webpack_require__(39);
 
   if (!(this instanceof Readable))
     return new Readable(options);
@@ -35231,7 +34523,7 @@ function needMoreData(state) {
 // backwards compatibility.
 Readable.prototype.setEncoding = function(enc) {
   if (!StringDecoder)
-    StringDecoder = __webpack_require__(29).StringDecoder;
+    StringDecoder = __webpack_require__(107).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
   return this;
@@ -35949,7 +35241,7 @@ function indexOf (xs, x) {
 
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -36018,7 +35310,7 @@ function indexOf (xs, x) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(40);
+var Duplex = __webpack_require__(39);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -36164,7 +35456,7 @@ function done(stream, er) {
 
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -36195,7 +35487,7 @@ function done(stream, er) {
 module.exports = Writable;
 
 /*<replacement>*/
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 Writable.WritableState = WritableState;
@@ -36206,7 +35498,7 @@ var util = __webpack_require__(3);
 util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
-var Stream = __webpack_require__(4);
+var Stream = __webpack_require__(7);
 
 util.inherits(Writable, Stream);
 
@@ -36217,7 +35509,7 @@ function WriteReq(chunk, encoding, cb) {
 }
 
 function WritableState(options, stream) {
-  var Duplex = __webpack_require__(40);
+  var Duplex = __webpack_require__(39);
 
   options = options || {};
 
@@ -36305,7 +35597,7 @@ function WritableState(options, stream) {
 }
 
 function Writable(options) {
-  var Duplex = __webpack_require__(40);
+  var Duplex = __webpack_require__(39);
 
   // Writable ctor is applied to Duplexes, though they're not
   // instanceof Writable, they're instanceof Readable.
@@ -36647,7 +35939,234 @@ function endWritable(stream, state, cb) {
 
 
 /***/ }),
-/* 109 */
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var Buffer = __webpack_require__(12).Buffer;
+
+var isBufferEncoding = Buffer.isEncoding
+  || function(encoding) {
+       switch (encoding && encoding.toLowerCase()) {
+         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
+         default: return false;
+       }
+     }
+
+
+function assertEncoding(encoding) {
+  if (encoding && !isBufferEncoding(encoding)) {
+    throw new Error('Unknown encoding: ' + encoding);
+  }
+}
+
+// StringDecoder provides an interface for efficiently splitting a series of
+// buffers into a series of JS strings without breaking apart multi-byte
+// characters. CESU-8 is handled as part of the UTF-8 encoding.
+//
+// @TODO Handling all encodings inside a single object makes it very difficult
+// to reason about this code, so it should be split up in the future.
+// @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
+// points as used by CESU-8.
+var StringDecoder = exports.StringDecoder = function(encoding) {
+  this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
+  assertEncoding(encoding);
+  switch (this.encoding) {
+    case 'utf8':
+      // CESU-8 represents each of Surrogate Pair by 3-bytes
+      this.surrogateSize = 3;
+      break;
+    case 'ucs2':
+    case 'utf16le':
+      // UTF-16 represents each of Surrogate Pair by 2-bytes
+      this.surrogateSize = 2;
+      this.detectIncompleteChar = utf16DetectIncompleteChar;
+      break;
+    case 'base64':
+      // Base-64 stores 3 bytes in 4 chars, and pads the remainder.
+      this.surrogateSize = 3;
+      this.detectIncompleteChar = base64DetectIncompleteChar;
+      break;
+    default:
+      this.write = passThroughWrite;
+      return;
+  }
+
+  // Enough space to store all bytes of a single character. UTF-8 needs 4
+  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
+  this.charBuffer = new Buffer(6);
+  // Number of bytes received for the current incomplete multi-byte character.
+  this.charReceived = 0;
+  // Number of bytes expected for the current incomplete multi-byte character.
+  this.charLength = 0;
+};
+
+
+// write decodes the given buffer and returns it as JS string that is
+// guaranteed to not contain any partial multi-byte characters. Any partial
+// character found at the end of the buffer is buffered up, and will be
+// returned when calling write again with the remaining bytes.
+//
+// Note: Converting a Buffer containing an orphan surrogate to a String
+// currently works, but converting a String to a Buffer (via `new Buffer`, or
+// Buffer#write) will replace incomplete surrogates with the unicode
+// replacement character. See https://codereview.chromium.org/121173009/ .
+StringDecoder.prototype.write = function(buffer) {
+  var charStr = '';
+  // if our last write ended with an incomplete multibyte character
+  while (this.charLength) {
+    // determine how many remaining bytes this buffer has to offer for this char
+    var available = (buffer.length >= this.charLength - this.charReceived) ?
+        this.charLength - this.charReceived :
+        buffer.length;
+
+    // add the new bytes to the char buffer
+    buffer.copy(this.charBuffer, this.charReceived, 0, available);
+    this.charReceived += available;
+
+    if (this.charReceived < this.charLength) {
+      // still not enough chars in this buffer? wait for more ...
+      return '';
+    }
+
+    // remove bytes belonging to the current character from the buffer
+    buffer = buffer.slice(available, buffer.length);
+
+    // get the character that was split
+    charStr = this.charBuffer.slice(0, this.charLength).toString(this.encoding);
+
+    // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+    var charCode = charStr.charCodeAt(charStr.length - 1);
+    if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+      this.charLength += this.surrogateSize;
+      charStr = '';
+      continue;
+    }
+    this.charReceived = this.charLength = 0;
+
+    // if there are no more bytes in this buffer, just emit our char
+    if (buffer.length === 0) {
+      return charStr;
+    }
+    break;
+  }
+
+  // determine and set charLength / charReceived
+  this.detectIncompleteChar(buffer);
+
+  var end = buffer.length;
+  if (this.charLength) {
+    // buffer the incomplete character bytes we got
+    buffer.copy(this.charBuffer, 0, buffer.length - this.charReceived, end);
+    end -= this.charReceived;
+  }
+
+  charStr += buffer.toString(this.encoding, 0, end);
+
+  var end = charStr.length - 1;
+  var charCode = charStr.charCodeAt(end);
+  // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+  if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+    var size = this.surrogateSize;
+    this.charLength += size;
+    this.charReceived += size;
+    this.charBuffer.copy(this.charBuffer, size, 0, size);
+    buffer.copy(this.charBuffer, 0, 0, size);
+    return charStr.substring(0, end);
+  }
+
+  // or just emit the charStr
+  return charStr;
+};
+
+// detectIncompleteChar determines if there is an incomplete UTF-8 character at
+// the end of the given buffer. If so, it sets this.charLength to the byte
+// length that character, and sets this.charReceived to the number of bytes
+// that are available for this character.
+StringDecoder.prototype.detectIncompleteChar = function(buffer) {
+  // determine how many bytes we have to check at the end of this buffer
+  var i = (buffer.length >= 3) ? 3 : buffer.length;
+
+  // Figure out if one of the last i bytes of our buffer announces an
+  // incomplete char.
+  for (; i > 0; i--) {
+    var c = buffer[buffer.length - i];
+
+    // See http://en.wikipedia.org/wiki/UTF-8#Description
+
+    // 110XXXXX
+    if (i == 1 && c >> 5 == 0x06) {
+      this.charLength = 2;
+      break;
+    }
+
+    // 1110XXXX
+    if (i <= 2 && c >> 4 == 0x0E) {
+      this.charLength = 3;
+      break;
+    }
+
+    // 11110XXX
+    if (i <= 3 && c >> 3 == 0x1E) {
+      this.charLength = 4;
+      break;
+    }
+  }
+  this.charReceived = i;
+};
+
+StringDecoder.prototype.end = function(buffer) {
+  var res = '';
+  if (buffer && buffer.length)
+    res = this.write(buffer);
+
+  if (this.charReceived) {
+    var cr = this.charReceived;
+    var buf = this.charBuffer;
+    var enc = this.encoding;
+    res += buf.slice(0, cr).toString(enc);
+  }
+
+  return res;
+};
+
+function passThroughWrite(buffer) {
+  return buffer.toString(this.encoding);
+}
+
+function utf16DetectIncompleteChar(buffer) {
+  this.charReceived = buffer.length % 2;
+  this.charLength = this.charReceived ? 2 : 0;
+}
+
+function base64DetectIncompleteChar(buffer) {
+  this.charReceived = buffer.length % 3;
+  this.charLength = this.charReceived ? 3 : 0;
+}
+
+
+/***/ }),
+/* 108 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -36725,7 +36244,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -36748,7 +36267,7 @@ function extend() {
 
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -36775,17 +36294,17 @@ function extend() {
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(285);
+var isArray = __webpack_require__(287);
 /*</replacement>*/
 
 
 /*<replacement>*/
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 Readable.ReadableState = ReadableState;
 
-var EE = __webpack_require__(16).EventEmitter;
+var EE = __webpack_require__(19).EventEmitter;
 
 /*<replacement>*/
 if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -36793,7 +36312,7 @@ if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
 };
 /*</replacement>*/
 
-var Stream = __webpack_require__(4);
+var Stream = __webpack_require__(7);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -36866,7 +36385,7 @@ function ReadableState(options, stream) {
   this.encoding = null;
   if (options.encoding) {
     if (!StringDecoder)
-      StringDecoder = __webpack_require__(29).StringDecoder;
+      StringDecoder = __webpack_require__(113).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
@@ -36967,7 +36486,7 @@ function needMoreData(state) {
 // backwards compatibility.
 Readable.prototype.setEncoding = function(enc) {
   if (!StringDecoder)
-    StringDecoder = __webpack_require__(29).StringDecoder;
+    StringDecoder = __webpack_require__(113).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
 };
@@ -37736,7 +37255,7 @@ function indexOf (xs, x) {
 
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -37805,7 +37324,7 @@ function indexOf (xs, x) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(70);
+var Duplex = __webpack_require__(69);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -37952,7 +37471,7 @@ function done(stream, er) {
 
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -37983,7 +37502,7 @@ function done(stream, er) {
 module.exports = Writable;
 
 /*<replacement>*/
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 Writable.WritableState = WritableState;
@@ -37994,7 +37513,7 @@ var util = __webpack_require__(3);
 util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
-var Stream = __webpack_require__(4);
+var Stream = __webpack_require__(7);
 
 util.inherits(Writable, Stream);
 
@@ -38076,7 +37595,7 @@ function WritableState(options, stream) {
 }
 
 function Writable(options) {
-  var Duplex = __webpack_require__(70);
+  var Duplex = __webpack_require__(69);
 
   // Writable ctor is applied to Duplexes, though they're not
   // instanceof Writable, they're instanceof Readable.
@@ -38344,10 +37863,237 @@ function endWritable(stream, state, cb) {
 
 
 /***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var Buffer = __webpack_require__(12).Buffer;
+
+var isBufferEncoding = Buffer.isEncoding
+  || function(encoding) {
+       switch (encoding && encoding.toLowerCase()) {
+         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
+         default: return false;
+       }
+     }
+
+
+function assertEncoding(encoding) {
+  if (encoding && !isBufferEncoding(encoding)) {
+    throw new Error('Unknown encoding: ' + encoding);
+  }
+}
+
+// StringDecoder provides an interface for efficiently splitting a series of
+// buffers into a series of JS strings without breaking apart multi-byte
+// characters. CESU-8 is handled as part of the UTF-8 encoding.
+//
+// @TODO Handling all encodings inside a single object makes it very difficult
+// to reason about this code, so it should be split up in the future.
+// @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
+// points as used by CESU-8.
+var StringDecoder = exports.StringDecoder = function(encoding) {
+  this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
+  assertEncoding(encoding);
+  switch (this.encoding) {
+    case 'utf8':
+      // CESU-8 represents each of Surrogate Pair by 3-bytes
+      this.surrogateSize = 3;
+      break;
+    case 'ucs2':
+    case 'utf16le':
+      // UTF-16 represents each of Surrogate Pair by 2-bytes
+      this.surrogateSize = 2;
+      this.detectIncompleteChar = utf16DetectIncompleteChar;
+      break;
+    case 'base64':
+      // Base-64 stores 3 bytes in 4 chars, and pads the remainder.
+      this.surrogateSize = 3;
+      this.detectIncompleteChar = base64DetectIncompleteChar;
+      break;
+    default:
+      this.write = passThroughWrite;
+      return;
+  }
+
+  // Enough space to store all bytes of a single character. UTF-8 needs 4
+  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
+  this.charBuffer = new Buffer(6);
+  // Number of bytes received for the current incomplete multi-byte character.
+  this.charReceived = 0;
+  // Number of bytes expected for the current incomplete multi-byte character.
+  this.charLength = 0;
+};
+
+
+// write decodes the given buffer and returns it as JS string that is
+// guaranteed to not contain any partial multi-byte characters. Any partial
+// character found at the end of the buffer is buffered up, and will be
+// returned when calling write again with the remaining bytes.
+//
+// Note: Converting a Buffer containing an orphan surrogate to a String
+// currently works, but converting a String to a Buffer (via `new Buffer`, or
+// Buffer#write) will replace incomplete surrogates with the unicode
+// replacement character. See https://codereview.chromium.org/121173009/ .
+StringDecoder.prototype.write = function(buffer) {
+  var charStr = '';
+  // if our last write ended with an incomplete multibyte character
+  while (this.charLength) {
+    // determine how many remaining bytes this buffer has to offer for this char
+    var available = (buffer.length >= this.charLength - this.charReceived) ?
+        this.charLength - this.charReceived :
+        buffer.length;
+
+    // add the new bytes to the char buffer
+    buffer.copy(this.charBuffer, this.charReceived, 0, available);
+    this.charReceived += available;
+
+    if (this.charReceived < this.charLength) {
+      // still not enough chars in this buffer? wait for more ...
+      return '';
+    }
+
+    // remove bytes belonging to the current character from the buffer
+    buffer = buffer.slice(available, buffer.length);
+
+    // get the character that was split
+    charStr = this.charBuffer.slice(0, this.charLength).toString(this.encoding);
+
+    // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+    var charCode = charStr.charCodeAt(charStr.length - 1);
+    if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+      this.charLength += this.surrogateSize;
+      charStr = '';
+      continue;
+    }
+    this.charReceived = this.charLength = 0;
+
+    // if there are no more bytes in this buffer, just emit our char
+    if (buffer.length === 0) {
+      return charStr;
+    }
+    break;
+  }
+
+  // determine and set charLength / charReceived
+  this.detectIncompleteChar(buffer);
+
+  var end = buffer.length;
+  if (this.charLength) {
+    // buffer the incomplete character bytes we got
+    buffer.copy(this.charBuffer, 0, buffer.length - this.charReceived, end);
+    end -= this.charReceived;
+  }
+
+  charStr += buffer.toString(this.encoding, 0, end);
+
+  var end = charStr.length - 1;
+  var charCode = charStr.charCodeAt(end);
+  // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+  if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+    var size = this.surrogateSize;
+    this.charLength += size;
+    this.charReceived += size;
+    this.charBuffer.copy(this.charBuffer, size, 0, size);
+    buffer.copy(this.charBuffer, 0, 0, size);
+    return charStr.substring(0, end);
+  }
+
+  // or just emit the charStr
+  return charStr;
+};
+
+// detectIncompleteChar determines if there is an incomplete UTF-8 character at
+// the end of the given buffer. If so, it sets this.charLength to the byte
+// length that character, and sets this.charReceived to the number of bytes
+// that are available for this character.
+StringDecoder.prototype.detectIncompleteChar = function(buffer) {
+  // determine how many bytes we have to check at the end of this buffer
+  var i = (buffer.length >= 3) ? 3 : buffer.length;
+
+  // Figure out if one of the last i bytes of our buffer announces an
+  // incomplete char.
+  for (; i > 0; i--) {
+    var c = buffer[buffer.length - i];
+
+    // See http://en.wikipedia.org/wiki/UTF-8#Description
+
+    // 110XXXXX
+    if (i == 1 && c >> 5 == 0x06) {
+      this.charLength = 2;
+      break;
+    }
+
+    // 1110XXXX
+    if (i <= 2 && c >> 4 == 0x0E) {
+      this.charLength = 3;
+      break;
+    }
+
+    // 11110XXX
+    if (i <= 3 && c >> 3 == 0x1E) {
+      this.charLength = 4;
+      break;
+    }
+  }
+  this.charReceived = i;
+};
+
+StringDecoder.prototype.end = function(buffer) {
+  var res = '';
+  if (buffer && buffer.length)
+    res = this.write(buffer);
+
+  if (this.charReceived) {
+    var cr = this.charReceived;
+    var buf = this.charBuffer;
+    var enc = this.encoding;
+    res += buf.slice(0, cr).toString(enc);
+  }
+
+  return res;
+};
+
+function passThroughWrite(buffer) {
+  return buffer.toString(this.encoding);
+}
+
+function utf16DetectIncompleteChar(buffer) {
+  this.charReceived = buffer.length % 2;
+  this.charLength = this.charReceived ? 2 : 0;
+}
+
+function base64DetectIncompleteChar(buffer) {
+  this.charReceived = buffer.length % 3;
+  this.charLength = this.charReceived ? 3 : 0;
+}
+
+
+/***/ }),
 /* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ltgt = __webpack_require__(73)
+var ltgt = __webpack_require__(72)
 
 //compare two array items
 function isArrayLike (a) {
@@ -38458,17 +38204,17 @@ exports.addPrefix = addPrefix
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(296);
+var isArray = __webpack_require__(298);
 /*</replacement>*/
 
 
 /*<replacement>*/
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 Readable.ReadableState = ReadableState;
 
-var EE = __webpack_require__(16).EventEmitter;
+var EE = __webpack_require__(19).EventEmitter;
 
 /*<replacement>*/
 if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
@@ -38476,7 +38222,7 @@ if (!EE.listenerCount) EE.listenerCount = function(emitter, type) {
 };
 /*</replacement>*/
 
-var Stream = __webpack_require__(4);
+var Stream = __webpack_require__(7);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -38549,7 +38295,7 @@ function ReadableState(options, stream) {
   this.encoding = null;
   if (options.encoding) {
     if (!StringDecoder)
-      StringDecoder = __webpack_require__(29).StringDecoder;
+      StringDecoder = __webpack_require__(118).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
@@ -38650,7 +38396,7 @@ function needMoreData(state) {
 // backwards compatibility.
 Readable.prototype.setEncoding = function(enc) {
   if (!StringDecoder)
-    StringDecoder = __webpack_require__(29).StringDecoder;
+    StringDecoder = __webpack_require__(118).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
 };
@@ -39488,7 +39234,7 @@ function indexOf (xs, x) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(71);
+var Duplex = __webpack_require__(70);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -39666,7 +39412,7 @@ function done(stream, er) {
 module.exports = Writable;
 
 /*<replacement>*/
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 Writable.WritableState = WritableState;
@@ -39677,7 +39423,7 @@ var util = __webpack_require__(3);
 util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
-var Stream = __webpack_require__(4);
+var Stream = __webpack_require__(7);
 
 util.inherits(Writable, Stream);
 
@@ -39759,7 +39505,7 @@ function WritableState(options, stream) {
 }
 
 function Writable(options) {
-  var Duplex = __webpack_require__(71);
+  var Duplex = __webpack_require__(70);
 
   // Writable ctor is applied to Duplexes, though they're not
   // instanceof Writable, they're instanceof Readable.
@@ -40030,15 +39776,242 @@ function endWritable(stream, state, cb) {
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var Buffer = __webpack_require__(12).Buffer;
+
+var isBufferEncoding = Buffer.isEncoding
+  || function(encoding) {
+       switch (encoding && encoding.toLowerCase()) {
+         case 'hex': case 'utf8': case 'utf-8': case 'ascii': case 'binary': case 'base64': case 'ucs2': case 'ucs-2': case 'utf16le': case 'utf-16le': case 'raw': return true;
+         default: return false;
+       }
+     }
+
+
+function assertEncoding(encoding) {
+  if (encoding && !isBufferEncoding(encoding)) {
+    throw new Error('Unknown encoding: ' + encoding);
+  }
+}
+
+// StringDecoder provides an interface for efficiently splitting a series of
+// buffers into a series of JS strings without breaking apart multi-byte
+// characters. CESU-8 is handled as part of the UTF-8 encoding.
+//
+// @TODO Handling all encodings inside a single object makes it very difficult
+// to reason about this code, so it should be split up in the future.
+// @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
+// points as used by CESU-8.
+var StringDecoder = exports.StringDecoder = function(encoding) {
+  this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
+  assertEncoding(encoding);
+  switch (this.encoding) {
+    case 'utf8':
+      // CESU-8 represents each of Surrogate Pair by 3-bytes
+      this.surrogateSize = 3;
+      break;
+    case 'ucs2':
+    case 'utf16le':
+      // UTF-16 represents each of Surrogate Pair by 2-bytes
+      this.surrogateSize = 2;
+      this.detectIncompleteChar = utf16DetectIncompleteChar;
+      break;
+    case 'base64':
+      // Base-64 stores 3 bytes in 4 chars, and pads the remainder.
+      this.surrogateSize = 3;
+      this.detectIncompleteChar = base64DetectIncompleteChar;
+      break;
+    default:
+      this.write = passThroughWrite;
+      return;
+  }
+
+  // Enough space to store all bytes of a single character. UTF-8 needs 4
+  // bytes, but CESU-8 may require up to 6 (3 bytes per surrogate).
+  this.charBuffer = new Buffer(6);
+  // Number of bytes received for the current incomplete multi-byte character.
+  this.charReceived = 0;
+  // Number of bytes expected for the current incomplete multi-byte character.
+  this.charLength = 0;
+};
+
+
+// write decodes the given buffer and returns it as JS string that is
+// guaranteed to not contain any partial multi-byte characters. Any partial
+// character found at the end of the buffer is buffered up, and will be
+// returned when calling write again with the remaining bytes.
+//
+// Note: Converting a Buffer containing an orphan surrogate to a String
+// currently works, but converting a String to a Buffer (via `new Buffer`, or
+// Buffer#write) will replace incomplete surrogates with the unicode
+// replacement character. See https://codereview.chromium.org/121173009/ .
+StringDecoder.prototype.write = function(buffer) {
+  var charStr = '';
+  // if our last write ended with an incomplete multibyte character
+  while (this.charLength) {
+    // determine how many remaining bytes this buffer has to offer for this char
+    var available = (buffer.length >= this.charLength - this.charReceived) ?
+        this.charLength - this.charReceived :
+        buffer.length;
+
+    // add the new bytes to the char buffer
+    buffer.copy(this.charBuffer, this.charReceived, 0, available);
+    this.charReceived += available;
+
+    if (this.charReceived < this.charLength) {
+      // still not enough chars in this buffer? wait for more ...
+      return '';
+    }
+
+    // remove bytes belonging to the current character from the buffer
+    buffer = buffer.slice(available, buffer.length);
+
+    // get the character that was split
+    charStr = this.charBuffer.slice(0, this.charLength).toString(this.encoding);
+
+    // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+    var charCode = charStr.charCodeAt(charStr.length - 1);
+    if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+      this.charLength += this.surrogateSize;
+      charStr = '';
+      continue;
+    }
+    this.charReceived = this.charLength = 0;
+
+    // if there are no more bytes in this buffer, just emit our char
+    if (buffer.length === 0) {
+      return charStr;
+    }
+    break;
+  }
+
+  // determine and set charLength / charReceived
+  this.detectIncompleteChar(buffer);
+
+  var end = buffer.length;
+  if (this.charLength) {
+    // buffer the incomplete character bytes we got
+    buffer.copy(this.charBuffer, 0, buffer.length - this.charReceived, end);
+    end -= this.charReceived;
+  }
+
+  charStr += buffer.toString(this.encoding, 0, end);
+
+  var end = charStr.length - 1;
+  var charCode = charStr.charCodeAt(end);
+  // CESU-8: lead surrogate (D800-DBFF) is also the incomplete character
+  if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+    var size = this.surrogateSize;
+    this.charLength += size;
+    this.charReceived += size;
+    this.charBuffer.copy(this.charBuffer, size, 0, size);
+    buffer.copy(this.charBuffer, 0, 0, size);
+    return charStr.substring(0, end);
+  }
+
+  // or just emit the charStr
+  return charStr;
+};
+
+// detectIncompleteChar determines if there is an incomplete UTF-8 character at
+// the end of the given buffer. If so, it sets this.charLength to the byte
+// length that character, and sets this.charReceived to the number of bytes
+// that are available for this character.
+StringDecoder.prototype.detectIncompleteChar = function(buffer) {
+  // determine how many bytes we have to check at the end of this buffer
+  var i = (buffer.length >= 3) ? 3 : buffer.length;
+
+  // Figure out if one of the last i bytes of our buffer announces an
+  // incomplete char.
+  for (; i > 0; i--) {
+    var c = buffer[buffer.length - i];
+
+    // See http://en.wikipedia.org/wiki/UTF-8#Description
+
+    // 110XXXXX
+    if (i == 1 && c >> 5 == 0x06) {
+      this.charLength = 2;
+      break;
+    }
+
+    // 1110XXXX
+    if (i <= 2 && c >> 4 == 0x0E) {
+      this.charLength = 3;
+      break;
+    }
+
+    // 11110XXX
+    if (i <= 3 && c >> 3 == 0x1E) {
+      this.charLength = 4;
+      break;
+    }
+  }
+  this.charReceived = i;
+};
+
+StringDecoder.prototype.end = function(buffer) {
+  var res = '';
+  if (buffer && buffer.length)
+    res = this.write(buffer);
+
+  if (this.charReceived) {
+    var cr = this.charReceived;
+    var buf = this.charBuffer;
+    var enc = this.encoding;
+    res += buf.slice(0, cr).toString(enc);
+  }
+
+  return res;
+};
+
+function passThroughWrite(buffer) {
+  return buffer.toString(this.encoding);
+}
+
+function utf16DetectIncompleteChar(buffer) {
+  this.charReceived = buffer.length % 2;
+  this.charLength = this.charReceived ? 2 : 0;
+}
+
+function base64DetectIncompleteChar(buffer) {
+  this.charReceived = buffer.length % 3;
+  this.charLength = this.charReceived ? 3 : 0;
+}
+
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /* Copyright (c) 2012-2016 LevelUP contributors
  * See list at <https://github.com/level/levelup#contributing>
  * MIT License
  * <https://github.com/level/levelup/blob/master/LICENSE.md>
  */
 
-var extend         = __webpack_require__(30)
-  , LevelUPError   = __webpack_require__(47).LevelUPError
-  , format         = __webpack_require__(0).format
+var extend         = __webpack_require__(28)
+  , LevelUPError   = __webpack_require__(46).LevelUPError
+  , format         = __webpack_require__(1).format
   , defaultOptions = {
         createIfMissing : true
       , errorIfExists   : false
@@ -40061,7 +40034,7 @@ function getLevelDOWN () {
   if (leveldown)
     return leveldown
 
-  var requiredVersion  = __webpack_require__(302).devDependencies.leveldown
+  var requiredVersion  = __webpack_require__(304).devDependencies.leveldown
     , leveldownVersion
 
   try {
@@ -40070,7 +40043,7 @@ function getLevelDOWN () {
     throw requireError(e)
   }
 
-  if (!__webpack_require__(132).satisfies(leveldownVersion, requiredVersion)) {
+  if (!__webpack_require__(134).satisfies(leveldownVersion, requiredVersion)) {
     throw new LevelUPError(
         'Installed version of LevelDOWN ('
       + leveldownVersion
@@ -40110,19 +40083,19 @@ module.exports = {
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits          = __webpack_require__(2)
-  , AbstractLevelDOWN = __webpack_require__(123).AbstractLevelDOWN
-  , AbstractIterator  = __webpack_require__(123).AbstractIterator
-  , ltgt              = __webpack_require__(73)
-  , createRBT = __webpack_require__(63)
+  , AbstractLevelDOWN = __webpack_require__(124).AbstractLevelDOWN
+  , AbstractIterator  = __webpack_require__(124).AbstractIterator
+  , ltgt              = __webpack_require__(72)
+  , createRBT = __webpack_require__(62)
   , globalStore       = {}
 
 // In Node, use global.setImmediate. In the browser, use a consistent
 // microtask library to give consistent microtask experience to all browsers
-var setImmediate = __webpack_require__(304)
+var setImmediate = __webpack_require__(306)
 
 function gt(value) {
   return ltgt.compare(value, this._end) > 0
@@ -40344,7 +40317,7 @@ module.exports = MemDOWN
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -40429,7 +40402,7 @@ AbstractChainedBatch.prototype.write = function (options, callback) {
 module.exports = AbstractChainedBatch
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
@@ -40484,14 +40457,14 @@ module.exports = AbstractIterator
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 Rod Vagg, MIT License */
 
-var xtend                = __webpack_require__(30)
-  , AbstractIterator     = __webpack_require__(121)
-  , AbstractChainedBatch = __webpack_require__(120)
+var xtend                = __webpack_require__(28)
+  , AbstractIterator     = __webpack_require__(122)
+  , AbstractChainedBatch = __webpack_require__(121)
 
 function AbstractLevelDOWN (location) {
   if (!arguments.length || location === undefined)
@@ -40762,21 +40735,21 @@ module.exports = AbstractLevelDOWN
 
 
 /***/ }),
-/* 123 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.AbstractLevelDOWN    = __webpack_require__(122)
-exports.AbstractIterator     = __webpack_require__(121)
-exports.AbstractChainedBatch = __webpack_require__(120)
-exports.isLevelDOWN          = __webpack_require__(305)
-
-
-/***/ }),
 /* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const rlp = __webpack_require__(20)
-const ethUtil = __webpack_require__(74)
+exports.AbstractLevelDOWN    = __webpack_require__(123)
+exports.AbstractIterator     = __webpack_require__(122)
+exports.AbstractChainedBatch = __webpack_require__(121)
+exports.isLevelDOWN          = __webpack_require__(307)
+
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const rlp = __webpack_require__(22)
+const ethUtil = __webpack_require__(73)
 
 module.exports = TrieNode
 
@@ -41033,7 +41006,7 @@ function isRawNode (node) {
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports) {
 
 module.exports = assert;
@@ -41050,7 +41023,7 @@ assert.equal = function assertEqual(l, r, msg) {
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41115,7 +41088,7 @@ utils.encode = function encode(arr, enc) {
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41124,11 +41097,11 @@ utils.encode = function encode(arr, enc) {
 module.exports = Readable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(75);
+var processNextTick = __webpack_require__(74);
 /*</replacement>*/
 
 /*<replacement>*/
-var isArray = __webpack_require__(263);
+var isArray = __webpack_require__(265);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -41138,7 +41111,7 @@ var Duplex;
 Readable.ReadableState = ReadableState;
 
 /*<replacement>*/
-var EE = __webpack_require__(16).EventEmitter;
+var EE = __webpack_require__(19).EventEmitter;
 
 var EElistenerCount = function (emitter, type) {
   return emitter.listeners(type).length;
@@ -41146,19 +41119,12 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream;
-(function () {
-  try {
-    Stream = __webpack_require__(4);
-  } catch (_) {} finally {
-    if (!Stream) Stream = __webpack_require__(16).EventEmitter;
-  }
-})();
+var Stream = __webpack_require__(131);
 /*</replacement>*/
 
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(59);
+var bufferShim = __webpack_require__(51);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -41167,7 +41133,7 @@ util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(0);
+var debugUtil = __webpack_require__(1);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -41176,10 +41142,12 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(322);
+var BufferList = __webpack_require__(324);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
+
+var kProxyEvents = ['error', 'close', 'destroy', 'pause', 'resume'];
 
 function prependListener(emitter, event, fn) {
   // Sadly this is not cacheable as some libraries bundle their own
@@ -41196,7 +41164,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(41);
+  Duplex = Duplex || __webpack_require__(40);
 
   options = options || {};
 
@@ -41258,14 +41226,14 @@ function ReadableState(options, stream) {
   this.decoder = null;
   this.encoding = null;
   if (options.encoding) {
-    if (!StringDecoder) StringDecoder = __webpack_require__(29).StringDecoder;
+    if (!StringDecoder) StringDecoder = __webpack_require__(135).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(41);
+  Duplex = Duplex || __webpack_require__(40);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -41368,7 +41336,7 @@ function needMoreData(state) {
 
 // backwards compatibility.
 Readable.prototype.setEncoding = function (enc) {
-  if (!StringDecoder) StringDecoder = __webpack_require__(29).StringDecoder;
+  if (!StringDecoder) StringDecoder = __webpack_require__(135).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
   return this;
@@ -41905,10 +41873,9 @@ Readable.prototype.wrap = function (stream) {
   }
 
   // proxy certain important events.
-  var events = ['error', 'close', 'destroy', 'pause', 'resume'];
-  forEach(events, function (ev) {
-    stream.on(ev, self.emit.bind(self, ev));
-  });
+  for (var n = 0; n < kProxyEvents.length; n++) {
+    stream.on(kProxyEvents[n], self.emit.bind(self, kProxyEvents[n]));
+  }
 
   // when we try to consume some more bytes, simply unpause the
   // underlying stream.
@@ -42062,7 +42029,7 @@ function indexOf(xs, x) {
 }
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42112,7 +42079,7 @@ function indexOf(xs, x) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(41);
+var Duplex = __webpack_require__(40);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -42250,7 +42217,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42263,7 +42230,7 @@ function done(stream, er, data) {
 module.exports = Writable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(75);
+var processNextTick = __webpack_require__(74);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -42283,24 +42250,17 @@ util.inherits = __webpack_require__(2);
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(341)
+  deprecate: __webpack_require__(343)
 };
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream;
-(function () {
-  try {
-    Stream = __webpack_require__(4);
-  } catch (_) {} finally {
-    if (!Stream) Stream = __webpack_require__(16).EventEmitter;
-  }
-})();
+var Stream = __webpack_require__(131);
 /*</replacement>*/
 
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(59);
+var bufferShim = __webpack_require__(51);
 /*</replacement>*/
 
 util.inherits(Writable, Stream);
@@ -42315,7 +42275,7 @@ function WriteReq(chunk, encoding, cb) {
 }
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(41);
+  Duplex = Duplex || __webpack_require__(40);
 
   options = options || {};
 
@@ -42449,7 +42409,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(41);
+  Duplex = Duplex || __webpack_require__(40);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -42807,29 +42767,39 @@ function CorkedRequest(state) {
 }
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stream = (function (){
-  try {
-    return __webpack_require__(4); // hack to fix a circular dependency issue when used with browserify
-  } catch(_){}
-}());
-exports = module.exports = __webpack_require__(127);
-exports.Stream = Stream || exports;
-exports.Readable = exports;
-exports.Writable = __webpack_require__(129);
-exports.Duplex = __webpack_require__(41);
-exports.Transform = __webpack_require__(128);
-exports.PassThrough = __webpack_require__(321);
+module.exports = __webpack_require__(7);
 
-if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Stream = __webpack_require__(7);
+if (process.env.READABLE_STREAM === 'disable' && Stream) {
   module.exports = Stream;
+  exports = module.exports = Stream.Readable;
+  exports.Readable = Stream.Readable;
+  exports.Writable = Stream.Writable;
+  exports.Duplex = Stream.Duplex;
+  exports.Transform = Stream.Transform;
+  exports.PassThrough = Stream.PassThrough;
+  exports.Stream = Stream;
+} else {
+  exports = module.exports = __webpack_require__(128);
+  exports.Stream = Stream || exports;
+  exports.Readable = exports;
+  exports.Writable = __webpack_require__(130);
+  exports.Duplex = __webpack_require__(40);
+  exports.Transform = __webpack_require__(129);
+  exports.PassThrough = __webpack_require__(323);
 }
 
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -42870,7 +42840,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports) {
 
 exports = module.exports = SemVer;
@@ -44064,7 +44034,286 @@ function outside(version, range, hilo, loose) {
 
 
 /***/ }),
-/* 133 */
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Buffer = __webpack_require__(12).Buffer;
+var bufferShim = __webpack_require__(51);
+
+var isEncoding = Buffer.isEncoding || function (encoding) {
+  encoding = '' + encoding;
+  switch (encoding && encoding.toLowerCase()) {
+    case 'hex':case 'utf8':case 'utf-8':case 'ascii':case 'binary':case 'base64':case 'ucs2':case 'ucs-2':case 'utf16le':case 'utf-16le':case 'raw':
+      return true;
+    default:
+      return false;
+  }
+};
+
+function _normalizeEncoding(enc) {
+  if (!enc) return 'utf8';
+  var retried;
+  while (true) {
+    switch (enc) {
+      case 'utf8':
+      case 'utf-8':
+        return 'utf8';
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return 'utf16le';
+      case 'latin1':
+      case 'binary':
+        return 'latin1';
+      case 'base64':
+      case 'ascii':
+      case 'hex':
+        return enc;
+      default:
+        if (retried) return; // undefined
+        enc = ('' + enc).toLowerCase();
+        retried = true;
+    }
+  }
+};
+
+// Do not cache `Buffer.isEncoding` when checking encoding names as some
+// modules monkey-patch it to support additional encodings
+function normalizeEncoding(enc) {
+  var nenc = _normalizeEncoding(enc);
+  if (typeof nenc !== 'string' && (Buffer.isEncoding === isEncoding || !isEncoding(enc))) throw new Error('Unknown encoding: ' + enc);
+  return nenc || enc;
+}
+
+// StringDecoder provides an interface for efficiently splitting a series of
+// buffers into a series of JS strings without breaking apart multi-byte
+// characters.
+exports.StringDecoder = StringDecoder;
+function StringDecoder(encoding) {
+  this.encoding = normalizeEncoding(encoding);
+  var nb;
+  switch (this.encoding) {
+    case 'utf16le':
+      this.text = utf16Text;
+      this.end = utf16End;
+      nb = 4;
+      break;
+    case 'utf8':
+      this.fillLast = utf8FillLast;
+      nb = 4;
+      break;
+    case 'base64':
+      this.text = base64Text;
+      this.end = base64End;
+      nb = 3;
+      break;
+    default:
+      this.write = simpleWrite;
+      this.end = simpleEnd;
+      return;
+  }
+  this.lastNeed = 0;
+  this.lastTotal = 0;
+  this.lastChar = bufferShim.allocUnsafe(nb);
+}
+
+StringDecoder.prototype.write = function (buf) {
+  if (buf.length === 0) return '';
+  var r;
+  var i;
+  if (this.lastNeed) {
+    r = this.fillLast(buf);
+    if (r === undefined) return '';
+    i = this.lastNeed;
+    this.lastNeed = 0;
+  } else {
+    i = 0;
+  }
+  if (i < buf.length) return r ? r + this.text(buf, i) : this.text(buf, i);
+  return r || '';
+};
+
+StringDecoder.prototype.end = utf8End;
+
+// Returns only complete characters in a Buffer
+StringDecoder.prototype.text = utf8Text;
+
+// Attempts to complete a partial non-UTF-8 character using bytes from a Buffer
+StringDecoder.prototype.fillLast = function (buf) {
+  if (this.lastNeed <= buf.length) {
+    buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, this.lastNeed);
+    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
+  }
+  buf.copy(this.lastChar, this.lastTotal - this.lastNeed, 0, buf.length);
+  this.lastNeed -= buf.length;
+};
+
+// Checks the type of a UTF-8 byte, whether it's ASCII, a leading byte, or a
+// continuation byte.
+function utf8CheckByte(byte) {
+  if (byte <= 0x7F) return 0;else if (byte >> 5 === 0x06) return 2;else if (byte >> 4 === 0x0E) return 3;else if (byte >> 3 === 0x1E) return 4;
+  return -1;
+}
+
+// Checks at most 3 bytes at the end of a Buffer in order to detect an
+// incomplete multi-byte UTF-8 character. The total number of bytes (2, 3, or 4)
+// needed to complete the UTF-8 character (if applicable) are returned.
+function utf8CheckIncomplete(self, buf, i) {
+  var j = buf.length - 1;
+  if (j < i) return 0;
+  var nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) self.lastNeed = nb - 1;
+    return nb;
+  }
+  if (--j < i) return 0;
+  nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) self.lastNeed = nb - 2;
+    return nb;
+  }
+  if (--j < i) return 0;
+  nb = utf8CheckByte(buf[j]);
+  if (nb >= 0) {
+    if (nb > 0) {
+      if (nb === 2) nb = 0;else self.lastNeed = nb - 3;
+    }
+    return nb;
+  }
+  return 0;
+}
+
+// Validates as many continuation bytes for a multi-byte UTF-8 character as
+// needed or are available. If we see a non-continuation byte where we expect
+// one, we "replace" the validated continuation bytes we've seen so far with
+// UTF-8 replacement characters ('\ufffd'), to match v8's UTF-8 decoding
+// behavior. The continuation byte check is included three times in the case
+// where all of the continuation bytes for a character exist in the same buffer.
+// It is also done this way as a slight performance increase instead of using a
+// loop.
+function utf8CheckExtraBytes(self, buf, p) {
+  if ((buf[0] & 0xC0) !== 0x80) {
+    self.lastNeed = 0;
+    return '\ufffd'.repeat(p);
+  }
+  if (self.lastNeed > 1 && buf.length > 1) {
+    if ((buf[1] & 0xC0) !== 0x80) {
+      self.lastNeed = 1;
+      return '\ufffd'.repeat(p + 1);
+    }
+    if (self.lastNeed > 2 && buf.length > 2) {
+      if ((buf[2] & 0xC0) !== 0x80) {
+        self.lastNeed = 2;
+        return '\ufffd'.repeat(p + 2);
+      }
+    }
+  }
+}
+
+// Attempts to complete a multi-byte UTF-8 character using bytes from a Buffer.
+function utf8FillLast(buf) {
+  var p = this.lastTotal - this.lastNeed;
+  var r = utf8CheckExtraBytes(this, buf, p);
+  if (r !== undefined) return r;
+  if (this.lastNeed <= buf.length) {
+    buf.copy(this.lastChar, p, 0, this.lastNeed);
+    return this.lastChar.toString(this.encoding, 0, this.lastTotal);
+  }
+  buf.copy(this.lastChar, p, 0, buf.length);
+  this.lastNeed -= buf.length;
+}
+
+// Returns all complete UTF-8 characters in a Buffer. If the Buffer ended on a
+// partial character, the character's bytes are buffered until the required
+// number of bytes are available.
+function utf8Text(buf, i) {
+  var total = utf8CheckIncomplete(this, buf, i);
+  if (!this.lastNeed) return buf.toString('utf8', i);
+  this.lastTotal = total;
+  var end = buf.length - (total - this.lastNeed);
+  buf.copy(this.lastChar, 0, end);
+  return buf.toString('utf8', i, end);
+}
+
+// For UTF-8, a replacement character for each buffered byte of a (partial)
+// character needs to be added to the output.
+function utf8End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) return r + '\ufffd'.repeat(this.lastTotal - this.lastNeed);
+  return r;
+}
+
+// UTF-16LE typically needs two bytes per character, but even if we have an even
+// number of bytes available, we need to check if we end on a leading/high
+// surrogate. In that case, we need to wait for the next two bytes in order to
+// decode the last character properly.
+function utf16Text(buf, i) {
+  if ((buf.length - i) % 2 === 0) {
+    var r = buf.toString('utf16le', i);
+    if (r) {
+      var c = r.charCodeAt(r.length - 1);
+      if (c >= 0xD800 && c <= 0xDBFF) {
+        this.lastNeed = 2;
+        this.lastTotal = 4;
+        this.lastChar[0] = buf[buf.length - 2];
+        this.lastChar[1] = buf[buf.length - 1];
+        return r.slice(0, -1);
+      }
+    }
+    return r;
+  }
+  this.lastNeed = 1;
+  this.lastTotal = 2;
+  this.lastChar[0] = buf[buf.length - 1];
+  return buf.toString('utf16le', i, buf.length - 1);
+}
+
+// For UTF-16LE we do not explicitly append special replacement characters if we
+// end on a partial character, we simply let v8 handle that.
+function utf16End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) {
+    var end = this.lastTotal - this.lastNeed;
+    return r + this.lastChar.toString('utf16le', 0, end);
+  }
+  return r;
+}
+
+function base64Text(buf, i) {
+  var n = (buf.length - i) % 3;
+  if (n === 0) return buf.toString('base64', i);
+  this.lastNeed = 3 - n;
+  this.lastTotal = 3;
+  if (n === 1) {
+    this.lastChar[0] = buf[buf.length - 1];
+  } else {
+    this.lastChar[0] = buf[buf.length - 2];
+    this.lastChar[1] = buf[buf.length - 1];
+  }
+  return buf.toString('base64', i, buf.length - n);
+}
+
+function base64End(buf) {
+  var r = buf && buf.length ? this.write(buf) : '';
+  if (this.lastNeed) return r + this.lastChar.toString('base64', 0, 3 - this.lastNeed);
+  return r;
+}
+
+// Pass bytes on through for single-byte encodings (e.g. ascii, latin1, hex)
+function simpleWrite(buf) {
+  return buf.toString(this.encoding);
+}
+
+function simpleEnd(buf) {
+  return buf && buf.length ? this.write(buf) : '';
+}
+
+/***/ }),
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -44089,7 +44338,7 @@ function outside(version, range, hilo, loose) {
  * @date 2015
  */
 
-var utils = __webpack_require__(8);
+var utils = __webpack_require__(6);
 
 /**
  * SolidityParam object prototype.
@@ -44222,7 +44471,7 @@ module.exports = SolidityParam;
 
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -44247,10 +44496,10 @@ module.exports = SolidityParam;
  * @date 2014
  */
 
-var utils = __webpack_require__(8);
-var coder = __webpack_require__(79);
+var utils = __webpack_require__(6);
+var coder = __webpack_require__(78);
 var formatters = __webpack_require__(24);
-var sha3 = __webpack_require__(49);
+var sha3 = __webpack_require__(48);
 var Filter = __webpack_require__(56);
 var watches = __webpack_require__(58);
 
@@ -44436,7 +44685,7 @@ module.exports = SolidityEvent;
 
 
 /***/ }),
-/* 135 */
+/* 138 */
 /***/ (function(module, exports) {
 
 /*
@@ -44527,35 +44776,35 @@ module.exports = Jsonrpc;
 
 
 /***/ }),
-/* 136 */
+/* 139 */
 /***/ (function(module, exports) {
 
 module.exports = require("child_process");
 
 /***/ }),
-/* 137 */
+/* 140 */
 /***/ (function(module, exports) {
 
 module.exports = require("https");
 
 /***/ }),
-/* 138 */
+/* 141 */
 /***/ (function(module, exports) {
 
 module.exports = require("os");
 
 /***/ }),
-/* 139 */
+/* 142 */
 /***/ (function(module, exports) {
 
 module.exports = require("url");
 
 /***/ }),
-/* 140 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var http = __webpack_require__(80);
-var Provider = __webpack_require__(81);
+var http = __webpack_require__(79);
+var Provider = __webpack_require__(80);
 
 module.exports = {
   create: function(options) {
@@ -44685,11 +44934,11 @@ module.exports = {
 
 
 /***/ }),
-/* 141 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Provider = __webpack_require__(81);
-var Server = __webpack_require__(140);
+var Provider = __webpack_require__(80);
+var Server = __webpack_require__(143);
 
 // This interface exists so as not to cause breaking changes.
 module.exports = {
@@ -44703,10 +44952,10 @@ module.exports = {
 
 
 /***/ }),
-/* 142 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var AbstractLevelDOWN = __webpack_require__(84)
+var AbstractLevelDOWN = __webpack_require__(83)
 
 function isLevelDOWN (db) {
   if (!db || typeof db !== 'object')
@@ -44723,25 +44972,25 @@ module.exports = isLevelDOWN
 
 
 /***/ }),
-/* 143 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(144);
+module.exports = __webpack_require__(147);
 
 
 /***/ }),
-/* 144 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var EventEmitter = __webpack_require__(16).EventEmitter,
-    util = __webpack_require__(0),
-    async = __webpack_require__(145),
+var EventEmitter = __webpack_require__(19).EventEmitter,
+    util = __webpack_require__(1),
+    async = __webpack_require__(148),
     AsyncEventEmitter;
 
 
@@ -44918,7 +45167,7 @@ AsyncEventEmitter.prototype._beforeOrAfter = function(event, target, listener, b
 
 
 /***/ }),
-/* 145 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global setImmediate: false, setTimeout: false, console: false */
@@ -45883,7 +46132,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global setImme
 
 
 /***/ }),
-/* 146 */
+/* 149 */
 /***/ (function(module, exports) {
 
 // base-x encoding
@@ -45975,7 +46224,7 @@ module.exports = function base (ALPHABET) {
 
 
 /***/ }),
-/* 147 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__filename) {
@@ -45983,8 +46232,8 @@ module.exports = function base (ALPHABET) {
  * Module dependencies.
  */
 
-var fs = __webpack_require__(44)
-  , path = __webpack_require__(51)
+var fs = __webpack_require__(43)
+  , path = __webpack_require__(50)
   , join = path.join
   , dirname = path.dirname
   , exists = fs.existsSync || path.existsSync
@@ -46148,16 +46397,16 @@ exports.getRoot = function getRoot (file) {
 /* WEBPACK VAR INJECTION */}.call(exports, "/index.js"))
 
 /***/ }),
-/* 148 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assert = __webpack_require__(14)
-var createHash = __webpack_require__(17)
-var pbkdf2 = __webpack_require__(316).pbkdf2Sync
-var randomBytes = __webpack_require__(320)
-var unorm = __webpack_require__(339)
+var assert = __webpack_require__(17)
+var createHash = __webpack_require__(18)
+var pbkdf2 = __webpack_require__(318).pbkdf2Sync
+var randomBytes = __webpack_require__(322)
+var unorm = __webpack_require__(341)
 
-var DEFAULT_WORDLIST = __webpack_require__(149)
+var DEFAULT_WORDLIST = __webpack_require__(152)
 
 function mnemonicToSeed(mnemonic, password) {
   var mnemonicBuffer = new Buffer(mnemonic, 'utf8')
@@ -46283,7 +46532,7 @@ module.exports = {
 
 
 /***/ }),
-/* 149 */
+/* 152 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -48338,7 +48587,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 150 */
+/* 153 */
 /***/ (function(module, exports) {
 
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
@@ -48455,7 +48704,7 @@ module.exports = {
 
 
 /***/ }),
-/* 151 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var r;
@@ -48526,10 +48775,10 @@ if (typeof self === 'object') {
 
 
 /***/ }),
-/* 152 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Sha3 = __webpack_require__(268)
+const Sha3 = __webpack_require__(270)
 
 const hashLengths = [ 224, 256, 384, 512 ]
 
@@ -48566,24 +48815,24 @@ module.exports = {
 
 
 /***/ }),
-/* 153 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var basex = __webpack_require__(146)
+var basex = __webpack_require__(149)
 var ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
 module.exports = basex(ALPHABET)
 
 
 /***/ }),
-/* 154 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var base58 = __webpack_require__(153)
-var createHash = __webpack_require__(17)
+var base58 = __webpack_require__(156)
+var createHash = __webpack_require__(18)
 
 // SHA256(SHA256(buffer))
 function sha256x2 (buffer) {
@@ -48642,14 +48891,14 @@ module.exports = {
 
 
 /***/ }),
-/* 155 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var AbstractLevelDOWN = __webpack_require__(85).AbstractLevelDOWN
-var inherits          = __webpack_require__(0).inherits
-var EventEmitter      = __webpack_require__(16).EventEmitter
-var Cache             = __webpack_require__(303)
+var AbstractLevelDOWN = __webpack_require__(84).AbstractLevelDOWN
+var inherits          = __webpack_require__(1).inherits
+var EventEmitter      = __webpack_require__(19).EventEmitter
+var Cache             = __webpack_require__(305)
 var defaultLeveldown
 
 function CacheDOWN (location, leveldown) {
@@ -48775,10 +49024,10 @@ module.exports.factory             = function factory () {
 
 
 /***/ }),
-/* 156 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Tree = __webpack_require__(63)
+const Tree = __webpack_require__(62)
 
 module.exports = CheckpointStore
 
@@ -48857,11 +49106,11 @@ CheckpointStore.prototype.toJSON = function() {
 }
 
 /***/ }),
-/* 157 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var base58 = __webpack_require__(158)
-var createHash = __webpack_require__(17)
+var base58 = __webpack_require__(161)
+var createHash = __webpack_require__(18)
 
 function encode (payload, version) {
   if (Array.isArray(payload) || payload instanceof Uint8Array) {
@@ -48956,7 +49205,7 @@ module.exports = {
 
 
 /***/ }),
-/* 158 */
+/* 161 */
 /***/ (function(module, exports) {
 
 // Base58 encoding/decoding
@@ -49047,13 +49296,13 @@ module.exports = {
 
 
 /***/ }),
-/* 159 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(36), __webpack_require__(38), __webpack_require__(37), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(35), __webpack_require__(37), __webpack_require__(36), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49284,13 +49533,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 160 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49438,13 +49687,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 161 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49509,13 +49758,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 162 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52), __webpack_require__(163), __webpack_require__(160), __webpack_require__(36), __webpack_require__(38), __webpack_require__(61), __webpack_require__(87), __webpack_require__(179), __webpack_require__(89), __webpack_require__(180), __webpack_require__(88), __webpack_require__(178), __webpack_require__(60), __webpack_require__(174), __webpack_require__(37), __webpack_require__(7), __webpack_require__(164), __webpack_require__(166), __webpack_require__(165), __webpack_require__(168), __webpack_require__(167), __webpack_require__(169), __webpack_require__(170), __webpack_require__(171), __webpack_require__(173), __webpack_require__(172), __webpack_require__(161), __webpack_require__(159), __webpack_require__(181), __webpack_require__(177), __webpack_require__(176), __webpack_require__(175));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(52), __webpack_require__(166), __webpack_require__(163), __webpack_require__(35), __webpack_require__(37), __webpack_require__(60), __webpack_require__(86), __webpack_require__(182), __webpack_require__(88), __webpack_require__(183), __webpack_require__(87), __webpack_require__(181), __webpack_require__(59), __webpack_require__(177), __webpack_require__(36), __webpack_require__(5), __webpack_require__(167), __webpack_require__(169), __webpack_require__(168), __webpack_require__(171), __webpack_require__(170), __webpack_require__(172), __webpack_require__(173), __webpack_require__(174), __webpack_require__(176), __webpack_require__(175), __webpack_require__(164), __webpack_require__(162), __webpack_require__(184), __webpack_require__(180), __webpack_require__(179), __webpack_require__(178));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49532,13 +49781,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 163 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49613,13 +49862,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 164 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49696,13 +49945,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 165 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49817,13 +50066,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 166 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49880,13 +50129,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 167 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49925,13 +50174,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 168 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -49984,13 +50233,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 169 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50038,13 +50287,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 170 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50087,13 +50336,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 171 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50132,13 +50381,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 172 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50167,13 +50416,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 173 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50217,13 +50466,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 174 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(61), __webpack_require__(60));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(60), __webpack_require__(59));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50367,13 +50616,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 175 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(36), __webpack_require__(38), __webpack_require__(37), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(35), __webpack_require__(37), __webpack_require__(36), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50562,13 +50811,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 176 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(36), __webpack_require__(38), __webpack_require__(37), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(35), __webpack_require__(37), __webpack_require__(36), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50759,13 +51008,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 177 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(36), __webpack_require__(38), __webpack_require__(37), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(35), __webpack_require__(37), __webpack_require__(36), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -50903,13 +51152,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 178 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1));
+		module.exports = exports = factory(__webpack_require__(0));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -51175,13 +51424,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 179 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(87));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(86));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -51260,13 +51509,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 180 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(52), __webpack_require__(89));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(52), __webpack_require__(88));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -51348,13 +51597,13 @@ module.exports = {
 }));
 
 /***/ }),
-/* 181 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(1), __webpack_require__(36), __webpack_require__(38), __webpack_require__(37), __webpack_require__(7));
+		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(35), __webpack_require__(37), __webpack_require__(36), __webpack_require__(5));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -52123,11 +52372,11 @@ module.exports = {
 }));
 
 /***/ }),
-/* 182 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var util = __webpack_require__(0)
-  , AbstractIterator = __webpack_require__(93).AbstractIterator
+var util = __webpack_require__(1)
+  , AbstractIterator = __webpack_require__(92).AbstractIterator
 
 
 function DeferredIterator (options) {
@@ -52163,12 +52412,12 @@ module.exports = DeferredIterator;
 
 
 /***/ }),
-/* 183 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var util              = __webpack_require__(0)
-  , AbstractLevelDOWN = __webpack_require__(93).AbstractLevelDOWN
-  , DeferredIterator  = __webpack_require__(182)
+var util              = __webpack_require__(1)
+  , AbstractLevelDOWN = __webpack_require__(92).AbstractLevelDOWN
+  , DeferredIterator  = __webpack_require__(185)
 
 function DeferredLevelDOWN (location) {
   AbstractLevelDOWN.call(this, typeof location == 'string' ? location : '') // optional location, who cares?
@@ -52225,10 +52474,10 @@ module.exports.DeferredIterator = DeferredIterator
 
 
 /***/ }),
-/* 184 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var AbstractLevelDOWN = __webpack_require__(92)
+var AbstractLevelDOWN = __webpack_require__(91)
 
 function isLevelDOWN (db) {
   if (!db || typeof db !== 'object')
@@ -52245,14 +52494,14 @@ module.exports = isLevelDOWN
 
 
 /***/ }),
-/* 185 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var BN = __webpack_require__(6);
-var elliptic = __webpack_require__(12);
+var BN = __webpack_require__(8);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var getNAF = utils.getNAF;
 var getJSF = utils.getJSF;
@@ -52627,15 +52876,15 @@ BasePoint.prototype.dblp = function dblp(k) {
 
 
 /***/ }),
-/* 186 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var curve = __webpack_require__(53);
-var elliptic = __webpack_require__(12);
-var BN = __webpack_require__(6);
+var elliptic = __webpack_require__(13);
+var BN = __webpack_require__(8);
 var inherits = __webpack_require__(2);
 var Base = curve.base;
 
@@ -53067,18 +53316,18 @@ Point.prototype.mixedAdd = Point.prototype.add;
 
 
 /***/ }),
-/* 187 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var curve = __webpack_require__(53);
-var BN = __webpack_require__(6);
+var BN = __webpack_require__(8);
 var inherits = __webpack_require__(2);
 var Base = curve.base;
 
-var elliptic = __webpack_require__(12);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 
 function MontCurve(conf) {
@@ -53254,15 +53503,15 @@ Point.prototype.getX = function getX() {
 
 
 /***/ }),
-/* 188 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var curve = __webpack_require__(53);
-var elliptic = __webpack_require__(12);
-var BN = __webpack_require__(6);
+var elliptic = __webpack_require__(13);
+var BN = __webpack_require__(8);
 var inherits = __webpack_require__(2);
 var Base = curve.base;
 
@@ -54199,7 +54448,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 
 /***/ }),
-/* 189 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54207,8 +54456,8 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 var curves = exports;
 
-var hash = __webpack_require__(32);
-var elliptic = __webpack_require__(12);
+var hash = __webpack_require__(30);
+var elliptic = __webpack_require__(13);
 
 var assert = elliptic.utils.assert;
 
@@ -54372,7 +54621,7 @@ defineCurve('ed25519', {
 
 var pre;
 try {
-  pre = __webpack_require__(196);
+  pre = __webpack_require__(199);
 } catch (e) {
   pre = undefined;
 }
@@ -54411,20 +54660,20 @@ defineCurve('secp256k1', {
 
 
 /***/ }),
-/* 190 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var BN = __webpack_require__(6);
-var HmacDRBG = __webpack_require__(261);
-var elliptic = __webpack_require__(12);
+var BN = __webpack_require__(8);
+var HmacDRBG = __webpack_require__(263);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
-var KeyPair = __webpack_require__(191);
-var Signature = __webpack_require__(192);
+var KeyPair = __webpack_require__(194);
+var Signature = __webpack_require__(195);
 
 function EC(options) {
   if (!(this instanceof EC))
@@ -54658,14 +54907,14 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 /***/ }),
-/* 191 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var BN = __webpack_require__(6);
-var elliptic = __webpack_require__(12);
+var BN = __webpack_require__(8);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
@@ -54784,15 +55033,15 @@ KeyPair.prototype.inspect = function inspect() {
 
 
 /***/ }),
-/* 192 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var BN = __webpack_require__(6);
+var BN = __webpack_require__(8);
 
-var elliptic = __webpack_require__(12);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var assert = utils.assert;
 
@@ -54926,19 +55175,19 @@ Signature.prototype.toDER = function toDER(enc) {
 
 
 /***/ }),
-/* 193 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var hash = __webpack_require__(32);
-var elliptic = __webpack_require__(12);
+var hash = __webpack_require__(30);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
-var KeyPair = __webpack_require__(194);
-var Signature = __webpack_require__(195);
+var KeyPair = __webpack_require__(197);
+var Signature = __webpack_require__(198);
 
 function EDDSA(curve) {
   assert(curve === 'ed25519', 'only tested with ed25519 so far');
@@ -55051,13 +55300,13 @@ EDDSA.prototype.isPoint = function isPoint(val) {
 
 
 /***/ }),
-/* 194 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var elliptic = __webpack_require__(12);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
@@ -55154,14 +55403,14 @@ module.exports = KeyPair;
 
 
 /***/ }),
-/* 195 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var BN = __webpack_require__(6);
-var elliptic = __webpack_require__(12);
+var BN = __webpack_require__(8);
+var elliptic = __webpack_require__(13);
 var utils = elliptic.utils;
 var assert = utils.assert;
 var cachedProperty = utils.cachedProperty;
@@ -55227,7 +55476,7 @@ module.exports = Signature;
 
 
 /***/ }),
-/* 196 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -56013,16 +56262,16 @@ module.exports = {
 
 
 /***/ }),
-/* 197 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = exports;
-var BN = __webpack_require__(6);
-var minAssert = __webpack_require__(125);
-var minUtils = __webpack_require__(126);
+var BN = __webpack_require__(8);
+var minAssert = __webpack_require__(126);
+var minUtils = __webpack_require__(127);
 
 utils.assert = minAssert;
 utils.toArray = minUtils.toArray;
@@ -56140,7 +56389,7 @@ utils.intFromLE = intFromLE;
 
 
 /***/ }),
-/* 198 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -56268,10 +56517,10 @@ module.exports = {
 };
 
 /***/ }),
-/* 199 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var prr = __webpack_require__(200)
+var prr = __webpack_require__(203)
 
 function init (type, message, cause) {
   prr(this, {
@@ -56329,7 +56578,7 @@ module.exports = function (errno) {
 
 
 /***/ }),
-/* 200 */
+/* 203 */
 /***/ (function(module, exports) {
 
 /*!
@@ -56397,7 +56646,7 @@ module.exports = function (errno) {
 })
 
 /***/ }),
-/* 201 */
+/* 204 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -56424,7 +56673,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 202 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -65324,7 +65573,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -65558,15 +65807,15 @@ module.exports = {
 };
 
 /***/ }),
-/* 204 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
+const SHA3 = __webpack_require__(45)
+const secp256k1 = __webpack_require__(32)
+const assert = __webpack_require__(17)
+const rlp = __webpack_require__(22)
+const BN = __webpack_require__(8)
+const createHash = __webpack_require__(18)
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -66265,11 +66514,11 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
-/* 205 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const utils = __webpack_require__(96)
-const params = __webpack_require__(95)
+const utils = __webpack_require__(95)
+const params = __webpack_require__(94)
 const BN = utils.BN
   /**
    * An object that repersents the block header
@@ -66512,14 +66761,7 @@ BlockHeader.prototype.isHomestead = function () {
 
 
 /***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(207)
-
-
-/***/ }),
-/* 207 */
+/* 209 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -66740,8 +66982,12 @@ module.exports = {
 		"d": "the amount a miner gets for inculding a uncle"
 	},
 	"homeSteadForkNumber": {
-		"v": 1000000,
-		"d": "the block that the homestead fork started at"
+		"v": 1150000,
+		"d": "the block that the Homestead fork started at"
+	},
+	"homesteadRepriceForkNumber": {
+		"v": 2463000,
+		"d": "the block that the Homestead Reprice (EIP150) fork started at"
 	},
 	"timebombPeriod": {
 		"v": 100000,
@@ -66753,7 +66999,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 208 */
+/* 210 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -66762,15 +67008,15 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 208;
+webpackEmptyContext.id = 210;
 
 /***/ }),
-/* 209 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Tree = __webpack_require__(63)
-const Account = __webpack_require__(21)
-const async = __webpack_require__(22)
+const Tree = __webpack_require__(62)
+const Account = __webpack_require__(20)
+const async = __webpack_require__(21)
 
 var Cache = module.exports = function (trie) {
   this._cache = Tree()
@@ -66922,7 +67168,7 @@ Cache.prototype._update = function (key, val, modified, exists) {
 
 
 /***/ }),
-/* 210 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var utils = __webpack_require__(9)
@@ -66943,15 +67189,15 @@ module.exports = {
 
 
 /***/ }),
-/* 211 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const inherits = __webpack_require__(0).inherits
-const async = __webpack_require__(22)
+const inherits = __webpack_require__(1).inherits
+const async = __webpack_require__(21)
 const ethUtil = __webpack_require__(9)
-const Account = __webpack_require__(21)
-const FakeMerklePatriciaTree = __webpack_require__(233)
-const VM = __webpack_require__(100)
+const Account = __webpack_require__(20)
+const FakeMerklePatriciaTree = __webpack_require__(235)
+const VM = __webpack_require__(98)
 const ZERO_BUFFER = new Buffer('0000000000000000000000000000000000000000000000000000000000000000', 'hex')
 
 module.exports = createHookedVm
@@ -67129,7 +67375,7 @@ FallbackAsyncStore.prototype.set = function (address, code, cb) {
 
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const utils = __webpack_require__(9)
@@ -67239,15 +67485,15 @@ module.exports = function (a) {
 
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(22)
+const async = __webpack_require__(21)
 const fees = __webpack_require__(27)
 const utils = __webpack_require__(9)
 const BN = utils.BN
-const constants = __webpack_require__(31)
-const logTable = __webpack_require__(212)
+const constants = __webpack_require__(29)
+const logTable = __webpack_require__(214)
 const ERROR = constants.ERROR
 const MAX_INT = 9007199254740991
 
@@ -68124,7 +68370,7 @@ function makeCall (runState, callOptions, localOpts, cb) {
 
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports) {
 
 const codes = {
@@ -68308,12 +68554,12 @@ module.exports = function (op, full) {
 
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const utils = __webpack_require__(9)
 const BN = utils.BN
-const error = __webpack_require__(31).ERROR
+const error = __webpack_require__(29).ERROR
 const fees = __webpack_require__(27)
 
 module.exports = function (opts) {
@@ -68350,12 +68596,12 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const utils = __webpack_require__(9)
 const BN = utils.BN
-const error = __webpack_require__(31).ERROR
+const error = __webpack_require__(29).ERROR
 const fees = __webpack_require__(27)
 
 module.exports = function (opts) {
@@ -68380,12 +68626,12 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const utils = __webpack_require__(9)
 const BN = utils.BN
-const error = __webpack_require__(31).ERROR
+const error = __webpack_require__(29).ERROR
 const fees = __webpack_require__(27)
 
 module.exports = function (opts) {
@@ -68410,13 +68656,13 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const utils = __webpack_require__(9)
 const BN = utils.BN
 const fees = __webpack_require__(27)
-const error = __webpack_require__(31).ERROR
+const error = __webpack_require__(29).ERROR
 
 module.exports = function (opts) {
   var results = {}
@@ -68440,15 +68686,15 @@ module.exports = function (opts) {
 
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(22)
+const async = __webpack_require__(21)
 const ethUtil = __webpack_require__(9)
-const Bloom = __webpack_require__(99)
+const Bloom = __webpack_require__(97)
 const common = __webpack_require__(27)
 const rlp = ethUtil.rlp
-const Trie = __webpack_require__(33)
+const Trie = __webpack_require__(31)
 const BN = ethUtil.BN
 
 const minerReward = new BN(common.minerReward.v)
@@ -68655,10 +68901,10 @@ module.exports = function (opts, cb) {
 
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(22)
+const async = __webpack_require__(21)
 
 /**
  * processes blocks and adds them to the blockchain
@@ -68725,14 +68971,14 @@ module.exports = function (blockchain, cb) {
 
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(22)
+const async = __webpack_require__(21)
 const ethUtil = __webpack_require__(9)
 const BN = ethUtil.BN
 const fees = __webpack_require__(27)
-const constants = __webpack_require__(31)
+const constants = __webpack_require__(29)
 
 const ERROR = constants.ERROR
 
@@ -68922,7 +69168,7 @@ module.exports = function (opts, cb) {
 
 
 /***/ }),
-/* 222 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -68938,13 +69184,13 @@ instead you should `copy` it first
 not all stack items are 32 bytes, so if the operation realies on the stack
 item length then you must use utils.pad(<item>, 32) first.
 */
-const async = __webpack_require__(22)
+const async = __webpack_require__(21)
 const utils = __webpack_require__(9)
 const Block = __webpack_require__(26)
-const lookupOpInfo = __webpack_require__(214)
-const opFns = __webpack_require__(213)
-const constants = __webpack_require__(31)
-const setImmediate = __webpack_require__(386).setImmediate
+const lookupOpInfo = __webpack_require__(216)
+const opFns = __webpack_require__(215)
+const constants = __webpack_require__(29)
+const setImmediate = __webpack_require__(385).setImmediate
 const BN = utils.BN
 
 const ERROR = constants.ERROR
@@ -69192,7 +69438,7 @@ function preprocessValidJumps (runState) {
 
 
 /***/ }),
-/* 223 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function (opts, cb) {
@@ -69215,13 +69461,13 @@ module.exports = function (opts, cb) {
 
 
 /***/ }),
-/* 224 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(22)
+const async = __webpack_require__(21)
 const utils = __webpack_require__(9)
 const BN = utils.BN
-const Bloom = __webpack_require__(99)
+const Bloom = __webpack_require__(97)
 const Block = __webpack_require__(26)
 
 /**
@@ -69431,15 +69677,15 @@ function txLogsBloom (logs) {
 
 
 /***/ }),
-/* 225 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Trie = __webpack_require__(310)
+const Trie = __webpack_require__(312)
 const common = __webpack_require__(27)
-const async = __webpack_require__(22)
-const Account = __webpack_require__(21)
-const fakeBlockchain = __webpack_require__(210)
-const Cache = __webpack_require__(209)
+const async = __webpack_require__(21)
+const Account = __webpack_require__(20)
+const fakeBlockchain = __webpack_require__(212)
+const Cache = __webpack_require__(211)
 const utils = __webpack_require__(9)
 const BN = utils.BN
 const rlp = utils.rlp
@@ -69743,7 +69989,7 @@ proto.generateGenesis = function (initState, cb) {
 
 
 /***/ }),
-/* 226 */
+/* 228 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -69770,7 +70016,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 227 */
+/* 229 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -78670,7 +78916,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 228 */
+/* 230 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -78908,11 +79154,11 @@ module.exports = {
 };
 
 /***/ }),
-/* 229 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const HDKey = __webpack_require__(258)
-const Wallet = __webpack_require__(230)
+const HDKey = __webpack_require__(260)
+const Wallet = __webpack_require__(232)
 
 function EthereumHDKey () {
 }
@@ -78966,14 +79212,14 @@ module.exports = EthereumHDKey
 
 
 /***/ }),
-/* 230 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ethUtil = __webpack_require__(231)
+var ethUtil = __webpack_require__(233)
 var crypto = __webpack_require__(25)
-var scryptsy = __webpack_require__(323)
-var uuid = __webpack_require__(343)
-var bs58check = __webpack_require__(154)
+var scryptsy = __webpack_require__(325)
+var uuid = __webpack_require__(345)
+var bs58check = __webpack_require__(157)
 
 function assert (val, msg) {
   if (!val) {
@@ -79265,15 +79511,15 @@ module.exports = Wallet
 
 
 /***/ }),
-/* 231 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const SHA3 = __webpack_require__(39)
-const secp256k1 = __webpack_require__(28)
-const assert = __webpack_require__(14)
-const rlp = __webpack_require__(20)
-const BN = __webpack_require__(6)
-const createHash = __webpack_require__(17)
+const SHA3 = __webpack_require__(45)
+const secp256k1 = __webpack_require__(32)
+const assert = __webpack_require__(17)
+const rlp = __webpack_require__(22)
+const BN = __webpack_require__(8)
+const createHash = __webpack_require__(18)
 
 /**
  * the max integer that this VM can handle (a ```BN```)
@@ -79972,14 +80218,14 @@ exports.defineProperties = function (self, fields, data) {
 
 
 /***/ }),
-/* 232 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isHexPrefixed = __webpack_require__(103);
-var stripHexPrefix = __webpack_require__(337);
+var isHexPrefixed = __webpack_require__(101);
+var stripHexPrefix = __webpack_require__(339);
 
 /**
  * Pads a `String` to have an even length
@@ -80198,10 +80444,10 @@ module.exports = {
 };
 
 /***/ }),
-/* 233 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const CheckpointStore = __webpack_require__(156)
+const CheckpointStore = __webpack_require__(159)
 const ZERO_ROOT = '0000000000000000000000000000000000000000000000000000000000000000'
 
 module.exports = FakeTree
@@ -80299,25 +80545,25 @@ function callAsync(fn, a, b){
 }
 
 /***/ }),
-/* 234 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var LevelUpArrayAdapter = __webpack_require__(239);
-var LevelUpObjectAdapter = __webpack_require__(240);
-var levelup = __webpack_require__(72);
-var filedown = __webpack_require__(238);
-var cachedown = __webpack_require__(155);
-var Sublevel = __webpack_require__(68);
+var LevelUpArrayAdapter = __webpack_require__(241);
+var LevelUpObjectAdapter = __webpack_require__(242);
+var levelup = __webpack_require__(71);
+var filedown = __webpack_require__(240);
+var cachedown = __webpack_require__(158);
+var Sublevel = __webpack_require__(67);
 var Block = __webpack_require__(26);
-var txserializer = __webpack_require__(101);
-var blockserializer = __webpack_require__(236);
-var bufferserializer = __webpack_require__(237);
-var BlockLogsSerializer = __webpack_require__(235);
-var ReceiptSerializer = __webpack_require__(241);
+var txserializer = __webpack_require__(99);
+var blockserializer = __webpack_require__(238);
+var bufferserializer = __webpack_require__(239);
+var BlockLogsSerializer = __webpack_require__(237);
+var ReceiptSerializer = __webpack_require__(243);
 var to = __webpack_require__(10);
 var utils = __webpack_require__(11);
-var FakeTransaction = __webpack_require__(46);
-var tmp = __webpack_require__(338);
+var FakeTransaction = __webpack_require__(38);
+var tmp = __webpack_require__(340);
 
 function Database(options) {
   this.options = options;
@@ -80383,12 +80629,12 @@ module.exports = Database;
 
 
 /***/ }),
-/* 235 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
-var Log = __webpack_require__(65);
-var async = __webpack_require__(5);
+var Log = __webpack_require__(64);
+var async = __webpack_require__(4);
 
 function BlockLogsSerializer(database) {
   this.database = database;
@@ -80438,12 +80684,12 @@ module.exports = BlockLogsSerializer;
 
 
 /***/ }),
-/* 236 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
-var txserializer = __webpack_require__(101);
-var async = __webpack_require__(5);
+var txserializer = __webpack_require__(99);
+var async = __webpack_require__(4);
 var Block = __webpack_require__(26);
 
 module.exports = {
@@ -80480,7 +80726,7 @@ module.exports = {
 
 
 /***/ }),
-/* 237 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var utils = __webpack_require__(11);
@@ -80498,14 +80744,14 @@ module.exports = {
 
 
 /***/ }),
-/* 238 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var util = __webpack_require__(0);
-var AbstractLevelDOWN = __webpack_require__(85).AbstractLevelDOWN;
-var async = __webpack_require__(5);
-var fs = __webpack_require__(44);
-var path = __webpack_require__(51);
+var util = __webpack_require__(1);
+var AbstractLevelDOWN = __webpack_require__(84).AbstractLevelDOWN;
+var async = __webpack_require__(4);
+var fs = __webpack_require__(43);
+var path = __webpack_require__(50);
 
 util.inherits(FileDown, AbstractLevelDOWN)
 
@@ -80570,10 +80816,10 @@ module.exports = function(location) {
 
 
 /***/ }),
-/* 239 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Sublevel = __webpack_require__(68);
+var Sublevel = __webpack_require__(67);
 
 // Level up adapter that looks like an array. Doesn't support inserts.
 
@@ -80684,11 +80930,11 @@ module.exports = LevelUpArrayAdapter;
 
 
 /***/ }),
-/* 240 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Sublevel = __webpack_require__(68);
-var async = __webpack_require__(5);
+var Sublevel = __webpack_require__(67);
+var async = __webpack_require__(4);
 
 function LevelUpObjectAdapter(name, db, valueserializer, keyserializer, options) {
   this.db = Sublevel(db, options);
@@ -80783,12 +81029,12 @@ module.exports = LevelUpObjectAdapter;
 
 
 /***/ }),
-/* 241 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var to = __webpack_require__(10);
-var Receipt = __webpack_require__(66);
-var async = __webpack_require__(5);
+var Receipt = __webpack_require__(65);
+var async = __webpack_require__(4);
 
 function ReceiptSerializer(database) {
   this.database = database;
@@ -80823,28 +81069,28 @@ module.exports = ReceiptSerializer;
 
 
 /***/ }),
-/* 242 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Account = __webpack_require__(21);
+var Account = __webpack_require__(20);
 var Block = __webpack_require__(26);
-var VM = __webpack_require__(62);
-var RuntimeError = __webpack_require__(102);
-var Trie = __webpack_require__(33);
-var FakeTransaction = __webpack_require__(46);
+var VM = __webpack_require__(61);
+var RuntimeError = __webpack_require__(100);
+var Trie = __webpack_require__(31);
+var FakeTransaction = __webpack_require__(38);
 var utils = __webpack_require__(11);
-var seedrandom = __webpack_require__(328);
-var bip39 = __webpack_require__(148);
-var hdkey = __webpack_require__(229);
-var async = __webpack_require__(5);
-var BlockchainDouble = __webpack_require__(64);
-var ForkedBlockchain = __webpack_require__(248);
+var seedrandom = __webpack_require__(330);
+var bip39 = __webpack_require__(151);
+var hdkey = __webpack_require__(231);
+var async = __webpack_require__(4);
+var BlockchainDouble = __webpack_require__(63);
+var ForkedBlockchain = __webpack_require__(250);
 var Web3 = __webpack_require__(54);
-var async = __webpack_require__(5);
+var async = __webpack_require__(4);
 
 var to = __webpack_require__(10);
-var random = __webpack_require__(250);
-var txhelper = __webpack_require__(67);
+var random = __webpack_require__(252);
+var txhelper = __webpack_require__(66);
 
 StateManager = function(options) {
   var self = this;
@@ -81504,7 +81750,7 @@ module.exports = StateManager;
 
 
 /***/ }),
-/* 243 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // It's unforutnate we have to have this subprovider, but it's because
@@ -81516,9 +81762,9 @@ module.exports = StateManager;
 // Note: An added benefit of this is that it shaves off a signifcant
 // amount of time from tests that use web3 and block filters.
 
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
-var async = __webpack_require__(5);
+var Subprovider = __webpack_require__(33);
+var inherits = __webpack_require__(1).inherits;
+var async = __webpack_require__(4);
 var to = __webpack_require__(10);
 
 inherits(DelayedBlockFilter, Subprovider);
@@ -81633,19 +81879,19 @@ DelayedBlockFilter.prototype.handleGetFilterChanges = function(payload, next, en
 
 
 /***/ }),
-/* 244 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var utils = __webpack_require__(11);
-var fs = __webpack_require__(44);
-var async = __webpack_require__(5);
-var inherits = __webpack_require__(0).inherits;
-var StateManager = __webpack_require__(242);
+var fs = __webpack_require__(43);
+var async = __webpack_require__(4);
+var inherits = __webpack_require__(1).inherits;
+var StateManager = __webpack_require__(244);
 var to = __webpack_require__(10);
-var txhelper = __webpack_require__(67);
-var pkg = __webpack_require__(251);
+var txhelper = __webpack_require__(66);
+var pkg = __webpack_require__(253);
 
-var Subprovider = __webpack_require__(34);
+var Subprovider = __webpack_require__(33);
 
 inherits(GethApiDouble, Subprovider)
 
@@ -81767,7 +82013,13 @@ GethApiDouble.prototype.eth_getCode = function(address, block_number, callback) 
 
 GethApiDouble.prototype.eth_getBlockByNumber = function(block_number, include_full_transactions, callback) {
   this.state.blockchain.getBlock(block_number, function(err, block) {
-    if (err) return callback(err);
+    if (err) {
+      if (err.message && err.message.indexOf("index out of range") >= 0) {
+        return callback(null, null);
+      } else {
+        return callback(err);
+      }
+    }
 
     callback(null, {
       number: to.hex(block.header.number),
@@ -81983,20 +82235,23 @@ GethApiDouble.prototype.evm_mine = function(callback) {
 };
 
 GethApiDouble.prototype.debug_traceTransaction = function(tx_hash, params, callback) {
+  if (typeof params == "function") {
+    callback = params;
+    params = [];
+  }
+
   this.state.queueTransactionTrace(tx_hash, params, callback);
 };
-
-
 
 module.exports = GethApiDouble;
 
 
 /***/ }),
-/* 245 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
+var Subprovider = __webpack_require__(33);
+var inherits = __webpack_require__(1).inherits;
 
 inherits(GethDefaults, Subprovider);
 
@@ -82034,11 +82289,11 @@ GethDefaults.prototype.handleRequest = function(payload, next, end) {
 
 
 /***/ }),
-/* 246 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
+var Subprovider = __webpack_require__(33);
+var inherits = __webpack_require__(1).inherits;
 
 inherits(ReactiveBlockTracker, Subprovider);
 
@@ -82087,11 +82342,11 @@ ReactiveBlockTracker.prototype.handleRequest = function(payload, next, end) {
 
 
 /***/ }),
-/* 247 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Subprovider = __webpack_require__(34);
-var inherits = __webpack_require__(0).inherits;
+var Subprovider = __webpack_require__(33);
+var inherits = __webpack_require__(1).inherits;
 
 inherits(RequestFunnel, Subprovider);
 
@@ -82153,24 +82408,24 @@ RequestFunnel.prototype.processNext = function() {
 
 
 /***/ }),
-/* 248 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var BlockchainDouble = __webpack_require__(64);
-var VM = __webpack_require__(62);
-var Account = __webpack_require__(21);
+var BlockchainDouble = __webpack_require__(63);
+var VM = __webpack_require__(61);
+var Account = __webpack_require__(20);
 var Block = __webpack_require__(26);
-var Log = __webpack_require__(65);
-var Receipt = __webpack_require__(66);
+var Log = __webpack_require__(64);
+var Receipt = __webpack_require__(65);
 var utils = __webpack_require__(11);
-var ForkedStorageTrie = __webpack_require__(249);
-var FakeTransaction = __webpack_require__(46);
+var ForkedStorageTrie = __webpack_require__(251);
+var FakeTransaction = __webpack_require__(38);
 var Web3 = __webpack_require__(54);
 var to = __webpack_require__(10);
-var async = __webpack_require__(5);
-var txhelper = __webpack_require__(67)
+var async = __webpack_require__(4);
+var txhelper = __webpack_require__(66)
 
-var inherits = __webpack_require__(0).inherits;
+var inherits = __webpack_require__(1).inherits;
 
 inherits(ForkedBlockchain, BlockchainDouble);
 
@@ -82750,16 +83005,16 @@ module.exports = ForkedBlockchain;
 
 
 /***/ }),
-/* 249 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MerklePatriciaTree = __webpack_require__(33);
-var Account = __webpack_require__(21);
+var MerklePatriciaTree = __webpack_require__(31);
+var Account = __webpack_require__(20);
 var utils = __webpack_require__(11)
-var inherits = __webpack_require__(0).inherits;
+var inherits = __webpack_require__(1).inherits;
 var Web3 = __webpack_require__(54);
 var to = __webpack_require__(10);
-var async = __webpack_require__(5);
+var async = __webpack_require__(4);
 
 inherits(ForkedStorageTrie, MerklePatriciaTree)
 
@@ -82849,7 +83104,7 @@ module.exports = ForkedStorageTrie;
 
 
 /***/ }),
-/* 250 */
+/* 252 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -82871,32 +83126,32 @@ module.exports = {
 
 
 /***/ }),
-/* 251 */
+/* 253 */
 /***/ (function(module, exports) {
 
 module.exports = {
 	"_args": [
 		[
 			{
-				"raw": "ganache-core",
+				"raw": "ganache-core@0.0.2",
 				"scope": null,
 				"escapedName": "ganache-core",
 				"name": "ganache-core",
-				"rawSpec": "",
-				"spec": "latest",
-				"type": "tag"
+				"rawSpec": "0.0.2",
+				"spec": "0.0.2",
+				"type": "version"
 			},
 			"/Users/tim/Documents/workspace/Consensys/testrpc"
 		]
 	],
-	"_from": "ganache-core@latest",
-	"_id": "ganache-core@0.0.1",
+	"_from": "ganache-core@0.0.2",
+	"_id": "ganache-core@0.0.2",
 	"_inCache": true,
 	"_location": "/ganache-core",
 	"_nodeVersion": "6.9.1",
 	"_npmOperationalInternal": {
 		"host": "packages-18-east.internal.npmjs.com",
-		"tmp": "tmp/ganache-core-0.0.1.tgz_1490635837492_0.26290462794713676"
+		"tmp": "tmp/ganache-core-0.0.2.tgz_1493397572821_0.3556457292288542"
 	},
 	"_npmUser": {
 		"name": "tcoulter",
@@ -82905,22 +83160,21 @@ module.exports = {
 	"_npmVersion": "3.10.8",
 	"_phantomChildren": {},
 	"_requested": {
-		"raw": "ganache-core",
+		"raw": "ganache-core@0.0.2",
 		"scope": null,
 		"escapedName": "ganache-core",
 		"name": "ganache-core",
-		"rawSpec": "",
-		"spec": "latest",
-		"type": "tag"
+		"rawSpec": "0.0.2",
+		"spec": "0.0.2",
+		"type": "version"
 	},
 	"_requiredBy": [
-		"#DEV:/",
-		"#USER"
+		"#DEV:/"
 	],
-	"_resolved": "https://registry.npmjs.org/ganache-core/-/ganache-core-0.0.1.tgz",
-	"_shasum": "b711afd4d537fb466bfc7f376a354dfadf5960ee",
+	"_resolved": "https://registry.npmjs.org/ganache-core/-/ganache-core-0.0.2.tgz",
+	"_shasum": "d8f37c5ae03c63d9f3048cca5b2f6474e698baf4",
 	"_shrinkwrap": null,
-	"_spec": "ganache-core",
+	"_spec": "ganache-core@0.0.2",
 	"_where": "/Users/tim/Documents/workspace/Consensys/testrpc",
 	"bugs": {
 		"url": "https://github.com/trufflesuite/ganache-core/issues"
@@ -82932,7 +83186,7 @@ module.exports = {
 		"chai": "^3.5.0",
 		"ethereumjs-account": "~2.0.4",
 		"ethereumjs-block": "~1.2.2",
-		"ethereumjs-tx": "1.1.2",
+		"ethereumjs-tx": "^1.3.0",
 		"ethereumjs-util": "~5.1.0",
 		"ethereumjs-vm": "~2.0.1",
 		"ethereumjs-wallet": "~0.6.0",
@@ -82962,10 +83216,10 @@ module.exports = {
 		"lib": "./lib"
 	},
 	"dist": {
-		"shasum": "b711afd4d537fb466bfc7f376a354dfadf5960ee",
-		"tarball": "https://registry.npmjs.org/ganache-core/-/ganache-core-0.0.1.tgz"
+		"shasum": "d8f37c5ae03c63d9f3048cca5b2f6474e698baf4",
+		"tarball": "https://registry.npmjs.org/ganache-core/-/ganache-core-0.0.2.tgz"
 	},
-	"gitHead": "f0efbc2deb155d73bf96bc964a62064f04a2f48f",
+	"gitHead": "cb7c19f2d657adee08cb44c43c84914657758334",
 	"homepage": "https://github.com/trufflesuite/ganache-core#readme",
 	"main": "./index.js",
 	"maintainers": [
@@ -82984,11 +83238,11 @@ module.exports = {
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.0.1"
+	"version": "0.0.2"
 };
 
 /***/ }),
-/* 252 */
+/* 254 */
 /***/ (function(module, exports) {
 
 var PriorityQueue = function(size) {
@@ -83461,10 +83715,10 @@ exports.Pool = function (factory) {
 
 
 /***/ }),
-/* 253 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hash = __webpack_require__(32);
+var hash = __webpack_require__(30);
 var utils = hash.utils;
 var assert = utils.assert;
 
@@ -83558,12 +83812,12 @@ BlockHash.prototype._pad = function pad() {
 
 
 /***/ }),
-/* 254 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hmac = exports;
 
-var hash = __webpack_require__(32);
+var hash = __webpack_require__(30);
 var utils = hash.utils;
 var assert = utils.assert;
 
@@ -83612,10 +83866,10 @@ Hmac.prototype.digest = function digest(enc) {
 
 
 /***/ }),
-/* 255 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hash = __webpack_require__(32);
+var hash = __webpack_require__(30);
 var utils = hash.utils;
 
 var rotl32 = utils.rotl32;
@@ -83762,10 +84016,10 @@ var sh = [
 
 
 /***/ }),
-/* 256 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hash = __webpack_require__(32);
+var hash = __webpack_require__(30);
 var utils = hash.utils;
 var assert = utils.assert;
 
@@ -84332,7 +84586,7 @@ function g1_512_lo(xh, xl) {
 
 
 /***/ }),
-/* 257 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var utils = exports;
@@ -84595,13 +84849,13 @@ exports.shr64_lo = shr64_lo;
 
 
 /***/ }),
-/* 258 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assert = __webpack_require__(14)
+var assert = __webpack_require__(17)
 var crypto = __webpack_require__(25)
-var cs = __webpack_require__(157)
-var secp256k1 = __webpack_require__(28)
+var cs = __webpack_require__(160)
+var secp256k1 = __webpack_require__(32)
 
 var MASTER_SECRET = new Buffer('Bitcoin seed')
 var HARDENED_OFFSET = 0x80000000
@@ -84828,14 +85082,14 @@ module.exports = HDKey
 
 
 /***/ }),
-/* 259 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(260);
+module.exports = __webpack_require__(262);
 
 
 /***/ }),
-/* 260 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Generated by CoffeeScript 1.8.0
@@ -85219,15 +85473,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 261 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var hash = __webpack_require__(32);
-var utils = __webpack_require__(126);
-var assert = __webpack_require__(125);
+var hash = __webpack_require__(30);
+var utils = __webpack_require__(127);
+var assert = __webpack_require__(126);
 
 function HmacDRBG(options) {
   if (!(this instanceof HmacDRBG))
@@ -85238,7 +85492,7 @@ function HmacDRBG(options) {
   this.outLen = this.hash.outSize;
   this.minEntropy = options.minEntropy || this.hash.hmacStrength;
 
-  this.reseed = null;
+  this._reseed = null;
   this.reseedInterval = null;
   this.K = null;
   this.V = null;
@@ -85263,7 +85517,7 @@ HmacDRBG.prototype._init = function init(entropy, nonce, pers) {
   }
 
   this._update(seed);
-  this.reseed = 1;
+  this._reseed = 1;
   this.reseedInterval = 0x1000000000000;  // 2^48
 };
 
@@ -85305,11 +85559,11 @@ HmacDRBG.prototype.reseed = function reseed(entropy, entropyEnc, add, addEnc) {
          'Not enough entropy. Minimum is: ' + this.minEntropy + ' bits');
 
   this._update(entropy.concat(add || []));
-  this.reseed = 1;
+  this._reseed = 1;
 };
 
 HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
-  if (this.reseed > this.reseedInterval)
+  if (this._reseed > this.reseedInterval)
     throw new Error('Reseed is required');
 
   // Optional encoding
@@ -85333,13 +85587,13 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 
   var res = temp.slice(0, len);
   this._update(add);
-  this.reseed++;
+  this._reseed++;
   return utils.encode(res, enc);
 };
 
 
 /***/ }),
-/* 262 */
+/* 264 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -85368,7 +85622,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 263 */
+/* 265 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -85379,22 +85633,22 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 264 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-	hash: __webpack_require__(265),
-	hashSync: __webpack_require__(267)
+	hash: __webpack_require__(267),
+	hashSync: __webpack_require__(269)
 }
 
 /***/ }),
-/* 265 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(__dirname) {var argScrubber = __webpack_require__(104);
-var fork = __webpack_require__(136).fork;
-var gp = __webpack_require__(252);
-var cpu_count = __webpack_require__(138).cpus().length;
+/* WEBPACK VAR INJECTION */(function(__dirname) {var argScrubber = __webpack_require__(102);
+var fork = __webpack_require__(139).fork;
+var gp = __webpack_require__(254);
+var cpu_count = __webpack_require__(141).cpus().length;
 
 //let there be up to cpu_count - 1 workers
 var max_workers = cpu_count - 1;
@@ -85458,7 +85712,7 @@ module.exports = function scryptAsync(password, salt, options, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 266 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__dirname, module) {//adapted from https://github.com/tonyg/js-scrypt/blob/master/browser/scrypt.js
@@ -85487,7 +85741,7 @@ if(ca) {
   s.printErr = function(a) {
     process.stderr.write(a + "\n")
   };
-  var ga = __webpack_require__(44), ha = __webpack_require__(51);
+  var ga = __webpack_require__(43), ha = __webpack_require__(50);
   s.read = function(a, b) {
     var a = ha.normalize(a), c = ga.readFileSync(a);
     !c && a != ha.resolve(a) && (a = path.join(__dirname, "..", "src", a), c = ga.readFileSync(a));
@@ -95726,14 +95980,14 @@ var scrypt = (function () {
 })();
     return scrypt;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, "/", __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "/", __webpack_require__(16)(module)))
 
 /***/ }),
-/* 267 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var scrypt_module_factory = __webpack_require__(266);
-var argScrubber = __webpack_require__(104);
+var scrypt_module_factory = __webpack_require__(268);
+var argScrubber = __webpack_require__(102);
 
 module.exports = function(password, salt, options) {
 	var args = argScrubber.apply(null,arguments);
@@ -95749,7 +96003,7 @@ module.exports = function(password, salt, options) {
 
 
 /***/ }),
-/* 268 */
+/* 270 */
 /***/ (function(module, exports) {
 
 /*
@@ -96187,38 +96441,12 @@ module.exports = function(password, salt, options) {
 
 
 /***/ }),
-/* 269 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = __webpack_require__(105)(__webpack_require__(147)('keccak'))
-
-
-/***/ }),
-/* 270 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-try {
-  module.exports = __webpack_require__(269)
-} catch (err) {
-  if (process.env.DEBUG) {
-    console.error('Keccak bindings are not compiled. Pure JS implementation will be used.')
-  }
-
-  module.exports = __webpack_require__(271)
-}
-
-
-/***/ }),
 /* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-module.exports = __webpack_require__(105)(__webpack_require__(275))
+module.exports = __webpack_require__(103)(__webpack_require__(150)('keccak'))
 
 
 /***/ }),
@@ -96227,7 +96455,33 @@ module.exports = __webpack_require__(105)(__webpack_require__(275))
 
 "use strict";
 
-var Transform = __webpack_require__(4).Transform
+try {
+  module.exports = __webpack_require__(271)
+} catch (err) {
+  if (process.env.DEBUG) {
+    console.error('Keccak bindings are not compiled. Pure JS implementation will be used.')
+  }
+
+  module.exports = __webpack_require__(273)
+}
+
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = __webpack_require__(103)(__webpack_require__(277))
+
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Transform = __webpack_require__(7).Transform
 var inherits = __webpack_require__(2)
 
 module.exports = function (KeccakState) {
@@ -96312,12 +96566,12 @@ module.exports = function (KeccakState) {
 
 
 /***/ }),
-/* 273 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var Transform = __webpack_require__(4).Transform
+var Transform = __webpack_require__(7).Transform
 var inherits = __webpack_require__(2)
 
 module.exports = function (KeccakState) {
@@ -96393,7 +96647,7 @@ module.exports = function (KeccakState) {
 
 
 /***/ }),
-/* 274 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96587,12 +96841,12 @@ exports.p1600 = function (s) {
 
 
 /***/ }),
-/* 275 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var keccakState = __webpack_require__(274)
+var keccakState = __webpack_require__(276)
 
 function Keccak () {
   // much faster than `new Array(50)`
@@ -96663,17 +96917,17 @@ module.exports = Keccak
 
 
 /***/ }),
-/* 276 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(152).SHA3Hash
+module.exports = __webpack_require__(155).SHA3Hash
 
 
 /***/ }),
-/* 277 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var encodings = __webpack_require__(278);
+var encodings = __webpack_require__(280);
 
 module.exports = Codec;
 
@@ -96782,7 +97036,7 @@ Codec.prototype.valueAsBuffer = function(opts){
 
 
 /***/ }),
-/* 278 */
+/* 280 */
 /***/ (function(module, exports) {
 
 
@@ -96864,13 +97118,13 @@ function isBinary(data){
 
 
 /***/ }),
-/* 279 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(2);
-var Readable = __webpack_require__(282).Readable;
-var extend = __webpack_require__(30);
-var EncodingError = __webpack_require__(47).EncodingError;
+var Readable = __webpack_require__(284).Readable;
+var extend = __webpack_require__(28);
+var EncodingError = __webpack_require__(46).EncodingError;
 
 module.exports = ReadStream;
 inherits(ReadStream, Readable);
@@ -96926,7 +97180,7 @@ ReadStream.prototype._cleanup = function(){
 
 
 /***/ }),
-/* 280 */
+/* 282 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -96935,7 +97189,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 281 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -96965,7 +97219,7 @@ module.exports = Array.isArray || function (arr) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(107);
+var Transform = __webpack_require__(105);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -96987,23 +97241,23 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
 
 
 /***/ }),
-/* 282 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(106);
-exports.Stream = __webpack_require__(4);
+exports = module.exports = __webpack_require__(104);
+exports.Stream = __webpack_require__(7);
 exports.Readable = exports;
-exports.Writable = __webpack_require__(108);
-exports.Duplex = __webpack_require__(40);
-exports.Transform = __webpack_require__(107);
-exports.PassThrough = __webpack_require__(281);
+exports.Writable = __webpack_require__(106);
+exports.Duplex = __webpack_require__(39);
+exports.Transform = __webpack_require__(105);
+exports.PassThrough = __webpack_require__(283);
 if (!process.browser && process.env.READABLE_STREAM === 'disable') {
-  module.exports = __webpack_require__(4);
+  module.exports = __webpack_require__(7);
 }
 
 
 /***/ }),
-/* 283 */
+/* 285 */
 /***/ (function(module, exports) {
 
 
@@ -97029,7 +97283,7 @@ exports.upperBound = '\uffff'
 
 
 /***/ }),
-/* 284 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inRange = __webpack_require__(114)
@@ -97067,7 +97321,7 @@ module.exports = function (compare) {
 
 
 /***/ }),
-/* 285 */
+/* 287 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -97076,7 +97330,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 286 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -97085,7 +97339,7 @@ module.exports = Array.isArray || function (arr) {
  * <https://github.com/rvagg/node-levelup/blob/master/LICENSE.md>
  */
 
-var encodings = __webpack_require__(109)
+var encodings = __webpack_require__(108)
 
 function getKeyEncoder (options, op) {
   var type = ((op && op.keyEncoding) || options.keyEncoding) || 'utf8'
@@ -97165,7 +97419,7 @@ module.exports = {
 
 
 /***/ }),
-/* 287 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -97175,11 +97429,11 @@ module.exports = {
 
 // NOTE: we are fixed to readable-stream@1.0.x for now
 // for pure Streams2 across Node versions
-var Readable      = __webpack_require__(291).Readable
-  , inherits      = __webpack_require__(0).inherits
-  , extend        = __webpack_require__(110)
-  , EncodingError = __webpack_require__(69).EncodingError
-  , util          = __webpack_require__(288)
+var Readable      = __webpack_require__(293).Readable
+  , inherits      = __webpack_require__(1).inherits
+  , extend        = __webpack_require__(109)
+  , EncodingError = __webpack_require__(68).EncodingError
+  , util          = __webpack_require__(290)
 
 
 
@@ -97268,7 +97522,7 @@ module.exports = ReadStream
 
 
 /***/ }),
-/* 288 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2014 LevelUP contributors
@@ -97277,9 +97531,9 @@ module.exports = ReadStream
  * <https://github.com/rvagg/node-levelup/blob/master/LICENSE.md>
  */
 
-var extend        = __webpack_require__(110)
-  , LevelUPError  = __webpack_require__(69).LevelUPError
-  , encodings     = __webpack_require__(109)
+var extend        = __webpack_require__(109)
+  , LevelUPError  = __webpack_require__(68).LevelUPError
+  , encodings     = __webpack_require__(108)
   , defaultOptions = {
         createIfMissing : true
       , errorIfExists   : false
@@ -97318,7 +97572,7 @@ function getLevelDOWN () {
   if (leveldown)
     return leveldown
 
-  var requiredVersion       = __webpack_require__(289).devDependencies.leveldown
+  var requiredVersion       = __webpack_require__(291).devDependencies.leveldown
     , missingLevelDOWNError = 'Could not locate LevelDOWN, try `npm install leveldown`'
     , leveldownVersion
 
@@ -97328,7 +97582,7 @@ function getLevelDOWN () {
     throw new LevelUPError(missingLevelDOWNError)
   }
 
-  if (!__webpack_require__(132).satisfies(leveldownVersion, requiredVersion)) {
+  if (!__webpack_require__(134).satisfies(leveldownVersion, requiredVersion)) {
     throw new LevelUPError(
         'Installed version of LevelDOWN ('
       + leveldownVersion
@@ -97366,7 +97620,7 @@ module.exports = {
 
 
 /***/ }),
-/* 289 */
+/* 291 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -97564,7 +97818,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 290 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -97594,7 +97848,7 @@ module.exports = {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(112);
+var Transform = __webpack_require__(111);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -97616,28 +97870,28 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
 
 
 /***/ }),
-/* 291 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stream = __webpack_require__(4); // hack to fix a circular dependency issue when used with browserify
-exports = module.exports = __webpack_require__(111);
+var Stream = __webpack_require__(7); // hack to fix a circular dependency issue when used with browserify
+exports = module.exports = __webpack_require__(110);
 exports.Stream = Stream;
 exports.Readable = exports;
-exports.Writable = __webpack_require__(113);
-exports.Duplex = __webpack_require__(70);
-exports.Transform = __webpack_require__(112);
-exports.PassThrough = __webpack_require__(290);
+exports.Writable = __webpack_require__(112);
+exports.Duplex = __webpack_require__(69);
+exports.Transform = __webpack_require__(111);
+exports.PassThrough = __webpack_require__(292);
 if (!process.browser && process.env.READABLE_STREAM === 'disable') {
-  module.exports = __webpack_require__(4);
+  module.exports = __webpack_require__(7);
 }
 
 
 /***/ }),
-/* 292 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hooks = __webpack_require__(284)
-var ltgt = __webpack_require__(73)
+var hooks = __webpack_require__(286)
+var ltgt = __webpack_require__(72)
 
 function isFunction (f) {
   return 'function' === typeof f
@@ -97850,7 +98104,7 @@ module.exports = function (db, precodec, codec, compare) {
 
 
 /***/ }),
-/* 293 */
+/* 295 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -97886,8 +98140,7 @@ module.exports = {
 		"core-util-is": "1.0.2",
 		"errno": "0.1.4",
 		"inherits": "2.0.3",
-		"semver": "5.1.1",
-		"string_decoder": "0.10.31"
+		"semver": "5.1.1"
 	},
 	"_requested": {
 		"raw": "level-sublevel@^6.6.1",
@@ -97980,13 +98233,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 294 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var EventEmitter = __webpack_require__(16).EventEmitter
+var EventEmitter = __webpack_require__(19).EventEmitter
 var addpre = __webpack_require__(114).addPrefix
 
-var errors = __webpack_require__(69)
+var errors = __webpack_require__(68)
 
 function isFunction (f) {
   return 'function' === typeof f
@@ -98000,7 +98253,7 @@ function isObject (o) {
   return o && 'object' === typeof o
 }
 
-var version = __webpack_require__(293).version
+var version = __webpack_require__(295).version
 
 var sublevel = module.exports = function (nut, prefix, createStream, options) {
   var emitter = new EventEmitter()
@@ -98162,7 +98415,7 @@ var sublevel = module.exports = function (nut, prefix, createStream, options) {
 
 
 /***/ }),
-/* 295 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2013 LevelUP contributors
@@ -98171,9 +98424,9 @@ var sublevel = module.exports = function (nut, prefix, createStream, options) {
  * <https://github.com/Level/level-ws/master/LICENSE>
  */
 
-var Writable = __webpack_require__(4).Writable || __webpack_require__(298).Writable
-  , inherits = __webpack_require__(0).inherits
-  , extend   = __webpack_require__(300)
+var Writable = __webpack_require__(7).Writable || __webpack_require__(300).Writable
+  , inherits = __webpack_require__(1).inherits
+  , extend   = __webpack_require__(302)
 
   , defaultOptions = {
         type          : 'put'
@@ -98321,7 +98574,7 @@ module.exports = function (db) {
 module.exports.WriteStream = WriteStream
 
 /***/ }),
-/* 296 */
+/* 298 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -98330,7 +98583,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 297 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -98382,24 +98635,24 @@ PassThrough.prototype._transform = function(chunk, encoding, cb) {
 
 
 /***/ }),
-/* 298 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stream = __webpack_require__(4); // hack to fix a circular dependency issue when used with browserify
+var Stream = __webpack_require__(7); // hack to fix a circular dependency issue when used with browserify
 exports = module.exports = __webpack_require__(115);
 exports.Stream = Stream;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(117);
-exports.Duplex = __webpack_require__(71);
+exports.Duplex = __webpack_require__(70);
 exports.Transform = __webpack_require__(116);
-exports.PassThrough = __webpack_require__(297);
+exports.PassThrough = __webpack_require__(299);
 if (!process.browser && process.env.READABLE_STREAM === 'disable') {
-  module.exports = __webpack_require__(4);
+  module.exports = __webpack_require__(7);
 }
 
 
 /***/ }),
-/* 299 */
+/* 301 */
 /***/ (function(module, exports) {
 
 module.exports = hasKeys
@@ -98412,11 +98665,11 @@ function hasKeys(source) {
 
 
 /***/ }),
-/* 300 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Keys = __webpack_require__(312)
-var hasKeys = __webpack_require__(299)
+var Keys = __webpack_require__(314)
+var hasKeys = __webpack_require__(301)
 
 module.exports = extend
 
@@ -98443,7 +98696,7 @@ function extend() {
 
 
 /***/ }),
-/* 301 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* Copyright (c) 2012-2016 LevelUP contributors
@@ -98452,8 +98705,8 @@ function extend() {
  * <https://github.com/level/levelup/blob/master/LICENSE.md>
  */
 
-var util          = __webpack_require__(118)
-  , WriteError    = __webpack_require__(47).WriteError
+var util          = __webpack_require__(119)
+  , WriteError    = __webpack_require__(46).WriteError
 
   , getOptions    = util.getOptions
   , dispatchError = util.dispatchError
@@ -98532,7 +98785,7 @@ module.exports = Batch
 
 
 /***/ }),
-/* 302 */
+/* 304 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -98733,14 +98986,14 @@ module.exports = {
 };
 
 /***/ }),
-/* 303 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = LRUCache
 
 // This will be a proper iterable 'Map' in engines that support it,
 // or a fakey-fake PseudoMap in older versions.
-var Map = __webpack_require__(318)
+var Map = __webpack_require__(320)
 
 function naiveLength () { return 1 }
 
@@ -99095,17 +99348,17 @@ function incMru (self) {
 
 
 /***/ }),
-/* 304 */
+/* 306 */
 /***/ (function(module, exports) {
 
 module.exports = setImmediate
 
 
 /***/ }),
-/* 305 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var AbstractLevelDOWN = __webpack_require__(122)
+var AbstractLevelDOWN = __webpack_require__(123)
 
 function isLevelDOWN (db) {
   if (!db || typeof db !== 'object')
@@ -99122,22 +99375,22 @@ module.exports = isLevelDOWN
 
 
 /***/ }),
-/* 306 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const assert = __webpack_require__(14)
-const levelup = __webpack_require__(72)
-const memdown = __webpack_require__(119)
-const async = __webpack_require__(5)
-const rlp = __webpack_require__(20)
-const ethUtil = __webpack_require__(74)
-const semaphore = __webpack_require__(336)
-const TrieNode = __webpack_require__(124)
-const ReadStream = __webpack_require__(308)
-const matchingNibbleLength = __webpack_require__(48).matchingNibbleLength
-const doKeysMatch = __webpack_require__(48).doKeysMatch
-const callTogether = __webpack_require__(48).callTogether
-const asyncFirstSeries = __webpack_require__(48).asyncFirstSeries
+const assert = __webpack_require__(17)
+const levelup = __webpack_require__(71)
+const memdown = __webpack_require__(120)
+const async = __webpack_require__(4)
+const rlp = __webpack_require__(22)
+const ethUtil = __webpack_require__(73)
+const semaphore = __webpack_require__(338)
+const TrieNode = __webpack_require__(125)
+const ReadStream = __webpack_require__(310)
+const matchingNibbleLength = __webpack_require__(47).matchingNibbleLength
+const doKeysMatch = __webpack_require__(47).doKeysMatch
+const callTogether = __webpack_require__(47).callTogether
+const asyncFirstSeries = __webpack_require__(47).asyncFirstSeries
 
 module.exports = Trie
 
@@ -99862,16 +100115,16 @@ Trie.prototype.checkRoot = function (root, cb) {
 
 
 /***/ }),
-/* 307 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const levelup = __webpack_require__(72)
-const memdown = __webpack_require__(119)
-const async = __webpack_require__(5)
-const inherits = __webpack_require__(0).inherits
-const Readable = __webpack_require__(130).Readable
-const levelws = __webpack_require__(295)
-const callTogether = __webpack_require__(48).callTogether
+const levelup = __webpack_require__(71)
+const memdown = __webpack_require__(120)
+const async = __webpack_require__(4)
+const inherits = __webpack_require__(1).inherits
+const Readable = __webpack_require__(132).Readable
+const levelws = __webpack_require__(297)
+const callTogether = __webpack_require__(47).callTogether
 
 module.exports = checkpointInterface
 
@@ -100053,12 +100306,12 @@ ScratchReadStream.prototype._read = function () {
 
 
 /***/ }),
-/* 308 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Readable = __webpack_require__(130).Readable
-const TrieNode = __webpack_require__(124)
-const util = __webpack_require__(0)
+const Readable = __webpack_require__(132).Readable
+const TrieNode = __webpack_require__(125)
+const util = __webpack_require__(1)
 
 module.exports = TrieReadStream
 
@@ -100091,10 +100344,10 @@ TrieReadStream.prototype._read = function () {
 
 
 /***/ }),
-/* 309 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const ethUtil = __webpack_require__(74)
+const ethUtil = __webpack_require__(73)
 
 module.exports = secureInterface
 
@@ -100136,12 +100389,12 @@ function del (_super, key, cb) {
 
 
 /***/ }),
-/* 310 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const CheckpointTrie = __webpack_require__(33)
-const secureInterface = __webpack_require__(309)
-const inherits = __webpack_require__(0).inherits
+const CheckpointTrie = __webpack_require__(31)
+const secureInterface = __webpack_require__(311)
+const inherits = __webpack_require__(1).inherits
 
 module.exports = SecureTrie
 inherits(SecureTrie, CheckpointTrie)
@@ -100158,7 +100411,7 @@ function SecureTrie () {
 
 
 /***/ }),
-/* 311 */
+/* 313 */
 /***/ (function(module, exports) {
 
 var hasOwn = Object.prototype.hasOwnProperty;
@@ -100204,15 +100457,15 @@ module.exports = function forEach(obj, fn) {
 
 
 /***/ }),
-/* 312 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = Object.keys || __webpack_require__(314);
+module.exports = Object.keys || __webpack_require__(316);
 
 
 
 /***/ }),
-/* 313 */
+/* 315 */
 /***/ (function(module, exports) {
 
 var toString = Object.prototype.toString;
@@ -100234,7 +100487,7 @@ module.exports = function isArguments(value) {
 
 
 /***/ }),
-/* 314 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function () {
@@ -100243,8 +100496,8 @@ module.exports = function isArguments(value) {
 	// modified from https://github.com/kriskowal/es5-shim
 	var has = Object.prototype.hasOwnProperty,
 		toString = Object.prototype.toString,
-		forEach = __webpack_require__(311),
-		isArgs = __webpack_require__(313),
+		forEach = __webpack_require__(313),
+		isArgs = __webpack_require__(315),
 		hasDontEnumBug = !({'toString': null}).propertyIsEnumerable('toString'),
 		hasProtoEnumBug = (function () {}).propertyIsEnumerable('prototype'),
 		dontEnums = [
@@ -100302,7 +100555,7 @@ module.exports = function isArguments(value) {
 
 
 /***/ }),
-/* 315 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100334,7 +100587,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 316 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var crypto = __webpack_require__(25)
@@ -100347,7 +100600,7 @@ exports.pbkdf2 = crypto.pbkdf2
 
 
 /***/ }),
-/* 317 */
+/* 319 */
 /***/ (function(module, exports) {
 
 /*!
@@ -100415,7 +100668,7 @@ exports.pbkdf2 = crypto.pbkdf2
 })
 
 /***/ }),
-/* 318 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 if (process.env.npm_package_name === 'pseudomap' &&
@@ -100425,12 +100678,12 @@ if (process.env.npm_package_name === 'pseudomap' &&
 if (typeof Map === 'function' && !process.env.TEST_PSEUDOMAP) {
   module.exports = Map
 } else {
-  module.exports = __webpack_require__(319)
+  module.exports = __webpack_require__(321)
 }
 
 
 /***/ }),
-/* 319 */
+/* 321 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = Object.prototype.hasOwnProperty
@@ -100549,14 +100802,14 @@ function set (data, k, v) {
 
 
 /***/ }),
-/* 320 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(25).randomBytes
 
 
 /***/ }),
-/* 321 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100568,7 +100821,7 @@ module.exports = __webpack_require__(25).randomBytes
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(128);
+var Transform = __webpack_require__(129);
 
 /*<replacement>*/
 var util = __webpack_require__(3);
@@ -100588,15 +100841,15 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 322 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Buffer = __webpack_require__(15).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(59);
+var bufferShim = __webpack_require__(51);
 /*</replacement>*/
 
 module.exports = BufferList;
@@ -100658,10 +100911,10 @@ BufferList.prototype.concat = function (n) {
 };
 
 /***/ }),
-/* 323 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var scrypt = __webpack_require__(264)
+var scrypt = __webpack_require__(266)
 
 function hash(key, salt, n, r, p, dklen, progressCb) {
   return scrypt.hashSync(key, { N: n, r: r, p: p }, dklen, salt)
@@ -100671,7 +100924,7 @@ module.exports = hash
 
 
 /***/ }),
-/* 324 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100722,12 +100975,12 @@ exports.isNumberInInterval = function (number, x, y, message) {
 
 
 /***/ }),
-/* 325 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var bip66 = __webpack_require__(150)
+var bip66 = __webpack_require__(153)
 
 var EC_PRIVKEY_EXPORT_DER_COMPRESSED = new Buffer([
   // begin
@@ -100926,16 +101179,16 @@ exports.signatureImportLax = function (sig) {
 
 
 /***/ }),
-/* 326 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var createHash = __webpack_require__(17)
-var BN = __webpack_require__(6)
-var EC = __webpack_require__(12).ec
+var createHash = __webpack_require__(18)
+var BN = __webpack_require__(8)
+var EC = __webpack_require__(13).ec
 
-var messages = __webpack_require__(131)
+var messages = __webpack_require__(133)
 
 var ec = new EC('secp256k1')
 var ecparams = ec.curve
@@ -101180,14 +101433,14 @@ exports.ecdhUnsafe = function (publicKey, privateKey, compressed) {
 
 
 /***/ }),
-/* 327 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var assert = __webpack_require__(324)
-var der = __webpack_require__(325)
-var messages = __webpack_require__(131)
+var assert = __webpack_require__(326)
+var der = __webpack_require__(327)
+var messages = __webpack_require__(133)
 
 function initCompressedValue (value, defaultValue) {
   if (value === undefined) return defaultValue
@@ -101418,7 +101671,7 @@ module.exports = function (secp256k1) {
 
 
 /***/ }),
-/* 328 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // A library of seedable RNGs implemented in Javascript.
@@ -101433,17 +101686,17 @@ module.exports = function (secp256k1) {
 // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
 // Period: ~2^116
 // Reported to pass all BigCrush tests.
-var alea = __webpack_require__(329);
+var alea = __webpack_require__(331);
 
 // xor128, a pure xor-shift generator by George Marsaglia.
 // Period: 2^128-1.
 // Reported to fail: MatrixRank and LinearComp.
-var xor128 = __webpack_require__(331);
+var xor128 = __webpack_require__(333);
 
 // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
 // Period: 2^192-2^32
 // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
-var xorwow = __webpack_require__(334);
+var xorwow = __webpack_require__(336);
 
 // xorshift7, by François Panneton and Pierre L'ecuyer, takes
 // a different approach: it adds robustness by allowing more shifts
@@ -101451,7 +101704,7 @@ var xorwow = __webpack_require__(334);
 // with 256 bits, that passes BigCrush with no systmatic failures.
 // Period 2^256-1.
 // No systematic BigCrush failures reported.
-var xorshift7 = __webpack_require__(333);
+var xorshift7 = __webpack_require__(335);
 
 // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
 // very long period that also adds a Weyl generator. It also passes
@@ -101460,18 +101713,18 @@ var xorshift7 = __webpack_require__(333);
 // collisions.
 // Period: 2^4128-2^32.
 // No systematic BigCrush failures reported.
-var xor4096 = __webpack_require__(332);
+var xor4096 = __webpack_require__(334);
 
 // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
 // number generator derived from ChaCha, a modern stream cipher.
 // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
 // Period: ~2^127
 // No systematic BigCrush failures reported.
-var tychei = __webpack_require__(330);
+var tychei = __webpack_require__(332);
 
 // The original ARC4-based prng included in this library.
 // Period: ~2^1600
-var sr = __webpack_require__(335);
+var sr = __webpack_require__(337);
 
 sr.alea = alea;
 sr.xor128 = xor128;
@@ -101484,7 +101737,7 @@ module.exports = sr;
 
 
 /***/ }),
-/* 329 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
@@ -101588,7 +101841,7 @@ function Mash() {
 
 if (module && module.exports) {
   module.exports = impl;
-} else if (__webpack_require__(13) && __webpack_require__(43)) {
+} else if (__webpack_require__(14) && __webpack_require__(42)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return impl; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 } else {
@@ -101598,15 +101851,15 @@ if (module && module.exports) {
 })(
   this,
   (typeof module) == 'object' && module,    // present in node.js
-  __webpack_require__(13)   // present with an AMD loader
+  __webpack_require__(14)   // present with an AMD loader
 );
 
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 330 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "Tyche-i" prng algorithm by
@@ -101699,7 +101952,7 @@ function impl(seed, opts) {
 
 if (module && module.exports) {
   module.exports = impl;
-} else if (__webpack_require__(13) && __webpack_require__(43)) {
+} else if (__webpack_require__(14) && __webpack_require__(42)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return impl; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 } else {
@@ -101709,15 +101962,15 @@ if (module && module.exports) {
 })(
   this,
   (typeof module) == 'object' && module,    // present in node.js
-  __webpack_require__(13)   // present with an AMD loader
+  __webpack_require__(14)   // present with an AMD loader
 );
 
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 331 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xor128" prng algorithm by
@@ -101788,7 +102041,7 @@ function impl(seed, opts) {
 
 if (module && module.exports) {
   module.exports = impl;
-} else if (__webpack_require__(13) && __webpack_require__(43)) {
+} else if (__webpack_require__(14) && __webpack_require__(42)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return impl; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 } else {
@@ -101798,15 +102051,15 @@ if (module && module.exports) {
 })(
   this,
   (typeof module) == 'object' && module,    // present in node.js
-  __webpack_require__(13)   // present with an AMD loader
+  __webpack_require__(14)   // present with an AMD loader
 );
 
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 332 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
@@ -101817,7 +102070,7 @@ if (module && module.exports) {
 // of stasticial tests for randomness while consuming only a few nanoseconds
 // for each prng generated.  For background on the generator, see Brent's
 // paper: "Some long-period random number generators using shifts and xors."
-// http://arxiv.org/pdf/1104.3115.pdf
+// http://arxiv.org/pdf/1004.3115v1.pdf
 //
 // Usage:
 //
@@ -101944,7 +102197,7 @@ function impl(seed, opts) {
 
 if (module && module.exports) {
   module.exports = impl;
-} else if (__webpack_require__(13) && __webpack_require__(43)) {
+} else if (__webpack_require__(14) && __webpack_require__(42)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return impl; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 } else {
@@ -101954,13 +102207,13 @@ if (module && module.exports) {
 })(
   this,                                     // window object or global
   (typeof module) == 'object' && module,    // present in node.js
-  __webpack_require__(13)   // present with an AMD loader
+  __webpack_require__(14)   // present with an AMD loader
 );
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 333 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xorshift7" algorithm by
@@ -102048,7 +102301,7 @@ function impl(seed, opts) {
 
 if (module && module.exports) {
   module.exports = impl;
-} else if (__webpack_require__(13) && __webpack_require__(43)) {
+} else if (__webpack_require__(14) && __webpack_require__(42)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return impl; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 } else {
@@ -102058,14 +102311,14 @@ if (module && module.exports) {
 })(
   this,
   (typeof module) == 'object' && module,    // present in node.js
-  __webpack_require__(13)   // present with an AMD loader
+  __webpack_require__(14)   // present with an AMD loader
 );
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 334 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xorwow" prng algorithm by
@@ -102141,7 +102394,7 @@ function impl(seed, opts) {
 
 if (module && module.exports) {
   module.exports = impl;
-} else if (__webpack_require__(13) && __webpack_require__(43)) {
+} else if (__webpack_require__(14) && __webpack_require__(42)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return impl; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 } else {
@@ -102151,15 +102404,15 @@ if (module && module.exports) {
 })(
   this,
   (typeof module) == 'object' && module,    // present in node.js
-  __webpack_require__(13)   // present with an AMD loader
+  __webpack_require__(14)   // present with an AMD loader
 );
 
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 335 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -102357,9 +102610,14 @@ function mixkey(seed, key) {
 //
 function autoseed() {
   try {
-    if (nodecrypto) { return tostring(nodecrypto.randomBytes(width)); }
-    var out = new Uint8Array(width);
-    (global.crypto || global.msCrypto).getRandomValues(out);
+    var out;
+    if (nodecrypto && (out = nodecrypto.randomBytes)) {
+      // The use of 'out' to remember randomBytes makes tight minified code.
+      out = out(width);
+    } else {
+      out = new Uint8Array(width);
+      (global.crypto || global.msCrypto).getRandomValues(out);
+    }
     return tostring(out);
   } catch (e) {
     var browser = global.navigator,
@@ -102408,7 +102666,7 @@ if ((typeof module) == 'object' && module.exports) {
 
 
 /***/ }),
-/* 336 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function(global) {
@@ -102509,10 +102767,10 @@ if (true) {
 
 
 /***/ }),
-/* 337 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isHexPrefixed = __webpack_require__(103);
+var isHexPrefixed = __webpack_require__(101);
 
 /**
  * Removes '0x' from a given `String` is present
@@ -102529,7 +102787,7 @@ module.exports = function stripHexPrefix(str) {
 
 
 /***/ }),
-/* 338 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -102544,10 +102802,10 @@ module.exports = function stripHexPrefix(str) {
  * Module dependencies.
  */
 var
-  fs     = __webpack_require__(44),
-  path   = __webpack_require__(51),
+  fs     = __webpack_require__(43),
+  path   = __webpack_require__(50),
   crypto = __webpack_require__(25),
-  tmpDir = __webpack_require__(315),
+  tmpDir = __webpack_require__(317),
   _c     = process.binding('constants');
 
 
@@ -103024,7 +103282,7 @@ module.exports.setGracefulCleanup = _setGracefulCleanup;
 
 
 /***/ }),
-/* 339 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (root) {
@@ -103472,7 +103730,7 @@ UChar.udata={
 
 
 /***/ }),
-/* 340 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -103719,10 +103977,10 @@ UChar.udata={
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 341 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -103730,11 +103988,11 @@ UChar.udata={
  * For Node.js, simply re-export the core `util.deprecate` function.
  */
 
-module.exports = __webpack_require__(0).deprecate;
+module.exports = __webpack_require__(1).deprecate;
 
 
 /***/ }),
-/* 342 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rb = __webpack_require__(25).randomBytes;
@@ -103744,7 +104002,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 343 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //     uuid.js
@@ -103755,7 +104013,7 @@ module.exports = function() {
 // Unique ID creation requires a high quality random # generator.  We feature
 // detect to determine the best RNG source, normalizing to a function that
 // returns 128-bits of randomness, since that's what's usually required
-var _rng = __webpack_require__(342);
+var _rng = __webpack_require__(344);
 
 // Maps for number <-> hex string conversion
 var _byteToHex = [];
@@ -103933,16 +104191,16 @@ module.exports = uuid;
 
 
 /***/ }),
-/* 344 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const EventEmitter = __webpack_require__(16).EventEmitter
-const inherits = __webpack_require__(0).inherits
-const Stoplight = __webpack_require__(78)
-const cacheUtils = __webpack_require__(351)
-const createPayload = __webpack_require__(77)
+const EventEmitter = __webpack_require__(19).EventEmitter
+const inherits = __webpack_require__(1).inherits
+const Stoplight = __webpack_require__(77)
+const cacheUtils = __webpack_require__(350)
+const createPayload = __webpack_require__(76)
 const ethUtil = __webpack_require__(11)
-const async = __webpack_require__(76)
+const async = __webpack_require__(75)
 
 module.exports = Web3ProviderEngine
 
@@ -104200,602 +104458,14 @@ function SourceNotFoundError(payload){
 
 
 /***/ }),
-/* 345 */
-/***/ (function(module, exports) {
-
-module.exports = {
-	"genesisGasLimit": {
-		"v": 5000,
-		"d": "Gas limit of the Genesis block."
-	},
-	"genesisDifficulty": {
-		"v": 17179869184,
-		"d": "Difficulty of the Genesis block."
-	},
-	"genesisNonce": {
-		"v": "0x0000000000000042",
-		"d": "the geneis nonce"
-	},
-	"genesisExtraData": {
-		"v": "0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa",
-		"d": "extra data "
-	},
-	"genesisHash": {
-		"v": "0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3",
-		"d": "genesis hash"
-	},
-	"genesisStateRoot": {
-		"v": "0xd7f8974fb5ac78d9ac099b9ad5018bedc2ce0a72dad1827a1709da30580f0544",
-		"d": "the genesis state root"
-	},
-	"minGasLimit": {
-		"v": 5000,
-		"d": "Minimum the gas limit may ever be."
-	},
-	"gasLimitBoundDivisor": {
-		"v": 1024,
-		"d": "The bound divisor of the gas limit, used in update calculations."
-	},
-	"minimumDifficulty": {
-		"v": 131072,
-		"d": "The minimum that the difficulty may ever be."
-	},
-	"difficultyBoundDivisor": {
-		"v": 2048,
-		"d": "The bound divisor of the difficulty, used in the update calculations."
-	},
-	"durationLimit": {
-		"v": 13,
-		"d": "The decision boundary on the blocktime duration used to determine whether difficulty should go up or not."
-	},
-	"maximumExtraDataSize": {
-		"v": 32,
-		"d": "Maximum size extra data may be after Genesis."
-	},
-	"epochDuration": {
-		"v": 30000,
-		"d": "Duration between proof-of-work epochs."
-	},
-	"stackLimit": {
-		"v": 1024,
-		"d": "Maximum size of VM stack allowed."
-	},
-	"callCreateDepth": {
-		"v": 1024,
-		"d": "Maximum depth of call/create stack."
-	},
-	"tierStepGas": {
-		"v": [
-			0,
-			2,
-			3,
-			5,
-			8,
-			10,
-			20
-		],
-		"d": "Once per operation, for a selection of them."
-	},
-	"expGas": {
-		"v": 10,
-		"d": "Once per EXP instuction."
-	},
-	"expByteGas": {
-		"v": 10,
-		"d": "Times ceil(log256(exponent)) for the EXP instruction."
-	},
-	"sha3Gas": {
-		"v": 30,
-		"d": "Once per SHA3 operation."
-	},
-	"sha3WordGas": {
-		"v": 6,
-		"d": "Once per word of the SHA3 operation's data."
-	},
-	"sloadGas": {
-		"v": 50,
-		"d": "Once per SLOAD operation."
-	},
-	"sstoreSetGas": {
-		"v": 20000,
-		"d": "Once per SSTORE operation if the zeroness changes from zero."
-	},
-	"sstoreResetGas": {
-		"v": 5000,
-		"d": "Once per SSTORE operation if the zeroness does not change from zero."
-	},
-	"sstoreRefundGas": {
-		"v": 15000,
-		"d": "Once per SSTORE operation if the zeroness changes to zero."
-	},
-	"jumpdestGas": {
-		"v": 1,
-		"d": "Refunded gas, once per SSTORE operation if the zeroness changes to zero."
-	},
-	"logGas": {
-		"v": 375,
-		"d": "Per LOG* operation."
-	},
-	"logDataGas": {
-		"v": 8,
-		"d": "Per byte in a LOG* operation's data."
-	},
-	"logTopicGas": {
-		"v": 375,
-		"d": "Multiplied by the * of the LOG*, per LOG transaction. e.g. LOG0 incurs 0 * c_txLogTopicGas, LOG4 incurs 4 * c_txLogTopicGas."
-	},
-	"createGas": {
-		"v": 32000,
-		"d": "Once per CREATE operation & contract-creation transaction."
-	},
-	"callGas": {
-		"v": 40,
-		"d": "Once per CALL operation & message call transaction."
-	},
-	"callStipend": {
-		"v": 2300,
-		"d": "Free gas given at beginning of call."
-	},
-	"callValueTransferGas": {
-		"v": 9000,
-		"d": "Paid for CALL when the value transfor is non-zero."
-	},
-	"callNewAccountGas": {
-		"v": 25000,
-		"d": "Paid for CALL when the destination address didn't exist prior."
-	},
-	"suicideRefundGas": {
-		"v": 24000,
-		"d": "Refunded following a suicide operation."
-	},
-	"memoryGas": {
-		"v": 3,
-		"d": "Times the address of the (highest referenced byte in memory + 1). NOTE: referencing happens on read, write and in instructions such as RETURN and CALL."
-	},
-	"quadCoeffDiv": {
-		"v": 512,
-		"d": "Divisor for the quadratic particle of the memory cost equation."
-	},
-	"createDataGas": {
-		"v": 200,
-		"d": ""
-	},
-	"txGas": {
-		"v": 21000,
-		"d": "Per transaction. NOTE: Not payable on data of calls between transactions."
-	},
-	"txCreation": {
-		"v": 32000,
-		"d": "the cost of creating a contract via tx"
-	},
-	"txDataZeroGas": {
-		"v": 4,
-		"d": "Per byte of data attached to a transaction that equals zero. NOTE: Not payable on data of calls between transactions."
-	},
-	"txDataNonZeroGas": {
-		"v": 68,
-		"d": "Per byte of data attached to a transaction that is not equal to zero. NOTE: Not payable on data of calls between transactions."
-	},
-	"copyGas": {
-		"v": 3,
-		"d": "Multiplied by the number of 32-byte words that are copied (round up) for any *COPY operation and added."
-	},
-	"ecrecoverGas": {
-		"v": 3000,
-		"d": ""
-	},
-	"sha256Gas": {
-		"v": 60,
-		"d": ""
-	},
-	"sha256WordGas": {
-		"v": 12,
-		"d": ""
-	},
-	"ripemd160Gas": {
-		"v": 600,
-		"d": ""
-	},
-	"ripemd160WordGas": {
-		"v": 120,
-		"d": ""
-	},
-	"identityGas": {
-		"v": 15,
-		"d": ""
-	},
-	"identityWordGas": {
-		"v": 3,
-		"d": ""
-	},
-	"minerReward": {
-		"v": "5000000000000000000",
-		"d": "the amount a miner get rewarded for mining a block"
-	},
-	"ommerReward": {
-		"v": "625000000000000000",
-		"d": "The amount of wei a miner of an uncle block gets for being inculded in the blockchain"
-	},
-	"niblingReward": {
-		"v": "156250000000000000",
-		"d": "the amount a miner gets for inculding a uncle"
-	},
-	"homeSteadForkNumber": {
-		"v": 1150000,
-		"d": "the block that the Homestead fork started at"
-	},
-	"homesteadRepriceForkNumber": {
-		"v": 2463000,
-		"d": "the block that the Homestead Reprice (EIP150) fork started at"
-	},
-	"timebombPeriod": {
-		"v": 100000,
-		"d": "Exponential difficulty timebomb period"
-	},
-	"freeBlockPeriod": {
-		"v": 2
-	}
-};
-
-/***/ }),
-/* 346 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const Transaction = __webpack_require__(347)
-const ethUtil = __webpack_require__(11)
-
-/**
- * Creates a new transaction object that doesn't need to be signed
- * @constructor
- * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
- *
- * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
- * @example
- * var rawTx = {
- *   nonce: '00',
- *   gasPrice: '09184e72a000',
- *   gasLimit: '2710',
- *   to: '0000000000000000000000000000000000000000',
- *   value: '00',
- *   data: '7f7465737432000000000000000000000000000000000000000000000000000000600057',
- *   v: '1c',
- *   r: '5e1d3a76fbf824220eafc8c79ad578ad2b67d01b0c2425eb1f1347e8f50882ab',
- *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
- * };
- * var tx = new Transaction(rawTx);
- * @prop {Buffer} raw The raw rlp decoded transaction
- * @prop {Buffer} nonce
- * @prop {Buffer} to the to address
- * @prop {Buffer} value the amount of ether sent
- * @prop {Buffer} data this will contain the data of the message or the init of a contract
- * @prop {Buffer} v EC signature parameter
- * @prop {Buffer} r EC signature parameter
- * @prop {Buffer} s EC recovery ID
- */
-module.exports = class FakeTransaction extends Transaction {
-  constructor (data) {
-    super(data)
-
-    var self = this
-
-    /**
-     * @prop {Buffer} from (read/write) Set from address to bypass transaction signing.
-     */
-    Object.defineProperty(this, 'from', {
-      enumerable: true,
-      configurable: true,
-      get: this.getSenderAddress.bind(self),
-      set: function (val) {
-        self._from = ethUtil.toBuffer(val)
-      }
-    })
-
-    if (data && data.from) {
-      this.from = data.from
-    }
-  }
-}
-
-
-/***/ }),
 /* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
+const async = __webpack_require__(75)
+const inherits = __webpack_require__(1).inherits
 const ethUtil = __webpack_require__(11)
-const fees = __webpack_require__(345)
-const BN = ethUtil.BN
-
-// secp256k1n/2
-const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
-
-/**
- * Creates a new transaction object
- * @class {Buffer|Array} data a transaction can be initiailized with either a buffer containing the RLP serialized transaction or an array of buffers relating to each of the tx Properties, listed in order below in the exmple. Or lastly an Object containing the Properties of the transaction like in the Usage example
- *
- * For Object and Arrays each of the elements can either be a Buffer, a hex-prefixed (0x) String , Number, or an object with a toBuffer method such as Bignum
- * @example
- * var rawTx = {
- *   nonce: '00',
- *   gasPrice: '09184e72a000',
- *   gasLimit: '2710',
- *   to: '0000000000000000000000000000000000000000',
- *   value: '00',
- *   data: '7f7465737432000000000000000000000000000000000000000000000000000000600057',
- *   v: '1c',
- *   r: '5e1d3a76fbf824220eafc8c79ad578ad2b67d01b0c2425eb1f1347e8f50882ab',
- *   s '5bd428537f05f9830e93792f90ea6a3e2d1ee84952dd96edbae9f658f831ab13'
- * };
- * var tx = new Transaction(rawTx);
- * @prop {Buffer} raw The raw rlp decoded transaction
- * @prop {Buffer} nonce
- * @prop {Buffer} to the to address
- * @prop {Buffer} value the amount of ether sent
- * @prop {Buffer} data this will contain the data of the message or the init of a contract
- * @prop {Buffer} v EC signature parameter
- * @prop {Buffer} r EC signature parameter
- * @prop {Buffer} s EC recovery ID
- */
-module.exports = class Transaction {
-  constructor (data) {
-    data = data || {}
-    // Define Properties
-    const fields = [{
-      name: 'nonce',
-      length: 32,
-      allowLess: true,
-      default: new Buffer([])
-    }, {
-      name: 'gasPrice',
-      length: 32,
-      allowLess: true,
-      default: new Buffer([])
-    }, {
-      name: 'gasLimit',
-      alias: 'gas',
-      length: 32,
-      allowLess: true,
-      default: new Buffer([])
-    }, {
-      name: 'to',
-      allowZero: true,
-      length: 20,
-      default: new Buffer([])
-    }, {
-      name: 'value',
-      length: 32,
-      allowLess: true,
-      default: new Buffer([])
-    }, {
-      name: 'data',
-      alias: 'input',
-      allowZero: true,
-      default: new Buffer([])
-    }, {
-      name: 'v',
-      length: 1,
-      default: new Buffer([0x1c])
-    }, {
-      name: 'r',
-      length: 32,
-      allowLess: true,
-      default: new Buffer([])
-    }, {
-      name: 's',
-      length: 32,
-      allowLess: true,
-      default: new Buffer([])
-    }]
-
-    /**
-     * Returns the rlp encoding of the transaction
-     * @method serialize
-     * @return {Buffer}
-     */
-    // attached serialize
-    ethUtil.defineProperties(this, fields, data)
-
-    /**
-     * @prop {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
-     */
-    Object.defineProperty(this, 'from', {
-      enumerable: true,
-      configurable: true,
-      get: this.getSenderAddress.bind(this)
-    })
-
-    // calculate chainId from signature
-    let sigV = ethUtil.bufferToInt(this.v)
-    let chainId = Math.floor((sigV - 35) / 2)
-    if (chainId < 0) chainId = 0
-
-    // set chainId
-    this._chainId = chainId || data.chainId || 0
-    this._homestead = true
-  }
-
-  /**
-   * If the tx's `to` is to the creation address
-   * @return {Boolean}
-   */
-  toCreationAddress () {
-    return this.to.toString('hex') === ''
-  }
-
-  /**
-   * Computes a sha3-256 hash of the serialized tx
-   * @param {Boolean} [includeSignature=true] whether or not to inculde the signature
-   * @return {Buffer}
-   */
-  hash (includeSignature) {
-    if (includeSignature === undefined) includeSignature = true
-
-    // EIP155 spec:
-    // when computing the hash of a transaction for purposes of signing or recovering,
-    // instead of hashing only the first six elements (ie. nonce, gasprice, startgas, to, value, data),
-    // hash nine elements, with v replaced by CHAIN_ID, r = 0 and s = 0
-
-    let items
-    if (includeSignature) {
-      items = this.raw
-    } else {
-      if (this._chainId > 0) {
-        const raw = this.raw.slice()
-        this.v = this._chainId
-        this.r = 0
-        this.s = 0
-        items = this.raw
-        this.raw = raw
-      } else {
-        items = this.raw.slice(0, 6)
-      }
-    }
-
-    // create hash
-    return ethUtil.rlphash(items)
-  }
-
-  /**
-   * returns the public key of the sender
-   * @return {Buffer}
-   */
-  getChainId () {
-    return this._chainId
-  }
-
-  /**
-   * returns the sender's address
-   * @return {Buffer}
-   */
-  getSenderAddress () {
-    if (this._from) {
-      return this._from
-    }
-    const pubkey = this.getSenderPublicKey()
-    this._from = ethUtil.publicToAddress(pubkey)
-    return this._from
-  }
-
-  /**
-   * returns the public key of the sender
-   * @return {Buffer}
-   */
-  getSenderPublicKey () {
-    if (!this._senderPubKey || !this._senderPubKey.length) {
-      if (!this.verifySignature()) throw new Error('Invalid Signature')
-    }
-    return this._senderPubKey
-  }
-
-  /**
-   * Determines if the signature is valid
-   * @return {Boolean}
-   */
-  verifySignature () {
-    const msgHash = this.hash(false)
-    // All transaction signatures whose s-value is greater than secp256k1n/2 are considered invalid.
-    if (this._homestead && new BN(this.s).cmp(N_DIV_2) === 1) {
-      return false
-    }
-
-    try {
-      let v = ethUtil.bufferToInt(this.v)
-      if (this._chainId > 0) {
-        v -= this._chainId * 2 + 8
-      }
-      this._senderPubKey = ethUtil.ecrecover(msgHash, v, this.r, this.s)
-    } catch (e) {
-      return false
-    }
-
-    return !!this._senderPubKey
-  }
-
-  /**
-   * sign a transaction with a given a private key
-   * @param {Buffer} privateKey
-   */
-  sign (privateKey) {
-    const msgHash = this.hash(false)
-    const sig = ethUtil.ecsign(msgHash, privateKey)
-    if (this._chainId > 0) {
-      sig.v += this._chainId * 2 + 8
-    }
-    Object.assign(this, sig)
-  }
-
-  /**
-   * The amount of gas paid for the data in this tx
-   * @return {BN}
-   */
-  getDataFee () {
-    const data = this.raw[5]
-    const cost = new BN(0)
-    for (let i = 0; i < data.length; i++) {
-      data[i] === 0 ? cost.iaddn(fees.txDataZeroGas.v) : cost.iaddn(fees.txDataNonZeroGas.v)
-    }
-    return cost
-  }
-
-  /**
-   * the minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
-   * @return {BN}
-   */
-  getBaseFee () {
-    const fee = this.getDataFee().iaddn(fees.txGas.v)
-    if (this._homestead && this.toCreationAddress()) {
-      fee.iaddn(fees.txCreation.v)
-    }
-    return fee
-  }
-
-  /**
-   * the up front amount that an account must have for this transaction to be valid
-   * @return {BN}
-   */
-  getUpfrontCost () {
-    return new BN(this.gasLimit)
-      .imul(new BN(this.gasPrice))
-      .iadd(new BN(this.value))
-  }
-
-  /**
-   * validates the signature and checks to see if it has enough gas
-   * @param {Boolean} [stringError=false] whether to return a string with a dscription of why the validation failed or return a Bloolean
-   * @return {Boolean|String}
-   */
-  validate (stringError) {
-    const errors = []
-    if (!this.verifySignature()) {
-      errors.push('Invalid Signature')
-    }
-
-    if (this.getBaseFee().cmp(new BN(this.gasLimit)) > 0) {
-      errors.push([`gas limit is to low. Need at least ${this.getBaseFee()}`])
-    }
-
-    if (stringError === undefined || stringError === false) {
-      return errors.length === 0
-    } else {
-      return errors.join(' ')
-    }
-  }
-}
-
-
-/***/ }),
-/* 348 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const async = __webpack_require__(76)
-const inherits = __webpack_require__(0).inherits
-const ethUtil = __webpack_require__(11)
-const Subprovider = __webpack_require__(34)
-const Stoplight = __webpack_require__(78)
+const Subprovider = __webpack_require__(33)
+const Stoplight = __webpack_require__(77)
 
 module.exports = FilterSubprovider
 
@@ -105276,18 +104946,18 @@ function valuesFor(obj){
 
 
 /***/ }),
-/* 349 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const async = __webpack_require__(76)
-const inherits = __webpack_require__(0).inherits
-const Stoplight = __webpack_require__(78)
-const createVm = __webpack_require__(211).fromWeb3Provider
+const async = __webpack_require__(75)
+const inherits = __webpack_require__(1).inherits
+const Stoplight = __webpack_require__(77)
+const createVm = __webpack_require__(213).fromWeb3Provider
 const Block = __webpack_require__(26)
-const FakeTransaction = __webpack_require__(346)
+const FakeTransaction = __webpack_require__(38)
 const ethUtil = __webpack_require__(11)
-const createPayload = __webpack_require__(77)
-const Subprovider = __webpack_require__(34)
+const createPayload = __webpack_require__(76)
+const Subprovider = __webpack_require__(33)
 
 module.exports = VmSubprovider
 
@@ -105425,7 +105095,7 @@ function blockFromBlockData(blockData){
 
 
 /***/ }),
-/* 350 */
+/* 349 */
 /***/ (function(module, exports) {
 
 // gotta keep it within MAX_SAFE_INTEGER
@@ -105444,7 +105114,7 @@ function createRandomId(){
 }
 
 /***/ }),
-/* 351 */
+/* 350 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -105590,7 +105260,7 @@ function cacheTypeForPayload(payload) {
 
 
 /***/ }),
-/* 352 */
+/* 351 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -105849,7 +105519,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 353 */
+/* 352 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -105962,7 +105632,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 354 */
+/* 353 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -106114,10 +105784,10 @@ module.exports = [
 ];
 
 /***/ }),
-/* 355 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106146,10 +105816,10 @@ module.exports = SolidityTypeAddress;
 
 
 /***/ }),
-/* 356 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106178,10 +105848,10 @@ module.exports = SolidityTypeBool;
 
 
 /***/ }),
-/* 357 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106213,10 +105883,10 @@ module.exports = SolidityTypeBytes;
 
 
 /***/ }),
-/* 358 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 var SolidityTypeDynamicBytes = function () {
@@ -106239,10 +105909,10 @@ module.exports = SolidityTypeDynamicBytes;
 
 
 /***/ }),
-/* 359 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106277,10 +105947,10 @@ module.exports = SolidityTypeInt;
 
 
 /***/ }),
-/* 360 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106315,10 +105985,10 @@ module.exports = SolidityTypeReal;
 
 
 /***/ }),
-/* 361 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 var SolidityTypeString = function () {
@@ -106341,10 +106011,10 @@ module.exports = SolidityTypeString;
 
 
 /***/ }),
-/* 362 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106379,10 +106049,10 @@ module.exports = SolidityTypeUInt;
 
 
 /***/ }),
-/* 363 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var f = __webpack_require__(18);
+var f = __webpack_require__(15);
 var SolidityType = __webpack_require__(23);
 
 /**
@@ -106417,15 +106087,15 @@ module.exports = SolidityTypeUReal;
 
 
 /***/ }),
-/* 364 */
+/* 363 */
 /***/ (function(module, exports) {
 
 module.exports = {
-	"version": "0.18.2"
+	"version": "0.18.4"
 };
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106455,24 +106125,24 @@ module.exports = {
  * @date 2014
  */
 
-var RequestManager = __webpack_require__(380);
+var RequestManager = __webpack_require__(379);
 var Iban = __webpack_require__(57);
-var Eth = __webpack_require__(374);
-var DB = __webpack_require__(373);
-var Shh = __webpack_require__(377);
-var Net = __webpack_require__(375);
-var Personal = __webpack_require__(376);
-var Swarm = __webpack_require__(378);
-var Settings = __webpack_require__(381);
-var version = __webpack_require__(364);
-var utils = __webpack_require__(8);
-var sha3 = __webpack_require__(49);
-var extend = __webpack_require__(369);
-var Batch = __webpack_require__(367);
-var Property = __webpack_require__(42);
-var HttpProvider = __webpack_require__(371);
-var IpcProvider = __webpack_require__(372);
-var BigNumber = __webpack_require__(45);
+var Eth = __webpack_require__(373);
+var DB = __webpack_require__(372);
+var Shh = __webpack_require__(376);
+var Net = __webpack_require__(374);
+var Personal = __webpack_require__(375);
+var Swarm = __webpack_require__(377);
+var Settings = __webpack_require__(380);
+var version = __webpack_require__(363);
+var utils = __webpack_require__(6);
+var sha3 = __webpack_require__(48);
+var extend = __webpack_require__(368);
+var Batch = __webpack_require__(366);
+var Property = __webpack_require__(41);
+var HttpProvider = __webpack_require__(370);
+var IpcProvider = __webpack_require__(371);
+var BigNumber = __webpack_require__(44);
 
 
 
@@ -106581,7 +106251,7 @@ module.exports = Web3;
 
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106606,10 +106276,10 @@ module.exports = Web3;
  * @date 2014
  */
 
-var sha3 = __webpack_require__(49);
-var SolidityEvent = __webpack_require__(134);
+var sha3 = __webpack_require__(48);
+var SolidityEvent = __webpack_require__(137);
 var formatters = __webpack_require__(24);
-var utils = __webpack_require__(8);
+var utils = __webpack_require__(6);
 var Filter = __webpack_require__(56);
 var watches = __webpack_require__(58);
 
@@ -106675,7 +106345,7 @@ module.exports = AllSolidityEvents;
 
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106700,8 +106370,8 @@ module.exports = AllSolidityEvents;
  * @date 2015
  */
 
-var Jsonrpc = __webpack_require__(135);
-var errors = __webpack_require__(50);
+var Jsonrpc = __webpack_require__(138);
+var errors = __webpack_require__(49);
 
 var Batch = function (web3) {
     this.requestManager = web3._requestManager;
@@ -106747,7 +106417,7 @@ module.exports = Batch;
 
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -106772,11 +106442,11 @@ module.exports = Batch;
  * @date 2014
  */
 
-var utils = __webpack_require__(8);
-var coder = __webpack_require__(79);
-var SolidityEvent = __webpack_require__(134);
-var SolidityFunction = __webpack_require__(370);
-var AllEvents = __webpack_require__(366);
+var utils = __webpack_require__(6);
+var coder = __webpack_require__(78);
+var SolidityEvent = __webpack_require__(137);
+var SolidityFunction = __webpack_require__(369);
+var AllEvents = __webpack_require__(365);
 
 /**
  * Should be called to encode constructor params
@@ -106950,7 +106620,7 @@ var ContractFactory = function (eth, abi) {
         if (options.value > 0) {
             var constructorAbi = abi.filter(function (json) {
                 return json.type === 'constructor' && json.inputs.length === args.length;
-            })[0] || {};
+            })[0] || {};
 
             if (!constructorAbi.payable) {
                 throw new Error('Cannot send value to non-payable constructor');
@@ -107063,13 +106733,13 @@ module.exports = ContractFactory;
 
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var formatters = __webpack_require__(24);
-var utils = __webpack_require__(8);
-var Method = __webpack_require__(35);
-var Property = __webpack_require__(42);
+var utils = __webpack_require__(6);
+var Method = __webpack_require__(34);
+var Property = __webpack_require__(41);
 
 // TODO: refactor, so the input params are not altered.
 // it's necessary to make same 'extension' work with multiple providers
@@ -107117,7 +106787,7 @@ module.exports = extend;
 
 
 /***/ }),
-/* 370 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107142,10 +106812,10 @@ module.exports = extend;
  * @date 2015
  */
 
-var coder = __webpack_require__(79);
-var utils = __webpack_require__(8);
+var coder = __webpack_require__(78);
+var utils = __webpack_require__(6);
 var formatters = __webpack_require__(24);
-var sha3 = __webpack_require__(49);
+var sha3 = __webpack_require__(48);
 
 /**
  * This prototype should be used to call/sendTransaction to solidity functions
@@ -107385,7 +107055,7 @@ module.exports = SolidityFunction;
 
 
 /***/ }),
-/* 371 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107413,7 +107083,7 @@ module.exports = SolidityFunction;
  */
 
 
-var errors = __webpack_require__(50);
+var errors = __webpack_require__(49);
 
 // workaround to use httpprovider in different envs
 
@@ -107422,10 +107092,10 @@ if (typeof window !== 'undefined' && window.XMLHttpRequest) {
     XMLHttpRequest = window.XMLHttpRequest; // jshint ignore: line
 // node
 } else {
-    XMLHttpRequest = __webpack_require__(385).XMLHttpRequest; // jshint ignore: line
+    XMLHttpRequest = __webpack_require__(384).XMLHttpRequest; // jshint ignore: line
 }
 
-var XHR2 = __webpack_require__(384); // jshint ignore: line
+var XHR2 = __webpack_require__(383); // jshint ignore: line
 
 /**
  * HttpProvider should be used to send rpc calls over http
@@ -107544,7 +107214,7 @@ module.exports = HttpProvider;
 
 
 /***/ }),
-/* 372 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107572,8 +107242,8 @@ module.exports = HttpProvider;
 
 
 
-var utils = __webpack_require__(8);
-var errors = __webpack_require__(50);
+var utils = __webpack_require__(6);
+var errors = __webpack_require__(49);
 
 
 var IpcProvider = function (path, net) {
@@ -107758,7 +107428,7 @@ module.exports = IpcProvider;
 
 
 /***/ }),
-/* 373 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -107783,7 +107453,7 @@ module.exports = IpcProvider;
  * @date 2015
  */
 
-var Method = __webpack_require__(35);
+var Method = __webpack_require__(34);
 
 var DB = function (web3) {
     this._requestManager = web3._requestManager;
@@ -107830,7 +107500,7 @@ module.exports = DB;
 
 
 /***/ }),
-/* 374 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107860,17 +107530,17 @@ module.exports = DB;
 
 
 var formatters = __webpack_require__(24);
-var utils = __webpack_require__(8);
-var Method = __webpack_require__(35);
-var Property = __webpack_require__(42);
+var utils = __webpack_require__(6);
+var Method = __webpack_require__(34);
+var Property = __webpack_require__(41);
 var c = __webpack_require__(55);
-var Contract = __webpack_require__(368);
+var Contract = __webpack_require__(367);
 var watches = __webpack_require__(58);
 var Filter = __webpack_require__(56);
-var IsSyncing = __webpack_require__(382);
-var namereg = __webpack_require__(379);
+var IsSyncing = __webpack_require__(381);
+var namereg = __webpack_require__(378);
 var Iban = __webpack_require__(57);
-var transfer = __webpack_require__(383);
+var transfer = __webpack_require__(382);
 
 var blockCall = function (args) {
     return (utils.isString(args[0]) && args[0].indexOf('0x') === 0) ? "eth_getBlockByHash" : "eth_getBlockByNumber";
@@ -107897,12 +107567,12 @@ function Eth(web3) {
 
     var self = this;
 
-    methods().forEach(function(method) { 
+    methods().forEach(function(method) {
         method.attachToObject(self);
         method.setRequestManager(self._requestManager);
     });
 
-    properties().forEach(function(p) { 
+    properties().forEach(function(p) {
         p.attachToObject(self);
         p.setRequestManager(self._requestManager);
     });
@@ -108038,6 +107708,13 @@ var methods = function () {
         inputFormatter: [formatters.inputTransactionFormatter]
     });
 
+    var signTransaction = new Method({
+        name: 'signTransaction',
+        call: 'eth_signTransaction',
+        params: 1,
+        inputFormatter: [formatters.inputTransactionFormatter]
+    });
+
     var sign = new Method({
         name: 'sign',
         call: 'eth_sign',
@@ -108106,6 +107783,7 @@ var methods = function () {
         call,
         estimateGas,
         sendRawTransaction,
+        signTransaction,
         sendTransaction,
         sign,
         compileSolidity,
@@ -108182,9 +107860,8 @@ Eth.prototype.isSyncing = function (callback) {
 module.exports = Eth;
 
 
-
 /***/ }),
-/* 375 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108209,8 +107886,8 @@ module.exports = Eth;
  * @date 2015
  */
 
-var utils = __webpack_require__(8);
-var Property = __webpack_require__(42);
+var utils = __webpack_require__(6);
+var Property = __webpack_require__(41);
 
 var Net = function (web3) {
     this._requestManager = web3._requestManager;
@@ -108242,7 +107919,7 @@ module.exports = Net;
 
 
 /***/ }),
-/* 376 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108271,8 +107948,8 @@ module.exports = Net;
 
 
 
-var Method = __webpack_require__(35);
-var Property = __webpack_require__(42);
+var Method = __webpack_require__(34);
+var Property = __webpack_require__(41);
 var formatters = __webpack_require__(24);
 
 function Personal(web3) {
@@ -108342,7 +108019,7 @@ module.exports = Personal;
 
 
 /***/ }),
-/* 377 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108367,7 +108044,7 @@ module.exports = Personal;
  * @date 2015
  */
 
-var Method = __webpack_require__(35);
+var Method = __webpack_require__(34);
 var formatters = __webpack_require__(24);
 var Filter = __webpack_require__(56);
 var watches = __webpack_require__(58);
@@ -108434,7 +108111,7 @@ module.exports = Shh;
 
 
 /***/ }),
-/* 378 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108464,8 +108141,8 @@ module.exports = Shh;
 
 
 
-var Method = __webpack_require__(35);
-var Property = __webpack_require__(42);
+var Method = __webpack_require__(34);
+var Property = __webpack_require__(41);
 
 function Swarm(web3) {
     this._requestManager = web3._requestManager;
@@ -108586,7 +108263,7 @@ module.exports = Swarm;
 
 
 /***/ }),
-/* 379 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108611,8 +108288,8 @@ module.exports = Swarm;
  * @date 2015
  */
 
-var globalRegistrarAbi = __webpack_require__(352);
-var icapRegistrarAbi= __webpack_require__(353);
+var globalRegistrarAbi = __webpack_require__(351);
+var icapRegistrarAbi= __webpack_require__(352);
 
 var globalNameregAddress = '0xc6d9d2cd449a754c494264e1809c50e34d64562b';
 var icapNameregAddress = '0xa1a111bc074c9cfa781f0c38e63bd51c91b8af00';
@@ -108631,7 +108308,7 @@ module.exports = {
 
 
 /***/ }),
-/* 380 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108660,10 +108337,10 @@ module.exports = {
  * @date 2014
  */
 
-var Jsonrpc = __webpack_require__(135);
-var utils = __webpack_require__(8);
+var Jsonrpc = __webpack_require__(138);
+var utils = __webpack_require__(6);
 var c = __webpack_require__(55);
-var errors = __webpack_require__(50);
+var errors = __webpack_require__(49);
 
 /**
  * It's responsible for passing messages to providers
@@ -108902,7 +108579,7 @@ module.exports = RequestManager;
 
 
 /***/ }),
-/* 381 */
+/* 380 */
 /***/ (function(module, exports) {
 
 
@@ -108917,7 +108594,7 @@ module.exports = Settings;
 
 
 /***/ }),
-/* 382 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -108943,7 +108620,7 @@ module.exports = Settings;
  */
 
 var formatters = __webpack_require__(24);
-var utils = __webpack_require__(8);
+var utils = __webpack_require__(6);
 
 var count = 1;
 
@@ -109016,7 +108693,7 @@ module.exports = IsSyncing;
 
 
 /***/ }),
-/* 383 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -109042,7 +108719,7 @@ module.exports = IsSyncing;
  */
 
 var Iban = __webpack_require__(57);
-var exchangeAbi = __webpack_require__(354);
+var exchangeAbi = __webpack_require__(353);
 
 /**
  * Should be used to make Iban transfer
@@ -109114,7 +108791,7 @@ module.exports = transfer;
 
 
 /***/ }),
-/* 384 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Generated by CoffeeScript 1.12.2
@@ -109189,13 +108866,13 @@ module.exports = transfer;
 
   })();
 
-  http = __webpack_require__(80);
+  http = __webpack_require__(79);
 
-  https = __webpack_require__(137);
+  https = __webpack_require__(140);
 
-  os = __webpack_require__(138);
+  os = __webpack_require__(141);
 
-  url = __webpack_require__(139);
+  url = __webpack_require__(142);
 
   XMLHttpRequest = (function(superClass) {
     extend(XMLHttpRequest, superClass);
@@ -109995,7 +109672,7 @@ module.exports = transfer;
 
 
 /***/ }),
-/* 385 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -110011,9 +109688,9 @@ module.exports = transfer;
  * @license MIT
  */
 
-var Url = __webpack_require__(139);
-var spawn = __webpack_require__(136).spawn;
-var fs = __webpack_require__(44);
+var Url = __webpack_require__(142);
+var spawn = __webpack_require__(139).spawn;
+var fs = __webpack_require__(43);
 
 exports.XMLHttpRequest = function() {
   "use strict";
@@ -110022,8 +109699,8 @@ exports.XMLHttpRequest = function() {
    * Private variables
    */
   var self = this;
-  var http = __webpack_require__(80);
-  var https = __webpack_require__(137);
+  var http = __webpack_require__(79);
+  var https = __webpack_require__(140);
 
   // Holds http.js objects
   var request;
@@ -110621,7 +110298,7 @@ exports.XMLHttpRequest = function() {
 
 
 /***/ }),
-/* 386 */
+/* 385 */
 /***/ (function(module, exports) {
 
 module.exports = require("timers");
