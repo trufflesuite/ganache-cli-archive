@@ -1,6 +1,6 @@
 {
   "name": "ganache",
-  "version": "0.0.10",
+  "version": "3.9.0",
   "bin": {
     "testrpc": "./build/cli.node.js"
   },
