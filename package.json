@@ -1,8 +1,8 @@
 {
-  "name": "truffle-testrpc",
+  "name": "ganache",
   "version": "0.0.10",
   "bin": {
-    "truffle-testrpc": "./build/cli.node.js"
+    "testrpc": "./build/cli.node.js"
   },
   "main": "./build/lib.node.js",
   "directories": {
@@ -15,7 +15,8 @@
     "build-cli": "webpack --config ./webpack/cli.webpack.config.js",
     "build-server": "webpack --config ./webpack/server.webpack.config.js",
     "build-provider": "webpack --config ./webpack/provider.webpack.config.js",
-    "build-lib": "webpack --config ./webpack/lib.webpack.config.js"
+    "build-lib": "webpack --config ./webpack/lib.webpack.config.js",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "ganache-core": "0.0.1",
