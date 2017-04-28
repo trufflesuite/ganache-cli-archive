@@ -41,7 +41,7 @@ describe('Time adjustment', function() {
     });
   });
 
-  it('should jump 5 hours', function(done) {
+  it('should jump 5 hours using increaseTime', function(done) {
     // Adjust time
     send("evm_increaseTime", [secondsToJump], function(err, result) {
       if (err) return done(err);
@@ -64,4 +64,41 @@ describe('Time adjustment', function() {
       })
     })
   })
+
+  it('should be able to reset back to current time', function(done) {
+    send("evm_setTime", [new Date().getTime()], function(err, result) {
+        // Mine a block so new time is recorded.
+        send("evm_mine", function(err, result) {
+            if (err) return done(err);
+
+            web3.eth.getBlock('latest', function(err, block){
+                if(err) return done(err)
+                var secondsJumped = block.timestamp - timestampBeforeJump
+                assert(secondsJumped >= secondsJumped)
+                done()
+            })
+        })
+    })
+  })
+
+    it('should jump 5 hours using setTime', function(done) {
+        // Adjust time
+        send("evm_setTime", [new Date().getTime() + secondsToJump * 1000], function(err, result) {
+            if (err) return done(err);
+
+            // Mine a block so new time is recorded.
+            send("evm_mine", function(err, result) {
+                if (err) return done(err);
+
+                web3.eth.getBlock('latest', function(err, block){
+                    if(err) return done(err)
+                    var secondsJumped = block.timestamp - timestampBeforeJump
+                    assert(secondsJumped >= secondsToJump)
+                    done()
+                })
+            })
+        })
+    })
+
+
 })
