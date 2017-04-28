@@ -1,5 +1,5 @@
 {
-  "name": "ganache",
+  "name": "ethereumjs-testrpc",
   "version": "3.9.0",
   "bin": {
     "testrpc": "./build/cli.node.js"
