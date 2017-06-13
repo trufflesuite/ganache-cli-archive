@@ -99,7 +99,8 @@ if (options.fork) {
 
 var server = Ganache.server(options);
 
-console.log("Ganache CLI v" + pkg.version);
+//console.log("Ganache CLI v" + pkg.version);
+console.log("EthereumJS TestRPC v" + pkg.version);
 
 server.listen(options.port, options.hostname, function(err, state) {
   if (err) {
