@@ -81,7 +81,7 @@ var tests = function(web3, EventTest) {
 
     it("handles events properly, using `event.get()`", function(done) {
       this.timeout(10000)
-      var expected_value = 5;
+      var expected_value = 6;
       var interval;
 
       var event = instance.ExampleEvent({first: expected_value});
@@ -92,7 +92,7 @@ var tests = function(web3, EventTest) {
         done(err);
       }
 
-      instance.triggerEvent(5, 7, {from: accounts[0]}, function(err, result) {
+      instance.triggerEvent(6, 7, {from: accounts[0]}, function(err, result) {
         if (err) return cleanup(err);
 
         interval = setInterval(function() {
@@ -115,6 +115,20 @@ var tests = function(web3, EventTest) {
     it("grabs events in the past, using `event.get()`", function(done) {
       var expected_value = 5;
       var event = instance.ExampleEvent({first: expected_value}, {fromBlock: 0});
+
+      event.get(function(err, logs) {
+        event.stopWatching();
+        if (err) return done(err);
+        assert(logs.length == 1);
+        done();
+      });
+    });
+
+    // NOTE! This test relies on the events triggered in the tests above.
+    it("accepts an array of topics as a filter", function(done) {
+      var expected_value_a = 5;
+      var expected_value_b = 6;
+      var event = instance.ExampleEvent({first: [expected_value_a, expected_value_b]}, {fromBlock: 0});
 
       event.get(function(err, logs) {
         event.stopWatching();
