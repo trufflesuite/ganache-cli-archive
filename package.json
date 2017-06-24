@@ -32,7 +32,7 @@
     "solc": "0.4.6",
     "temp": "^0.8.3",
     "tmp": "0.0.31",
-    "web3": "0.19.0",
+    "web3": "github:shayanb/web3.js#develop",
     "web3-provider-engine": "~8.1.0",
     "yargs": "~3.29.0"
   },
