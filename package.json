@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "async": "~1.5.0",
-    "bignumber.js": "~2.1.4",
+    "bignumber.js": "~4.0.2",
     "bip39": "~2.2.0",
     "ethereumjs-account": "~2.0.4",
     "ethereumjs-block": "~1.2.2",
@@ -32,8 +32,8 @@
     "solc": "0.4.6",
     "temp": "^0.8.3",
     "tmp": "0.0.31",
-    "web3": "~0.16.0",
-    "web3-provider-engine": "~8.1.0",
+    "web3": "^0.19.1",
+    "web3-provider-engine": "^13.0.3",
     "yargs": "~3.29.0"
   },
   "devDependencies": {
