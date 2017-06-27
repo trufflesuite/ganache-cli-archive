@@ -187,6 +187,9 @@ git clone https://github.com/ethereumjs/testrpc.git && cd testrpc
 docker build -t ethereumjs/testrpc .
 ```
 
+# DEVELOPING
+
+This is a distribution package where the core code is bundled to support browsers and reduce installation issues on all platforms. You can contribute to the core code via [ganache-core](https://github.com/trufflesuite/ganache-core).
 
 # TESTING
 
