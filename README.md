@@ -145,6 +145,7 @@ The RPC methods currently implemented are:
 * `eth_sign`
 * `eth_syncing`
 * `eth_uninstallFilter`
+* `debug_traceTransaction`
 * `net_listening`
 * `net_peerCount`
 * `net_version`
