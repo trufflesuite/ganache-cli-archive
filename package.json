@@ -19,7 +19,7 @@
     "prepublish": "npm run build"
   },
   "devDependencies": {
-    "ganache-core": "0.0.2",
+    "ganache-core": "1.0.0",
     "yargs": "^7.0.2"
   },
   "repository": {
