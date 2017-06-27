@@ -1,19 +1,21 @@
 #!/usr/bin/env node
-var yargs = require('yargs');
-var TestRPC = require('..');
-var pkg = require("../package.json");
-var util = require("ethereumjs-util");
+// `yargs/yargs` required to work with webpack, see here.
+// https://github.com/yargs/yargs/issues/781
+var yargs = require('yargs/yargs');
+var Ganache = require("ganache-core");
+var pkg = require("./package.json");
+var corepkg = require("./node_modules/ganache-core/package.json");
 var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
 
-yargs
+var parser = yargs()
 .option("unlock", {
   type: "string",
   alias: "u"
 });
 
-var argv = yargs.argv;
+var argv = parser.parse(process.argv);
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -37,7 +39,7 @@ function parseAccounts(accounts) {
 }
 
 if (argv.d || argv.deterministic) {
-  argv.s = "TestRPC is awesome!";
+  argv.s = "TestRPC is awesome!"; // Seed phrase; don't change to Ganache, maintain original determinism
 }
 
 if (typeof argv.unlock == "string") {
@@ -96,9 +98,10 @@ if (options.fork) {
   options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
-var server = TestRPC.server(options);
+var server = Ganache.server(options);
 
-console.log("EthereumJS TestRPC v" + pkg.version);
+//console.log("Ganache CLI v" + pkg.version);
+console.log("EthereumJS TestRPC v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
 
 server.listen(options.port, options.hostname, function(err, state) {
   if (err) {

@@ -1,50 +1,32 @@
 {
   "name": "ethereumjs-testrpc",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "bin": {
-    "testrpc": "./bin/testrpc"
+    "testrpc": "./build/cli.node.js"
   },
-  "main": "./index.js",
+  "main": "./build/lib.node.js",
   "directories": {
     "lib": "./lib"
   },
   "scripts": {
-    "start": "node ./bin/testrpc",
-    "test": "mocha"
-  },
-  "dependencies": {
-    "async": "~1.5.0",
-    "bignumber.js": "~2.1.4",
-    "bip39": "~2.2.0",
-    "ethereumjs-account": "~2.0.4",
-    "ethereumjs-block": "~1.2.2",
-    "ethereumjs-tx": "1.1.2",
-    "ethereumjs-util": "~5.1.0",
-    "ethereumjs-vm": "~2.0.1",
-    "ethereumjs-wallet": "~0.6.0",
-    "fake-merkle-patricia-tree": "~1.0.1",
-    "heap": "~0.2.6",
-    "level-browserify": "^1.1.0",
-    "level-sublevel": "^6.6.1",
-    "merkle-patricia-tree": "~2.1.2",
-    "seedrandom": "~2.4.2",
-    "shelljs": "~0.6.0",
-    "solc": "0.4.6",
-    "temp": "^0.8.3",
-    "tmp": "0.0.31",
-    "web3": "~0.16.0",
-    "web3-provider-engine": "~8.1.0",
-    "yargs": "~3.29.0"
+    "start": "./build/cli.node.js",
+    "test": "mocha",
+    "build": "npm run build-cli && npm run build-server && npm run build-provider && npm run build-lib",
+    "build-cli": "webpack --config ./webpack/cli.webpack.config.js",
+    "build-server": "webpack --config ./webpack/server.webpack.config.js",
+    "build-provider": "webpack --config ./webpack/provider.webpack.config.js",
+    "build-lib": "webpack --config ./webpack/lib.webpack.config.js",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "~3.0.1",
-    "eslint-config-standard": "~5.3.5",
-    "eslint-plugin-standard": "~1.3.3",
-    "mocha": "~2.2.5"
+    "ganache-core": "1.0.1",
+    "yargs": "^7.0.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ethereumjs/testrpc"
+  },
+  "dependencies": {
+    "webpack": "^3.0.0"
   }
 }

@@ -118,7 +118,6 @@ The RPC methods currently implemented are:
 * `eth_blockNumber`
 * `eth_call`
 * `eth_coinbase`
-* `eth_compileSolidity`
 * `eth_estimateGas`
 * `eth_gasPrice`
 * `eth_getBalance`
@@ -162,6 +161,10 @@ There’s also special non-standard methods that aren’t included within the or
 * `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
 * `evm_mine` : Force a block to be mined. Takes no parameters. Mines a block independent of whether or not mining is started or stopped.
 
+# Unsupported Methods
+
+* `eth_compileSolidity`: If you'd like Solidity compilation in Javascript, please see the [solc-js project](https://github.com/ethereum/solc-js).
+
 # Docker
 
 The Simplest way to get started with the Docker image:
@@ -184,6 +187,9 @@ git clone https://github.com/ethereumjs/testrpc.git && cd testrpc
 docker build -t ethereumjs/testrpc .
 ```
 
+# DEVELOPING
+
+This is a distribution package where the core code is bundled to support browsers and reduce installation issues on all platforms. You can contribute to the core code via [ganache-core](https://github.com/trufflesuite/ganache-core).
 
 # TESTING
 
