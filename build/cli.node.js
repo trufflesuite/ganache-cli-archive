@@ -119370,7 +119370,7 @@ module.exports = {
 
 module.exports = {
 	"name": "ethereumjs-testrpc",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"bin": {
 		"testrpc": "./build/cli.node.js"
 	},
