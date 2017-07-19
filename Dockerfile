@@ -9,4 +9,4 @@ ADD . .
 
 EXPOSE 8545
 
-ENTRYPOINT ["node", "./bin/testrpc"]
+ENTRYPOINT ["node", "./cli.js"]
