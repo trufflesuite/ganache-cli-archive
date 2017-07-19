@@ -9,6 +9,25 @@ var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
 
+var Promise = require('bluebird').Promise
+var jsonfile = Promise.promisifyAll(require('jsonfile'))
+var file_loc = `${process.cwd()}/private-keys.json`
+
+var file = {
+    "keys": {
+        "0": "",
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": ""
+    }
+}
+
 var parser = yargs()
 .option("unlock", {
   type: "string",
@@ -130,6 +149,8 @@ server.listen(options.port, options.hostname, function(err, state) {
   console.log("==================");
 
   addresses.forEach(function(address, index) {
+      file.keys[index] = accounts[address].secretKey.toString("hex")
+      jsonfile.writeFileAsync(file_loc, file, { spaces: 2 })
     console.log("(" + index + ") " + accounts[address].secretKey.toString("hex"));
   });
 

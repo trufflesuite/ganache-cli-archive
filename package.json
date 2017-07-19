@@ -27,6 +27,8 @@
     "url": "https://github.com/ethereumjs/testrpc"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
+    "jsonfile": "^3.0.0",
     "webpack": "^3.0.0"
   }
 }
