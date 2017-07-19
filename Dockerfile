@@ -9,4 +9,4 @@ ADD . .
 
 EXPOSE 8545
 
-ENTRYPOINT ["node", "./cli.js"]
+ENTRYPOINT ["node", "./build/cli.node.js"]
