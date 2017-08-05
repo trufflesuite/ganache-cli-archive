@@ -3,6 +3,7 @@
 // https://github.com/yargs/yargs/issues/781
 var yargs = require('yargs/yargs');
 var Ganache = require("ganache-core");
+var enableDestroy = require("server-destroy");
 var pkg = require("./package.json");
 var corepkg = require("./node_modules/ganache-core/package.json");
 var URL = require("url");
@@ -99,6 +100,7 @@ if (options.fork) {
 }
 
 var server = Ganache.server(options);
+enableDestroy(server);
 
 //console.log("Ganache CLI v" + pkg.version);
 console.log("EthereumJS TestRPC v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
@@ -187,7 +189,7 @@ if (process.platform === "win32") {
 
 process.on("SIGINT", function () {
   // graceful shutdown
-  server.close(function(err) {
+  server.destroy(function(err) {
     if (err) {
       console.log(err.stack || err);
     }
