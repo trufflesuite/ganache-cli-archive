@@ -107,6 +107,9 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 
 The RPC methods currently implemented are:
 
+* `bzz_hive` (stub)
+* `bzz_info` (stub)
+* `debug_traceTransaction`
 * `eth_accounts`
 * `eth_blockNumber`
 * `eth_call`
@@ -133,17 +136,23 @@ The RPC methods currently implemented are:
 * `eth_mining`
 * `eth_newBlockFilter`
 * `eth_newFilter` (includes log/event filters)
+* `eth_protocolVersion`
 * `eth_sendTransaction`
 * `eth_sendRawTransaction`
 * `eth_sign`
 * `eth_syncing`
 * `eth_uninstallFilter`
-* `debug_traceTransaction`
 * `net_listening`
 * `net_peerCount`
 * `net_version`
 * `miner_start`
 * `miner_stop`
+* `personal_listAccounts`
+* `personal_lockAccount`
+* `personal_newAccount`
+* `personal_unlockAccount`
+* `personal_sendTransaction`
+* `shh_version`
 * `rpc_modules`
 * `web3_clientVersion`
 * `web3_sha3`
