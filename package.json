@@ -1,6 +1,6 @@
 {
   "name": "ethereumjs-testrpc",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "bin": {
     "testrpc": "./build/cli.node.js"
   },
@@ -19,7 +19,7 @@
     "prepublish": "npm run build"
   },
   "devDependencies": {
-    "ganache-core": "1.0.1",
+    "ganache-core": "1.1.1",
     "yargs": "^7.0.2"
   },
   "repository": {
