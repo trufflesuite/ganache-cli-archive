@@ -169,10 +169,10 @@ server.listen(options.port, options.hostname, function(err, state) {
   console.log("Listening on " + (options.hostname || "localhost") + ":" + options.port);
 });
 
-//process.on('uncaughtException', function(e) {
-//  console.log(e.stack);
-//  process.exit();
-//})
+process.on('uncaughtException', function(e) {
+  console.log(e.stack);
+  process.exit(1);
+})
 
 // See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
 if (process.platform === "win32") {
