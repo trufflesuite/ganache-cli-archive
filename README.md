@@ -32,7 +32,7 @@ Options:
 * `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
-* `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
+* `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses. Enclose the mnemonic in double quotes.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
 * `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
