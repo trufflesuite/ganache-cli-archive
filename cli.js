@@ -18,6 +18,39 @@ var parser = yargs()
 
 var argv = parser.parse(process.argv);
 
+if (argv.help || argv['?']) {
+  console.log("");
+  console.log("testrpc: Fast Ethereum RPC client for testing and development");
+  console.log("  Full docs: https://github.com/ethereumjs/testrpc");
+  console.log("");
+  console.log("Usage: testrpc [options]");
+  console.log("  options:");
+  console.log("  --port/-p <port to bind to, default 8545>");
+  console.log("  --host/-h <host to bind to, default 0.0.0.0>");
+  console.log("  --fork/-f <url>   (Fork from another currently running Ethereum client at a given block)");
+  console.log("");
+  console.log("  --db <db path>   (directory to save chain db)");
+  console.log("  --seed <seed value for PRNG, default random>");
+  console.log("  --deterministic/-d     (uses fixed seed)");
+  console.log("  --mnemonic/-m <mnemonic>");
+  console.log("  --accounts/-a <number of accounts to generate at startup>");
+  console.log("  --secure/-s   (Lock accounts by default)");
+  console.log("  --unlock <accounts>   (Comma-separated list of accounts or indices to unlock)");
+  console.log("");
+  console.log("  --blocktime/-b <block time in seconds>");
+  console.log("  --networkId/-i <network id> (default current time)");
+  console.log("  --gasPrice/-g <gas price>   (default 20000000000)");
+  console.log("  --gasLimit/-l <gas limit>   (default 0x47E7C4)");
+  console.log("");
+  console.log("  --debug       (Output VM opcodes for debugging)");
+  console.log("  --verbose/-v");
+  console.log("  --mem         (Only show memory output, not tx history)");
+  console.log("");
+  console.log("  --help / -?    (this output)");
+  console.log("");
+  process.exit(0);
+}
+
 function parseAccounts(accounts) {
   function splitAccount(account) {
     account = account.split(',')
