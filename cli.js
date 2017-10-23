@@ -41,7 +41,7 @@ if (argv.help || argv['?']) {
   console.log("  --blocktime/-b <block time in seconds>");
   console.log("  --networkId/-i <network id> (default current time)");
   console.log("  --gasPrice/-g <gas price>   (default 20000000000)");
-  console.log("  --gasLimit/-l <gas limit>   (default 0x47E7C4)");
+  console.log("  --gasLimit/-l <gas limit>   (default 90000)");
   console.log("");
   console.log("  --debug       (Output VM opcodes for debugging)");
   console.log("  --verbose/-v");
