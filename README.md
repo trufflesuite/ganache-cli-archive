@@ -102,6 +102,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"locked"`: `boolean` - whether or not accounts are locked by default.
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, the TestRPC will initialize that chain instead of creating a new one.
+* `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 
 # IMPLEMENTED METHODS
 
