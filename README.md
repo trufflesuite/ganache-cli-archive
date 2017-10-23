@@ -37,7 +37,7 @@ Options:
 * `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
-* `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
+* `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 90000)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
 * `-i` or `--networkId`: Specify the network id the TestRPC will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, the TestRPC will initialize that chain instead of creating a new one.
