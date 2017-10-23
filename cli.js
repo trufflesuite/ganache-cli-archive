@@ -34,6 +34,7 @@ if (argv.help || argv['?']) {
   console.log("  --deterministic/-d     (uses fixed seed)");
   console.log("  --mnemonic/-m <mnemonic>");
   console.log("  --accounts/-a <number of accounts to generate at startup>");
+  console.log("  --acctKeys <path to file>  (saves generated accounts and private keys as JSON object in specified file)");
   console.log("  --secure/-s   (Lock accounts by default)");
   console.log("  --unlock <accounts>   (Comma-separated list of accounts or indices to unlock)");
   console.log("");
