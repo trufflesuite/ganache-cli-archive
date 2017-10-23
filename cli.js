@@ -8,6 +8,7 @@ var corepkg = require("./node_modules/ganache-core/package.json");
 var URL = require("url");
 var Web3 = require("web3");
 var web3 = new Web3(); // Used only for its BigNumber library.
+var fs = require("fs");
 
 var parser = yargs()
 .option("unlock", {
@@ -77,6 +78,7 @@ var options = {
   verbose: argv.v || argv.verbose,
   secure: argv.n || argv.secure || false,
   db_path: argv.db || null,
+  account_keys_path: argv.acctKeys || null,
   logger: logger
 }
 
@@ -132,6 +134,22 @@ server.listen(options.port, options.hostname, function(err, state) {
   addresses.forEach(function(address, index) {
     console.log("(" + index + ") " + accounts[address].secretKey.toString("hex"));
   });
+
+
+  if (options.account_keys_path != null) {
+    console.log("");
+    console.log("Saving accounts and keys to " + options.account_keys_path);
+    var obj = {}
+    obj.addresses = accounts;
+    obj.private_keys = {};
+    addresses.forEach(function(address, index) {
+       obj.private_keys[address] = accounts[address].secretKey.toString("hex");
+    });
+    var json = JSON.stringify(obj);
+    fs.writeFile(options.account_keys_path, json, 'utf8',function(err){
+      if(err) throw err;
+    })
+  }
 
   if (options.accounts == null) {
     console.log("");
