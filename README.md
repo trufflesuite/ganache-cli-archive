@@ -37,9 +37,9 @@ Options:
 * `-h` or `--hostname`: Hostname to listen on. Defaults to Node's `server.listen()` [default](https://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback).
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
-* `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 0x47E7C4)
+* `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 90000)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
-* `-i` or `--network-id`: Specify the network id the TestRPC will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
+* `-i` or `--networkId`: Specify the network id the TestRPC will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, the TestRPC will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
 * `--mem`: Output TestRPC memory usage statistics. This replaces normal output.
@@ -102,6 +102,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"locked"`: `boolean` - whether or not accounts are locked by default.
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, the TestRPC will initialize that chain instead of creating a new one.
+* `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 
 # IMPLEMENTED METHODS
 
@@ -203,4 +204,4 @@ $ npm test
 ```
 
 # LICENSE
-[MPL-2.0](https://tldrlegal.com/license/mozilla-public-license-2.0-(mpl-2))
+[MIT](https://tldrlegal.com/license/mit-license)
