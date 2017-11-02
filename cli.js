@@ -139,11 +139,14 @@ var server = Ganache.server(options);
 //console.log("Ganache CLI v" + pkg.version);
 console.log("EthereumJS TestRPC v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
 
-server.listen(options.port, options.hostname, function(err, state) {
+server.listen(options.port, options.hostname, function(err, result) {
   if (err) {
     console.log(err);
     return;
   }
+
+  var state = result ? result : server.provider.manager.state;
+
   console.log("");
   console.log("Available Accounts");
   console.log("==================");
