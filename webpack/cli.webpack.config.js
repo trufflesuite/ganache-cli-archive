@@ -10,6 +10,7 @@ var outputFilename = 'cli.node.js';
 module.exports = {
   entry: './cli.js',
   target: 'node',
+  devtool: 'source-map',
   output: {
     path: outputDir,
     filename: outputFilename,

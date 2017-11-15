@@ -1,3 +1,7 @@
+require('source-map-support').install({
+  environment: 'node'
+});
+
 var Provider = require("ganache-core/lib/provider");
 var Server = require("ganache-core/lib/server");
 

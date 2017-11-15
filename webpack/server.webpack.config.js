@@ -8,6 +8,7 @@ var outputFilename = 'server.node.js';
 module.exports = {
   entry: './node_modules/ganache-core/lib/server.js',
   target: 'node',
+  devtool: 'source-map',
   output: {
     path: outputDir,
     filename: outputFilename,
