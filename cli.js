@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+
+require('source-map-support').install({
+  environment: 'node'
+});
+
 // `yargs/yargs` required to work with webpack, see here.
 // https://github.com/yargs/yargs/issues/781
 var yargs = require('yargs/yargs');

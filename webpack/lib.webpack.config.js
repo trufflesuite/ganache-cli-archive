@@ -8,6 +8,7 @@ var outputFilename = 'lib.node.js';
 module.exports = {
   entry: './lib.js',
   target: 'node',
+  devtool: 'source-map',
   output: {
     path: outputDir,
     filename: outputFilename,
