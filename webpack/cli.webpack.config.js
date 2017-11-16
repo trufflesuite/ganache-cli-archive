@@ -17,6 +17,7 @@ module.exports = {
     //libraryTarget: 'umd',
     //umdNamedDefine: true
   },
+  devtool: 'source-map',
   module: {
     rules: [
       { test: /\.js$/, use: "shebang-loader" }

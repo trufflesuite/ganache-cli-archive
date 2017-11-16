@@ -15,6 +15,7 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  devtool: 'source-map',
   resolve: {
     alias: {
       "ws": path.join(__dirname, "..", "./nil.js"),
