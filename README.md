@@ -13,11 +13,11 @@ Ganache CLI, part of the Truffle suite of Ethereum development tools, are specia
 
 Ganache CLI uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
 
-## Looking for `testrpc`?
+### Looking for `testrpc`?
 
 If you came here expecting to find TestRPC, you're in the right place! Think of Ganache and `ganache-cli` as TestRPC evolved. We're starting off from the TestRPC codebase you already know and love, but adding heaps of new features, including a slick new UI, to make Ethereum platform development much safer, easier, and more enjoyable!
 
-## INSTALL
+### INSTALL
 
 `ganache-cli` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
 
@@ -27,7 +27,7 @@ npm install -g ganache-cli
 
 Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/ganache-cli/wiki/FAQ) and if you're still having issues and you're sure its a problem with `ganache-cli` please open an issue.
 
-# USAGE
+## USAGE
 
 ### Command Line
 
