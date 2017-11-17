@@ -7,11 +7,9 @@
 </p>
 
 ## Welcome to Ganache CLI
-Ganache is your personal blockchain for Ethereum development. Ganache CLI is the command line version of [Ganache](https://github.com/trufflesuite/ganache).
+Ganache CLI, part of the Truffle suite of Ethereum development tools, is the command line version of [Ganache](https://github.com/trufflesuite/ganache), your personal blockchain for Ethereum development.
 
-Ganache CLI, part of the Truffle suite of Ethereum development tools, is a specialized Ethereum client written to make testing and development on the Ethereum platform a breeze.
-
-Ganache CLI uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
+Ganache CLI uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster, easier, and safer. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
 
 ### Looking for `testrpc`?
 
@@ -27,9 +25,9 @@ npm install -g ganache-cli
 
 Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/ganache-cli/wiki/FAQ) and if you're still having issues and you're sure its a problem with `ganache-cli` please open an issue.
 
-## USAGE
+### USAGE
 
-### Command Line
+#### Command Line
 
 ```Bash
 $ ganache-cli <options>
@@ -79,7 +77,7 @@ Special Options:
 
   This feature can also be used to impersonate accounts and unlock addresses you wouldn't otherwise have access to. When used with the `--fork` feature, you can use ganache-cli to make transactions as any address on the blockchain, which is very useful for testing and dynamic analysis.
 
-### Library
+#### Library
 
 As a Web3 provider:
 
@@ -113,7 +111,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 
-# IMPLEMENTED METHODS
+### IMPLEMENTED METHODS
 
 The RPC methods currently implemented are:
 
@@ -174,11 +172,11 @@ There’s also special non-standard methods that aren’t included within the or
 * `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
 * `evm_mine` : Force a block to be mined. Takes no parameters. Mines a block independent of whether or not mining is started or stopped.
 
-# Unsupported Methods
+### Unsupported Methods
 
 * `eth_compileSolidity`: If you'd like Solidity compilation in Javascript, please see the [solc-js project](https://github.com/ethereum/solc-js).
 
-# Docker
+### Docker
 
 The Simplest way to get started with the Docker image:
 
@@ -200,11 +198,11 @@ git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
 docker build -t trufflesuite/ganache-cli .
 ```
 
-# DEVELOPING
+### DEVELOPING
 
 This is a distribution package where the core code is bundled to support browsers and reduce installation issues on all platforms. You can contribute to the core code via [ganache-core](https://github.com/trufflesuite/ganache-core).
 
-# TESTING
+### TESTING
 
 Run tests via:
 
@@ -212,5 +210,5 @@ Run tests via:
 $ npm test
 ```
 
-# LICENSE
+### LICENSE
 [MIT](https://tldrlegal.com/license/mit-license)
