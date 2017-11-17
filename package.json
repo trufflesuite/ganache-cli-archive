@@ -1,8 +1,8 @@
 {
-  "name": "ethereumjs-testrpc",
+  "name": "ganache-cli",
   "version": "6.0.3",
   "bin": {
-    "testrpc": "./build/cli.node.js"
+    "ganache-cli": "./build/cli.node.js"
   },
   "main": "./build/lib.node.js",
   "directories": {
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethereumjs/testrpc"
+    "url": "https://github.com/trufflesuite/ganache-cli"
   },
   "dependencies": {
     "webpack": "^3.0.0"

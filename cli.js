@@ -20,10 +20,10 @@ var argv = parser.parse(process.argv);
 
 if (argv.help || argv['?']) {
   console.log("");
-  console.log("testrpc: Fast Ethereum RPC client for testing and development");
-  console.log("  Full docs: https://github.com/ethereumjs/testrpc");
+  console.log("ganache-cli: Fast Ethereum RPC client for testing and development");
+  console.log("  Full docs: https://github.com/trufflesuite/ganache-cli");
   console.log("");
-  console.log("Usage: testrpc [options]");
+  console.log("Usage: ganache-cli [options]");
   console.log("  options:");
   console.log("  --port/-p <port to bind to, default 8545>");
   console.log("  --host/-h <host to bind to, default 0.0.0.0>");
@@ -136,8 +136,7 @@ if (options.fork) {
 
 var server = Ganache.server(options);
 
-//console.log("Ganache CLI v" + pkg.version);
-console.log("EthereumJS TestRPC v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
+console.log("TruffleSuite Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
 
 server.listen(options.port, options.hostname, function(err, result) {
   if (err) {

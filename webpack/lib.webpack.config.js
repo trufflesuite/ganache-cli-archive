@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: outputDir,
     filename: outputFilename,
-    library: "TestRPC",
+    library: "ganache-cli",
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

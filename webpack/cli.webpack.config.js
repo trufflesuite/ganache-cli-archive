@@ -13,9 +13,6 @@ module.exports = {
   output: {
     path: outputDir,
     filename: outputFilename,
-    //library: "TestRPC",
-    //libraryTarget: 'umd',
-    //umdNamedDefine: true
   },
   devtool: 'source-map',
   module: {

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-var TestRPC = require("../");
+var ganache = require("../");
 var Web3 = require("web3");
 var async = require("async")
 
-var server = TestRPC.server();
+var server = ganache.server();
 var port = 12345;
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:" + port));
 
