@@ -15,7 +15,7 @@ Ganache CLI uses ethereumjs to simulate full client behavior and make developing
 
 If you came here expecting to find TestRPC, you're in the right place! Think of Ganache and `ganache-cli` as TestRPC evolved. We're starting off from the TestRPC codebase you already know and love, but adding heaps of new features, including a slick new UI, to make Ethereum platform development much safer, easier, and more enjoyable!
 
-### INSTALL
+### Installation
 
 `ganache-cli` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
 
@@ -25,7 +25,7 @@ npm install -g ganache-cli
 
 Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/ganache-cli/wiki/FAQ) and if you're still having issues and you're sure its a problem with `ganache-cli` please open an issue.
 
-### USAGE
+### Using Ganache CLI
 
 #### Command Line
 
@@ -111,7 +111,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 
-### IMPLEMENTED METHODS
+### Implemented Methods
 
 The RPC methods currently implemented are:
 
@@ -198,11 +198,11 @@ git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
 docker build -t trufflesuite/ganache-cli .
 ```
 
-### DEVELOPING
+### Contributing to Ganache CLI
 
 This is a distribution package where the core code is bundled to support browsers and reduce installation issues on all platforms. You can contribute to the core code via [ganache-core](https://github.com/trufflesuite/ganache-core).
 
-### TESTING
+### Testing Ganache CLI
 
 Run tests via:
 
@@ -210,5 +210,3 @@ Run tests via:
 $ npm test
 ```
 
-### LICENSE
-[MIT](https://tldrlegal.com/license/mit-license)
