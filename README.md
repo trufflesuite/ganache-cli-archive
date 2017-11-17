@@ -9,7 +9,7 @@
 ## Welcome to Ganache CLI
 Ganache is your personal blockchain for Ethereum development. Ganache CLI is the command line version of [Ganache](https://github.com/trufflesuite/ganache).
 
-Ganache CLI, part of the Truffle suite of Ethereum development tools, are specialized Ethereum clients written to make testing and development on the Ethereum platform a breeze.
+Ganache CLI, part of the Truffle suite of Ethereum development tools, is a specialized Ethereum client written to make testing and development on the Ethereum platform a breeze.
 
 Ganache CLI uses ethereumjs to simulate full client behavior and make developing Ethereum applications much faster. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
 
