@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/trufflesuite/ganache-cli.svg?branch=master)](https://travis-ci.org/trufflesuite/ganache-cli)
 
 <p align="center">
-  <!--<img src="https://github.com/ethereumjs/testrpc/ganache-cli/blob/resources/icons/ganache-cli-128x128.png?raw=true">-->
+  <img src="https://github.com/ethereumjs/testrpc/blob/ganache-cli/resources/icons/ganache-cli-128x128.png?raw=true">
 </p>
 
 ## Welcome to Ganache CLI
