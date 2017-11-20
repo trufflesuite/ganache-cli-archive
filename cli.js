@@ -136,7 +136,7 @@ if (options.fork) {
 
 var server = Ganache.server(options);
 
-console.log("TruffleSuite Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
+console.log("Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
 
 server.listen(options.port, options.hostname, function(err, result) {
   if (err) {

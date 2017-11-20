@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: outputDir,
     filename: outputFilename,
-    library: "ganache-cli",
+    library: "ganache",
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
