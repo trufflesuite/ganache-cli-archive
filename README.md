@@ -178,18 +178,24 @@ There’s also special non-standard methods that aren’t included within the or
 
 ### Docker
 
-To build the Docker container from source:
+The Simplest way to get started with the Docker image:
 
 ```Bash
-git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
-docker build -t trufflesuite/ganache-cli .
-
+docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest
 ```
+
 To pass options to ganache-cli through Docker simply add the arguments to
 the run command:
 
 ```Bash
 docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -a 10 --debug
+```
+
+To build the Docker container from source:
+
+```Bash
+git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
+docker build -t trufflesuite/ganache-cli .
 ```
 
 
