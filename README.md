@@ -2,11 +2,11 @@
 [![npm](https://img.shields.io/npm/dm/ganache-cli.svg)]()
 [![Build Status](https://travis-ci.org/trufflesuite/ganache-cli.svg?branch=master)](https://travis-ci.org/trufflesuite/ganache-cli)
 
+> *NOTICE*: `testrpc` is now `ganache-cli`. Use it just as you would `testrpc`.
+
 <p align="center">
   <img src="https://github.com/ethereumjs/testrpc/blob/ganache-cli/resources/icons/ganache-cli-128x128.png?raw=true">
 </p>
-
-> *NOTICE*: `testrpc` is now `ganache-cli`. Use it just as you would `testrpc`.
 
 ## Welcome to Ganache CLI
 Ganache CLI, part of the Truffle suite of Ethereum development tools, is the command line version of [Ganache](https://github.com/trufflesuite/ganache), your personal blockchain for Ethereum development.
