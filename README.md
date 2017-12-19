@@ -6,6 +6,8 @@
   <img src="https://github.com/ethereumjs/testrpc/blob/ganache-cli/resources/icons/ganache-cli-128x128.png?raw=true">
 </p>
 
+> *NOTICE*: `testrpc` is now `ganache-cli`. Use it just as you would `testrpc`.
+
 ## Welcome to Ganache CLI
 Ganache CLI, part of the Truffle suite of Ethereum development tools, is the command line version of [Ganache](https://github.com/trufflesuite/ganache), your personal blockchain for Ethereum development.
 
@@ -13,7 +15,7 @@ Ganache CLI uses ethereumjs to simulate full client behavior and make developing
 
 ### Looking for TestRPC?
 
-If you came here expecting to find the TestRPC, you're in the right place! Truffle has taken the TestRPC under its wing and made it part of the Truffle suite of tools. From now on you can expect better support along with tons of new features that help make Ethereum development safer, easier, and more enjoyable.
+If you came here expecting to find the TestRPC, you're in the right place! Truffle has taken the TestRPC under its wing and made it part of the Truffle suite of tools. From now on you can expect better support along with tons of new features that help make Ethereum development safer, easier, and more enjoyable. Use `ganache-cli` just as you would `testrpc`. 
 
 ### Installation
 
