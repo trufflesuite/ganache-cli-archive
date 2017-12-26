@@ -26,15 +26,21 @@ if (argv.help || argv['?']) {
   console.log("Usage: ganache-cli [options]");
   console.log("  options:");
   console.log("  --port/-p <port to bind to, default 8545>");
-  console.log("  --host/-h <host to bind to, default 0.0.0.0>");
+  console.log("  --host/-h <host to bind to, default 127.0.0.1>");
   console.log("  --fork/-f <url>   (Fork from another currently running Ethereum client at a given block)");
   console.log("");
   console.log("  --db <db path>   (directory to save chain db)");
   console.log("  --seed <seed value for PRNG, default random>");
   console.log("  --deterministic/-d     (uses fixed seed)");
   console.log("  --mnemonic/-m <mnemonic>");
-  console.log("  --accounts/-a <number of accounts to generate at startup>");
-  console.log("  --acctKeys <path to file>  (saves generated accounts and private keys as JSON object in specified file)");
+  console.log("");
+  console.log("  --accounts/-a <number of accounts to generate at startup>   (ignored when using --account flag)");
+  console.log("  --defaultBalanceEther/-e <Amount of ether to assign each test account, default 100.0>   (ignored when using --account flag)");
+  console.log("  --account <privatekey>,<balance>   (Can be specified multiple times. Note that private keys are 64 characters long,");
+  console.log("                                       and must be input as a 0x-prefixed hex string. Balance can either be input as an");
+  console.log("                                       integer or 0x-prefixed hex value specifying the amount of wei in that account.)");
+  console.log("");
+  console.log("  --acctKeys <path to file>   (saves generated accounts and private keys as JSON object in specified file)");
   console.log("  --secure/-s   (Lock accounts by default)");
   console.log("  --unlock <accounts>   (Comma-separated list of accounts or indices to unlock)");
   console.log("");
@@ -46,6 +52,7 @@ if (argv.help || argv['?']) {
   console.log("  --debug       (Output VM opcodes for debugging)");
   console.log("  --verbose/-v");
   console.log("  --mem         (Only show memory output, not tx history)");
+  console.log("");
   console.log("");
   console.log("  --help / -?    (this output)");
   console.log("");
@@ -102,6 +109,7 @@ var options = {
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
   total_accounts: argv.a || argv.accounts,
+  default_balance_ether: argv.e || argv.defaultBalanceEther,
   blocktime: argv.b || argv.blocktime,
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
