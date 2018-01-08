@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+// make sourcemaps work!
+require('source-map-support/register')
+
 // `yargs/yargs` required to work with webpack, see here.
 // https://github.com/yargs/yargs/issues/781
 var yargs = require('yargs/yargs');
