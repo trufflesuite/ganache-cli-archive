@@ -118,6 +118,7 @@ var options = {
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
+  balances: argv.balances,
   unlocked_accounts: argv.unlock,
   fork: argv.f || argv.fork || false,
   network_id: argv.i || argv.networkId,
