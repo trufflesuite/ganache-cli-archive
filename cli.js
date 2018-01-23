@@ -34,7 +34,7 @@ if (argv.help || argv['?']) {
   console.log("  --fork/-f <url>   (Fork from another currently running Ethereum client at a given block)");
   console.log("");
   console.log("  --db <db path>   (directory to save chain db)");
-  console.log("  --seed <seed value for PRNG, default random>");
+  console.log("  --seed/-s <seed value for PRNG, default random>");
   console.log("  --deterministic/-d     (uses fixed seed)");
   console.log("  --mnemonic/-m <mnemonic>");
   console.log("");
@@ -45,10 +45,12 @@ if (argv.help || argv['?']) {
   console.log("                                       integer or 0x-prefixed hex value specifying the amount of wei in that account.)");
   console.log("");
   console.log("  --acctKeys <path to file>   (saves generated accounts and private keys as JSON object in specified file)");
-  console.log("  --secure/-s   (Lock accounts by default)");
+  console.log("  --secure/-n   (Lock accounts by default)");
   console.log("  --unlock <accounts>   (Comma-separated list of accounts or indices to unlock)");
   console.log("");
-  console.log("  --blocktime/-b <block time in seconds>");
+  console.log("  --noVMErrorsOnRPCResponse   (Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.)");
+  console.log("");
+  console.log("  --blocktime/-b <block time in seconds> (Will instamine if option omitted. Avoid using unless your test cases require interval mining.)");
   console.log("  --networkId/-i <network id> (default current time)");
   console.log("  --gasPrice/-g <gas price>   (default 20000000000)");
   console.log("  --gasLimit/-l <gas limit>   (default 90000)");
@@ -125,6 +127,7 @@ var options = {
   secure: argv.n || argv.secure || false,
   db_path: argv.db || null,
   account_keys_path: argv.acctKeys || null,
+  vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger
 }
 
