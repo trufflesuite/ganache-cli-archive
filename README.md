@@ -51,6 +51,7 @@ Options:
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, ganache-cli will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
 * `--mem`: Output ganache-cli memory usage statistics. This replaces normal output.
+* '--noVMErrorsOnRPCResponse': Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
 
 Special Options:
 
@@ -111,6 +112,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
+* `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity.
 
 ### Implemented Methods
 
