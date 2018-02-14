@@ -18,7 +18,6 @@
     "prepublish": "npm run build"
   },
   "devDependencies": {
-    "electron": "^1.7.10",
     "ganache-core": "2.1.0-beta.1",
     "prepend-file": "^1.3.1",
     "yargs": "^7.0.2"
