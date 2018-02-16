@@ -10,9 +10,8 @@ var Ganache = require("ganache-core");
 var pkg = require("./package.json");
 var corepkg = require("./node_modules/ganache-core/package.json");
 var URL = require("url");
-var Web3 = require("web3");
-var web3 = new Web3(); // Used only for its BigNumber library.
 var fs = require("fs");
+var to = require("ganache-core/lib/utils/to");
 
 var parser = yargs()
 .option("unlock", {
@@ -229,7 +228,7 @@ server.listen(options.port, options.hostname, function(err, result) {
     console.log("Forked Chain");
     console.log("==================");
     console.log("Location:    " + fork_address);
-    console.log("Block:       " + web3.toBigNumber(state.blockchain.fork_block_number).toString(10));
+    console.log("Block:       " + to.number(state.blockchain.fork_block_number));
     console.log("Network ID:  " + state.net_version);
     console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
   }
