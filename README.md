@@ -37,7 +37,7 @@ Options:
 
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
 * `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is 100.
-* `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
+* `-b` or `--blockTime`: Specify blockTime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
