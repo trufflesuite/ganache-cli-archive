@@ -49,7 +49,7 @@ if (argv.help || argv['?']) {
   console.log("");
   console.log("  --noVMErrorsOnRPCResponse   (Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.)");
   console.log("");
-  console.log("  --blocktime/-b <block time in seconds> (Will instamine if option omitted. Avoid using unless your test cases require interval mining.)");
+  console.log("  --blockTime/-b <block time in seconds> (Will instamine if option omitted. Avoid using unless your test cases require interval mining.)");
   console.log("  --networkId/-i <network id> (default current time)");
   console.log("  --gasPrice/-g <gas price>   (default 20000000000)");
   console.log("  --gasLimit/-l <gas limit>   (default 90000)");
@@ -115,7 +115,7 @@ var options = {
   mnemonic: argv.m || argv.mnemonic,
   total_accounts: argv.a || argv.accounts,
   default_balance_ether: argv.e || argv.defaultBalanceEther,
-  blocktime: argv.b || argv.blocktime,
+  blockTime: argv.b || argv.blockTime,
   gasPrice: argv.g || argv.gasPrice,
   gasLimit: argv.l || argv.gasLimit,
   accounts: parseAccounts(argv.account),
