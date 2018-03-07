@@ -2,10 +2,12 @@ var path = require("path");
 var fs = require("fs");
 var OS = require("os");
 
+var applyBaseConfig = require('./base.webpack.config')
+
 var outputDir = path.join(__dirname, '..', 'build');
 var outputFilename = 'server.node.js';
 
-module.exports = {
+module.exports = applyBaseConfig({
   entry: './node_modules/ganache-core/lib/server.js',
   target: 'node',
   output: {
@@ -14,13 +16,5 @@ module.exports = {
     library: "Server",
     libraryTarget: 'umd',
     umdNamedDefine: true
-  },
-  devtool: 'source-map',
-  resolve: {
-    alias: {
-      "ws": path.join(__dirname, "..", "./nil.js"),
-      "scrypt": "js-scrypt",
-      "secp256k1": path.join(__dirname, "..", "node_modules", "secp256k1", "elliptic.js")
-    }
   }
-}
+})

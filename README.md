@@ -37,7 +37,8 @@ $ ganache-cli <options>
 Options:
 
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
-* `-b` or `--blocktime`: Specify blocktime in seconds for automatic mining. Default is 0 and no auto-mining.
+* `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is 100.
+* `-b` or `--blockTime`: Specify blockTime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
 * `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
@@ -51,6 +52,7 @@ Options:
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, ganache-cli will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
 * `--mem`: Output ganache-cli memory usage statistics. This replaces normal output.
+* `--noVMErrorsOnRPCResponse`: Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
 
 Special Options:
 
@@ -111,6 +113,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
+* `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity.
 
 ### Implemented Methods
 
@@ -179,18 +182,24 @@ There’s also special non-standard methods that aren’t included within the or
 
 ### Docker
 
-To build the Docker container from source:
+The Simplest way to get started with the Docker image:
 
 ```Bash
-git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
-docker build -t trufflesuite/ganache-cli .
-
+docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest
 ```
+
 To pass options to ganache-cli through Docker simply add the arguments to
 the run command:
 
 ```Bash
 docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -a 10 --debug
+```
+
+To build the Docker container from source:
+
+```Bash
+git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
+docker build -t trufflesuite/ganache-cli .
 ```
 
 

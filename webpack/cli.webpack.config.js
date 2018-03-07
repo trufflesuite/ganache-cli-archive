@@ -4,17 +4,17 @@ var OS = require("os");
 var prependFile = require('prepend-file');
 var WebpackOnBuildPlugin = require('on-build-webpack');
 
+var applyBaseConfig = require('./base.webpack.config')
+
 var outputDir = path.join(__dirname, '..', 'build');
 var outputFilename = 'cli.node.js';
 
-module.exports = {
+module.exports = applyBaseConfig({
   entry: './cli.js',
-  target: 'node',
   output: {
     path: outputDir,
     filename: outputFilename,
   },
-  devtool: 'source-map',
   module: {
     rules: [
       { test: /\.js$/, use: "shebang-loader" }
@@ -29,12 +29,5 @@ module.exports = {
         fs.chmodSync(outputFile, '755');
       }
     })
-  ],
-  resolve: {
-    alias: {
-      "ws": path.join(__dirname, "..", "./nil.js"),
-      "scrypt": "js-scrypt",
-      "secp256k1": path.join(__dirname, "..", "node_modules", "secp256k1", "elliptic.js")
-    }
-  }
-}
+  ]
+})

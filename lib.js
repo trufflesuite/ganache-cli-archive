@@ -1,3 +1,6 @@
+// make sourcemaps work!
+require('source-map-support/register')
+
 var Provider = require("ganache-core/lib/provider");
 var Server = require("ganache-core/lib/server");
 
