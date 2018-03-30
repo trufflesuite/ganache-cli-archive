@@ -17,7 +17,8 @@ var parser = yargs()
 .option("unlock", {
   type: "string",
   alias: "u"
-});
+})
+.help(false);
 
 var argv = parser.parse(process.argv);
 
