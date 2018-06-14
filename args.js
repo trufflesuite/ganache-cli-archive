@@ -141,4 +141,5 @@ module.exports = exports = function(yargs) {
     .showHelpOnFail(false, 'Specify -h, -?, or --help for available options') 
     .help('h')
     .alias('h', ['?', 'help'])
+    .version()
 }
