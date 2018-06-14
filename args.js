@@ -1,4 +1,4 @@
-module.exports = exports = function(yargs) {
+module.exports = exports = function(yargs, version) {
   return yargs
     .option('p', {
       group: 'Network:',
@@ -141,4 +141,5 @@ module.exports = exports = function(yargs) {
     .showHelpOnFail(false, 'Specify -h, -?, or --help for available options') 
     .help('h')
     .alias('h', ['?', 'help'])
+    .version(version)
 }
