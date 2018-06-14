@@ -14,7 +14,7 @@ var fs = require("fs");
 var to = require("ganache-core/lib/utils/to");
 var initArgs = require("./args")
 
-var argv = initArgs(yargs).argv
+var argv = initArgs(yargs, pkg.version).argv
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
