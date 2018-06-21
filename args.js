@@ -138,8 +138,8 @@ module.exports = exports = function(yargs, version) {
       type: 'boolean',
       default: false
     })
-    .showHelpOnFail(false, 'Specify -h, -?, or --help for available options') 
-    .help('h')
-    .alias('h', ['?', 'help'])
+    .showHelpOnFail(false, 'Specify -? or --help for available options')
+    .help('help')
+    .alias('help', '?')
     .version(version)
 }
