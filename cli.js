@@ -61,7 +61,7 @@ if (argv.mem === true) {
 
 var options = {
   port: argv.p || argv.port || "8545",
-  hostname: argv.h || argv.hostname,
+  hostname: argv.h || argv.hostname || "127.0.0.1",
   debug: argv.debug,
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
@@ -186,7 +186,7 @@ server.listen(options.port, options.hostname, function(err, result) {
   }
 
   console.log("");
-  console.log("Listening on " + (options.hostname || "localhost") + ":" + options.port);
+  console.log("Listening on " + options.hostname + ":" + options.port);
 });
 
 process.on('uncaughtException', function(e) {
