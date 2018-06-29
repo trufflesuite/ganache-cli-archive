@@ -9,7 +9,7 @@ module.exports = exports = function(yargs, version) {
     })
     .option('h', {
       group: 'Network:',
-      alias: 'host',
+      alias: ['host', 'hostname'],
       default: '127.0.0.1',
       describe: 'host to bind to'
     })
