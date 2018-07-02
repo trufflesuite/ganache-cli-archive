@@ -79,7 +79,8 @@ var options = {
   db_path: argv.db || null,
   account_keys_path: argv.acctKeys || null,
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
-  logger: logger
+  logger: logger,
+  allowUnlimitedContractSize: argv.allowUnlimitedContractSize || false
 }
 
 var fork_address;
