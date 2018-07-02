@@ -120,6 +120,12 @@ module.exports = exports = function(yargs, version) {
       type: 'number',
       default: 0x6691b7
     })
+    .option('allowUnlimitedContractSize', {
+      group: 'Chain:',
+      describe: 'Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 2KB (see EIP-170) is bypassed. Enabling this flag *will* cause ganache-cli to behave differently than production environments.',
+      type: 'boolean',
+      default: false
+    })
     .option('debug', {
       group: 'Other:',
       describe: 'Output VM opcodes for debugging',
