@@ -61,7 +61,7 @@ if (argv.mem === true) {
 
 var options = {
   port: argv.p || argv.port || "8545",
-  hostname: argv.h || argv.hostname || "127.0.0.1",
+  hostname: argv.h,
   debug: argv.debug,
   seed: argv.s || argv.seed,
   mnemonic: argv.m || argv.mnemonic,
