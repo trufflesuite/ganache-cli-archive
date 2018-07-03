@@ -46,11 +46,14 @@ module.exports = exports = function(yargs, version) {
       type: 'boolean',
       default: false
     })
-    .option('unlock', {
+    .option('u', {
       group: 'Accounts:',
+      alias: 'unlock',
+      type: 'array',
       describe: 'Comma-separated list of accounts or indices to unlock',
       demandOption: false
     })
+    .string('u')
     .option('f', {
       group: 'Chain:',
       alias: 'fork',
