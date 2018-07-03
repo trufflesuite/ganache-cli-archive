@@ -134,8 +134,9 @@ module.exports = exports = function(yargs, version) {
       type: 'boolean',
       default: false
     })
-    .option('verbose', {
+    .option('v', {
       group: 'Other:',
+      alias: 'verbose',
       describe: 'Log all requests and responses to stdout',
       type: 'boolean',
       default: false
