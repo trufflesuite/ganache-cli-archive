@@ -150,5 +150,6 @@ module.exports = exports = function(yargs, version) {
     .showHelpOnFail(false, 'Specify -? or --help for available options')
     .help('help')
     .alias('help', '?')
+    .wrap(Math.min(120, yargs.terminalWidth()))
     .version(version)
 }
