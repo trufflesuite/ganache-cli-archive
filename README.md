@@ -41,17 +41,20 @@ Options:
 * `-b` or `--blockTime`: Specify blockTime in seconds for automatic mining. Default is 0 and no auto-mining.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
-* `-m` or `--mnemonic`: Use a specific HD wallet mnemonic to generate initial addresses.
+* `-m` or `--mnemonic`: Use a bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
-* `-h` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1.
+* `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1.
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
-* `-g` or `--gasPrice`: Use a custom Gas Price (defaults to 20000000000)
-* `-l` or `--gasLimit`: Use a custom Gas Limit (defaults to 90000)
+* `-g` or `--gasPrice`: The price of gas in wei (defaults to 20000000000)
+* `-l` or `--gasLimit`: The block gas limit in wei (defaults to 0x6691b7)
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
-* `-i` or `--networkId`: Specify the network id the ganache-cli will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
+* `-i` or `--networkId`: Specify the network id ganache-cli will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, ganache-cli will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
 * `--mem`: Output ganache-cli memory usage statistics. This replaces normal output.
+* `-v` or `--verbose`: Log all requests and responses to stdout
+* `-?` or `--help`: Display help information
+* `--version`: Display the version of ganache-cli
 * `--noVMErrorsOnRPCResponse`: Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
 * `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 2KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
 
