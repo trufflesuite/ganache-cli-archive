@@ -4,8 +4,7 @@ module.exports = exports = function(yargs, version) {
       group: 'Network:',
       alias: 'port',
       default: 8545,
-      describe: 'port to bind to',
-      check: val => val >= 1 && val <= 65535
+      describe: 'port to bind to'
     })
     .option('h', {
       group: 'Network:',
@@ -152,4 +151,15 @@ module.exports = exports = function(yargs, version) {
     .alias('help', '?')
     .wrap(Math.min(120, yargs.terminalWidth()))
     .version(version)
+    .check((argv) => {
+      if (argv.p < 1 || argv.p > 65535) {
+        throw new Error(`Invalid port number '${argv.p}'`);
+      }
+
+      if (argv.h.trim() == '') {
+        throw new Error('Cannot leave hostname blank; please provide a hostname');
+      }
+
+      return true;
+    })
 }
