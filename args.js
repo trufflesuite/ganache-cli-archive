@@ -77,7 +77,7 @@ module.exports = exports = function(yargs, version) {
       describe: 'uses fixed (hardcoded) seed for identical results from run-to-run',
       conflicts: 's',
       type: 'boolean',
-      default: false,
+      default: undefined,
       demandOption: false
     })
     .option('m', {
