@@ -13,6 +13,7 @@ var URL = require("url");
 var fs = require("fs");
 var to = require("ganache-core/lib/utils/to");
 var initArgs = require("./args")
+var BN = require("bn.js");
 
 var argv = initArgs(yargs, pkg.version).argv
 
@@ -121,7 +122,8 @@ server.listen(options.port, options.hostname, function(err, result) {
   var addresses = Object.keys(accounts);
 
   addresses.forEach(function(address, index) {
-    var line = "(" + index + ") " + address;
+    var balance = new BN(accounts[address].account.balance).divRound(new BN("1000000000000000000")).toString();
+    var line = "(" + index + ") " + address + " (~" + balance + " ETH)";
 
     if (state.isUnlocked(address) == false) {
       line += " 🔒";
@@ -135,7 +137,7 @@ server.listen(options.port, options.hostname, function(err, result) {
   console.log("==================");
 
   addresses.forEach(function(address, index) {
-    console.log("(" + index + ") " + accounts[address].secretKey.toString("hex"));
+    console.log("(" + index + ") " + "0x" + accounts[address].secretKey.toString("hex"));
   });
 
 
