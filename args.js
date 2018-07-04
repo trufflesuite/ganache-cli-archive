@@ -3,20 +3,21 @@ module.exports = exports = function(yargs, version) {
     .option('p', {
       group: 'Network:',
       alias: 'port',
+      type: 'number',
       default: 8545,
-      describe: 'port to bind to',
-      check: val => val >= 1 && val <= 65535
+      describe: 'Port number to listen on'
     })
     .option('h', {
       group: 'Network:',
       alias: ['host', 'hostname'],
+      type: 'string',
       default: '127.0.0.1',
-      describe: 'host to bind to'
+      describe: 'Hostname to listen on'
     })
     .option('a', {
       group: 'Accounts:',
       alias: 'accounts',
-      describe: 'number of accounts to generate at startup',
+      describe: 'Number of accounts to generate at startup',
       type: 'number',
       default: 10
     })
@@ -31,42 +32,51 @@ module.exports = exports = function(yargs, version) {
       group: 'Accounts:',
       describe: "Account data in the form '<private_key>,<initial_balance>', can be specified multiple times. Note that private keys are 64 characters long and must be entered as an 0x-prefixed hex string. Balance can either be input as an integer, or as a 0x-prefixed hex string with either form specifying the initial balance in wei.",
       type: 'array',
+      string: true,
       demandOption: false
     })
     .option('acctKeys', {
       group: 'Accounts:',
+      type: 'string',
       describe: 'saves generated accounts and private keys as JSON object in specified file',
       normalize: true,
-      demandOption: false
+      demandOption: false,
+      default: null
     })
     .option('n', {
       group: 'Accounts:',
       alias: 'secure',
-      describe: 'Lock accounts by default',
+      describe: 'Lock available accounts by default (good for third party transaction signing)',
       type: 'boolean',
       default: false
     })
-    .option('unlock', {
+    .option('u', {
       group: 'Accounts:',
+      alias: 'unlock',
+      type: 'array',
+      string: true,
       describe: 'Comma-separated list of accounts or indices to unlock',
       demandOption: false
     })
     .option('f', {
       group: 'Chain:',
       alias: 'fork',
-      describe: "URL and block number of another currently running Ethereum client from which this client should fork. Example: 'http://127.0.0.1:9545@12345'",
-      demandOption: false
+      type: 'string',
+      describe: "Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. 'http://localhost:8545' or optionally provide a block number 'http://localhost:8545@1599200'",
+      default: false
     })
     .option('db', {
       group: 'Chain:',
-      describe: 'directory to save chain db',
+      describe: 'Directory of chain database; creates one if it doesn\'t exist',
+      type: 'string',
       normalize: true,
-      demandOption: false
+      default: null
     })
     .option('s', {
       group: 'Chain:',
       alias: 'seed',
-      describe: 'seed value for PRNG',
+      type: 'string',
+      describe: 'Arbitrary data to generate the HD wallet mnemonic to be used',
       defaultDescription: "Random value, unless -d is specified",
       conflicts: 'd',
       demandOption: false
@@ -74,15 +84,16 @@ module.exports = exports = function(yargs, version) {
     .option('d', {
       group: 'Chain:',
       alias: 'deterministic',
-      describe: 'uses fixed (hardcoded) seed for identical results from run-to-run',
+      describe: 'Generate deterministic addresses based on a pre-defined mnemonic.',
       conflicts: 's',
       type: 'boolean',
-      default: false,
+      default: undefined,
       demandOption: false
     })
     .option('m', {
       group: 'Chain:',
       alias: 'mnemonic',
+      type: 'string',
       describe: 'bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation',
       demandOption: false
     })
@@ -95,15 +106,16 @@ module.exports = exports = function(yargs, version) {
     .option('b', {
       group: 'Chain:',
       alias: 'blockTime',
-      describe: 'Block time in seconds. Will instamine if option omitted. Avoid using unless your test cases require a specific mining interval.',
+      type: 'number',
+      describe: 'Block time in seconds for automatic mining. Will instantly mine a new block for every transaction if option omitted. Avoid using unless your test cases require a specific mining interval.',
       demandOption: false
     })
     .option('i', {
       group: 'Chain:',
       alias: 'networkId',
       type: 'number',
-      describe: "Network ID to be returned by 'net_version'. ",
-      defaultDescription: "System time at process start.",
+      describe: "The Network ID ganache-cli will use to identify itself.",
+      defaultDescription: "System time at process start or Network ID of forked blockchain if configured.",
       demandOption: false
     })
     .option('g', {
@@ -116,7 +128,7 @@ module.exports = exports = function(yargs, version) {
     .option('l', {
       group: 'Chain:',
       alias: 'gasLimit',
-      describe: 'The block gas limit',
+      describe: 'The block gas limit in wei',
       type: 'number',
       default: 0x6691b7
     })
@@ -132,8 +144,9 @@ module.exports = exports = function(yargs, version) {
       type: 'boolean',
       default: false
     })
-    .option('verbose', {
+    .option('v', {
       group: 'Other:',
+      alias: 'verbose',
       describe: 'Log all requests and responses to stdout',
       type: 'boolean',
       default: false
@@ -147,5 +160,17 @@ module.exports = exports = function(yargs, version) {
     .showHelpOnFail(false, 'Specify -? or --help for available options')
     .help('help')
     .alias('help', '?')
+    .wrap(Math.min(120, yargs.terminalWidth()))
     .version(version)
+    .check((argv) => {
+      if (argv.p < 1 || argv.p > 65535) {
+        throw new Error(`Invalid port number '${argv.p}'`);
+      }
+
+      if (argv.h.trim() == '') {
+        throw new Error('Cannot leave hostname blank; please provide a hostname');
+      }
+
+      return true;
+    })
 }

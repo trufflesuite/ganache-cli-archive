@@ -15,7 +15,9 @@ var to = require("ganache-core/lib/utils/to");
 var initArgs = require("./args")
 var BN = require("bn.js");
 
-var argv = initArgs(yargs, pkg.version).argv
+var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")";
+
+var argv = initArgs(yargs, detailedVersion).argv;
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -38,7 +40,7 @@ function parseAccounts(accounts) {
   return ret;
 }
 
-if (argv.d || argv.deterministic) {
+if (argv.d) {
   argv.s = "TestRPC is awesome!"; // Seed phrase; don't change to Ganache, maintain original determinism
 }
 
@@ -61,27 +63,27 @@ if (argv.mem === true) {
 }
 
 var options = {
-  port: argv.p || argv.port || "8545",
+  port: argv.p,
   hostname: argv.h,
   debug: argv.debug,
-  seed: argv.s || argv.seed,
-  mnemonic: argv.m || argv.mnemonic,
-  total_accounts: argv.a || argv.accounts,
-  default_balance_ether: argv.e || argv.defaultBalanceEther,
-  blockTime: argv.b || argv.blockTime,
-  gasPrice: argv.g || argv.gasPrice,
-  gasLimit: argv.l || argv.gasLimit,
+  seed: argv.s,
+  mnemonic: argv.m,
+  total_accounts: argv.a,
+  default_balance_ether: argv.e,
+  blockTime: argv.b,
+  gasPrice: argv.g,
+  gasLimit: argv.l,
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
-  fork: argv.f || argv.fork || false,
-  network_id: argv.i || argv.networkId,
-  verbose: argv.v || argv.verbose,
-  secure: argv.n || argv.secure || false,
-  db_path: argv.db || null,
-  account_keys_path: argv.acctKeys || null,
+  fork: argv.f,
+  network_id: argv.i,
+  verbose: argv.v,
+  secure: argv.n,
+  db_path: argv.db,
+  account_keys_path: argv.acctKeys,
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger,
-  allowUnlimitedContractSize: argv.allowUnlimitedContractSize || false
+  allowUnlimitedContractSize: argv.allowUnlimitedContractSize
 }
 
 var fork_address;
@@ -104,7 +106,7 @@ if (options.fork) {
 
 var server = Ganache.server(options);
 
-console.log("Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")");
+console.log(detailedVersion);
 
 server.listen(options.port, options.hostname, function(err, result) {
   if (err) {
