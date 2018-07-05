@@ -3,6 +3,7 @@ var fs = require("fs");
 var OS = require("os");
 var prependFile = require('prepend-file');
 var WebpackOnBuildPlugin = require('on-build-webpack');
+var babelLoader = require('./babel-loader');
 
 var applyBaseConfig = require('./base.webpack.config')
 
@@ -17,7 +18,8 @@ module.exports = applyBaseConfig({
   },
   module: {
     rules: [
-      { test: /\.js$/, use: "shebang-loader" }
+      { test: /\.js$/, use: "shebang-loader" },
+      { test: /eth-block-tracker.*.js$/, use: babelLoader }
     ]
   },
   plugins: [
