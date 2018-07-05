@@ -32,6 +32,6 @@ module.exports = function(override) {
         "secp256k1": path.join(__dirname, "..", "node_modules", "secp256k1", "elliptic.js")
       }
     },
-    mode: 'development'
+    mode: 'production'
   }, override)
 }
