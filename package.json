@@ -1,6 +1,6 @@
 {
   "name": "ganache-cli",
-  "version": "6.1.4",
+  "version": "6.1.5",
   "bin": {
     "ganache-cli": "./build/cli.node.js"
   },
