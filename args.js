@@ -11,7 +11,7 @@ module.exports = exports = function(yargs, version) {
       group: 'Network:',
       alias: ['host', 'hostname'],
       type: 'string',
-      default: '127.0.0.1',
+      default: '0.0.0.0',
       describe: 'Hostname to listen on'
     })
     .option('a', {
