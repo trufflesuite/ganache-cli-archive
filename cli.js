@@ -17,7 +17,8 @@ var BN = require("bn.js");
 
 var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")";
 
-var argv = initArgs(yargs, detailedVersion).argv;
+var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
+var argv = initArgs(yargs, detailedVersion, isDocker).argv;
 
 function parseAccounts(accounts) {
   function splitAccount(account) {

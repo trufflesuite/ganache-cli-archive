@@ -1,4 +1,4 @@
-module.exports = exports = function(yargs, version) {
+module.exports = exports = function(yargs, version, isDocker) {
   return yargs
     .option('p', {
       group: 'Network:',
@@ -11,7 +11,7 @@ module.exports = exports = function(yargs, version) {
       group: 'Network:',
       alias: ['host', 'hostname'],
       type: 'string',
-      default: '127.0.0.1',
+      default: isDocker ? '0.0.0.0' : '127.0.0.1',
       describe: 'Hostname to listen on'
     })
     .option('a', {
