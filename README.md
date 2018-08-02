@@ -43,7 +43,7 @@ Options:
 * `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
 * `-m` or `--mnemonic`: Use a bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
-* `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1.
+* `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1 (defaults to 0.0.0.0 for Docker instances of ganache-cli).
 * `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-g` or `--gasPrice`: The price of gas in wei (defaults to 20000000000)
 * `-l` or `--gasLimit`: The block gas limit in wei (defaults to 0x6691b7)
@@ -198,6 +198,12 @@ the run command:
 
 ```Bash
 docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -a 10 --debug
+```
+
+The Docker container adds an environment variable `DOCKER=true`; when this variable is set to `true` (case insensitive), `ganache-cli` use a default hostname IP of `0.0.0.0` instead of the normal default `127.0.0.1`. You can still specify a custom hostname however:
+
+```Bash
+docker run -d - p 8545:8545 trufflesuite/ganache-cli:latest -h XXX.XXX.XXX.XXX
 ```
 
 To build the Docker container from source:
