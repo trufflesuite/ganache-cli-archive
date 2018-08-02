@@ -8,6 +8,8 @@ RUN npm install
 ADD . .
 RUN npm run build
 
+ENV DOCKER true
+
 EXPOSE 8545
 
 ENTRYPOINT ["node", "./build/cli.node.js"]
