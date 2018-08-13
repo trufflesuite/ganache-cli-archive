@@ -14,7 +14,7 @@ Ganache CLI uses ethereumjs to simulate full client behavior and make developing
 
 ### Looking for TestRPC?
 
-If you came here expecting to find the TestRPC, you're in the right place! Truffle has taken the TestRPC under its wing and made it part of the Truffle suite of tools. From now on you can expect better support along with tons of new features that help make Ethereum development safer, easier, and more enjoyable. Use `ganache-cli` just as you would `testrpc`. 
+If you came here expecting to find the TestRPC, you're in the right place! Truffle has taken the TestRPC under its wing and made it part of the Truffle suite of tools. From now on you can expect better support along with tons of new features that help make Ethereum development safer, easier, and more enjoyable. Use `ganache-cli` just as you would `testrpc`.
 
 ### Installation
 
@@ -203,7 +203,7 @@ docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -a 10 --debug
 The Docker container adds an environment variable `DOCKER=true`; when this variable is set to `true` (case insensitive), `ganache-cli` use a default hostname IP of `0.0.0.0` instead of the normal default `127.0.0.1`. You can still specify a custom hostname however:
 
 ```Bash
-docker run -d - p 8545:8545 trufflesuite/ganache-cli:latest -h XXX.XXX.XXX.XXX
+docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -h XXX.XXX.XXX.XXX
 ```
 
 To build the Docker container from source:
