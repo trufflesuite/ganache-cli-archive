@@ -1,5 +1,6 @@
 module.exports = exports = function(yargs, version, isDocker) {
   return yargs
+    .strict()
     .option('p', {
       group: 'Network:',
       alias: 'port',
