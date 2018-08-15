@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "bn.js": "^4.11.6",
-    "ganache-core": "2.2.0",
+    "ganache-core": "2.2.1",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
