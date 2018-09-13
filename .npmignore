@@ -1,6 +1,7 @@
 .npmignore
 .tern-project
 .tern-port
+.vscode
 .travis.yml
 .eslintrc.js
 *.log
