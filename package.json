@@ -4,12 +4,12 @@
   "bin": {
     "ganache-cli": "cli.js"
   },
-  "main": "cli.js",
+  "main": "lib.js",
   "directories": {
     "lib": "./lib"
   },
   "scripts": {
-    "start": "cli.js",
+    "start": "node cli.js",
     "build": "webpack-cli --config ./docker/webpack.config.js"
   },
   "dependencies": {
