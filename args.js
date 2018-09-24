@@ -135,7 +135,7 @@ module.exports = exports = function(yargs, version, isDocker) {
     })
     .option('allowUnlimitedContractSize', {
       group: 'Chain:',
-      describe: 'Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 2KB (see EIP-170) is bypassed. Enabling this flag *will* cause ganache-cli to behave differently than production environments.',
+      describe: 'Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag *will* cause ganache-cli to behave differently than production environments.',
       type: 'boolean',
       default: false
     })
