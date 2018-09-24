@@ -56,7 +56,7 @@ Options:
 * `-?` or `--help`: Display help information
 * `--version`: Display the version of ganache-cli
 * `--noVMErrorsOnRPCResponse`: Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
-* `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 2KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
+* `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
 
 Special Options:
 
@@ -118,7 +118,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 * `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity.
-* `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging. By setting this to `true`, the check within the EVM for contract size limit of 2KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to true **will** cause ganache-core to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
+* `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging. By setting this to `true`, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to true **will** cause ganache-core to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
 
 ### Implemented Methods
 
