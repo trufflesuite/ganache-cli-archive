@@ -52,6 +52,7 @@ Options:
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, ganache-cli will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
 * `--mem`: Output ganache-cli memory usage statistics. This replaces normal output.
+* `-q` or `--quiet`: Run ganache-cli without any logs.
 * `-v` or `--verbose`: Log all requests and responses to stdout
 * `-?` or `--help`: Display help information
 * `--version`: Display the version of ganache-cli
