@@ -51,6 +51,13 @@ if (typeof argv.unlock == "string") {
 
 var logger = console;
 
+// If quiet argument passed, no output
+if (argv.q === true){
+  logger = {
+    log: function() {}
+  };
+}
+
 // If the mem argument is passed, only show memory output,
 // not transaction history.
 if (argv.mem === true) {
