@@ -158,6 +158,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'boolean',
       default: false
     })
+    .option('q', {
+      group: 'Other:',
+      alias: 'quiet',
+      describe: 'Run ganache quietly (no logs)',
+      type: 'boolean',
+      default: false
+    })
     .showHelpOnFail(false, 'Specify -? or --help for available options')
     .help('help')
     .alias('help', '?')
