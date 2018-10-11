@@ -24,6 +24,8 @@ If you came here expecting to find the TestRPC, you're in the right place! Truff
 npm install -g ganache-cli
 ```
 
+`ganache-cli` utilizes [`ganache-core`](https://github.com/trufflesuite/ganache-core) internally, which is distributed with optional native dependencies for increased performance. If these native dependencies fail to install on your system `ganache-cli` will automatically fallback to `ganache-core`’s pre-bundled JavaScript build.
+
 Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/ganache-cli/wiki/FAQ) and if you're still having issues and you're sure its a problem with `ganache-cli` please open an issue.
 
 ### Using Ganache CLI
@@ -217,5 +219,7 @@ docker build -t trufflesuite/ganache-cli .
 
 ### Contributing to Ganache CLI
 
-This is a distribution package where the core code is bundled to support browsers and reduce installation issues on all platforms. You can contribute to the core code via [ganache-core](https://github.com/trufflesuite/ganache-core).
+The Ganache CLI repository contains the cli logic and Docker config/build only. It utilizes [ganache-core](https://github.com/trufflesuite/ganache-core), the core logic powering [Ganache](https://github.com/trufflesuite/ganache), internally.
+
+You can contribute to the core code at [ganache-core](https://github.com/trufflesuite/ganache-core).
 

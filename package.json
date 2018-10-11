@@ -2,40 +2,35 @@
   "name": "ganache-cli",
   "version": "6.1.7",
   "bin": {
-    "ganache-cli": "./build/cli.node.js"
+    "ganache-cli": "cli.js"
   },
-  "main": "./build/lib.node.js",
+  "main": "lib.js",
   "directories": {
     "lib": "./lib"
   },
   "scripts": {
-    "start": "./build/cli.node.js",
-    "build": "npm run build-cli && npm run build-server && npm run build-provider && npm run build-lib",
-    "build-cli": "webpack-cli --config ./webpack/cli.webpack.config.js",
-    "build-server": "webpack-cli --config ./webpack/server.webpack.config.js",
-    "build-provider": "webpack-cli --config ./webpack/provider.webpack.config.js",
-    "build-lib": "webpack-cli --config ./webpack/lib.webpack.config.js",
-    "prepare": "npm run build"
+    "start": "node cli.js",
+    "build": "webpack-cli --config ./docker/webpack.config.js"
+  },
+  "dependencies": {
+    "async": "^2.6.1",
+    "bn.js": "4.11.8",
+    "ganache-core": "2.2.1",
+    "source-map-support": "^0.5.3",
+    "web3": "^1.0.0-beta.36",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "bn.js": "^4.11.6",
-    "ganache-core": "2.2.1",
-    "babel-cli": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.7.0",
+    "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
     "prepend-file": "^1.3.1",
     "shebang-loader": "0.0.1",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^3.0.6",
-    "yargs": "^11.0.0"
+    "webpack": "^4.18.0",
+    "webpack-cli": "3.1.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/trufflesuite/ganache-cli"
-  },
-  "dependencies": {
-    "source-map-support": "^0.5.3"
   },
   "license": "MIT"
 }
