@@ -91,7 +91,8 @@ var options = {
   account_keys_path: argv.acctKeys,
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger,
-  allowUnlimitedContractSize: argv.allowUnlimitedContractSize
+  allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
+  time: argv.t
 }
 
 var fork_address;

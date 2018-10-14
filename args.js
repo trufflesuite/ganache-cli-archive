@@ -139,6 +139,19 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'boolean',
       default: false
     })
+    .option('t', {
+      group: 'Chain:',
+      alias: 'time',
+      describe: 'Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.',
+      type: 'string',
+      coerce: (arg) => {
+        let timestamp = Date.parse(arg);
+        if (isNaN(timestamp)) {
+          throw new Error('Invalid \'time\' format');
+        }
+        return new Date(timestamp);
+      }
+    })
     .option('debug', {
       group: 'Other:',
       describe: 'Output VM opcodes for debugging',
