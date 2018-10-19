@@ -1,7 +1,11 @@
+<p align="center">
+  <em>NOTICE</em>: <code>testrpc</code> is now <code>ganache-cli</code>. Use it just as you would <code>testrpc</code>.
+</p>
+<hr/>
+
 [![npm](https://img.shields.io/npm/v/ganache-cli.svg)]()
 [![npm](https://img.shields.io/npm/dm/ganache-cli.svg)]()
 [![Build Status](https://travis-ci.org/trufflesuite/ganache-cli.svg?branch=master)](https://travis-ci.org/trufflesuite/ganache-cli)  
-*NOTICE*: `testrpc` is now `ganache-cli`. Use it just as you would `testrpc`.
 
 <p align="center">
   <img src="/resources/icons/ganache-cli-128x128.png">
