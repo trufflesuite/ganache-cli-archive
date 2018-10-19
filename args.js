@@ -15,6 +15,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       default: isDocker ? '0.0.0.0' : '127.0.0.1',
       describe: 'Hostname to listen on'
     })
+    .option('t', {
+      group: 'Network:',
+      alias: 'keepAliveTimeout',
+      type: 'number',
+      default: 5000,
+      describe: 'The number of milliseconds of inactivity a server needs to wait for additional incoming data, after it has finished writing the last response, before a socket will be destroyed.'
+    })
     .option('a', {
       group: 'Accounts:',
       alias: 'accounts',
