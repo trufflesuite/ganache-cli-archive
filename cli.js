@@ -92,7 +92,8 @@ var options = {
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger,
   allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
-  time: argv.t
+  time: argv.t,
+  keepAliveTimeout: argv.keepAliveTimeout
 }
 
 var fork_address;
