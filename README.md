@@ -64,7 +64,8 @@ Options:
 * `--version`: Display the version of ganache-cli
 * `--noVMErrorsOnRPCResponse`: Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
 * `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
-* `-t` or `--keepAliveTimeout`: Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
+* `--keepAliveTimeout`: Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
+* `-t` or `--time`: Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.
 
 Special Options:
 

@@ -15,9 +15,8 @@ module.exports = exports = function(yargs, version, isDocker) {
       default: isDocker ? '0.0.0.0' : '127.0.0.1',
       describe: 'Hostname to listen on'
     })
-    .option('t', {
+    .option('keepAliveTimeout', {
       group: 'Network:',
-      alias: 'keepAliveTimeout',
       type: 'number',
       default: 5000,
       describe: 'The number of milliseconds of inactivity a server needs to wait for additional incoming data, after it has finished writing the last response, before a socket will be destroyed.'
@@ -145,6 +144,19 @@ module.exports = exports = function(yargs, version, isDocker) {
       describe: 'Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag *will* cause ganache-cli to behave differently than production environments.',
       type: 'boolean',
       default: false
+    })
+    .option('t', {
+      group: 'Chain:',
+      alias: 'time',
+      describe: 'Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.',
+      type: 'string',
+      coerce: (arg) => {
+        let timestamp = Date.parse(arg);
+        if (isNaN(timestamp)) {
+          throw new Error('Invalid \'time\' format');
+        }
+        return new Date(timestamp);
+      }
     })
     .option('debug', {
       group: 'Other:',
