@@ -15,7 +15,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "bn.js": "4.11.8",
-    "ganache-core": "2.2.1",
+    "ganache-core": "^2.3.0-beta.0",
     "source-map-support": "^0.5.3",
     "web3": "^1.0.0-beta.36",
     "yargs": "^11.0.0"
