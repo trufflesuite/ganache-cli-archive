@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "bn.js": "4.11.8",
-    "ganache-core": "^2.3.0-beta.0",
+    "ganache-core": "^2.3.0",
     "source-map-support": "^0.5.3",
     "yargs": "^11.0.0"
   },
