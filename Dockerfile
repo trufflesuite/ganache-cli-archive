@@ -1,14 +1,14 @@
-FROM mhart/alpine-node:8 as builder
+FROM mhart/alpine-node:10 as builder
 
 RUN apk add --no-cache make gcc g++ python git bash
 COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
+COPY npm-shrinkwrap.json /app/npm-shrinkwrap.json
 WORKDIR /app
 RUN npm install
 COPY . .
 RUN npm run build
 
-FROM mhart/alpine-node:8 as runtime
+FROM mhart/alpine-node:10 as runtime
 
 WORKDIR /app
 
