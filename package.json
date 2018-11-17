@@ -1,6 +1,6 @@
 {
   "name": "ganache-cli",
-  "version": "6.2.0",
+  "version": "6.2.1-beta.0",
   "bin": {
     "ganache-cli": "cli.js"
   },
@@ -10,11 +10,13 @@
   },
   "scripts": {
     "start": "node cli.js",
-    "build": "webpack-cli --config ./docker/webpack.config.js"
+    "build": "webpack-cli --config ./docker/webpack.config.js",
+    "prepublishOnly": "mv npm-shrinkwrap.json npm-shrinkwrap.json.bak && npm prune --only=prod && npm shrinkwrap",
+    "postpublish": "rm npm-shrinkwrap.json && mv npm-shrinkwrap.json.bak npm-shrinkwrap.json && npm install"
   },
   "dependencies": {
     "bn.js": "4.11.8",
-    "ganache-core": "^2.3.0",
+    "ganache-core": "^2.3.1-beta.1",
     "source-map-support": "^0.5.3",
     "yargs": "^11.0.0"
   },

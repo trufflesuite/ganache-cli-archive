@@ -7,3 +7,4 @@ TODO
 .tern-port
 .vscode
 docker/build
+npm-shrinkwrap.json.bak
