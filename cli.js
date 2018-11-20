@@ -8,7 +8,7 @@ require('source-map-support/register')
 var yargs = require('yargs');
 var Ganache = require("ganache-core");
 var pkg = require("./package.json");
-var corepkg = require("./node_modules/ganache-core/package.json");
+var corepkg = require("ganache-core/package.json");
 var URL = require("url");
 var fs = require("fs");
 var to = require("ganache-core/lib/utils/to");
