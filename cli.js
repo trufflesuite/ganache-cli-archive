@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
 // make sourcemaps work!
-require('source-map-support/register')
+require("source-map-support/register")
 
-// `yargs/yargs` required to work with webpack, see here.
-// https://github.com/yargs/yargs/issues/781
-var yargs = require('yargs');
-var Ganache = require("ganache-core");
+var yargs = require("yargs");
+var Ganache = require("ganache-core/public-exports.js");
 var pkg = require("./package.json");
 var corepkg = require("ganache-core/package.json");
 var URL = require("url");

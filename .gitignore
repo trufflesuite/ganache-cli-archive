@@ -6,5 +6,4 @@ TODO
 .DS_Store
 .tern-port
 .vscode
-docker/build
-npm-shrinkwrap.json.bak
+build
