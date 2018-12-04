@@ -4,16 +4,20 @@
 require("source-map-support/register")
 
 var yargs = require("yargs");
-var Ganache = require("ganache-core/public-exports.js");
 var pkg = require("./package.json");
-var corepkg = require("ganache-core/package.json");
+var ganache;
+try {
+  ganache = require("./lib");
+} catch(e){
+  ganache = require("./build/ganache-core.node.cli.js");
+}
+var to = ganache.to;
 var URL = require("url");
 var fs = require("fs");
-var to = require("ganache-core/lib/utils/to");
 var initArgs = require("./args")
 var BN = require("bn.js");
 
-var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")";
+var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
@@ -112,7 +116,7 @@ if (options.fork) {
   options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
-var server = Ganache.server(options);
+var server = ganache.server(options);
 
 console.log(detailedVersion);
 

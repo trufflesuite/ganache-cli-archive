@@ -5,7 +5,7 @@ const outputDir = resolve(__dirname, "../build");
 const outputFilename = "ganache-core.node.cli.js";
 module.exports = {
   entry: [
-    "./cli.js"
+    "./lib.js"
   ],
   target: "node",
   output: {
@@ -24,7 +24,7 @@ module.exports = {
       }
     ]
   },
-  externals: /^(source-map-support|yargs)$/,
+  externals: /^(source-map-support|yargs|bn.js)$/,
   resolve: {
     alias: {
       // eth-block-tracker is es6 but automatically builds an es5 version for us on install.

@@ -7,10 +7,7 @@
 build/ganache-core.docker.cli.js
 build/ganache-core.docker.cli.js.map
 webpack
-perf
 .dockerignore
 Dockerfile
 ISSUE_TEMPLATE.md
-cli.js
 lib.js
-args.js
