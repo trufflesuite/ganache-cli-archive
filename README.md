@@ -33,7 +33,7 @@ npm install -g ganache-cli
 or, if you are using [Yarn](https://yarnpkg.com/):
 
 ```Bash
-yarn global add windows-build-tools
+yarn global add ganache-cli
 ```
 
 `ganache-cli` utilizes [`ganache-core`](https://github.com/trufflesuite/ganache-core) internally, which is distributed with optional native dependencies for increased performance. If these native dependencies fail to install on your system `ganache-cli` will automatically fallback to `ganache-core`’s pre-bundled JavaScript build.
