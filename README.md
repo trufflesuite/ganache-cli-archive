@@ -22,10 +22,18 @@ If you came here expecting to find the TestRPC, you're in the right place! Truff
 
 ### Installation
 
-`ganache-cli` is written in Javascript and distributed as a Node package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
+`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
+
+Using npm:
 
 ```Bash
 npm install -g ganache-cli
+```
+
+or, if you are using [Yarn](https://yarnpkg.com/):
+
+```Bash
+yarn global add windows-build-tools
 ```
 
 `ganache-cli` utilizes [`ganache-core`](https://github.com/trufflesuite/ganache-core) internally, which is distributed with optional native dependencies for increased performance. If these native dependencies fail to install on your system `ganache-cli` will automatically fallback to `ganache-core`’s pre-bundled JavaScript build.
@@ -95,18 +103,26 @@ Special Options:
 
 #### Library
 
-As a Web3 provider:
+As a [Web3](https://github.com/ethereum/web3.js/) provider:
 
 ```javascript
-var ganache = require("ganache-cli");
+const ganache = require("ganache-cli");
 web3.setProvider(ganache.provider());
 ```
 
-As a general http server:
+As an [ethers.js](https://github.com/ethers-io/ethers.js/) provider:
+
+```
+const ganache = require("ganache-cli");
+const provider = ganache.provider();
+const provider = new ethers.providers.Web3Provider(provider);
+```
+
+As a general HTTP and WebSocket server:
 
 ```javascript
-var ganache = require("ganache-cli");
-var server = ganache.server();
+const ganache = require("ganache-cli");
+const server = ganache.server();
 server.listen(port, function(err, blockchain) {...});
 ```
 
@@ -208,19 +224,29 @@ the run command:
 
 ```Bash
 docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -a 10 --debug
+                                                           ^^^^^^^^^^^^^
 ```
 
 The Docker container adds an environment variable `DOCKER=true`; when this variable is set to `true` (case insensitive), `ganache-cli` use a default hostname IP of `0.0.0.0` instead of the normal default `127.0.0.1`. You can still specify a custom hostname however:
 
 ```Bash
 docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -h XXX.XXX.XXX.XXX
+                                                           ^^^^^^^^^^^^^^^^^^
 ```
 
-To build the Docker container from source:
+To build and run the Docker container from source:
 
 ```Bash
 git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
+```
+then:
+```Bash
 docker build -t trufflesuite/ganache-cli .
+docker run -p 8545:8545 trufflesuite/ganache-cli
+```
+or
+```
+npm run docker
 ```
 
 
@@ -230,3 +256,11 @@ The Ganache CLI repository contains the cli logic and Docker config/build only. 
 
 You can contribute to the core code at [ganache-core](https://github.com/trufflesuite/ganache-core).
 
+To contribue to ganache-cli, run:
+
+```Bash
+git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
+npm install
+```
+
+You'll need Python 2.7 installed, and on Windows, you'll likely need to install [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) from an Administrator PowerShell Prompt via `npm install --global windows-build-tools`.
