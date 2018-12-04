@@ -114,8 +114,7 @@ As an [ethers.js](https://github.com/ethers-io/ethers.js/) provider:
 
 ```
 const ganache = require("ganache-cli");
-const provider = ganache.provider();
-const provider = new ethers.providers.Web3Provider(provider);
+const provider = new ethers.providers.Web3Provider(ganache.provider());
 ```
 
 As a general HTTP and WebSocket server:
