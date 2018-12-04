@@ -8,7 +8,7 @@ var pkg = require("./package.json");
 var ganache;
 try {
   ganache = require("./lib");
-} catch(e){
+} catch(e) {
   ganache = require("./build/ganache-core.node.cli.js");
 }
 var to = ganache.to;

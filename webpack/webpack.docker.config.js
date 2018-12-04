@@ -30,7 +30,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "./build/Release/scrypt": "./build/Release/scrypt.node"
+      "./build/Release/scrypt": "./build/Release/scrypt.node",
+      "./build/ganache-core.node.cli.js": "./lib.js"
     }
   },
   plugins: plugins(outputDir, outputFilename),
