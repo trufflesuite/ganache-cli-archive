@@ -2,10 +2,12 @@
 .tern-project
 .tern-port
 .vscode
-.travis.yml
 .eslintrc.js
 *.log
-TODO
-docker/build
-perf
-npm-shrinkwrap.json.bak
+build/ganache-core.docker.cli.js
+build/ganache-core.docker.cli.js.map
+webpack
+.dockerignore
+Dockerfile
+ISSUE_TEMPLATE.md
+lib.js

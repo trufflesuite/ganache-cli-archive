@@ -1,21 +1,23 @@
 #!/usr/bin/env node
 
 // make sourcemaps work!
-require('source-map-support/register')
+require("source-map-support/register")
 
-// `yargs/yargs` required to work with webpack, see here.
-// https://github.com/yargs/yargs/issues/781
-var yargs = require('yargs');
-var Ganache = require("ganache-core");
+var yargs = require("yargs");
 var pkg = require("./package.json");
-var corepkg = require("ganache-core/package.json");
+var ganache;
+try {
+  ganache = require("./lib");
+} catch(e) {
+  ganache = require("./build/ganache-core.node.cli.js");
+}
+var to = ganache.to;
 var URL = require("url");
 var fs = require("fs");
-var to = require("ganache-core/lib/utils/to");
 var initArgs = require("./args")
 var BN = require("bn.js");
 
-var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + corepkg.version + ")";
+var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
@@ -114,7 +116,7 @@ if (options.fork) {
   options.fork = fork_address + (block != null ? "@" + block : "");
 }
 
-var server = Ganache.server(options);
+var server = ganache.server(options);
 
 console.log(detailedVersion);
 
