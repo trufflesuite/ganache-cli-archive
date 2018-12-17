@@ -112,7 +112,7 @@ web3.setProvider(ganache.provider());
 
 As an [ethers.js](https://github.com/ethers-io/ethers.js/) provider:
 
-```
+```javascript
 const ganache = require("ganache-cli");
 const provider = new ethers.providers.Web3Provider(ganache.provider());
 ```
@@ -245,7 +245,7 @@ docker build -t trufflesuite/ganache-cli .
 docker run -p 8545:8545 trufflesuite/ganache-cli
 ```
 or
-```
+```Bash
 npm run docker
 ```
 
