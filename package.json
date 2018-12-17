@@ -1,6 +1,6 @@
 {
   "name": "ganache-cli",
-  "version": "6.2.4-beta.1",
+  "version": "6.2.4-beta.2",
   "bin": {
     "ganache-cli": "cli.js"
   },
@@ -22,7 +22,7 @@
     "yargs"
   ],
   "devDependencies": {
-    "ganache-core": "2.3.2-beta.5",
+    "ganache-core": "2.3.2-beta.6",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
