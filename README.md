@@ -190,6 +190,8 @@ The RPC methods currently implemented are:
 * `eth_sendTransaction`
 * `eth_sendRawTransaction`
 * `eth_sign`
+* `eth_subscribe` (only for websocket connections. "syncing" subscriptions are not yet supported)
+* `eth_unsubscribe` (only for websocket connections. "syncing" subscriptions are not yet supported)
 * `eth_syncing`
 * `eth_uninstallFilter`
 * `net_listening`
@@ -200,6 +202,7 @@ The RPC methods currently implemented are:
 * `personal_listAccounts`
 * `personal_lockAccount`
 * `personal_newAccount`
+* `personal_importRawKey`
 * `personal_unlockAccount`
 * `personal_sendTransaction`
 * `shh_version`
@@ -271,3 +274,6 @@ npm install
 ```
 
 You'll need Python 2.7 installed, and on Windows, you'll likely need to install [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) from an Administrator PowerShell Prompt via `npm install --global windows-build-tools`.
+
+# License
+[MIT](https://tldrlegal.com/license/mit-license)
