@@ -134,17 +134,24 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
 * `"port"`: Port number to listen on when running as a server.
 * `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
+* `"default_balance_ether"`: `number` - The default account balance, specified in ether.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
-* `"fork"`: `string` - Same as `--fork` option above.
-* `"network_id"`: `integer` - Same as `--networkId` option above.
+* `"fork"`: `string` or `object` - When a `string`, same as `--fork` option above. Can also be a Web3 Provider object, optionally used in conjunction with the `fork_block_number` option below.
+* `"fork_block_number"`: `string` or `number` - Block number the provider should fork from, when the `fork` option is specified. If the `fork` option is specified as a string including the `@` sign and a block number, the block number in the `fork` parameter takes precedence.
+* `"network_id"`: Specify the network id ganache-core will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
 * `"locked"`: `boolean` - whether or not accounts are locked by default.
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
+* `"db"`: `Object` - Specify an alternative database instance, for instance [MemDOWN](https://github.com/level/memdown).
+* `"ws"`: Enable a websocket server. This is `true` by default.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
-* `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity.
-* `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging. By setting this to `true`, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to true **will** cause ganache-core to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
-* `"keepAliveTimeout"`: Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://bit.ly/2Cr0ZEh) for details. `5000` by default.
+* `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity. This is `true` by default to replicate the error reporting behavior of previous versions of ganache.
+* `"hdPath"`: The hierarchical deterministic path to use when generating accounts. Default: "m/44'/60'/0'/0/"
+* `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging. By setting this to `true`, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to `true` **will** cause `ganache-cli` to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
+* `"gasPrice"`: Sets the default gas price for transactions if not otherwise specified. Must be specified as a hex string in wei. Defaults to `"0x77359400"`, or 2 gwei.
+* `"gasLimit"`: Sets the block gas limit. Must be specified as a hex string. Defaults to `"0x6691b7"`.
+* `"keepAliveTimeout"`: If using `.server()` - Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
 
 ### Implemented Methods
 
@@ -183,6 +190,8 @@ The RPC methods currently implemented are:
 * `eth_sendTransaction`
 * `eth_sendRawTransaction`
 * `eth_sign`
+* `eth_subscribe` (only for websocket connections. "syncing" subscriptions are not yet supported)
+* `eth_unsubscribe` (only for websocket connections. "syncing" subscriptions are not yet supported)
 * `eth_syncing`
 * `eth_uninstallFilter`
 * `net_listening`
@@ -193,6 +202,7 @@ The RPC methods currently implemented are:
 * `personal_listAccounts`
 * `personal_lockAccount`
 * `personal_newAccount`
+* `personal_importRawKey`
 * `personal_unlockAccount`
 * `personal_sendTransaction`
 * `shh_version`
@@ -264,3 +274,6 @@ npm install
 ```
 
 You'll need Python 2.7 installed, and on Windows, you'll likely need to install [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) from an Administrator PowerShell Prompt via `npm install --global windows-build-tools`.
+
+# License
+[MIT](https://tldrlegal.com/license/mit-license)
