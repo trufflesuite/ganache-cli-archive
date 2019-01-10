@@ -93,6 +93,7 @@ var options = {
   account_keys_path: argv.acctKeys,
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger,
+  hardfork: argv.hardfork,
   allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
   time: argv.t,
   keepAliveTimeout: argv.keepAliveTimeout
