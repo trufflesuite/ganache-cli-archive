@@ -145,6 +145,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'boolean',
       default: false
     })
+    .option('hardfork', {
+      group: 'Chain:',
+      describe: 'Allows to specify which hardfork should be used. Supported hardforks are `byzantium` (default) and `constantinople`',
+      type: 'string',
+      default: 'byzantium',
+      choices: ['byzantium', 'constantinople']
+    })
     .option('t', {
       group: 'Chain:',
       alias: 'time',
