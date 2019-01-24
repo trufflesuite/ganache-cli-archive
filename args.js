@@ -147,10 +147,10 @@ module.exports = exports = function(yargs, version, isDocker) {
     })
     .option('hardfork', {
       group: 'Chain:',
-      describe: 'Allows to specify which hardfork should be used. Supported hardforks are `byzantium` (default) and `constantinople`',
+      describe: 'Allows to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, and `constantinople-1283-removed` (default).',
       type: 'string',
-      default: 'byzantium',
-      choices: ['byzantium', 'constantinople']
+      default: 'constantinople-1283-removed',
+      choices: ['byzantium', 'constantinople', 'constantinople-1283-removed']
     })
     .option('t', {
       group: 'Chain:',

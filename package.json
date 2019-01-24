@@ -22,7 +22,7 @@
     "yargs"
   ],
   "devDependencies": {
-    "ganache-core": "2.4.0-beta.0",
+    "ganache-core": "2.5.0-eip1283.1",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
