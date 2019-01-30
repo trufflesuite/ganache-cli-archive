@@ -8,7 +8,7 @@
 [![Build Status](https://travis-ci.org/trufflesuite/ganache-cli.svg?branch=master)](https://travis-ci.org/trufflesuite/ganache-cli)  
 
 <p align="center">
-  <img src="/resources/icons/ganache-cli-128x128.png">
+  <img src="https://github.com/trufflesuite/ganache-cli/raw/develop/resources/icons/ganache-cli-128x128.png">
 </p>
 
 ## Welcome to Ganache CLI
