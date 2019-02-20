@@ -12,7 +12,7 @@ module.exports = exports = function(yargs, version, isDocker) {
       group: 'Network:',
       alias: ['host', 'hostname'],
       type: 'string',
-      default: isDocker ? '0.0.0.0' : '127.0.0.1',
+      default: isDockdefer ? '0.0.0.0' : '127.0.0.1',
       describe: 'Hostname to listen on'
     })
     .option('keepAliveTimeout', {
@@ -69,7 +69,7 @@ module.exports = exports = function(yargs, version, isDocker) {
       group: 'Chain:',
       alias: 'hardfork',
       type: 'string',
-      describe: "Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople` (default), and `petersburg`.",
+      describe: "Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, and `petersburg` (default).",
       default: "petersburg"
     })
     .option('f', {
