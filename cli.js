@@ -86,6 +86,7 @@ var options = {
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
   fork: argv.f,
+  hardfork: argv.k,
   network_id: argv.i,
   verbose: argv.v,
   secure: argv.n,
