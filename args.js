@@ -12,7 +12,7 @@ module.exports = exports = function(yargs, version, isDocker) {
       group: 'Network:',
       alias: ['host', 'hostname'],
       type: 'string',
-      default: isDockdefer ? '0.0.0.0' : '127.0.0.1',
+      default: isDocker ? '0.0.0.0' : '127.0.0.1',
       describe: 'Hostname to listen on'
     })
     .option('keepAliveTimeout', {
