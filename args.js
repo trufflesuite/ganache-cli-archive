@@ -65,6 +65,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       describe: 'Comma-separated list of accounts or indices to unlock',
       demandOption: false
     })
+    .option('k', {
+      group: 'Chain:',
+      alias: 'hardfork',
+      type: 'string',
+      describe: "Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, and `petersburg` (default).",
+      default: "petersburg"
+    })
     .option('f', {
       group: 'Chain:',
       alias: 'fork',
