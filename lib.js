@@ -1,5 +1,5 @@
 // make sourcemaps work!
-require('source-map-support/register')
+require('source-map-support').install();
 
 module.exports = require("ganache-core/public-exports.js");
 module.exports.version = require("ganache-core/package.json").version;
