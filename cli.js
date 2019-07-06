@@ -5,7 +5,7 @@ require('source-map-support').install();
 
 var yargs = require("yargs");
 var pkg = require("./package.json");
-var createKeccakHash = require("keccak");
+var {toChecksumAddress} = require("ethereumjs-util");
 var ganache;
 try {
   ganache = require("./lib");
@@ -42,22 +42,6 @@ function parseAccounts(accounts) {
     ret.push(splitAccount(accounts[i]));
   }
   return ret;
-}
-
-function toChecksumAddress (address) {
-  address = address.toLowerCase().replace('0x', '')
-  var hash = createKeccakHash('keccak256').update(address).digest('hex')
-  var ret = '0x'
-
-  for (var i = 0; i < address.length; i++) {
-    if (parseInt(hash[i], 16) >= 8) {
-      ret += address[i].toUpperCase()
-    } else {
-      ret += address[i]
-    }
-  }
-
-  return ret
 }
 
 if (argv.d) {

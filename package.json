@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "bn.js": "4.11.8",
-    "keccak": "^2.0.0",
+    "ethereumjs-util": "^6.1.0",
     "source-map-support": "0.5.9",
     "yargs": "11.1.0"
   },
   "bundleDependencies": [
     "bn.js",
-    "keccak",
     "source-map-support",
-    "yargs"
+    "yargs",
+    "ethereumjs-util"
   ],
   "devDependencies": {
     "ganache-core": "2.5.6",
