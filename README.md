@@ -20,7 +20,7 @@ Ganache CLI uses ethereumjs to simulate full client behavior and make developing
 
 If you came here expecting to find the TestRPC, you're in the right place! Truffle has taken the TestRPC under its wing and made it part of the Truffle suite of tools. From now on you can expect better support along with tons of new features that help make Ethereum development safer, easier, and more enjoyable. Use `ganache-cli` just as you would `testrpc`.
 
-### Installation
+## Installation
 
 `ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
 
@@ -48,7 +48,7 @@ Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/
 $ ganache-cli <options>
 ```
 
-Options:
+## Options:
 
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
 * `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is 100.
@@ -102,13 +102,22 @@ Special Options:
 
   This feature can also be used to impersonate accounts and unlock addresses you wouldn't otherwise have access to. When used with the `--fork` feature, you can use ganache-cli to make transactions as any address on the blockchain, which is very useful for testing and dynamic analysis.
 
-#### Library
+## Usage
 
 As a [Web3](https://github.com/ethereum/web3.js/) provider:
 
 ```javascript
-const ganache = require("ganache-cli");
+const ganache = require("ganache-core");
+const web3 = new Web3(ganache.provider());
+```
+If web3 is already initialized:
+```javascript
+const ganache = require("ganache-core");
 web3.setProvider(ganache.provider());
+```
+NOTE: depending on your web3 version, you may need to set a number of confirmation blocks
+```javascript
+const web3 = new Web3(provider, null, { transactionConfirmationBlocks: 1 });
 ```
 
 As an [ethers.js](https://github.com/ethers-io/ethers.js/) provider:
@@ -126,18 +135,20 @@ const server = ganache.server();
 server.listen(port, function(err, blockchain) {...});
 ```
 
-Both `.provider()` and `.server()` take a single object which allows you to specify behavior of `ganache-cli`. This parameter is optional. Available options are:
+## Options
+
+Both `.provider()` and `.server()` take a single object which allows you to specify behavior of ganache-cli. This parameter is optional. Available options are:
 
 * `"accounts"`: `Array` of `Object`'s. Each object should have a `balance` key with a hexadecimal value. The key `secretKey` can also be specified, which represents the account's private key. If no `secretKey`, the address is auto-generated with the given balance. If specified, the key is used to determine the account's address.
 * `"debug"`: `boolean` - Output VM opcodes for debugging
 * `"blockTime"`: `number` - Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `blockTime` option is discouraged unless you have tests which require a specific mining interval.
 * `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
 * `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
-* `"port"`: Port number to listen on when running as a server.
+* `"port"`: `number` Port number to listen on when running as a server.
 * `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `"default_balance_ether"`: `number` - The default account balance, specified in ether.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
-* `"fork"`: `string` or `object` - When a `string`, same as `--fork` option above. Can also be a Web3 Provider object, optionally used in conjunction with the `fork_block_number` option below.
+* `"fork"`: `string` or `object` - Fork from another currently running Ethereum client at a given block.  When a `string`, input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`. Can also be a `Web3 Provider` object, optionally used in conjunction with the `fork_block_number` option below.
 * `"fork_block_number"`: `string` or `number` - Block number the provider should fork from, when the `fork` option is specified. If the `fork` option is specified as a string including the `@` sign and a block number, the block number in the `fork` parameter takes precedence.
 * `"network_id"`: Specify the network id ganache-core will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
@@ -145,85 +156,124 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"unlocked_accounts"`: `Array` - array of addresses or address indexes specifying which accounts should be unlocked.
 * `"db_path"`: `String` - Specify a path to a directory to save the chain database. If a database already exists, `ganache-cli` will initialize that chain instead of creating a new one.
 * `"db"`: `Object` - Specify an alternative database instance, for instance [MemDOWN](https://github.com/level/memdown).
-* `"ws"`: Enable a websocket server. This is `true` by default.
+* `"ws"`: `boolean` Enable a websocket server. This is `true` by default.
 * `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 * `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity. This is `true` by default to replicate the error reporting behavior of previous versions of ganache.
 * `"hdPath"`: The hierarchical deterministic path to use when generating accounts. Default: "m/44'/60'/0'/0/"
-* `"hardfork"`: `String` - Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, and `petersburg` (default).
-* `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging. By setting this to `true`, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to `true` **will** cause `ganache-cli` to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
-* `"gasPrice"`: Sets the default gas price for transactions if not otherwise specified. Must be specified as a hex string in wei. Defaults to `"0x77359400"`, or 2 gwei.
-* `"gasLimit"`: Sets the block gas limit. Must be specified as a hex string. Defaults to `"0x6691b7"`.
-* `"keepAliveTimeout"`: If using `.server()` - Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
+* `"hardfork"`: `String` Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, and `petersburg` (default).
+* `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging (NOTE: this setting is often used in conjuction with an increased `gasLimit`). By setting this to `true`, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to `true` **will** cause `ganache-cli` to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
+* `"gasPrice"`: `String::hex` Sets the default gas price for transactions if not otherwise specified. Must be specified as a `hex` encoded string in `wei`. Defaults to `"0x77359400"` (2 `gwei`).
+* `"gasLimit"`: `String::hex` Sets the block gas limit. Must be specified as a `hex` string. Defaults to `"0x6691b7"`.
+* `"keepAliveTimeout"`:  `number` If using `.server()` - Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
 
-### Implemented Methods
+## Implemented Methods
 
 The RPC methods currently implemented are:
 
-* `bzz_hive` (stub)
-* `bzz_info` (stub)
-* `debug_traceTransaction`
-* `eth_accounts`
-* `eth_blockNumber`
-* `eth_call`
-* `eth_coinbase`
-* `eth_estimateGas`
-* `eth_gasPrice`
-* `eth_getBalance`
-* `eth_getBlockByNumber`
-* `eth_getBlockByHash`
-* `eth_getBlockTransactionCountByHash`
-* `eth_getBlockTransactionCountByNumber`
-* `eth_getCode` (only supports block number “latest”)
-* `eth_getCompilers`
-* `eth_getFilterChanges`
-* `eth_getFilterLogs`
-* `eth_getLogs`
-* `eth_getStorageAt`
-* `eth_getTransactionByHash`
-* `eth_getTransactionByBlockHashAndIndex`
-* `eth_getTransactionByBlockNumberAndIndex`
-* `eth_getTransactionCount`
-* `eth_getTransactionReceipt`
-* `eth_hashrate`
-* `eth_mining`
-* `eth_newBlockFilter`
-* `eth_newFilter` (includes log/event filters)
-* `eth_protocolVersion`
-* `eth_sendTransaction`
-* `eth_sendRawTransaction`
-* `eth_sign`
-* `eth_subscribe` (only for websocket connections. "syncing" subscriptions are not yet supported)
-* `eth_unsubscribe` (only for websocket connections. "syncing" subscriptions are not yet supported)
-* `eth_syncing`
-* `eth_uninstallFilter`
-* `net_listening`
-* `net_peerCount`
-* `net_version`
-* `miner_start`
-* `miner_stop`
-* `personal_listAccounts`
-* `personal_lockAccount`
-* `personal_newAccount`
-* `personal_importRawKey`
-* `personal_unlockAccount`
-* `personal_sendTransaction`
-* `shh_version`
-* `rpc_modules`
-* `web3_clientVersion`
-* `web3_sha3`
+* [eth_accounts](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_accounts)
+* [eth_blockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_blockNumber)
+* [eth_call](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_call)
+* [eth_coinbase](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_coinbase)
+* [eth_estimateGas](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_estimateGas)
+* [eth_gasPrice](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasPrice)
+* [eth_getBalance](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getBalance)
+* [eth_getBlockByNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getBlockByNumber)
+* [eth_getBlockByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getBlockByHash)
+* [eth_getBlockTransactionCountByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getBlockTransactionCountByHash)
+* [eth_getBlockTransactionCountByNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getBlockTransactionCountByNumber)
+* [eth_getCode](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getCode) (only supports block number “latest”)
+* [eth_getCompilers](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getCompilers)
+* [eth_getFilterChanges](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getFilterChanges)
+* [eth_getFilterLogs](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getFilterLogs)
+* [eth_getLogs](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getLogs)
+* [eth_getStorageAt](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getStorageAt)
+* [eth_getTransactionByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionByHash)
+* [eth_getTransactionByBlockHashAndIndex](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionByBlockHashAndIndex)
+* [eth_getTransactionByBlockNumberAndIndex](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionByBlockNumberAndIndex)
+* [eth_getTransactionCount](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionCount)
+* [eth_getTransactionReceipt](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getTransactionReceipt)
+* [eth_hashrate](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_hashrate)
+* [eth_mining](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_mining)
+* [eth_newBlockFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newBlockFilter)
+* [eth_newFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newFilter) (includes log/event filters)
+* [eth_protocolVersion](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_protocolVersion)
+* [eth_sendTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendTransaction)
+* [eth_sendRawTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendRawTransaction)
+* [eth_sign](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sign)
+* [eth_subscribe](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_subscribe) (only for websocket connections. "syncing" subscriptions are not yet supported)
+* [eth_unsubscribe](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_unsubscribe) (only for websocket connections. "syncing" subscriptions are not yet supported)
+* [shh_version](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_version)
+* [net_version](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_version)
+* [net_peerCount](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_peerCount)
+* [net_listening](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_listening)
+* [eth_uninstallFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_uninstallFilter)
+* [eth_syncing](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_syncing)
+* [web3_clientVersion](https://github.com/ethereum/wiki/wiki/JSON-RPC#web3_clientVersion)
+* [web3_sha3](https://github.com/ethereum/wiki/wiki/JSON-RPC#web3_sha3)
+* `bzz_hive`
+* `bzz_info`
 
-There’s also special non-standard methods that aren’t included within the original RPC specification:
+#### Management API Methods
 
-* `evm_snapshot` : Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created. A snapshot can only be used once. After a successful `evm_revert`, the same snapshot id cannot be used again. Consider creating a new snapshot after each `evm_revert` if you need to revert to the same point multiple times.
-* `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
+* [debug_traceTransaction](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#debug_tracetransaction)
+* [miner_start](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#miner_start)
+* [miner_stop](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#miner_stop)
+* [personal_sendTransaction](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_sendTransaction)
+* [personal_unlockAccount](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_unlockAccount)
+* [personal_importRawKey](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_importRawKey)
+* [personal_newAccount](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_newAccount)
+* [personal_lockAccount](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_lockAccount)
+* [personal_listAccounts](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_listaccounts)
+
+## Custom Methods
+
+Special non-standard methods that aren’t included within the original RPC specification:
+* `evm_snapshot` : Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created. A snapshot can only be used once. After a successful `evm_revert`, the same snapshot id cannot be used again. Consider creating a new snapshot after each `evm_revert` *if you need to revert to the same point multiple times*.
+  ```bash
+  curl -H "Content-Type: application/json" -X POST --data \
+          '{"id":1337,"jsonrpc":"2.0","method":"evm_snapshot","params":[]}' \
+          http://localhost:8545
+  ```
+  ```json
+  { "id": 1337, "jsonrpc": "2.0", "result": "0x1" }
+  ```
+* `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. This deletes the given snapshot, as well as any snapshots taken after (Ex: reverting to id `0x1` will delete snapshots with ids `0x1`, `0x2`, `etc`...  If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
+  ```bash
+  # Ex: ID "1" (hex encoded string)
+  curl -H "Content-Type: application/json" -X POST --data \
+          '{"id":1337,"jsonrpc":"2.0","method":"evm_revert","params":["0x1"]}' \
+          http://localhost:8545
+  ```
+  ```json
+  { "id": 1337, "jsonrpc": "2.0", "result": true }
+  ```
 * `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
+  ```bash
+  # Ex: 1 minute (number)
+  curl -H "Content-Type: application/json" -X POST --data \
+          '{"id":1337,"jsonrpc":"2.0","method":"evm_increaseTime","params":[60]}' \
+          http://localhost:8545
+  ```
+  ```json
+  { "id": 1337, "jsonrpc": "2.0", "result": "060" }
+  ```
 * `evm_mine` : Force a block to be mined. Takes one optional parameter, which is the timestamp a block should setup as the mining time. Mines a block independent of whether or not mining is started or stopped.
+  ```bash
+  # Ex: new Date("2009-01-03T18:15:05+00:00").getTime()
+  curl -H "Content-Type: application/json" -X POST --data \
+          '{"id":1337,"jsonrpc":"2.0","method":"evm_mine","params":[1231006505000]}' \
+          http://localhost:8545
+  ```
 
-### Unsupported Methods
+  ```json
+  { "id": 1337, "jsonrpc": "2.0", "result": "0x0" }
+  ```
+
+## Unsupported Methods
 
 * `eth_compileSolidity`: If you'd like Solidity compilation in Javascript, please see the [solc-js project](https://github.com/ethereum/solc-js).
 
-### Docker
+## Docker
 
 The Simplest way to get started with the Docker image:
 
@@ -262,7 +312,7 @@ npm run docker
 ```
 
 
-### Contributing to Ganache CLI
+## Contributing to Ganache CLI
 
 The Ganache CLI repository contains the cli logic and Docker config/build only. It utilizes [ganache-core](https://github.com/trufflesuite/ganache-core), the core logic powering [Ganache](https://github.com/trufflesuite/ganache), internally.
 
