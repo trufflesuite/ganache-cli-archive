@@ -5,6 +5,7 @@ require('source-map-support').install();
 
 var yargs = require("yargs");
 var pkg = require("./package.json");
+var {toChecksumAddress} = require("ethereumjs-util");
 var ganache;
 try {
   ganache = require("./lib");
@@ -138,7 +139,7 @@ server.listen(options.port, options.hostname, function(err, result) {
 
   addresses.forEach(function(address, index) {
     var balance = new BN(accounts[address].account.balance).divRound(new BN("1000000000000000000")).toString();
-    var line = "(" + index + ") " + address + " (~" + balance + " ETH)";
+    var line = "(" + index + ") " + toChecksumAddress(address) + " (~" + balance + " ETH)";
 
     if (state.isUnlocked(address) == false) {
       line += " 🔒";
