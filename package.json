@@ -12,13 +12,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "bn.js": "4.11.8",
-    "ethereumjs-util": "^6.1.0",
-    "source-map-support": "0.5.9",
-    "yargs": "11.1.0"
+    "ethereumjs-util": "6.1.0",
+    "source-map-support": "0.5.12",
+    "yargs": "13.2.4"
   },
   "bundleDependencies": [
-    "bn.js",
     "source-map-support",
     "yargs",
     "ethereumjs-util"

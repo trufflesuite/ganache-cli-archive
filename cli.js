@@ -5,7 +5,7 @@ require('source-map-support').install();
 
 var yargs = require("yargs");
 var pkg = require("./package.json");
-var {toChecksumAddress} = require("ethereumjs-util");
+var {toChecksumAddress, BN} = require("ethereumjs-util");
 var ganache;
 try {
   ganache = require("./lib");
@@ -16,7 +16,6 @@ var to = ganache.to;
 var URL = require("url");
 var fs = require("fs");
 var initArgs = require("./args")
-var BN = require("bn.js");
 
 var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
 
@@ -136,10 +135,13 @@ server.listen(options.port, options.hostname, function(err, result) {
 
   var accounts = state.accounts;
   var addresses = Object.keys(accounts);
+  var ethInWei = new BN("1000000000000000000");
 
   addresses.forEach(function(address, index) {
-    var balance = new BN(accounts[address].account.balance).divRound(new BN("1000000000000000000")).toString();
-    var line = "(" + index + ") " + toChecksumAddress(address) + " (~" + balance + " ETH)";
+    var balance = new BN(accounts[address].account.balance);
+    var strBalance = balance.divRound(ethInWei).toString();
+    var about = balance.mod(ethInWei).isZero() ? "" : "~";
+    var line = `(${index}) ${toChecksumAddress(address)} (${about}${strBalance} ETH)`;
 
     if (state.isUnlocked(address) == false) {
       line += " 🔒";
