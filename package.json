@@ -1,6 +1,6 @@
 {
   "name": "ganache-cli",
-  "version": "6.4.6-beta.0",
+  "version": "6.5.0",
   "bin": {
     "ganache-cli": "cli.js"
   },
