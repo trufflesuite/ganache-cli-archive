@@ -91,7 +91,7 @@ var options = {
   verbose: argv.v,
   secure: argv.n,
   db_path: argv.db,
-  account_keys_path: argv.acctKeys,
+  account_keys_path: argv.account_keys_path,
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger,
   allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
@@ -161,17 +161,7 @@ server.listen(options.port, options.hostname, function(err, result) {
 
   if (options.account_keys_path != null) {
     console.log("");
-    console.log("Saving accounts and keys to " + options.account_keys_path);
-    var obj = {}
-    obj.addresses = accounts;
-    obj.private_keys = {};
-    addresses.forEach(function(address, index) {
-       obj.private_keys[address] = accounts[address].secretKey.toString("hex");
-    });
-    var json = JSON.stringify(obj);
-    fs.writeFile(options.account_keys_path, json, 'utf8',function(err){
-      if(err) throw err;
-    })
+    console.log("Accounts and keys saved to " + options.account_keys_path);
   }
 
   if (options.accounts == null) {
