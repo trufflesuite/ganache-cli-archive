@@ -42,8 +42,9 @@ module.exports = exports = function(yargs, version, isDocker) {
       string: true,
       demandOption: false
     })
-    .option('acctKeys', {
+    .option('account_keys_path', {
       group: 'Accounts:',
+      alias: 'acctKeys',
       type: 'string',
       describe: 'saves generated accounts and private keys as JSON object in specified file',
       normalize: true,
