@@ -191,7 +191,7 @@ server.listen(options.port, options.hostname, function(err, result) {
     console.log("Forked Chain");
     console.log("==================");
     console.log("Location:    " + fork_address);
-    console.log("Block:       " + to.number(state.blockchain.fork_block_number));
+    console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
     console.log("Network ID:  " + state.net_version);
     console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
   }
