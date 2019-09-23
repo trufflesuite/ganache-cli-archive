@@ -83,6 +83,7 @@ var options = {
   blockTime: argv.b,
   gasPrice: argv.g,
   gasLimit: argv.l,
+  callGasLimit: argv.callGasLimit,
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
   fork: argv.f,
@@ -184,6 +185,13 @@ server.listen(options.port, options.hostname, function(err, result) {
     console.log("Gas Limit");
     console.log("==================");
     console.log(options.gasLimit);
+  }
+
+  if (options.callGasLimit) {
+    console.log("");
+    console.log("Call Gas Limit");
+    console.log("==================");
+    console.log(options.callGasLimit);
   }
 
   if (options.fork) {

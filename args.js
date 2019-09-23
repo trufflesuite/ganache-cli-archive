@@ -147,6 +147,12 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'number',
       default: 0x6691b7
     })
+    .option('callGasLimit', {
+      group: 'Chain:',
+      describe: 'Sets the transaction gas limit for `eth_call` and `eth_estimateGas` calls. Must be specified as a hex string. Defaults to "0x1fffffffffffff" (Number.MAX_SAFE_INTEGER)',
+      type: 'number',
+      default: 0x1fffffffffffff
+    })
     .option('allowUnlimitedContractSize', {
       group: 'Chain:',
       describe: 'Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag *will* cause ganache-cli to behave differently than production environments.',
