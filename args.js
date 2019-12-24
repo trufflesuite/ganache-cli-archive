@@ -96,6 +96,12 @@ module.exports = exports = function(yargs, version, isDocker) {
       conflicts: 'd',
       demandOption: false
     })
+    .option('hdPath', {
+        group: 'Chain:',
+        describe: 'The base path used to derive the accounts from.',
+        type: 'string',
+        demandOption: false
+    })
     .option('d', {
       group: 'Chain:',
       alias: 'deterministic',
