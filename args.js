@@ -97,8 +97,9 @@ module.exports = exports = function(yargs, version, isDocker) {
       demandOption: false
     })
     .option('hdPath', {
-        group: 'Chain:',
-        describe: 'The base path used to derive the accounts from.',
+        group: 'Accounts:',
+        alias: 'hd_path',
+        describe: `The hierarchical deterministic path to use when generating accounts. Default: "m/44'/60'/0'/0/"`,
         type: 'string',
         demandOption: false
     })
