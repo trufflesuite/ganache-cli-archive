@@ -92,6 +92,7 @@ var options = {
   verbose: argv.v,
   secure: argv.n,
   db_path: argv.db,
+  hd_path: argv.hdPath,
   account_keys_path: argv.account_keys_path,
   vmErrorsOnRPCResponse: !argv.noVMErrorsOnRPCResponse,
   logger: logger,
