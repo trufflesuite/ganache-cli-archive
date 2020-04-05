@@ -102,23 +102,6 @@ var options = {
 }
 
 var fork_address;
-
-// If we're forking from another client, don't try to use the same port.
-if (options.fork) {
-  var split = options.fork.split("@");
-  fork_address = split[0];
-  var block;
-  if (split.length > 1) {
-    block = split[1];
-  }
-
-  if (URL.parse(fork_address).port == options.port) {
-    options.port = (parseInt(options.port) + 1);
-  }
-
-  options.fork = fork_address + (block != null ? "@" + block : "");
-}
-
 var server = ganache.server(options);
 
 console.log(detailedVersion);
