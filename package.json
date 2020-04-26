@@ -22,7 +22,7 @@
     "ethereumjs-util"
   ],
   "devDependencies": {
-    "ganache-core": "2.10.2",
+    "ganache-core": "https://github.com/martinetlee/ganache-core#HTM-core",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
