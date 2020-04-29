@@ -6,6 +6,7 @@ require('source-map-support').install();
 var yargs = require("yargs");
 var pkg = require("./package.json");
 var {toChecksumAddress, BN} = require("ethereumjs-util");
+var deasync = require('deasync');
 var ganache;
 try {
   ganache = require("./lib");
@@ -106,11 +107,10 @@ var server = ganache.server(options);
 
 console.log(detailedVersion);
 
-server.listen(options.port, options.hostname, function(err, result) {
-  if (err) {
-    console.log(err);
-    return;
-  }
+const listen = deasync(server.listen);
+
+try {
+  const result = listen(options.port, options.hostname);
 
   var state = result ? result : server.provider.manager.state;
 
@@ -190,7 +190,10 @@ server.listen(options.port, options.hostname, function(err, result) {
 
   console.log("");
   console.log("Listening on " + options.hostname + ":" + options.port);
-});
+} catch (error) {
+  console.log(error);
+  return;
+}
 
 process.on('uncaughtException', function(e) {
   console.log(e.stack);
