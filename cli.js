@@ -6,7 +6,7 @@ require('source-map-support').install();
 var yargs = require("yargs");
 var pkg = require("./package.json");
 var {toChecksumAddress, BN} = require("ethereumjs-util");
-var deasync = require('deasync');
+var deasync = require("deasync");
 var ganache;
 try {
   ganache = require("./lib");
@@ -107,96 +107,13 @@ var server = ganache.server(options);
 
 console.log(detailedVersion);
 
-const listen = deasync(server.listen);
-
-try {
-  const result = listen(options.port, options.hostname);
-
-  var state = result ? result : server.provider.manager.state;
-
-  console.log("");
-  console.log("Available Accounts");
-  console.log("==================");
-
-  var accounts = state.accounts;
-  var addresses = Object.keys(accounts);
-  var ethInWei = new BN("1000000000000000000");
-
-  addresses.forEach(function(address, index) {
-    var balance = new BN(accounts[address].account.balance);
-    var strBalance = balance.divRound(ethInWei).toString();
-    var about = balance.mod(ethInWei).isZero() ? "" : "~";
-    var line = `(${index}) ${toChecksumAddress(address)} (${about}${strBalance} ETH)`;
-
-    if (state.isUnlocked(address) == false) {
-      line += " 🔒";
-    }
-
-    console.log(line);
-  });
-
-  console.log("");
-  console.log("Private Keys");
-  console.log("==================");
-
-  addresses.forEach(function(address, index) {
-    console.log("(" + index + ") " + "0x" + accounts[address].secretKey.toString("hex"));
-  });
-
-
-  if (options.account_keys_path != null) {
-    console.log("");
-    console.log("Accounts and keys saved to " + options.account_keys_path);
+let started = false;
+process.on("uncaughtException", function(e) {
+  if (started) {
+    console.log(e);
+  } else {
+    console.log(e.stack);
   }
-
-  if (options.accounts == null) {
-    console.log("");
-    console.log("HD Wallet");
-    console.log("==================");
-    console.log("Mnemonic:      " + state.mnemonic);
-    console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}")
-  }
-
-  if (options.gasPrice) {
-    console.log("");
-    console.log("Gas Price");
-    console.log("==================");
-    console.log(options.gasPrice);
-  }
-
-  if (options.gasLimit) {
-    console.log("");
-    console.log("Gas Limit");
-    console.log("==================");
-    console.log(options.gasLimit);
-  }
-
-  if (options.callGasLimit) {
-    console.log("");
-    console.log("Call Gas Limit");
-    console.log("==================");
-    console.log(options.callGasLimit);
-  }
-
-  if (options.fork) {
-    console.log("");
-    console.log("Forked Chain");
-    console.log("==================");
-    console.log("Location:    " + fork_address);
-    console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
-    console.log("Network ID:  " + state.net_version);
-    console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
-  }
-
-  console.log("");
-  console.log("Listening on " + options.hostname + ":" + options.port);
-} catch (error) {
-  console.log(error);
-  return;
-}
-
-process.on('uncaughtException', function(e) {
-  console.log(e.stack);
   process.exit(1);
 })
 
@@ -231,3 +148,87 @@ const closeHandler = function () {
 process.on("SIGINT", closeHandler);
 process.on("SIGTERM", closeHandler);
 process.on("SIGHUP", closeHandler);
+
+const listen = deasync(server.listen);
+started = true;
+
+const result = listen(options.port, options.hostname);
+
+var state = result ? result : server.provider.manager.state;
+
+console.log("");
+console.log("Available Accounts");
+console.log("==================");
+
+var accounts = state.accounts;
+var addresses = Object.keys(accounts);
+var ethInWei = new BN("1000000000000000000");
+
+addresses.forEach(function(address, index) {
+  var balance = new BN(accounts[address].account.balance);
+  var strBalance = balance.divRound(ethInWei).toString();
+  var about = balance.mod(ethInWei).isZero() ? "" : "~";
+  var line = `(${index}) ${toChecksumAddress(address)} (${about}${strBalance} ETH)`;
+
+  if (state.isUnlocked(address) == false) {
+    line += " 🔒";
+  }
+
+  console.log(line);
+});
+
+console.log("");
+console.log("Private Keys");
+console.log("==================");
+
+addresses.forEach(function(address, index) {
+  console.log("(" + index + ") " + "0x" + accounts[address].secretKey.toString("hex"));
+});
+
+
+if (options.account_keys_path != null) {
+  console.log("");
+  console.log("Accounts and keys saved to " + options.account_keys_path);
+}
+
+if (options.accounts == null) {
+  console.log("");
+  console.log("HD Wallet");
+  console.log("==================");
+  console.log("Mnemonic:      " + state.mnemonic);
+  console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}")
+}
+
+if (options.gasPrice) {
+  console.log("");
+  console.log("Gas Price");
+  console.log("==================");
+  console.log(options.gasPrice);
+}
+
+if (options.gasLimit) {
+  console.log("");
+  console.log("Gas Limit");
+  console.log("==================");
+  console.log(options.gasLimit);
+}
+
+if (options.callGasLimit) {
+  console.log("");
+  console.log("Call Gas Limit");
+  console.log("==================");
+  console.log(options.callGasLimit);
+}
+
+if (options.fork) {
+  console.log("");
+  console.log("Forked Chain");
+  console.log("==================");
+  console.log("Location:    " + fork_address);
+  console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
+  console.log("Network ID:  " + state.net_version);
+  console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
+}
+
+console.log("");
+console.log("Listening on " + options.hostname + ":" + options.port);
