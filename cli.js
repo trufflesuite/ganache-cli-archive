@@ -208,7 +208,7 @@ if (process.platform === "win32") {
   });
 }
 
-process.on("SIGINT", function () {
+const closeHandler = function () {
   // graceful shutdown
   server.close(function(err) {
     if (err) {
@@ -216,4 +216,7 @@ process.on("SIGINT", function () {
     }
     process.exit();
   });
-});
+}
+
+process.on("SIGINT", closeHandler);
+process.on("SIGTERM", closeHandler);
