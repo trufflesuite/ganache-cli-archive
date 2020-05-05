@@ -216,10 +216,12 @@ const closeHandler = function () {
       // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
       // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
       // the process to exit before those additional writes to stdout can be performed.
-      process.stdout?._handle.setBlocking(true);
+      if(process.stdout._handle) process.stdout._handle.setBlocking(true);
       console.log(err.stack || err);
+      process.exit();
+    } else {
+      process.exit(0);
     }
-    process.exit(0);
   });
 }
 
