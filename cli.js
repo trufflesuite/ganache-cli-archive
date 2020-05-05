@@ -212,9 +212,14 @@ const closeHandler = function () {
   // graceful shutdown
   server.close(function(err) {
     if (err) {
+      // https://nodejs.org/api/process.html#process_process_exit_code
+      // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
+      // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
+      // the process to exit before those additional writes to stdout can be performed.
+      process.stdout?._handle.setBlocking(true);
       console.log(err.stack || err);
     }
-    process.exit();
+    process.exit(0);
   });
 }
 
