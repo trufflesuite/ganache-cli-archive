@@ -6,7 +6,12 @@ require('source-map-support').install();
 var yargs = require("yargs");
 var pkg = require("./package.json");
 var {toChecksumAddress, BN} = require("ethereumjs-util");
-var deasync = require("deasync");
+var deasync;
+try {
+  deasync = require("deasync");
+} catch(e) {
+  deasync = false;
+}
 var ganache;
 try {
   ganache = require("./lib");
@@ -149,86 +154,100 @@ process.on("SIGINT", closeHandler);
 process.on("SIGTERM", closeHandler);
 process.on("SIGHUP", closeHandler);
 
-const listen = deasync(server.listen);
-started = true;
+function startGanache(err, result) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  started = true;
+  var state = result ? result : server.provider.manager.state;
 
-const result = listen(options.port, options.hostname);
+  console.log("");
+  console.log("Available Accounts");
+  console.log("==================");
 
-var state = result ? result : server.provider.manager.state;
+  var accounts = state.accounts;
+  var addresses = Object.keys(accounts);
+  var ethInWei = new BN("1000000000000000000");
 
-console.log("");
-console.log("Available Accounts");
-console.log("==================");
+  addresses.forEach(function(address, index) {
+    var balance = new BN(accounts[address].account.balance);
+    var strBalance = balance.divRound(ethInWei).toString();
+    var about = balance.mod(ethInWei).isZero() ? "" : "~";
+    var line = `(${index}) ${toChecksumAddress(address)} (${about}${strBalance} ETH)`;
 
-var accounts = state.accounts;
-var addresses = Object.keys(accounts);
-var ethInWei = new BN("1000000000000000000");
+    if (state.isUnlocked(address) == false) {
+      line += " 🔒";
+    }
 
-addresses.forEach(function(address, index) {
-  var balance = new BN(accounts[address].account.balance);
-  var strBalance = balance.divRound(ethInWei).toString();
-  var about = balance.mod(ethInWei).isZero() ? "" : "~";
-  var line = `(${index}) ${toChecksumAddress(address)} (${about}${strBalance} ETH)`;
+    console.log(line);
+  });
 
-  if (state.isUnlocked(address) == false) {
-    line += " 🔒";
+  console.log("");
+  console.log("Private Keys");
+  console.log("==================");
+
+  addresses.forEach(function(address, index) {
+    console.log("(" + index + ") " + "0x" + accounts[address].secretKey.toString("hex"));
+  });
+
+
+  if (options.account_keys_path != null) {
+    console.log("");
+    console.log("Accounts and keys saved to " + options.account_keys_path);
   }
 
-  console.log(line);
-});
+  if (options.accounts == null) {
+    console.log("");
+    console.log("HD Wallet");
+    console.log("==================");
+    console.log("Mnemonic:      " + state.mnemonic);
+    console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}")
+  }
 
-console.log("");
-console.log("Private Keys");
-console.log("==================");
+  if (options.gasPrice) {
+    console.log("");
+    console.log("Gas Price");
+    console.log("==================");
+    console.log(options.gasPrice);
+  }
 
-addresses.forEach(function(address, index) {
-  console.log("(" + index + ") " + "0x" + accounts[address].secretKey.toString("hex"));
-});
+  if (options.gasLimit) {
+    console.log("");
+    console.log("Gas Limit");
+    console.log("==================");
+    console.log(options.gasLimit);
+  }
 
+  if (options.callGasLimit) {
+    console.log("");
+    console.log("Call Gas Limit");
+    console.log("==================");
+    console.log(options.callGasLimit);
+  }
 
-if (options.account_keys_path != null) {
+  if (options.fork) {
+    console.log("");
+    console.log("Forked Chain");
+    console.log("==================");
+    console.log("Location:    " + fork_address);
+    console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
+    console.log("Network ID:  " + state.net_version);
+    console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
+  }
+
   console.log("");
-  console.log("Accounts and keys saved to " + options.account_keys_path);
+  console.log("Listening on " + options.hostname + ":" + options.port);
 }
 
-if (options.accounts == null) {
-  console.log("");
-  console.log("HD Wallet");
-  console.log("==================");
-  console.log("Mnemonic:      " + state.mnemonic);
-  console.log("Base HD Path:  " + state.wallet_hdpath + "{account_index}")
+try {
+  if (deasync) {
+    const listen = deasync(server.listen);
+    const result = listen(options.port, options.hostname);
+    startGanache(null, result);
+  } else {
+    server.listen(options.port, options.hostname, startGanache);
+  }
+} catch (error) {
+  console.log(error);
 }
-
-if (options.gasPrice) {
-  console.log("");
-  console.log("Gas Price");
-  console.log("==================");
-  console.log(options.gasPrice);
-}
-
-if (options.gasLimit) {
-  console.log("");
-  console.log("Gas Limit");
-  console.log("==================");
-  console.log(options.gasLimit);
-}
-
-if (options.callGasLimit) {
-  console.log("");
-  console.log("Call Gas Limit");
-  console.log("==================");
-  console.log(options.callGasLimit);
-}
-
-if (options.fork) {
-  console.log("");
-  console.log("Forked Chain");
-  console.log("==================");
-  console.log("Location:    " + fork_address);
-  console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
-  console.log("Network ID:  " + state.net_version);
-  console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
-}
-
-console.log("");
-console.log("Listening on " + options.hostname + ":" + options.port);
