@@ -205,9 +205,6 @@ if (process.platform === "win32") {
   })
   .on("SIGINT", function () {
     process.emit("SIGINT");
-  })
-  .on("SIGHUP", function () {
-    process.emit("SIGHUP");
   });
 }
 
