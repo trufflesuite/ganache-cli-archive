@@ -6,12 +6,6 @@ require('source-map-support').install();
 var yargs = require("yargs");
 var pkg = require("./package.json");
 var {toChecksumAddress, BN} = require("ethereumjs-util");
-var deasync;
-try {
-  deasync = require("deasync");
-} catch(e) {
-  deasync = false;
-}
 var ganache;
 try {
   ganache = require("./lib");
@@ -27,6 +21,12 @@ var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganac
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
+var deasync;
+try {
+  deasync = argv.deasync ? require("deasync") : false;
+} catch(e) {
+  deasync = false;
+}
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -104,7 +104,8 @@ var options = {
   logger: logger,
   allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
   time: argv.t,
-  keepAliveTimeout: argv.keepAliveTimeout
+  keepAliveTimeout: argv.keepAliveTimeout,
+  deasync: argv.deasync
 }
 
 var fork_address;
