@@ -21,6 +21,12 @@ var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganac
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
+var deasync;
+try {
+  deasync = argv.deasync ? require("deasync") : false;
+} catch(e) {
+  deasync = false;
+}
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -106,12 +112,54 @@ var server = ganache.server(options);
 
 console.log(detailedVersion);
 
-server.listen(options.port, options.hostname, function(err, result) {
+let started = false;
+process.on("uncaughtException", function(e) {
+  if (started) {
+    console.log(e);
+  } else {
+    console.log(e.stack);
+  }
+  process.exit(1);
+})
+
+// See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
+if (process.platform === "win32") {
+  require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+  .on("SIGINT", function () {
+    process.emit("SIGINT");
+  });
+}
+
+const closeHandler = function () {
+  // graceful shutdown
+  server.close(function(err) {
+    if (err) {
+      // https://nodejs.org/api/process.html#process_process_exit_code
+      // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
+      // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
+      // the process to exit before those additional writes to stdout can be performed.
+      if(process.stdout._handle) process.stdout._handle.setBlocking(true);
+      console.log(err.stack || err);
+      process.exit();
+    } else {
+      process.exit(0);
+    }
+  });
+}
+
+process.on("SIGINT", closeHandler);
+process.on("SIGTERM", closeHandler);
+process.on("SIGHUP", closeHandler);
+
+function startGanache(err, result) {
   if (err) {
     console.log(err);
     return;
   }
-
+  started = true;
   var state = result ? result : server.provider.manager.state;
 
   console.log("");
@@ -190,41 +238,12 @@ server.listen(options.port, options.hostname, function(err, result) {
 
   console.log("");
   console.log("Listening on " + options.hostname + ":" + options.port);
-});
-
-process.on('uncaughtException', function(e) {
-  console.log(e.stack);
-  process.exit(1);
-})
-
-// See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
-if (process.platform === "win32") {
-  require("readline").createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
-  .on("SIGINT", function () {
-    process.emit("SIGINT");
-  });
 }
 
-const closeHandler = function () {
-  // graceful shutdown
-  server.close(function(err) {
-    if (err) {
-      // https://nodejs.org/api/process.html#process_process_exit_code
-      // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
-      // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
-      // the process to exit before those additional writes to stdout can be performed.
-      if(process.stdout._handle) process.stdout._handle.setBlocking(true);
-      console.log(err.stack || err);
-      process.exit();
-    } else {
-      process.exit(0);
-    }
-  });
+if (deasync) {
+  const listen = deasync(server.listen);
+  const result = listen(options.port, options.hostname);
+  startGanache(null, result);
+} else {
+  server.listen(options.port, options.hostname, startGanache);
 }
-
-process.on("SIGINT", closeHandler);
-process.on("SIGTERM", closeHandler);
-process.on("SIGHUP", closeHandler);
