@@ -208,12 +208,23 @@ if (process.platform === "win32") {
   });
 }
 
-process.on("SIGINT", function () {
+const closeHandler = function () {
   // graceful shutdown
   server.close(function(err) {
     if (err) {
+      // https://nodejs.org/api/process.html#process_process_exit_code
+      // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
+      // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
+      // the process to exit before those additional writes to stdout can be performed.
+      if(process.stdout._handle) process.stdout._handle.setBlocking(true);
       console.log(err.stack || err);
+      process.exit();
+    } else {
+      process.exit(0);
     }
-    process.exit();
   });
-});
+}
+
+process.on("SIGINT", closeHandler);
+process.on("SIGTERM", closeHandler);
+process.on("SIGHUP", closeHandler);
