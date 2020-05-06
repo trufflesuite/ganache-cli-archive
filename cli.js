@@ -240,14 +240,10 @@ function startGanache(err, result) {
   console.log("Listening on " + options.hostname + ":" + options.port);
 }
 
-try {
-  if (deasync) {
-    const listen = deasync(server.listen);
-    const result = listen(options.port, options.hostname);
-    startGanache(null, result);
-  } else {
-    server.listen(options.port, options.hostname, startGanache);
-  }
-} catch (error) {
-  console.log(error);
+if (deasync) {
+  const listen = deasync(server.listen);
+  const result = listen(options.port, options.hostname);
+  startGanache(null, result);
+} else {
+  server.listen(options.port, options.hostname, startGanache);
 }
