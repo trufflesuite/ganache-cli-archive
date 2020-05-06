@@ -205,6 +205,9 @@ if (process.platform === "win32") {
   })
   .on("SIGINT", function () {
     process.emit("SIGINT");
+  })
+  .on("SIGHUP", function () {
+    process.emit("SIGHUP");
   });
 }
 
@@ -227,3 +230,4 @@ const closeHandler = function () {
 
 process.on("SIGINT", closeHandler);
 process.on("SIGTERM", closeHandler);
+process.on("SIGHUP", closeHandler);
