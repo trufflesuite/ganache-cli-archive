@@ -104,8 +104,7 @@ var options = {
   logger: logger,
   allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
   time: argv.t,
-  keepAliveTimeout: argv.keepAliveTimeout,
-  deasync: argv.deasync
+  keepAliveTimeout: argv.keepAliveTimeout
 }
 
 var fork_address;
