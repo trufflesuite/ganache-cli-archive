@@ -11,6 +11,11 @@
     "docker": "docker build -t trufflesuite/ganache-cli . && docker run -p 8545:8545 trufflesuite/ganache-cli",
     "prepublishOnly": "npm run build"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "dependencies": {
     "ethereumjs-util": "6.1.0",
     "source-map-support": "0.5.12",
@@ -22,7 +27,10 @@
     "ethereumjs-util"
   ],
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "ganache-core": "2.10.2",
+    "husky": "^4.2.5",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
