@@ -3,8 +3,6 @@ name: ganache-cli CD
 on:
   push:
     branches: [ master, beta ]
-  pull_request:
-    branches: [ master, beta, develop ]
 
 jobs:
   release:
