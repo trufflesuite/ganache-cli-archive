@@ -45,8 +45,9 @@
   "license": "MIT",
   "release": {
     "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
       "master",
-      "beta"
+      {"name": "beta", "prerelease": true}
     ]
   }
 }
