@@ -77,6 +77,7 @@ $ ganache-cli <options>
 * `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
 * `--keepAliveTimeout`: Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
 * `-t` or `--time`: Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.
+* `--deasync`:  `boolean` Synchronizes ganache server startup. Useful in certain scenarios - see ganache-cli issue [#733](https://github.com/trufflesuite/ganache-cli/issues/733).
 
 Special Options:
 
@@ -168,7 +169,6 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"gasLimit"`: `String::hex | number` Sets the block gas limit. Must be specified as a `hex` string or `number`. Defaults to `"0x6691b7"`.
 * `"callGasLimit"`: `number` Sets the transaction gas limit for `eth_call` and `eth_estimateGas` calls. Must be specified as a `hex` string. Defaults to `"0x1fffffffffffff"` (`Number.MAX_SAFE_INTEGER`).
 * `"keepAliveTimeout"`:  `number` If using `.server()` - Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
-* `"deasync"`:  `boolean` Synchronizes ganache server startup. Useful in certain scenarios - see ganache-cli issue [#733](https://github.com/trufflesuite/ganache-cli/issues/733).
 
 ## Implemented Methods
 
