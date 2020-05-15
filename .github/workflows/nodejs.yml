@@ -1,0 +1,20 @@
+name: ganache-cli CD
+
+on:
+  push:
+    branches: [ master, beta ]
+
+jobs:
+  release:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10'
+    - run: npm ci
+    - name: Release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
+      run: npx semantic-release
