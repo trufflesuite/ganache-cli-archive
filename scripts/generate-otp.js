@@ -1,3 +1,6 @@
+const EOL = require("os").EOL;
+const path = require("path");
+const fs = require("fs");
 // we want to generate a TOTP in the _future_, and the `notp`
 // library doesn't let us do that unless we set `NODE_ENV = "test"`
 process.env.NODE_ENV = "test";
@@ -12,4 +15,6 @@ const timeOffset = 5000;
 const now = Date.now();
 const time = now + timeOffset;
 // _t is the time at which we want the OTP to be valid for
-console.log(notp.totp.gen(bin, {_t: time}));
+const otp = notp.totp.gen(bin, {_t: time});
+
+fs.appendFileSync(path.join(__dirname, "..", ".npmrc"), `${EOL}otp=${otp}`);
