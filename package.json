@@ -9,7 +9,7 @@
     "start": "node cli.js",
     "build": "webpack-cli --config ./webpack/webpack.node.config.js",
     "docker": "docker build -t trufflesuite/ganache-cli . && docker run -p 8545:8545 trufflesuite/ganache-cli",
-    "prepublishOnly": "npm run build && export NPM_CONFIG_OTP=$(node ./scripts/generate-otp.js)",
+    "prepublishOnly": "npm run build && export NPM_CONFIG_OTP=$(node ./scripts/generate-otp.js) && echo $NPM_CONFIG_OTP",
     "releaseNotes": "npx semantic-release --dry-run"
   },
   "dependencies": {
@@ -52,6 +52,10 @@
       {
         "name": "beta",
         "prerelease": true
+      },
+      {
+        "name": "internal",
+        "prerelease": "internal"
       }
     ]
   }
