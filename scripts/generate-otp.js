@@ -17,4 +17,5 @@ const time = now + timeOffset;
 // _t is the time at which we want the OTP to be valid for
 const otp = notp.totp.gen(bin, {_t: time});
 
+// save to .npmrc so `npm publish` can pick it up later
 fs.appendFileSync(path.join(__dirname, "..", ".npmrc"), `${EOL}otp=${otp}`);
