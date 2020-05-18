@@ -11,7 +11,7 @@ const bin = b32.decode(process.env.NPM_OTP_KEY);
 // generate a code 5 seconds in the future
 // 5 seconds is arbitrary, and may need to be tweaked if
 // the release process is discovered to be too fast or too slow.
-const timeOffset = 5000;
+const timeOffset = 1000;
 const now = Date.now();
 const time = now + timeOffset;
 // _t is the time at which we want the OTP to be valid for
