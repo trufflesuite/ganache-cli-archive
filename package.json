@@ -23,6 +23,7 @@
     "ethereumjs-util"
   ],
   "devDependencies": {
+    "2fa": "0.1.2",
     "ganache-core": "2.10.2",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
@@ -47,7 +48,10 @@
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",
       "master",
-      {"name": "beta", "prerelease": true}
+      {
+        "name": "beta",
+        "prerelease": true
+      }
     ]
   }
 }
