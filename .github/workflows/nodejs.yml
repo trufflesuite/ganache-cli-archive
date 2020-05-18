@@ -18,4 +18,4 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
         NPM_OTP_KEY: ${{ secrets.NPM_OTP_KEY }}
-      run: export NPM_CONFIG_OTP=$(node scripts/release.js) && npx semantic-release
+      run: npx semantic-release
