@@ -17,4 +17,5 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
-      run: npx semantic-release
+        NPM_OTP_KEY: ${{ secrets.NPM_OTP_KEY }}
+      run: export NPM_CONFIG_OTP=$(node scripts/release.js) && npx semantic-release
