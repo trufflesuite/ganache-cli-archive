@@ -70,8 +70,8 @@ module.exports = exports = function(yargs, version, isDocker) {
       group: 'Chain:',
       alias: 'hardfork',
       type: 'string',
-      describe: "Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, `petersburg` (default), and `istanbul` (beta).",
-      default: "istanbul"
+      describe: "Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, `petersburg`, `istanbul` and `muirGlacier` (default).",
+      default: "muirGlacier"
     })
     .option('f', {
       group: 'Chain:',
@@ -95,6 +95,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       defaultDescription: "Random value, unless -d is specified",
       conflicts: 'd',
       demandOption: false
+    })
+    .option('hdPath', {
+        group: 'Accounts:',
+        alias: 'hd_path',
+        describe: `The hierarchical deterministic path to use when generating accounts. Default: "m/44'/60'/0'/0/"`,
+        type: 'string',
+        demandOption: false
     })
     .option('d', {
       group: 'Chain:',
@@ -195,6 +202,12 @@ module.exports = exports = function(yargs, version, isDocker) {
       group: 'Other:',
       alias: 'quiet',
       describe: 'Run ganache quietly (no logs)',
+      type: 'boolean',
+      default: false
+    })
+    .option('deasync', {
+      group: 'Other::',
+      describe: 'Synchronize ganache server startup. Useful in certain scenarios (see ganache-cli issue #733).',
       type: 'boolean',
       default: false
     })
