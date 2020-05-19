@@ -2,7 +2,7 @@ name: ganache-cli CD
 
 on:
   push:
-    branches: [ master, beta, internal ]
+    branches: [ master, beta ]
 
 jobs:
   release:

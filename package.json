@@ -52,10 +52,6 @@
       {
         "name": "beta",
         "prerelease": true
-      },
-      {
-        "name": "internal",
-        "prerelease": "internal"
       }
     ]
   }
