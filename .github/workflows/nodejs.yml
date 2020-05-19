@@ -12,10 +12,13 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '10'
-    - run: npm ci
+    - name: Install
+      run: npm ci
+    - name: Build
+      run: npm run build
     - name: Release
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
         NPM_OTP_KEY: ${{ secrets.NPM_OTP_KEY }}
-      run: npx semantic-release
+      run: npm run otp && npx semantic-release
