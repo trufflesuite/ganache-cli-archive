@@ -13,8 +13,6 @@ try {
   ganache = require("./build/ganache-core.node.cli.js");
 }
 var to = ganache.to;
-var URL = require("url");
-var fs = require("fs");
 var initArgs = require("./args")
 
 var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
