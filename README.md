@@ -1,3 +1,11 @@
+# GODMODE Ganache CLI
+
+Just a wrapper for the GODMODE Ganache Core
+
+For ETHGlobal Hack The Money Hackathon
+
+---
+
 <p align="center">
   <em>NOTICE</em>: <code>testrpc</code> is now <code>ganache-cli</code>. Use it just as you would <code>testrpc</code>.
 </p>
