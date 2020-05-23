@@ -3,22 +3,93 @@
 // make sourcemaps work!
 require('source-map-support').install();
 
-var yargs = require("yargs");
-var pkg = require("./package.json");
-var {toChecksumAddress, BN} = require("ethereumjs-util");
 var ganache;
 try {
   ganache = require("./lib");
 } catch(e) {
   ganache = require("./build/ganache-core.node.cli.js");
 }
-var to = ganache.to;
-var initArgs = require("./args")
 
+let server;
+let started = false;
+process.on("uncaughtException", function(e) {
+  if (started) {
+    console.log(e);
+  } else {
+    console.log(e.stack);
+  }
+  process.exit(1);
+})
+
+// See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
+if (process.platform === "win32") {
+  require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+  .on("SIGINT", function () {
+    process.emit("SIGINT");
+  });
+}
+
+const closeHandler = function () {
+  // graceful shutdown
+  server.close(function(err) {
+    if (err) {
+      // https://nodejs.org/api/process.html#process_process_exit_code
+      // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
+      // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
+      // the process to exit before those additional writes to stdout can be performed.
+      if(process.stdout._handle) process.stdout._handle.setBlocking(true);
+      console.log(err.stack || err);
+      process.exit();
+    } else {
+      process.exit(0);
+    }
+  });
+}
+
+process.on("SIGINT", closeHandler);
+process.on("SIGTERM", closeHandler);
+process.on("SIGHUP", closeHandler);
+
+var yargs = require("yargs");
+var pkg = require("./package.json");
+var {toChecksumAddress, BN} = require("ethereumjs-util");
 var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
+
+var initArgs = require("./args")
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
+if (argv.flavor === "tezos") {
+  console.log(detailedVersion);
+
+  ganache = require("../ganache-core-copy/lib/tezos/flextesa.js");
+  try {
+    ganache.close();
+  } catch(e){
+
+  }
+  const promise = ganache.start({port: argv.port, seed: argv.seed, accounts: argv.accounts});
+  promise.then((flextesa) => {
+    started = true;
+    server = flextesa;
+
+    console.log("");
+    console.log("Listening on " + argv.hostname + ":" + argv.port);
+
+    flextesa.on("close", (code) =>{
+      process.exit(code)
+    })
+  });
+  return;
+} else if (argv.flavor !== "ethereum") {
+  throw new Error("Valid flavors are \"ethereum\" or \"tezos\".");
+}
+
+var to = ganache.to;
+
 var deasync;
 try {
   deasync = argv.deasync ? require("deasync") : false;
@@ -106,51 +177,9 @@ var options = {
 }
 
 var fork_address;
-var server = ganache.server(options);
+server = ganache.server(options);
 
 console.log(detailedVersion);
-
-let started = false;
-process.on("uncaughtException", function(e) {
-  if (started) {
-    console.log(e);
-  } else {
-    console.log(e.stack);
-  }
-  process.exit(1);
-})
-
-// See http://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js
-if (process.platform === "win32") {
-  require("readline").createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
-  .on("SIGINT", function () {
-    process.emit("SIGINT");
-  });
-}
-
-const closeHandler = function () {
-  // graceful shutdown
-  server.close(function(err) {
-    if (err) {
-      // https://nodejs.org/api/process.html#process_process_exit_code
-      // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
-      // multiple ticks of the Node.js event loop. Calling process.exit(), however, forces
-      // the process to exit before those additional writes to stdout can be performed.
-      if(process.stdout._handle) process.stdout._handle.setBlocking(true);
-      console.log(err.stack || err);
-      process.exit();
-    } else {
-      process.exit(0);
-    }
-  });
-}
-
-process.on("SIGINT", closeHandler);
-process.on("SIGTERM", closeHandler);
-process.on("SIGHUP", closeHandler);
 
 function startGanache(err, result) {
   if (err) {

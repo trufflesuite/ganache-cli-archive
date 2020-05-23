@@ -1,6 +1,11 @@
 module.exports = exports = function(yargs, version, isDocker) {
   return yargs
     .strict()
+    .option("flavor", {
+      describe: "Ethereum or Tezos flavored ganache",
+      choices: ["ethereum", "tezos"],
+      default: "ethereum"
+    })
     .option('p', {
       group: 'Network:',
       alias: 'port',
