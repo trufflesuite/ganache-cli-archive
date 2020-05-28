@@ -57,6 +57,7 @@ var yargs = require("yargs");
 var pkg = require("./package.json");
 var {toChecksumAddress, BN} = require("ethereumjs-util");
 var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
+const { promisify } = require("util");
 
 var initArgs = require("./args")
 
@@ -65,16 +66,9 @@ var argv = initArgs(yargs, detailedVersion, isDocker).argv;
 if (argv.flavor === "tezos") {
   console.log(detailedVersion);
 
-  ganache = require("../ganache-core-copy/lib/tezos/flextesa.js");
-  try {
-    ganache.close();
-  } catch(e){
-
-  }
-  const promise = ganache.start({port: argv.port, seed: argv.seed, accounts: argv.accounts});
-  promise.then((flextesa) => {
+  const server = ganache.server({flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, logger: console});
+  promisify(server.listen.bind(server))(argv.port).then((flextesa) => {
     started = true;
-    server = flextesa;
 
     console.log("");
     console.log("Listening on " + argv.hostname + ":" + argv.port);
@@ -82,6 +76,8 @@ if (argv.flavor === "tezos") {
     flextesa.on("close", (code) =>{
       process.exit(code)
     })
+  }).catch(e => {
+    throw e;
   });
   return;
 } else if (argv.flavor !== "ethereum") {

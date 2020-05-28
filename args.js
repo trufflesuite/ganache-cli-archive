@@ -7,12 +7,14 @@ module.exports = exports = function(yargs, version, isDocker) {
       default: "ethereum"
     })
     .option('p', {
-      group: 'Network:',
-      alias: 'port',
-      type: 'number',
-      default: 8545,
-      describe: 'Port number to listen on'
-    })
+        group: 'Network:',
+        alias: 'port',
+        type: 'number',
+        describe: 'Port number to listen on',
+        default: () => {
+          return yargs.strict(false).option("flavor", {default: "ethereum"}).parse(process.argv).flavor === "tezos" ? 8732 : 8545;
+        }
+      })
     .option('h', {
       group: 'Network:',
       alias: ['host', 'hostname'],
