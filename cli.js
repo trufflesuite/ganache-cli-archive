@@ -67,11 +67,11 @@ if (argv.flavor === "tezos") {
   console.log(detailedVersion);
 
   const server = ganache.server({flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, logger: console});
-  promisify(server.listen.bind(server))(argv.port).then((flextesa) => {
+  promisify(server.listen.bind(server))(argv.port, argv.host).then((flextesa) => {
     started = true;
 
     console.log("");
-    console.log("Listening on " + argv.hostname + ":" + argv.port);
+    console.log("Listening on " + argv.host + ":" + argv.port);
 
     flextesa.on("close", (code) =>{
       process.exit(code)
