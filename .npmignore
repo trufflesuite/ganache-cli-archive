@@ -10,4 +10,3 @@ webpack
 .dockerignore
 Dockerfile
 ISSUE_TEMPLATE.md
-lib.js
