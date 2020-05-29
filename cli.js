@@ -66,7 +66,12 @@ var argv = initArgs(yargs, detailedVersion, isDocker).argv;
 if (argv.flavor === "tezos") {
   console.log(detailedVersion);
 
-  const server = ganache.server({flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, logger: console});
+  // if the deterministic flag is set, use "tim" as the seed.
+  if (argv.d) {
+    argv.seed = "tim";
+  }
+
+  const server = ganache.server({defaultBalance: argv.defaultBalance, flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, logger: console});
   promisify(server.listen.bind(server))(argv.port, argv.host).then((flextesa) => {
     started = true;
 

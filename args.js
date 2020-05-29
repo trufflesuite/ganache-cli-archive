@@ -1,4 +1,13 @@
+
 module.exports = exports = function(yargs, version, isDocker) {
+  const getFlavor = () => {
+    return yargs
+        .strict(false)
+        .showHelpOnFail(false)
+        .help(false)
+        .option("flavor", {default: "ethereum"})
+        .parse(process.argv).flavor;
+  }
   return yargs
     .strict()
     .option("flavor", {
@@ -12,7 +21,7 @@ module.exports = exports = function(yargs, version, isDocker) {
         type: 'number',
         describe: 'Port number to listen on',
         default: () => {
-          return yargs.strict(false).option("flavor", {default: "ethereum"}).parse(process.argv).flavor === "tezos" ? 8732 : 8545;
+          return getFlavor() === "tezos" ? 8732 : 8545
         }
       })
     .option('h', {
@@ -37,8 +46,8 @@ module.exports = exports = function(yargs, version, isDocker) {
     })
     .option('e', {
       group: 'Accounts:',
-      alias: 'defaultBalanceEther',
-      describe: 'Amount of ether to assign each test account',
+      alias: ['defaultBalanceEther', 'defaultBalance', 'defaultBalanceTez'],
+      describe: 'Amount of value to assign each test account',
       type: 'number',
       default: 100.0
     })
