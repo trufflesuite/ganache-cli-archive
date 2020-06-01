@@ -34,7 +34,7 @@ if (process.platform === "win32") {
 
 const closeHandler = function () {
   // graceful shutdown
-  server.close(function(err) {
+  server && server.close(function(err) {
     if (err) {
       // https://nodejs.org/api/process.html#process_process_exit_code
       // writes to process.stdout in Node.js are sometimes asynchronous and may occur over
@@ -71,7 +71,7 @@ if (argv.flavor === "tezos") {
     argv.seed = "tim";
   }
 
-  const server = ganache.server({defaultBalance: argv.defaultBalance, flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, logger: console});
+  server = ganache.server({defaultBalance: argv.defaultBalance, flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, logger: console});
   promisify(server.listen.bind(server))(argv.port, argv.host).then((flextesa) => {
     started = true;
 
