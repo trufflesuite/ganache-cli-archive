@@ -149,7 +149,7 @@ const provider = new ethers.providers.Web3Provider(ganache.provider());
 
 Both `.provider()` and `.server()` take a single object which allows you to specify behavior of ganache-cli. This parameter is optional. Available options are:
 
- ### Ethereum and Tezos
+### Ethereum and Tezos
 
 * `"flavor"`: The blockchain technology to simulate. Valid values are `"ethereum"` or `"tezos"`. Default is `"ethereum"`.
 * `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
@@ -157,9 +157,11 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"port"`: `number` Port number to listen on when running as a server. Default port 8545 (ethereum), 8732 (tezos).
 * `"seed"`: Use arbitrary data to generate accounts to be used.
 
- ### Ethereum
+### Ethereum
 
-* `"accounts"`: `Array` of `Object`'s. Each object should have a `balance` key with a hexadecimal value. The key `secretKey` can also be specified, which represents the account's private key. If no `secretKey`, the address is auto-generated with the given balance. If specified, the key is used to determine the account's address.
+* `"accounts"`: `Array` of `Object`'s of the following shape: `{ secretKey: privateKey, balance: HexString }`.
+  * If `secretKey` is specified, the key is used to determine the account's address. Otherwise, the address is auto-generated.
+  * The `balance` is a hexadecimal value of the amount of Ether (in Wei) you want the account to be pre-loaded with.
 * `"blockTime"`: `number` - Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `blockTime` option is discouraged unless you have tests which require a specific mining interval.
 * `"debug"`: `boolean` - Output VM opcodes for debugging
 * `"default_balance_ether"`: `number` - The default account balance, specified in Ether.
