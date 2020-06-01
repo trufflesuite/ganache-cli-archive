@@ -12,9 +12,11 @@
 </p>
 
 ## Welcome to Ganache CLI
-Ganache CLI, part of the Truffle suite of Ethereum development tools, is the command line version of [Ganache](https://github.com/trufflesuite/ganache), your personal blockchain for Ethereum development.
+Ganache CLI, part of the Truffle suite of blockchain development tools, is the command line version of [Ganache](https://github.com/trufflesuite/ganache), your personal blockchain for Ethereum development.
 
 Ganache CLI uses ethereumjs to simulate full client behavior and make developing Ethereum applications faster, easier, and safer. It also includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
+
+For Tezos networks, Ganache CLI uses Flextesa to make developing Tezos applications faster, easier, and safer.
 
 ### Looking for TestRPC?
 
@@ -22,7 +24,7 @@ If you came here expecting to find the TestRPC, you're in the right place! Truff
 
 ## Installation
 
-`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
+`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v10.7.0) installed.
 
 Using npm:
 
@@ -36,8 +38,6 @@ or, if you are using [Yarn](https://yarnpkg.com/):
 yarn global add ganache-cli
 ```
 
-`ganache-cli` utilizes [`ganache-core`](https://github.com/trufflesuite/ganache-core) internally, which is distributed with optional native dependencies for increased performance. If these native dependencies fail to install on your system `ganache-cli` will automatically fallback to `ganache-core`’s pre-bundled JavaScript build.
-
 Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/ganache-cli/wiki/FAQ) and if you're still having issues and you're sure its a problem with `ganache-cli` please open an issue.
 
 ### Using Ganache CLI
@@ -50,15 +50,22 @@ $ ganache-cli <options>
 
 ## Options:
 
+### Ethereum and Tezos
+
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
-* `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is 100.
-* `-b` or `--blockTime`: Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the --blockTime flag is discouraged unless you have tests which require a specific mining interval.
+* `-e` or `--defaultBalacne` (alias: `--defaultBalanceEther`): Amount of ether/tezos to assign each test account. Default is 100.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
-* `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
-* `-m` or `--mnemonic`: Use a bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation.
+* `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
 * `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1 (defaults to 0.0.0.0 for Docker instances of ganache-cli).
-* `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
+* `-?` or `--help`: Display help information
+* `--version`: Display the version of ganache-cli
+
+### Ethereum only
+
+* `-b` or `--blockTime`: Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the --blockTime flag is discouraged unless you have tests which require a specific mining interval.
+* `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing)
+* `-m` or `--mnemonic`: Use a bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation.
 * `-g` or `--gasPrice`: The price of gas in wei (defaults to 20000000000)
 * `-l` or `--gasLimit`: The block gas limit (defaults to 0x6691b7)
 * `--callGasLimit`: Sets the transaction gas limit for `eth_call` and `eth_estimateGas` calls. Must be specified as a `hex` string. Defaults to `"0x1fffffffffffff"` (`Number.MAX_SAFE_INTEGER`)
@@ -70,8 +77,6 @@ $ ganache-cli <options>
 * `--mem`: Output ganache-cli memory usage statistics. This replaces normal output.
 * `-q` or `--quiet`: Run ganache-cli without any logs.
 * `-v` or `--verbose`: Log all requests and responses to stdout
-* `-?` or `--help`: Display help information
-* `--version`: Display the version of ganache-cli
 * `--account_keys_path` or `--acctKeys`: Specifies a file to save accounts and private keys to, for testing.
 * `--noVMErrorsOnRPCResponse`: Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
 * `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
@@ -79,7 +84,7 @@ $ ganache-cli <options>
 * `-t` or `--time`: Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.
 * `--deasync`:  `boolean` Synchronizes ganache server startup. Useful in certain scenarios - see ganache-cli issue [#733](https://github.com/trufflesuite/ganache-cli/issues/733).
 
-Special Options:
+Special Ethereum Options:
 
 * `--account`: Specify `--account=...` (no 's') any number of times passing arbitrary private keys and their associated balances to generate initial addresses:
 
@@ -107,6 +112,16 @@ Special Options:
 
 ## Usage
 
+As a general HTTP and WebSocket server:
+
+```javascript
+const ganache = require("ganache-cli");
+const server = ganache.server();
+server.listen(port, function(err, blockchain) {...});
+```
+
+### Ethereum:
+
 As a [Web3](https://github.com/ethereum/web3.js/) provider:
 
 ```javascript
@@ -130,27 +145,25 @@ const ganache = require("ganache-cli");
 const provider = new ethers.providers.Web3Provider(ganache.provider());
 ```
 
-As a general HTTP and WebSocket server:
-
-```javascript
-const ganache = require("ganache-cli");
-const server = ganache.server();
-server.listen(port, function(err, blockchain) {...});
-```
-
 ## Options
 
 Both `.provider()` and `.server()` take a single object which allows you to specify behavior of ganache-cli. This parameter is optional. Available options are:
 
-* `"accounts"`: `Array` of `Object`'s. Each object should have a `balance` key with a hexadecimal value. The key `secretKey` can also be specified, which represents the account's private key. If no `secretKey`, the address is auto-generated with the given balance. If specified, the key is used to determine the account's address.
-* `"debug"`: `boolean` - Output VM opcodes for debugging
-* `"blockTime"`: `number` - Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `blockTime` option is discouraged unless you have tests which require a specific mining interval.
+ ### Ethereum and Tezos
+
+* `"flavor"`: The blockchain technology to simulate. Valid values are `"ethereum"` or `"tezos"`. Default is `"ethereum"`.
 * `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
-* `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
-* `"port"`: `number` Port number to listen on when running as a server.
-* `"seed"`: Use arbitrary data to generate the HD wallet mnemonic to be used.
-* `"default_balance_ether"`: `number` - The default account balance, specified in ether.
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
+* `"port"`: `number` Port number to listen on when running as a server. Default port 8545 (ethereum), 8732 (tezos).
+* `"seed"`: Use arbitrary data to generate accounts to be used.
+
+ ### Ethereum
+
+* `"accounts"`: `Array` of `Object`'s. Each object should have a `balance` key with a hexadecimal value. The key `secretKey` can also be specified, which represents the account's private key. If no `secretKey`, the address is auto-generated with the given balance. If specified, the key is used to determine the account's address.
+* `"blockTime"`: `number` - Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `blockTime` option is discouraged unless you have tests which require a specific mining interval.
+* `"debug"`: `boolean` - Output VM opcodes for debugging
+* `"default_balance_ether"`: `number` - The default account balance, specified in Ether.
+* `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
 * `"fork"`: `string` or `object` - Fork from another currently running Ethereum client at a given block.  When a `string`, input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`. Can also be a `Web3 Provider` object, optionally used in conjunction with the `fork_block_number` option below.
 * `"fork_block_number"`: `string` or `number` - Block number the provider should fork from, when the `fork` option is specified. If the `fork` option is specified as a string including the `@` sign and a block number, the block number in the `fork` parameter takes precedence.
 * `"network_id"`: Specify the network id ganache-core will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
@@ -170,7 +183,11 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"callGasLimit"`: `number` Sets the transaction gas limit for `eth_call` and `eth_estimateGas` calls. Must be specified as a `hex` string. Defaults to `"0x1fffffffffffff"` (`Number.MAX_SAFE_INTEGER`).
 * `"keepAliveTimeout"`:  `number` If using `.server()` - Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
 
-## Implemented Methods
+### Tezos
+
+ * `"defaultBalance"`: `number` - The default account balance, specified in Tez.
+
+## Ethereum, Implemented Methods
 
 The RPC methods currently implemented are:
 
@@ -230,7 +247,7 @@ The RPC methods currently implemented are:
 * [personal_lockAccount](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_lockAccount)
 * [personal_listAccounts](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_listaccounts)
 
-## Custom Methods
+## Ethereum, Custom Methods
 
 Special non-standard methods that aren’t included within the original RPC specification:
 * `evm_snapshot` : Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created. A snapshot can only be used once. After a successful `evm_revert`, the same snapshot id cannot be used again. Consider creating a new snapshot after each `evm_revert` *if you need to revert to the same point multiple times*.
@@ -274,7 +291,7 @@ Special non-standard methods that aren’t included within the original RPC spec
   { "id": 1337, "jsonrpc": "2.0", "result": "0x0" }
   ```
 
-## Unsupported Methods
+## Ethereum, Unsupported Methods
 
 * `eth_compileSolidity`: If you'd like Solidity compilation in Javascript, please see the [solc-js project](https://github.com/ethereum/solc-js).
 
