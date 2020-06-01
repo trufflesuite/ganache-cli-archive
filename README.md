@@ -53,7 +53,7 @@ $ ganache-cli <options>
 ### Ethereum and Tezos
 
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
-* `-e` or `--defaultBalacne` (alias: `--defaultBalanceEther`): Amount of ether/tezos to assign each test account. Default is 100.
+* `-e` or `--defaultBalance` (alias: `--defaultBalanceEther`): Amount of Ether/Tez to assign each test account. Default is 100.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 * `-s` or `--seed`: Use arbitrary data to generate accounts to be used.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
