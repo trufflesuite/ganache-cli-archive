@@ -55,7 +55,7 @@ $ ganache-cli <options>
 * `-a` or `--accounts`: Specify the number of accounts to generate at startup.
 * `-e` or `--defaultBalacne` (alias: `--defaultBalanceEther`): Amount of ether/tezos to assign each test account. Default is 100.
 * `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
-* `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
+* `-s` or `--seed`: Use arbitrary data to generate accounts to be used.
 * `-p` or `--port`: Port number to listen on. Defaults to 8545.
 * `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1 (defaults to 0.0.0.0 for Docker instances of ganache-cli).
 * `-?` or `--help`: Display help information
