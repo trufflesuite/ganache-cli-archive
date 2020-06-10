@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "ethereumjs-util": "6.1.0",
+    "ganache-core": "2.11.0-tezos.2",
     "source-map-support": "0.5.12",
-    "yargs": "13.2.4",
-    "ganache-core": "2.11.0-tezos.1"
+    "yargs": "13.2.4"
   },
   "bundleDependencies": [
     "source-map-support",
