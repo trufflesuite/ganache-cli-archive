@@ -77,7 +77,6 @@ $ ganache-cli <options>
 * `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
 * `--keepAliveTimeout`: Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
 * `-t` or `--time`: Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.
-* `--deasync`:  `boolean` Synchronizes ganache server startup. Useful in certain scenarios - see ganache-cli issue [#733](https://github.com/trufflesuite/ganache-cli/issues/733).
 
 Special Options:
 

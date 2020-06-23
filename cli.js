@@ -19,12 +19,6 @@ var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganac
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
-var deasync;
-try {
-  deasync = argv.deasync ? require("deasync") : false;
-} catch(e) {
-  deasync = false;
-}
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -238,10 +232,4 @@ function startGanache(err, result) {
   console.log("Listening on " + options.hostname + ":" + options.port);
 }
 
-if (deasync) {
-  const listen = deasync(server.listen);
-  const result = listen(options.port, options.hostname);
-  startGanache(null, result);
-} else {
-  server.listen(options.port, options.hostname, startGanache);
-}
+server.listen(options.port, options.hostname, startGanache);
