@@ -99,7 +99,6 @@ var options = {
   keepAliveTimeout: argv.keepAliveTimeout
 }
 
-var fork_address;
 var server = ganache.server(options);
 
 console.log(detailedVersion);
@@ -222,7 +221,7 @@ function startGanache(err, result) {
     console.log("");
     console.log("Forked Chain");
     console.log("==================");
-    console.log("Location:    " + fork_address);
+    console.log("Location:    " + state.blockchain.options.fork);
     console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
     console.log("Network ID:  " + state.net_version);
     console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
