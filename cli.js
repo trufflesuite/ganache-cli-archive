@@ -85,6 +85,7 @@ var options = {
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
   fork: argv.f,
+  forkCacheSize: argv.forkCacheSize,
   hardfork: argv.k,
   network_id: argv.i,
   verbose: argv.v,
@@ -221,10 +222,17 @@ function startGanache(err, result) {
     console.log("");
     console.log("Forked Chain");
     console.log("==================");
-    console.log("Location:    " + state.blockchain.options.fork);
-    console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
-    console.log("Network ID:  " + state.net_version);
-    console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
+    console.log("Location:       " + state.blockchain.options.fork);
+    console.log("Block:          " + to.number(state.blockchain.forkBlockNumber));
+    console.log("Network ID:     " + state.net_version);
+    console.log("Time:           " + (state.blockchain.startTime || new Date()).toString());
+    let maxCacheSize;
+    if (options.forkCacheSize === -1) {
+      maxCacheSize = "∞";
+    } else {
+      maxCacheSize = options.forkCacheSize + " bytes";
+    }
+    console.log("Max Cache Size: " + maxCacheSize);
   }
 
   console.log("");
