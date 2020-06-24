@@ -205,12 +205,6 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'boolean',
       default: false
     })
-    .option('deasync', {
-      group: 'Other::',
-      describe: 'Synchronize ganache server startup. Useful in certain scenarios (see ganache-cli issue #733).',
-      type: 'boolean',
-      default: false
-    })
     .showHelpOnFail(false, 'Specify -? or --help for available options')
     .help('help')
     .alias('help', '?')
