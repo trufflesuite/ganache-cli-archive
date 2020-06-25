@@ -13,20 +13,12 @@ try {
   ganache = require("./build/ganache-core.node.cli.js");
 }
 var to = ganache.to;
-var URL = require("url");
-var fs = require("fs");
 var initArgs = require("./args")
 
 var detailedVersion = "Ganache CLI v" + pkg.version + " (ganache-core: " + ganache.version + ")";
 
 var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true";
 var argv = initArgs(yargs, detailedVersion, isDocker).argv;
-var deasync;
-try {
-  deasync = argv.deasync ? require("deasync") : false;
-} catch(e) {
-  deasync = false;
-}
 
 function parseAccounts(accounts) {
   function splitAccount(account) {
@@ -93,6 +85,7 @@ var options = {
   accounts: parseAccounts(argv.account),
   unlocked_accounts: argv.unlock,
   fork: argv.f,
+  forkCacheSize: argv.forkCacheSize,
   hardfork: argv.k,
   network_id: argv.i,
   verbose: argv.v,
@@ -107,7 +100,6 @@ var options = {
   keepAliveTimeout: argv.keepAliveTimeout
 }
 
-var fork_address;
 var server = ganache.server(options);
 
 console.log(detailedVersion);
@@ -230,20 +222,21 @@ function startGanache(err, result) {
     console.log("");
     console.log("Forked Chain");
     console.log("==================");
-    console.log("Location:    " + fork_address);
-    console.log("Block:       " + to.number(state.blockchain.forkBlockNumber));
-    console.log("Network ID:  " + state.net_version);
-    console.log("Time:        " + (state.blockchain.startTime || new Date()).toString());
+    console.log("Location:       " + state.blockchain.options.fork);
+    console.log("Block:          " + to.number(state.blockchain.forkBlockNumber));
+    console.log("Network ID:     " + state.net_version);
+    console.log("Time:           " + (state.blockchain.startTime || new Date()).toString());
+    let maxCacheSize;
+    if (options.forkCacheSize === -1) {
+      maxCacheSize = "∞";
+    } else {
+      maxCacheSize = options.forkCacheSize + " bytes";
+    }
+    console.log("Max Cache Size: " + maxCacheSize);
   }
 
   console.log("");
   console.log("Listening on " + options.hostname + ":" + options.port);
 }
 
-if (deasync) {
-  const listen = deasync(server.listen);
-  const result = listen(options.port, options.hostname);
-  startGanache(null, result);
-} else {
-  server.listen(options.port, options.hostname, startGanache);
-}
+server.listen(options.port, options.hostname, startGanache);
