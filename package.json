@@ -23,6 +23,7 @@
     "ethereumjs-util"
   ],
   "devDependencies": {
+    "@semantic-release/git": "^9.0.0",
     "ganache-core": "2.11.0-beta.0",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
@@ -53,6 +54,19 @@
         "name": "beta",
         "prerelease": true
       }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "package-lock.json",
+            "npm-shrinkwrap.json"
+          ],
+          "message": "${nextRelease.version}\n\n${nextRelease.notes}"
+        }
+      ]
     ]
   }
 }
