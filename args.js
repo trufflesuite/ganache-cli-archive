@@ -80,6 +80,12 @@ module.exports = exports = function(yargs, version, isDocker) {
       describe: "Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. 'http://localhost:8545' or optionally provide a block number 'http://localhost:8545@1599200'",
       default: false
     })
+    .option('forkCacheSize', {
+      group: 'Chain:',
+      type: 'number',
+      describe: "The maximum size, in bytes, of the in-memory cache for queries on a chain fork. Defaults to `1_073_741_824` bytes (1 gigabyte). You can set this to `0` to disable caching (not recommended), or to `-1` for unlimited (will be limited by your node process).",
+      default: 1073741824
+    })
     .option('db', {
       group: 'Chain:',
       describe: 'Directory of chain database; creates one if it doesn\'t exist',

@@ -22,7 +22,7 @@ If you came here expecting to find the TestRPC, you're in the right place! Truff
 
 ## Installation
 
-`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
+`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v8) installed.
 
 Using npm:
 
@@ -64,6 +64,7 @@ $ ganache-cli <options>
 * `--callGasLimit`: Sets the transaction gas limit for `eth_call` and `eth_estimateGas` calls. Must be specified as a `hex` string. Defaults to `"0x1fffffffffffff"` (`Number.MAX_SAFE_INTEGER`)
 * `-k` or `--hardfork`: Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, `petersburg`, `istanbul`, and `muirGlacier` (default).
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
+* `forkCacheSize`: `number` - The maximum size, in bytes, of the in-memory cache for queries on a chain fork. Defaults to `1_073_741_824` bytes (1 gigabyte). You can set this to `0` to disable caching (not recommended), or to `-1` for unlimited (will be limited by your node process).
 * `-i` or `--networkId`: Specify the network id ganache-cli will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, ganache-cli will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
@@ -152,6 +153,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 * `"total_accounts"`: `number` - Number of accounts to generate at startup.
 * `"fork"`: `string` or `object` - Fork from another currently running Ethereum client at a given block.  When a `string`, input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`. Can also be a `Web3 Provider` object, optionally used in conjunction with the `fork_block_number` option below.
 * `"fork_block_number"`: `string` or `number` - Block number the provider should fork from, when the `fork` option is specified. If the `fork` option is specified as a string including the `@` sign and a block number, the block number in the `fork` parameter takes precedence.
+`forkCacheSize`: `number` - The maximum size, in bytes, of the in-memory cache for queries on a chain fork. Defaults to `1_073_741_824` bytes (1 gigabyte). You can set this to `0` to disable caching (not recommended), or to `-1` for unlimited (will be limited by your node/browser process).
 * `"network_id"`: Specify the network id ganache-core will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
 * `"time"`: `Date` - Date that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
 * `"locked"`: `boolean` - whether or not accounts are locked by default.
