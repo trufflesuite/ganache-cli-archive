@@ -22,7 +22,7 @@ If you came here expecting to find the TestRPC, you're in the right place! Truff
 
 ## Installation
 
-`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v6.11.5) installed.
+`ganache-cli` is written in JavaScript and distributed as a Node.js package via `npm`. Make sure you have Node.js (>= v8) installed.
 
 Using npm:
 
