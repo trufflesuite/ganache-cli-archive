@@ -56,6 +56,9 @@
       }
     ],
     "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/github",
+      "@semantic-release/npm",
       [
         "@semantic-release/git",
         {
@@ -66,7 +69,8 @@
           ],
           "message": "${nextRelease.version}\n\n${nextRelease.notes}"
         }
-      ]
+      ],
+      "@semantic-release/release-notes-generator"
     ]
   }
 }
