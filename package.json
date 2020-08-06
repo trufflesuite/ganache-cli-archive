@@ -8,7 +8,7 @@
   "scripts": {
     "update": "npm update ganache-core",
     "start": "node cli.js",
-    "start-fork": "node cli.js --fork https://mainnet.infura.io/v3/9f47dabfca244ac6929d530866ebba99  -m 'luxury visual dentist trumpet banana immune that charge baby board finger pet'",
+    "start-fork": "node cli.js --fork https://mainnet.infura.io/v3/[yourInfuraKey]  -m 'luxury visual dentist trumpet banana immune that charge baby board finger pet' -u '0xb7f993e0b314148e02c105badb12b02b1143e704'",
     "build": "webpack-cli --config ./webpack/webpack.node.config.js",
     "docker": "docker build -t trufflesuite/ganache-cli . && docker run -p 8545:8545 trufflesuite/ganache-cli",
     "prepublishOnly": "npm run build"
@@ -24,7 +24,7 @@
     "ethereumjs-util"
   ],
   "devDependencies": {
-    "ganache-core": "git+https://github.com/martinetlee/ganache-core.git#HTM-core",
+    "ganache-core": "git+https://github.com/martinetlee/ganache-core.git#HTM-fix-compound",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
