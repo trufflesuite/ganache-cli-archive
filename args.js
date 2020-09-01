@@ -211,6 +211,12 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'boolean',
       default: false
     })
+    .option('ui', {
+      group: 'Other:',
+      describe: 'Enable UI interface',
+      type: 'boolean',
+      default: false
+    })
     .showHelpOnFail(false, 'Specify -? or --help for available options')
     .help('help')
     .alias('help', '?')
