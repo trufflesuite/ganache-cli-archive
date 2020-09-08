@@ -13,7 +13,7 @@
     "releaseNotes": "npx semantic-release --dry-run"
   },
   "dependencies": {
-    "ethereumjs-util": "6.1.0",
+    "ethereumjs-util": "6.2.1",
     "source-map-support": "0.5.12",
     "yargs": "13.2.4"
   },
