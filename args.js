@@ -37,6 +37,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       default: 5000,
       describe: 'The number of milliseconds of inactivity a server needs to wait for additional incoming data, after it has finished writing the last response, before a socket will be destroyed.'
     })
+    .option('gbh', {
+      group: 'Network:',
+      alias: 'genesisBlockHash',
+      type: 'string',
+      demandOption: false,
+      describe: 'The chain_id is computed from the hash of the Genesis block.'
+    })
     .option('a', {
       group: 'Accounts:',
       alias: 'accounts',

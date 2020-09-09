@@ -188,6 +188,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 ### Tezos
 
  * `"defaultBalance"`: `number` - The default account balance, specified in Tez.
+ * `--gbh` or `--genesisBlockHash` -  Specifies the hash of the genesis block from which the chain_id is computed. Default is random.
 
 ## Ethereum, Implemented Methods
 
