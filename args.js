@@ -146,6 +146,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       defaultDescription: "System time at process start or Network ID of forked blockchain if configured.",
       demandOption: false
     })
+    .option('chainId', {
+      group: 'Chain:',
+      type: 'number',
+      describe: "The Chain ID ganache-cli will use for `eth_chainId` RPC and the `CHAINID` opcode.",
+      defaultDescription: "For legacy reasons, the default is currently `1337` for `eth_chainId` RPC and `1` for the `CHAINID` opcode. This will be fixed in the next major version of ganache-cli and ganache-core!",
+      demandOption: false
+    })
     .option('g', {
       group: 'Chain:',
       alias: 'gasPrice',
