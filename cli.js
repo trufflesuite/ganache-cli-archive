@@ -97,7 +97,10 @@ var options = {
   logger: logger,
   allowUnlimitedContractSize: argv.allowUnlimitedContractSize,
   time: argv.t,
-  keepAliveTimeout: argv.keepAliveTimeout
+  keepAliveTimeout: argv.keepAliveTimeout,
+  _chainId: argv.chainId,
+  // gross!
+  _chainIdRpc: argv.chainId
 }
 
 var server = ganache.server(options);
