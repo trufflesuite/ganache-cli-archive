@@ -66,6 +66,7 @@ $ ganache-cli <options>
 * `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
 * `forkCacheSize`: `number` - The maximum size, in bytes, of the in-memory cache for queries on a chain fork. Defaults to `1_073_741_824` bytes (1 gigabyte). You can set this to `0` to disable caching (not recommended), or to `-1` for unlimited (will be limited by your node process).
 * `-i` or `--networkId`: Specify the network id ganache-cli will use to identify itself (defaults to the current time or the network id of the forked blockchain if configured)
+* `--chainId`: Specify the Chain ID ganache-cli will use for `eth_chainId` RPC and the `CHAINID` opcode. For legacy reasons, the default is currently `1337` for `eth_chainId` RPC and `1` for the `CHAINID` opcode. Setting this flag will align the chainId values. This will be fixed in the next major version of ganache-cli and ganache-core!
 * `--db`: Specify a path to a directory to save the chain database. If a database already exists, ganache-cli will initialize that chain instead of creating a new one.
 * `--debug`: Output VM opcodes for debugging
 * `--mem`: Output ganache-cli memory usage statistics. This replaces normal output.
