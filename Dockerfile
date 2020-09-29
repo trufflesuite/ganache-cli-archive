@@ -12,8 +12,6 @@ FROM mhart/alpine-node:10 as runtime
 
 WORKDIR /app
 
-COPY --from=builder "/app/node_modules/scrypt/build/Release" "./node_modules/scrypt/build/Release/"
-COPY --from=builder "/app/node_modules/sha3/build/Release" "./node_modules/sha3/build/Release/"
 COPY --from=builder "/app/build/ganache-core.docker.cli.js" "./ganache-core.docker.cli.js"
 COPY --from=builder "/app/build/ganache-core.docker.cli.js.map" "./ganache-core.docker.cli.js.map"
 
