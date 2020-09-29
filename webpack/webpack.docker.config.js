@@ -21,16 +21,11 @@ module.exports = {
       {
         test: /\.js$/,
         use: "shebang-loader"
-      },
-      {
-        test: /(scrypt|\.node)$/,
-        use: "node-loader"
       }
     ]
   },
   resolve: {
     alias: {
-      "./build/Release/scrypt": "./build/Release/scrypt.node",
       "./build/ganache-core.node.cli.js": "./lib.js"
     }
   },
