@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:10 as builder
+FROM mhart/alpine-node:14 as builder
 
 RUN apk add --no-cache make gcc g++ python git bash
 COPY package.json /app/package.json
@@ -8,7 +8,7 @@ RUN npm install
 COPY . .
 RUN npx webpack-cli --config ./webpack/webpack.docker.config.js
 
-FROM mhart/alpine-node:10 as runtime
+FROM mhart/alpine-node:14 as runtime
 
 WORKDIR /app
 
