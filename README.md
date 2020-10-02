@@ -309,22 +309,22 @@ returned by `eth_accounts` cannot be locked using this method; use `personal_unl
 The Simplest way to get started with the Docker image:
 
 ```Bash
-docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest
+docker run --detach --publish 8545:8545 trufflesuite/ganache-cli:latest
 ```
 
 To pass options to ganache-cli through Docker simply add the arguments to
 the run command:
 
 ```Bash
-docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -a 10 --debug
-                                                           ^^^^^^^^^^^^^
+docker run --detach --publish 8545:8545 trufflesuite/ganache-cli:latest --accounts 10 --debug
+                                                                        ^^^^^^^^^^^^^^^^^^^^^
 ```
 
 The Docker container adds an environment variable `DOCKER=true`; when this variable is set to `true` (case insensitive), `ganache-cli` use a default hostname IP of `0.0.0.0` instead of the normal default `127.0.0.1`. You can still specify a custom hostname however:
 
 ```Bash
-docker run -d -p 8545:8545 trufflesuite/ganache-cli:latest -h XXX.XXX.XXX.XXX
-                                                           ^^^^^^^^^^^^^^^^^^
+docker run --detach --publish 8545:8545 trufflesuite/ganache-cli:latest --host XXX.XXX.XXX.XXX
+                                                                        ^^^^^^^^^^^^^^^^^^^^^^
 ```
 
 To build and run the Docker container from source:
@@ -334,8 +334,8 @@ git clone https://github.com/trufflesuite/ganache-cli.git && cd ganache-cli
 ```
 then:
 ```Bash
-docker build -t trufflesuite/ganache-cli .
-docker run -p 8545:8545 trufflesuite/ganache-cli
+docker build --tag trufflesuite/ganache-cli .
+docker run --publish 8545:8545 trufflesuite/ganache-cli
 ```
 or
 ```Bash
