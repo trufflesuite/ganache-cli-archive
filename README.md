@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/trufflesuite/ganache-cli)
+
 <p align="center">
   <em>NOTICE</em>: <code>testrpc</code> is now <code>ganache-cli</code>. Use it just as you would <code>testrpc</code>.
 </p>
