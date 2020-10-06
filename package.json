@@ -24,7 +24,7 @@
   ],
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
-    "ganache-core": "2.13.0-alpha.2",
+    "ganache-core": "2.13.0-beta.0",
     "node-loader": "^0.6.0",
     "notp": "2.0.3",
     "on-build-webpack": "^0.1.0",
