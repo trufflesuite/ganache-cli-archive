@@ -33,7 +33,7 @@
     "shebang-loader": "0.0.1",
     "thirty-two": "1.0.2",
     "webpack": "4.43.0",
-    "webpack-cli": "3.1.0"
+    "webpack-cli": "3.3.12"
   },
   "repository": {
     "type": "git",
