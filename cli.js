@@ -71,7 +71,15 @@ if (argv.flavor === "tezos") {
     argv.seed = "tim";
   }
 
-  server = ganache.server({defaultBalance: argv.defaultBalance, flavor: argv.flavor, seed: argv.seed, accounts: argv.accounts, genesisBlockHash: argv.genesisBlockHash, logger: console});
+  server = ganache.server({
+    defaultBalance: argv.defaultBalance,
+    flavor: argv.flavor,
+    seed: argv.seed,
+    accounts: argv.accounts,
+    genesisBlockHash: argv.genesisBlockHash,
+    protocol: argv.hardfork,
+    logger: console,
+  });
   promisify(server.listen.bind(server))(argv.port, argv.host).then((flextesa) => {
     started = true;
 
