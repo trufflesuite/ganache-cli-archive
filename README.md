@@ -276,7 +276,7 @@ Special non-standard methods that aren’t included within the original RPC spec
   { "id": 1337, "jsonrpc": "2.0", "result": "0x0" }
   ```
 * `evm_unlockUnknownAccount` : Unlocks any unknown account. Accounts known to the `personal` namespace and accounts
-returned by `eth_accounts` cannot be unlocked using this method; use `personal_lockAccount` instead.
+returned by `eth_accounts` cannot be unlocked using this method; use `personal_unlockAccount` instead.
   ```bash
   # Ex: account: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
   curl -H "Content-Type: application/json" -X POST --data \
@@ -288,7 +288,7 @@ returned by `eth_accounts` cannot be unlocked using this method; use `personal_l
   { "id": 1337, "jsonrpc": "2.0", "result": true }
   ```
 * `evm_lockUnknownAccount` : Locks any unknown account. Accounts known to the `personal` namespace and accounts
-returned by `eth_accounts` cannot be locked using this method; use `personal_unlockAccount` instead.
+returned by `eth_accounts` cannot be locked using this method; use `personal_lockAccount` instead.
   ```bash
   # Ex: account: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
   curl -H "Content-Type: application/json" -X POST --data \
