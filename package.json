@@ -1,43 +1,74 @@
 {
-  "name": "ganache-cli",
-  "version": "6.9.1",
-  "bin": {
-    "ganache-cli": "cli.js"
-  },
-  "main": "./build/ganache-core.node.cli.js",
-  "scripts": {
-    "update": "npm update ganache-core",
-    "start": "node cli.js",
-    "start-fork": "node cli.js --fork https://mainnet.infura.io/v3/[yourInfuraKey]  -m 'luxury visual dentist trumpet banana immune that charge baby board finger pet' -u '0xb7f993e0b314148e02c105badb12b02b1143e704'",
-    "build": "webpack-cli --config ./webpack/webpack.node.config.js",
-    "docker": "docker build -t trufflesuite/ganache-cli . && docker run -p 8545:8545 trufflesuite/ganache-cli",
-    "prepublishOnly": "npm run build"
-  },
-  "dependencies": {
-    "ethereumjs-util": "6.1.0",
-    "source-map-support": "0.5.12",
-    "yargs": "13.2.4"
-  },
-  "bundleDependencies": [
-    "source-map-support",
-    "yargs",
-    "ethereumjs-util"
-  ],
-  "devDependencies": {
-    "ganache-core": "git+https://github.com/martinetlee/ganache-core.git#HTM-fix-compound",
-    "js-scrypt": "0.2.0",
-    "node-loader": "^0.6.0",
-    "on-build-webpack": "^0.1.0",
-    "prepend-file": "^1.3.1",
-    "scrypt": "6.0.3",
-    "sha3": "1.2.2",
-    "shebang-loader": "0.0.1",
-    "webpack": "^4.18.0",
-    "webpack-cli": "3.1.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trufflesuite/ganache-cli"
-  },
-  "license": "MIT"
+	"name": "ganache-cli",
+	"version": "6.12.1",
+	"bin": {
+		"ganache-cli": "cli.js"
+	},
+	"main": "./build/ganache-core.node.cli.js",
+	"scripts": {
+		"start": "node cli.js",
+		"build": "webpack-cli --config ./webpack/webpack.node.config.js",
+		"docker": "docker build -t trufflesuite/ganache-cli . && docker run -p 8545:8545 trufflesuite/ganache-cli",
+		"otp": "node ./scripts/generate-otp.js",
+		"releaseNotes": "npx semantic-release --dry-run"
+	},
+	"dependencies": {
+		"ethereumjs-util": "6.2.1",
+		"source-map-support": "0.5.12",
+		"yargs": "13.2.4"
+	},
+	"bundleDependencies": [
+		"source-map-support",
+		"yargs",
+		"ethereumjs-util"
+	],
+	"devDependencies": {
+		"@semantic-release/git": "^9.0.0",
+		"ganache-core": "https://github.com/martinetlee/ganache-core#HTM-core",
+		"node-loader": "^0.6.0",
+		"notp": "2.0.3",
+		"on-build-webpack": "^0.1.0",
+		"prepend-file": "^1.3.1",
+		"semantic-release": "^17.1.1",
+		"shebang-loader": "0.0.1",
+		"thirty-two": "1.0.2",
+		"webpack": "4.43.0",
+		"webpack-cli": "3.3.12"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/trufflesuite/ganache-cli"
+	},
+	"license": "MIT",
+	"release": {
+		"branches": [
+			"+([0-9])?(.{+([0-9]),x}).x",
+			"master",
+			{
+				"name": "beta",
+				"prerelease": true
+			},
+			{
+				"name": "alpha",
+				"prerelease": true
+			}
+		],
+		"plugins": [
+			"@semantic-release/commit-analyzer",
+			"@semantic-release/github",
+			"@semantic-release/npm",
+			[
+				"@semantic-release/git",
+				{
+					"assets": [
+						"package.json",
+						"package-lock.json",
+						"npm-shrinkwrap.json"
+					],
+					"message": "${nextRelease.version}\n\n${nextRelease.notes}"
+				}
+			],
+			"@semantic-release/release-notes-generator"
+		]
+	}
 }

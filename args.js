@@ -80,6 +80,12 @@ module.exports = exports = function(yargs, version, isDocker) {
       describe: "Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. 'http://localhost:8545' or optionally provide a block number 'http://localhost:8545@1599200'",
       default: false
     })
+    .option('forkCacheSize', {
+      group: 'Chain:',
+      type: 'number',
+      describe: "The maximum size, in bytes, of the in-memory cache for queries on a chain fork. Defaults to `1_073_741_824` bytes (1 gigabyte). You can set this to `0` to disable caching (not recommended), or to `-1` for unlimited (will be limited by your node process).",
+      default: 1073741824
+    })
     .option('db', {
       group: 'Chain:',
       describe: 'Directory of chain database; creates one if it doesn\'t exist',
@@ -138,6 +144,13 @@ module.exports = exports = function(yargs, version, isDocker) {
       type: 'number',
       describe: "The Network ID ganache-cli will use to identify itself.",
       defaultDescription: "System time at process start or Network ID of forked blockchain if configured.",
+      demandOption: false
+    })
+    .option('chainId', {
+      group: 'Chain:',
+      type: 'number',
+      describe: "The Chain ID ganache-cli will use for `eth_chainId` RPC and the `CHAINID` opcode.",
+      defaultDescription: "For legacy reasons, the default is currently `1337` for `eth_chainId` RPC and `1` for the `CHAINID` opcode. This will be fixed in the next major version of ganache-cli and ganache-core!",
       demandOption: false
     })
     .option('g', {
