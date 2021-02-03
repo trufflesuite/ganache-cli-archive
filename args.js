@@ -93,7 +93,7 @@ module.exports = exports = function(yargs, version, isDocker) {
       group: 'Chain:',
       alias: 'hardfork',
       type: 'string',
-      describe: "Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, `petersburg`, `istanbul` and `muirGlacier` (default).",
+      describe: "Allows users to specify which hardfork should be used. Supported Ethereum hardforks are `byzantium`, `constantinople`, `petersburg`, `istanbul` and `muirGlacier` (default). And for Tezos `carthage`, `edo`, and `delphi` (default)",
       default: "muirGlacier"
     })
     .option('f', {
