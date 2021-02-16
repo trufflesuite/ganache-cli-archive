@@ -1,6 +1,6 @@
 {
   "name": "ganache-cli",
-  "version": "6.12.0-tezos.0",
+  "version": "6.12.1-tezos.0",
   "bin": {
     "ganache-cli": "cli.js"
   },
