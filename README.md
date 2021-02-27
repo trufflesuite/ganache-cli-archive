@@ -52,16 +52,16 @@ $ ganache-cli <options>
 ## Options:
 
 - `-a` or `--accounts`: Specify the number of accounts to generate at startup.
-- `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is 100.
-- `-b` or `--blockTime`: Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the --blockTime flag is discouraged unless you have tests which require a specific mining interval.
+- `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is `100`.
+- `-b` or `--blockTime`: Specify `blockTime` in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `--blockTime` flag is discouraged unless you have tests which require a specific mining interval.
 - `-d` or `--deterministic`: Generate deterministic addresses based on a pre-defined mnemonic.
 - `-n` or `--secure`: Lock available accounts by default (good for third party transaction signing).
 - `-m` or `--mnemonic`: Use a bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation.
-- `-p` or `--port`: Port number to listen on. Defaults to 8545.
-- `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to 127.0.0.1 (defaults to 0.0.0.0 for Docker instances of ganache-cli).
+- `-p` or `--port`: Port number to listen on. Defaults to `8545`.
+- `-h` or `--host` or `--hostname`: Hostname to listen on. Defaults to `127.0.0.1` (defaults to `0.0.0.0` for Docker instances of ganache-cli).
 - `-s` or `--seed`: Use arbitrary data to generate the HD wallet mnemonic to be used.
-- `-g` or `--gasPrice`: The price of gas in wei (defaults to 20000000000).
-- `-l` or `--gasLimit`: The block gas limit (defaults to 0x6691b7).
+- `-g` or `--gasPrice`: The price of gas in wei (defaults to `20000000000`).
+- `-l` or `--gasLimit`: The block gas limit (defaults to `"0x6691b7"`).
 - `--callGasLimit`: Sets the transaction gas limit for `eth_call` and `eth_estimateGas` calls. Must be specified as a `hex` string. Defaults to `"0x1fffffffffffff"` (`Number.MAX_SAFE_INTEGER`).
 - `-k` or `--hardfork`: Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, `petersburg`, `istanbul`, and `muirGlacier` (default).
 - `-f` or `--fork`: Fork from another currently running Ethereum client at a given block. Input should be the HTTP location and port of the other client, e.g. `http://localhost:8545`. You can optionally specify the block to fork from using an `@` sign: `http://localhost:8545@1599200`.
@@ -77,9 +77,9 @@ $ ganache-cli <options>
 - `--version`: Display the version of ganache-cli.
 - `--account_keys_path` or `--acctKeys`: Specifies a file to save accounts and private keys to, for testing.
 - `--noVMErrorsOnRPCResponse`: Do not transmit transaction failures as RPC errors. Enable this flag for error reporting behaviour which is compatible with other clients such as geth and Parity.
-- `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see EIP-170) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
+- `--allowUnlimitedContractSize`: Allows unlimited contract sizes while debugging. By enabling this flag, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Enabling this flag **will** cause ganache-cli to behave differently than production environments.
 - `--keepAliveTimeout`: Sets the HTTP server's `keepAliveTimeout` in milliseconds. See the [NodeJS HTTP docs](https://nodejs.org/api/http.html#http_server_keepalivetimeout) for details. `5000` by default.
-- `-t` or `--time`: Date (ISO 8601) that the first block should start. Use this feature, along with the evm_increaseTime method to test time-dependent code.
+- `-t` or `--time`: Date (ISO 8601) that the first block should start. Use this feature, along with the `evm_increaseTime` method to test time-dependent code.
 
 Special Options:
 
@@ -150,7 +150,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 
 - `"accounts"`: `Array` of `Object`'s. Each object should have a `balance` key with a hexadecimal value. The key `secretKey` can also be specified, which represents the account's private key. If no `secretKey`, the address is auto-generated with the given balance. If specified, the key is used to determine the account's address.
 - `"debug"`: `boolean` - Output VM opcodes for debugging.
-- `"blockTime"`: `number` - Specify blockTime in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `blockTime` option is discouraged unless you have tests which require a specific mining interval.
+- `"blockTime"`: `number` - Specify `blockTime` in seconds for automatic mining. If you don't specify this flag, ganache will instantly mine a new block for every transaction. Using the `blockTime` option is discouraged unless you have tests which require a specific mining interval.
 - `"logger"`: `Object` - Object, like `console`, that implements a `log()` function.
 - `"mnemonic"`: Use a specific HD wallet mnemonic to generate initial addresses.
 - `"port"`: `number` Port number to listen on when running as a server.
@@ -169,7 +169,7 @@ Both `.provider()` and `.server()` take a single object which allows you to spec
 - `"ws"`: `boolean` Enable a websocket server. This is `true` by default.
 - `"account_keys_path"`: `String` - Specifies a file to save accounts and private keys to, for testing.
 - `"vmErrorsOnRPCResponse"`: `boolean` - Whether or not to transmit transaction failures as RPC errors. Set to `false` for error reporting behaviour which is compatible with other clients such as geth and Parity. This is `true` by default to replicate the error reporting behavior of previous versions of ganache.
-- `"hdPath"`: The hierarchical deterministic path to use when generating accounts. Default: "m/44'/60'/0'/0/".
+- `"hdPath"`: The hierarchical deterministic path to use when generating accounts. Default: `"m/44'/60'/0'/0/"`.
 - `"hardfork"`: `String` Allows users to specify which hardfork should be used. Supported hardforks are `byzantium`, `constantinople`, `petersburg`, `istanbul`, and `muirGlacier` (default).
 - `"allowUnlimitedContractSize"`: `boolean` - Allows unlimited contract sizes while debugging (NOTE: this setting is often used in conjuction with an increased `gasLimit`). By setting this to `true`, the check within the EVM for contract size limit of 24KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. Setting this to `true` **will** cause `ganache-cli` to behave differently than production environments. (default: `false`; **ONLY** set to `true` during debugging).
 - `"gasPrice"`: `String::hex` Sets the default gas price for transactions if not otherwise specified. Must be specified as a `hex` encoded string in `wei`. Defaults to `"0x77359400"` (2 `gwei`).
