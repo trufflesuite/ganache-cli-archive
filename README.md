@@ -243,36 +243,60 @@ The RPC methods currently implemented are:
 
 Special non-standard methods that aren’t included within the original RPC specification:
 
-- `evm_snapshot` : Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created. A snapshot can only be used once. After a successful `evm_revert`, the same snapshot id cannot be used again. Consider creating a new snapshot after each `evm_revert` _if you need to revert to the same point multiple times_.
+- [evm_snapshot](#evm_snapshot)
+- [evm_revert](#evm_revert)
+- [evm_increaseTime](#evm_increaseTime)
+- [evm_mine](#evm_mine)
+- [evm_unlockUnknownAccount](#evm_unlockUnknownAccount)
+- [evm_lockUnknownAccount](#evm_lockUnknownAccount)
+
+#### `evm_snapshot`
+
+Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created. A snapshot can only be used once. After a successful `evm_revert`, the same snapshot id cannot be used again. Consider creating a new snapshot after each `evm_revert` _if you need to revert to the same point multiple times_.
+
   ```bash
   curl -H "Content-Type: application/json" -X POST --data \
           '{"id":1337,"jsonrpc":"2.0","method":"evm_snapshot","params":[]}' \
           http://localhost:8545
   ```
+
   ```json
   { "id": 1337, "jsonrpc": "2.0", "result": "0x1" }
   ```
-- `evm_revert` : Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. This deletes the given snapshot, as well as any snapshots taken after (Ex: reverting to id `0x1` will delete snapshots with ids `0x1`, `0x2`, `etc`... If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
+
+#### `evm_revert`
+
+Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. This deletes the given snapshot, as well as any snapshots taken after (Ex: reverting to id `0x1` will delete snapshots with ids `0x1`, `0x2`, `etc`... If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
+
   ```bash
   # Ex: ID "1" (hex encoded string)
   curl -H "Content-Type: application/json" -X POST --data \
           '{"id":1337,"jsonrpc":"2.0","method":"evm_revert","params":["0x1"]}' \
           http://localhost:8545
   ```
+
   ```json
   { "id": 1337, "jsonrpc": "2.0", "result": true }
   ```
-- `evm_increaseTime` : Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
+
+#### `evm_increaseTime`
+
+Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
+
   ```bash
   # Ex: 1 minute (number)
   curl -H "Content-Type: application/json" -X POST --data \
           '{"id":1337,"jsonrpc":"2.0","method":"evm_increaseTime","params":[60]}' \
           http://localhost:8545
   ```
+
   ```json
   { "id": 1337, "jsonrpc": "2.0", "result": "060" }
   ```
-- `evm_mine` : Force a block to be mined. Takes one optional parameter, which is the timestamp a block should setup as the mining time. Mines a block independent of whether or not mining is started or stopped.
+
+#### `evm_mine`
+
+Force a block to be mined. Takes one optional parameter, which is the timestamp a block should setup as the mining time. Mines a block independent of whether or not mining is started or stopped.
 
   ```bash
   # Ex: new Date("2009-01-03T18:15:05+00:00").getTime()
@@ -285,7 +309,9 @@ Special non-standard methods that aren’t included within the original RPC spec
   { "id": 1337, "jsonrpc": "2.0", "result": "0x0" }
   ```
 
-- `evm_unlockUnknownAccount` : Unlocks any unknown account. Accounts known to the `personal` namespace and accounts
+#### `evm_unlockUnknownAccount`
+
+Unlocks any unknown account. Accounts known to the `personal` namespace and accounts
   returned by `eth_accounts` cannot be unlocked using this method; use `personal_unlockAccount` instead.
 
   ```bash
@@ -299,7 +325,9 @@ Special non-standard methods that aren’t included within the original RPC spec
   { "id": 1337, "jsonrpc": "2.0", "result": true }
   ```
 
-- `evm_lockUnknownAccount` : Locks any unknown account. Accounts known to the `personal` namespace and accounts
+#### `evm_lockUnknownAccount`
+
+Locks any unknown account. Accounts known to the `personal` namespace and accounts
   returned by `eth_accounts` cannot be locked using this method; use `personal_lockAccount` instead.
 
   ```bash
