@@ -109,7 +109,9 @@ Special Options:
 
 ## Usage
 
-As a [Web3](https://github.com/ethereum/web3.js/) provider:
+Ganache can be used as a [Web3 provider](#as-a-web3-provider), an [ethers provider](#as-an-ethersjs-provider), or as a [general HTTP and WebSocket server](#as-a-general-http-and-websocket-server).
+
+#### As a [Web3](https://github.com/ethereum/web3.js/) provider:
 
 ```javascript
 const ganache = require("ganache-core");
@@ -129,14 +131,14 @@ NOTE: depending on your web3 version, you may need to set a number of confirmati
 const web3 = new Web3(provider, null, { transactionConfirmationBlocks: 1 });
 ```
 
-As an [ethers.js](https://github.com/ethers-io/ethers.js/) provider:
+#### As an [ethers.js](https://github.com/ethers-io/ethers.js/) provider:
 
 ```javascript
 const ganache = require("ganache-cli");
 const provider = new ethers.providers.Web3Provider(ganache.provider());
 ```
 
-As a general HTTP and WebSocket server:
+#### As a general HTTP and WebSocket server:
 
 ```javascript
 const ganache = require("ganache-cli");
