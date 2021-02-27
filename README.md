@@ -11,6 +11,14 @@
   <img src="https://github.com/trufflesuite/ganache-cli/raw/develop/resources/icons/ganache-cli-128x128.png">
 </p>
 
+<p align="center">
+  <a href="#installation">Installation</a> •
+  <a href="#using-ganache-cli">Using Ganache CLI</a> •
+  <a href="#using-ganache-as-a-provider-or-server">Using Ganache as a Provider or Server</a> •
+  <a href="#implemented-methods">Implemented RPC Methods</a> •
+  <a href="#contributing-to-ganache-cli">Contributing</a> •
+</p>
+
 ## Welcome to Ganache CLI
 
 Ganache CLI, part of the Truffle suite of Ethereum development tools, is the command line version of [Ganache](https://github.com/trufflesuite/ganache), your personal blockchain for Ethereum development.
@@ -41,7 +49,7 @@ yarn global add ganache-cli
 
 Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/ganache-cli/wiki/FAQ) and if you're still having issues and you're sure its a problem with `ganache-cli` please open an issue.
 
-### Using Ganache CLI
+## Using Ganache CLI
 
 #### Command Line
 
@@ -49,7 +57,7 @@ Having problems? Be sure to check out the [FAQ](https://github.com/trufflesuite/
 $ ganache-cli <options>
 ```
 
-## Options:
+### Options:
 
 - `-a` or `--accounts`: Specify the number of accounts to generate at startup.
 - `-e` or `--defaultBalanceEther`: Amount of ether to assign each test account. Default is `100`.
@@ -107,7 +115,7 @@ Special Options:
 
   This feature can also be used to impersonate accounts and unlock addresses you wouldn't otherwise have access to. When used with the `--fork` feature, you can use ganache-cli to make transactions as any address on the blockchain, which is very useful for testing and dynamic analysis.
 
-## Usage
+## Using Ganache as a Provider or Server
 
 Ganache can be used as a [Web3 provider](#as-a-web3-provider), an [ethers provider](#as-an-ethersjs-provider), or as a [general HTTP and WebSocket server](#as-a-general-http-and-websocket-server).
 
@@ -146,7 +154,7 @@ const server = ganache.server();
 server.listen(port, function(err, blockchain) {...});
 ```
 
-## Options
+### Options
 
 Both `.provider()` and `.server()` take a single object which allows you to specify behavior of ganache-cli. This parameter is optional. Available options are:
 
@@ -239,7 +247,7 @@ The RPC methods currently implemented are:
 - [personal_lockAccount](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_lockAccount)
 - [personal_listAccounts](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_listaccounts)
 
-## Custom Methods
+### Custom Methods
 
 Special non-standard methods that aren’t included within the original RPC specification:
 
@@ -254,94 +262,94 @@ Special non-standard methods that aren’t included within the original RPC spec
 
 Snapshot the state of the blockchain at the current block. Takes no parameters. Returns the integer id of the snapshot created. A snapshot can only be used once. After a successful `evm_revert`, the same snapshot id cannot be used again. Consider creating a new snapshot after each `evm_revert` _if you need to revert to the same point multiple times_.
 
-  ```bash
-  curl -H "Content-Type: application/json" -X POST --data \
-          '{"id":1337,"jsonrpc":"2.0","method":"evm_snapshot","params":[]}' \
-          http://localhost:8545
-  ```
+```bash
+curl -H "Content-Type: application/json" -X POST --data \
+        '{"id":1337,"jsonrpc":"2.0","method":"evm_snapshot","params":[]}' \
+        http://localhost:8545
+```
 
-  ```json
-  { "id": 1337, "jsonrpc": "2.0", "result": "0x1" }
-  ```
+```json
+{ "id": 1337, "jsonrpc": "2.0", "result": "0x1" }
+```
 
 #### `evm_revert`
 
 Revert the state of the blockchain to a previous snapshot. Takes a single parameter, which is the snapshot id to revert to. This deletes the given snapshot, as well as any snapshots taken after (Ex: reverting to id `0x1` will delete snapshots with ids `0x1`, `0x2`, `etc`... If no snapshot id is passed it will revert to the latest snapshot. Returns `true`.
 
-  ```bash
-  # Ex: ID "1" (hex encoded string)
-  curl -H "Content-Type: application/json" -X POST --data \
-          '{"id":1337,"jsonrpc":"2.0","method":"evm_revert","params":["0x1"]}' \
-          http://localhost:8545
-  ```
+```bash
+# Ex: ID "1" (hex encoded string)
+curl -H "Content-Type: application/json" -X POST --data \
+        '{"id":1337,"jsonrpc":"2.0","method":"evm_revert","params":["0x1"]}' \
+        http://localhost:8545
+```
 
-  ```json
-  { "id": 1337, "jsonrpc": "2.0", "result": true }
-  ```
+```json
+{ "id": 1337, "jsonrpc": "2.0", "result": true }
+```
 
 #### `evm_increaseTime`
 
 Jump forward in time. Takes one parameter, which is the amount of time to increase in seconds. Returns the total time adjustment, in seconds.
 
-  ```bash
-  # Ex: 1 minute (number)
-  curl -H "Content-Type: application/json" -X POST --data \
-          '{"id":1337,"jsonrpc":"2.0","method":"evm_increaseTime","params":[60]}' \
-          http://localhost:8545
-  ```
+```bash
+# Ex: 1 minute (number)
+curl -H "Content-Type: application/json" -X POST --data \
+        '{"id":1337,"jsonrpc":"2.0","method":"evm_increaseTime","params":[60]}' \
+        http://localhost:8545
+```
 
-  ```json
-  { "id": 1337, "jsonrpc": "2.0", "result": "060" }
-  ```
+```json
+{ "id": 1337, "jsonrpc": "2.0", "result": "060" }
+```
 
 #### `evm_mine`
 
 Force a block to be mined. Takes one optional parameter, which is the timestamp a block should setup as the mining time. Mines a block independent of whether or not mining is started or stopped.
 
-  ```bash
-  # Ex: new Date("2009-01-03T18:15:05+00:00").getTime()
-  curl -H "Content-Type: application/json" -X POST --data \
-          '{"id":1337,"jsonrpc":"2.0","method":"evm_mine","params":[1231006505000]}' \
-          http://localhost:8545
-  ```
+```bash
+# Ex: new Date("2009-01-03T18:15:05+00:00").getTime()
+curl -H "Content-Type: application/json" -X POST --data \
+        '{"id":1337,"jsonrpc":"2.0","method":"evm_mine","params":[1231006505000]}' \
+        http://localhost:8545
+```
 
-  ```json
-  { "id": 1337, "jsonrpc": "2.0", "result": "0x0" }
-  ```
+```json
+{ "id": 1337, "jsonrpc": "2.0", "result": "0x0" }
+```
 
 #### `evm_unlockUnknownAccount`
 
 Unlocks any unknown account. Accounts known to the `personal` namespace and accounts
-  returned by `eth_accounts` cannot be unlocked using this method; use `personal_unlockAccount` instead.
+returned by `eth_accounts` cannot be unlocked using this method; use `personal_unlockAccount` instead.
 
-  ```bash
-  # Ex: account: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
-  curl -H "Content-Type: application/json" -X POST --data \
-          '{"id":1337,"jsonrpc":"2.0","method":"evm_unlockUnknownAccount","params":["0x742d35Cc6634C0532925a3b844Bc454e4438f44e"]}' \
-          http://localhost:8545
-  ```
+```bash
+# Ex: account: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+curl -H "Content-Type: application/json" -X POST --data \
+        '{"id":1337,"jsonrpc":"2.0","method":"evm_unlockUnknownAccount","params":["0x742d35Cc6634C0532925a3b844Bc454e4438f44e"]}' \
+        http://localhost:8545
+```
 
-  ```json
-  { "id": 1337, "jsonrpc": "2.0", "result": true }
-  ```
+```json
+{ "id": 1337, "jsonrpc": "2.0", "result": true }
+```
 
 #### `evm_lockUnknownAccount`
 
 Locks any unknown account. Accounts known to the `personal` namespace and accounts
-  returned by `eth_accounts` cannot be locked using this method; use `personal_lockAccount` instead.
+returned by `eth_accounts` cannot be locked using this method; use `personal_lockAccount` instead.
 
-  ```bash
-  # Ex: account: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
-  curl -H "Content-Type: application/json" -X POST --data \
-          '{"id":1337,"jsonrpc":"2.0","method":"evm_lockUnknownAccount","params":["0x742d35Cc6634C0532925a3b844Bc454e4438f44e"]}' \
-          http://localhost:8545
-  ```
+```bash
+# Ex: account: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+curl -H "Content-Type: application/json" -X POST --data \
+        '{"id":1337,"jsonrpc":"2.0","method":"evm_lockUnknownAccount","params":["0x742d35Cc6634C0532925a3b844Bc454e4438f44e"]}' \
+        http://localhost:8545
+```
 
-  ```json
-  { "id": 1337, "jsonrpc": "2.0", "result": true }
-  ```
+```json
+{ "id": 1337, "jsonrpc": "2.0", "result": true }
+```
 
-## Unsupported Methods
+### Unsupported Methods
 
 - `eth_compileSolidity`: If you'd like Solidity compilation in Javascript, please see the [solc-js project](https://github.com/ethereum/solc-js).
 
