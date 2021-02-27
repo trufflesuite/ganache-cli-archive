@@ -355,7 +355,7 @@ curl -H "Content-Type: application/json" -X POST --data \
 
 ## Docker
 
-The Simplest way to get started with the Docker image:
+The simplest way to get started with the Docker image:
 
 ```Bash
 docker run --detach --publish 8545:8545 trufflesuite/ganache-cli:latest
@@ -410,7 +410,7 @@ npm install
 
 You'll need Python 2.7 installed, and on Windows, you'll likely need to install [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) from an Administrator PowerShell Prompt via `npm install --global windows-build-tools`.
 
-### PR Message format:
+### PR Message Format:
 
 `<type>(<scope>): <subject>`
 
