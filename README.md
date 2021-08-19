@@ -1,6 +1,7 @@
-<p align="center">
-  <em>NOTICE</em>: <code>testrpc</code> is now <code>ganache-cli</code>. Use it just as you would <code>testrpc</code>.
-</p>
+<h2><p align="center">
+   NOTICE: <code>ganache-cli</code> has moved to <a href="https://github.com/trufflesuite/ganache"><code>ganache</code></a>
+</p></h2>
+
 <hr/>
 
 [![npm](https://img.shields.io/npm/v/ganache-cli.svg)]()
