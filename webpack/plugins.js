@@ -4,6 +4,7 @@ const { EOL } = require("os");
 const { chmodSync, existsSync } = require("fs");
 const { join } = require("path");
 
+
 const prependFile = require("prepend-file");
 module.exports = (outputDir, outputFilename) => {
   return [
